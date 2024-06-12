@@ -393,7 +393,6 @@ class UNetModel(nn.Module):
                 use_checkpoint=use_checkpoint,
                 use_scale_shift_norm=use_scale_shift_norm,
             ),
-            Time_AttentionBlock(
                 AttentionBlock(
                 ch, use_checkpoint=use_checkpoint, num_heads=num_heads
             ),

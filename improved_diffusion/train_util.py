@@ -54,11 +54,13 @@ class TrainLoop:
         sample = False,
         use_ddim=False,
         save_samples_dir="./samples/",
+        how_many_samples=50, # For sampling mid training
         image_size=64
     ):
         self.image_size=image_size
         self.save_samples_dir = save_samples_dir
         self.sample = sample
+        self.how_many_samples=how_many_samples
         self.use_ddim = use_ddim
         self.checkpoint_dir = checkpoint_dir
         self.loss_logger = loss_logger
@@ -319,14 +321,14 @@ class TrainLoop:
     # I CREATED THIS FUNCTION, sample a batch everytime you save checkpoints (Changed)
     def samplefunc(self):
 
-        print(f"sampling {self.batch_size} images")
+        print(f"sampling {self.how_many_samples} images")
         sample_fn = (self.diffusion.p_sample_loop if not self.use_ddim else self.diffusion.ddim_sample_loop)
         sample = sample_fn(
             self.model,
-            (self.batch_size, 3, self.image_size , self.image_size),
+            (self.how_many_samples, 3, self.image_size , self.image_size),
             clip_denoised=True,
             model_kwargs={}, # This is not needed, just class conditional stuff
-            progress=False
+            progress=True
         )
         sample = ((sample + 1) * 127.5).clamp(0, 255).to(th.uint8)
         sample = sample.permute(0, 2, 3, 1)
@@ -346,7 +348,7 @@ def parse_resume_step_from_filename(filename):
     """
     split = filename.split("model")
     if len(split) < 2:
-        return 0
+          return 0
     split1 = split[-1].split(".")[0]
     try:
         return int(split1)
