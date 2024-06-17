@@ -3,6 +3,7 @@
 import copy
 import functools
 import os
+import io
 from tqdm import tqdm
 import csv
 import matplotlib.pyplot as plt 
@@ -13,7 +14,7 @@ import torch as th
 import torch.distributed as dist
 from torch.optim import AdamW
 
-from . import dist_util, logger
+from . import dist_util, logger, evaluation
 from .fp16_util import (
     make_master_params,
     master_params_to_model_params,
@@ -51,15 +52,23 @@ class TrainLoop:
         lr_anneal_steps=0,
         loss_logger="trainlog.csv",
         checkpoint_dir = "./checkpoints/",
+        # For sampling
         sample = False,
-        use_ddim=False,
-        save_samples_dir="./samples/",
+        use_ddim=False, # If sampling mid-training
         how_many_samples=50, # For sampling mid training
-        image_size=64
+        image_size=64,
+        # For sampling and evaluation
+        evaluate = False,
+        save_samples_dir="", # If sample and evaluation are true, then Evaluation will be done here
+        reference_dataset_dir="", # If sampling is true, then Evaluation will be done here
+        eval_logger="evallog.csv",
     ):
         self.image_size=image_size
         self.save_samples_dir = save_samples_dir
+        self.reference_dataset_dir = reference_dataset_dir
         self.sample = sample
+        self.evaluate = evaluate
+        self.eval_logger = eval_logger
         self.how_many_samples=how_many_samples
         self.use_ddim = use_ddim
         self.checkpoint_dir = checkpoint_dir
@@ -124,7 +133,7 @@ class TrainLoop:
                 data = f.read()
             self.model.load_state_dict(
                 # REMOVED                             
-                th.load(io.BytesIO(data), **kwargs)
+                th.load(resume_checkpoint), strict=True
             )
         # REMOVED
 
@@ -137,9 +146,7 @@ class TrainLoop:
             # REMOVED
             print(f"loading EMA from checkpoint: {ema_checkpoint}...")
     
-            with bf.BlobFile(ema_checkpoint, "rb") as f: 
-                data = f.read()
-            state_dict = th.load(io.BytesIO(data))
+            state_dict = th.load(ema_checkpoint)
 
             ema_params = self._state_dict_to_master_params(state_dict)
         # Remove
@@ -153,9 +160,7 @@ class TrainLoop:
         if bf.exists(opt_checkpoint):
             print(f"loading optimizer state from checkpoint: {opt_checkpoint}")
 
-            with bf.BlobFile(opt_checkpoint, "rb") as f: 
-                data = f.read()
-            state_dict = th.load(io.BytesIO(data))
+            state_dict = th.load(opt_checkpoint)
             self.opt.load_state_dict(state_dict)
 
     def _setup_fp16(self):
@@ -174,10 +179,11 @@ class TrainLoop:
             batch, cond = next(self.data)
             self.run_step(batch, cond)
             if self.step % self.save_interval == 0:
+                print(f"Training step: {self.step+self.resume_step}")
                 self.save()
                 if self.sample: # Added this for sampling
                     self.model.eval()
-                    self.samplefunc()
+                    self.samplefunc() # Possible metric evaluations happening here also
                     self.model.train()
             self.step += 1
             
@@ -225,7 +231,7 @@ class TrainLoop:
 
             loss = (losses["loss"] * weights).mean()
             log_loss_dict(
-                self.diffusion, t, {k: v * weights for k, v in losses.items()}, self.loss_logger
+                {k: v * weights for k, v in losses.items()}, self.loss_logger
             )
             if self.use_fp16:
                 loss_scale = 2 ** self.lg_loss_scale
@@ -318,27 +324,49 @@ class TrainLoop:
         else:
             return params
 
-    # I CREATED THIS FUNCTION, sample a batch everytime you save checkpoints (Changed)
+    # I CREATED THIS FUNCTION, sample batches everytime you save checkpoints 
     def samplefunc(self):
+
+        # Create folder
+        im_path = os.path.join(self.save_samples_dir, str(self.step+self.resume_step))
+        os.makedirs(im_path, exist_ok=True)
 
         print(f"sampling {self.how_many_samples} images")
         sample_fn = (self.diffusion.p_sample_loop if not self.use_ddim else self.diffusion.ddim_sample_loop)
-        sample = sample_fn(
-            self.model,
-            (self.how_many_samples, 3, self.image_size , self.image_size),
-            clip_denoised=True,
-            model_kwargs={}, # This is not needed, just class conditional stuff
-            progress=True
-        )
-        sample = ((sample + 1) * 127.5).clamp(0, 255).to(th.uint8)
-        sample = sample.permute(0, 2, 3, 1)
-        sample = sample.contiguous().cpu().numpy()
 
-        # Save images
-        path = os.path.join(self.save_samples_dir, str(self.step+self.resume_step))
-        os.makedirs(path, exist_ok=True)
-        for sidx, s in enumerate(sample):
-            plt.imsave(os.path.join(path, f'{sidx}.jpg'), s)
+        all_images = []
+        for ind, _ in tqdm(enumerate(range(0, self.how_many_samples + self.batch_size - 1, self.batch_size))):
+            sample = sample_fn(
+                self.model,
+                (self.batch_size, 3, self.image_size , self.image_size),
+                clip_denoised=True,
+                model_kwargs={}, # This is not needed, just class conditional stuff
+                progress=False
+            )
+            sample = ((sample + 1) * 127.5).clamp(0, 255).to(th.uint8)
+            sample = sample.permute(0, 2, 3, 1)
+            sample = sample.contiguous().cpu().numpy()
+
+            if ind <5: # Save 5 batches as images to see the visualizations
+                for sidx, s in enumerate(sample):
+                    plt.imsave(os.path.join(im_path, f'{sidx + ind*self.batch_size}.png'), s)
+                
+            all_images.extend(sample)
+
+        all_images = all_images[: self.how_many_samples]
+        
+        sample_path = os.path.join(self.save_samples_dir, f"samples_{self.step+self.resume_step}.npz")
+        np.savez(sample_path, all_images)
+        print("sampling complete")
+
+        # Evaluation metrics, FID, sFID, ...
+        if self.evaluate:
+            print(self.reference_dataset_dir)
+            print(sample_path)
+            eval_dict = evaluation.runEvaluate(self.reference_dataset_dir, sample_path, verbose=True)
+            # Save the evaluation log
+            eval_dict['step']=self.step+self.resume_step
+            log_eval_dict(eval_dict, self.eval_logger)
     
 
 def parse_resume_step_from_filename(filename):
@@ -373,7 +401,7 @@ def find_ema_checkpoint(main_checkpoint, step, rate):
 
 
 # YO YO YO Im changin here
-def log_loss_dict(diffusion, ts, losses, loss_logger):
+def log_loss_dict(losses, loss_logger):
 
     # Check if the file exists
     file_exists = os.path.isfile(loss_logger)
@@ -387,10 +415,19 @@ def log_loss_dict(diffusion, ts, losses, loss_logger):
         losses_int = {key: tensor.mean().item() for key, tensor in losses.items()}
         # Write the data
         writer.writerow(losses_int)
+
+
+# YO YO YO Im changin here
+def log_eval_dict(eval_dict, eval_logger):
+
+    # Check if the file exists
+    file_exists = os.path.isfile(eval_logger)
+    with open(eval_logger, 'a', newline='') as csvfile:
+        fieldnames = eval_dict.keys()
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         
-    #for key, values in losses.items():
-    #    print(key, values.mean().item())
-        # Log the quantiles (four quartiles, in particular).
-        # for sub_t, sub_loss in zip(ts.cpu().numpy(),  values.detach().cpu().numpy()):         # CHANGED THIS, Dont need it
-        #    quartile = int(4 * sub_t / diffusion.num_timesteps)
-        #    print(f"{key}_q{quartile}", sub_loss)
+        # If the file doesn't exist, write the header
+        if not file_exists:
+            writer.writeheader()
+        # Write the data
+        writer.writerow(eval_dict)
