@@ -11,7 +11,7 @@ import torch as th
 # Sampling 
 batch_size=16
 timestep_respacing="ddim250"
-use_ddim=False
+use_ddim=True
 num_samples=1000
 clip_denoised=True
 save_samples_dir ="./results/pokemon10/finetuning/samples/_250000/"
