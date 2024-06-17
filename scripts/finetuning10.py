@@ -1,3 +1,4 @@
+
 # import os
 # os.environ["CUDA_VISIBLE_DEVICES"]="3"
 
@@ -8,7 +9,7 @@ from improved_diffusion.script_util import create_model, create_gaussian_diffusi
 from improved_diffusion.image_datasets import load_data
 from improved_diffusion.resample import create_named_schedule_sampler
 from improved_diffusion.train_util import TrainLoop
-from improved_diffusion import dist_util
+
 
 # Training  
 batch_size=10
@@ -44,21 +45,33 @@ rescale_timesteps=True
 rescale_learned_sigmas=True
 use_checkpoint=False # To do gradient checkpointing
 use_scale_shift_norm=True
-timestep_respacing=""
+
+# Sampling and evaluating while training
+timestep_respacing="ddim50"
+use_ddim=True
+sample = True, # Doing sampling for a batch in training every time saving
+how_many_samples=5000
+image_size=image_size
+evaluate = True
 
 # PATHS   /home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/pretrained_models/
 # Load pretrained model from here /home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/pretrained_models/
 load_model_path="/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/pretrained_models/imagenet64_uncond_100M_1500K.pt"
 # The dataset you want to finetune on
-data_dir = '/home/ymbahram/scratch/pokemon10/'
+data_dir = '/home/ymbahram/scratch/pokemon/pokemon10/'
 # If you are resuming a previously aborted training, include the path to the checkpoint here
-resume_checkpoint="" # ./results/pokemon10/finetuning/checkpoints/model023000.pt" 
+resume_checkpoint= "" #"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/results/checkpoints/model000050.pt" # ./results/pokemon10/finetuning/checkpoints/model023000.pt" 
 # Where to log the training loss (File does not have to exist)
 loss_logger="/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/results/trainlog.csv"
+# If evaluation is true during training, where to save the FID stuff
+eval_logger="/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/results/evallog.csv"
 # Directory to save checkpoints in
 checkpoint_dir = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/results/checkpoints/"
 # Whenever you are saving checkpoints, a batch of images are also sampled, where to produce these images
 save_samples_dir= "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/results/samples/"
+# Only need this if we are evaluating FID and stuff while training
+ref_dataset_npz = '/home/ymbahram/scratch/pokemon/pokemon_64x64.npz'
+
 
 # ____________________ Model ____________________
 
@@ -132,6 +145,11 @@ TrainLoop(
     sample = True, # Doing sampling for a batch in training every time saving
     use_ddim=False,
     save_samples_dir=save_samples_dir,
-    how_many_samples=50,
-    image_size=image_size
-).run_loop()
+    how_many_samples=how_many_samples,
+    image_size=image_size,
+    # For evaluating
+    evaluate = evaluate,
+    eval_logger = eval_logger,
+    reference_dataset_dir=ref_dataset_npz # If sampling is true, then Evaluation will be done here
+).run_loop()       
+
