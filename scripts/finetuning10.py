@@ -4,12 +4,12 @@
 
 import os 
 import matplotlib.pyplot as plt 
+
 import torch as th
 from improved_diffusion.script_util import create_model, create_gaussian_diffusion
 from improved_diffusion.image_datasets import load_data
 from improved_diffusion.resample import create_named_schedule_sampler
 from improved_diffusion.train_util import TrainLoop
-
 
 # Training  
 batch_size=10
@@ -50,9 +50,9 @@ use_scale_shift_norm=True
 timestep_respacing="ddim50"
 use_ddim=True
 sample = True, # Doing sampling for a batch in training every time saving
-how_many_samples=5000
+how_many_samples=2503
 image_size=image_size
-evaluate = True
+evaluate = False # If you want to perform evaluation during training (Currently every 25 steps)
 
 # PATHS   /home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/pretrained_models/
 # Load pretrained model from here /home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/pretrained_models/
@@ -150,6 +150,7 @@ TrainLoop(
     # For evaluating
     evaluate = evaluate,
     eval_logger = eval_logger,
-    reference_dataset_dir=ref_dataset_npz # If sampling is true, then Evaluation will be done here
+    reference_dataset_dir=ref_dataset_npz, # If sampling is true, then Evaluation will be done here,
+    eval_func=runEvaluate,
 ).run_loop()       
 
