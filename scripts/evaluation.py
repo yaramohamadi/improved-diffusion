@@ -10,16 +10,16 @@ from functools import partial
 from multiprocessing import cpu_count
 from multiprocessing.pool import ThreadPool
 from typing import Iterable, Optional, Tuple
-
+import tensorflow.compat.v1 as tf
+from tqdm.auto import tqdm
 import numpy as np
 import requests
-import tensorflow.compat.v1 as tf
 from scipy import linalg
-from tqdm.auto import tqdm
+
 
 INCEPTION_V3_URL = "https://openaipublic.blob.core.windows.net/diffusion/jul-2021/ref_batches/classify_image_graph_def.pb"
 # Need to change this for different systems
-INCEPTION_V3_PATH = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/improved-diffusion/improved_diffusion/classify_image_graph_def.pb"
+INCEPTION_V3_PATH = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/improved-diffusion/evaluation/classify_image_graph_def.pb"
 
 FID_POOL_NAME = "pool_3:0"
 FID_SPATIAL_NAME = "mixed_6/conv:0"
@@ -43,11 +43,14 @@ def log_eval_dict(eval_log, FID, sFID, ):
 
 
 
-def runEvaluate(ref_batch, sample_batch, verbose=True):
+def runEvaluate(ref_batch, sample_batch, sqrtm_func=None, verbose=True):
     '''
     ref_batch: path to reference batch npz file,
-    sample_batch: path to sample batch npz file
+    sample_batch: path to sample batch npz file,
+    sqrtm: specify a function that calculates matrix SQRT (scipy.linalg.sqrt) since we need to import this before PyTorch!!!
     '''
+
+    sqrtm_func = linalg.sqrtm
 
     config = tf.ConfigProto(
         allow_soft_placement=True  # allows DecodeJpeg to run on CPU in Inception graph
@@ -60,20 +63,21 @@ def runEvaluate(ref_batch, sample_batch, verbose=True):
     # than after the next print(), to help prevent confusion.
     evaluator.warmup()
 
-    # print("computing reference batch activations...")
+    print("computing reference batch activations...")
     ref_acts = evaluator.read_activations(ref_batch)
-    # print("computing/reading reference batch statistics...")
+    print("computing/reading reference batch statistics...")
     ref_stats, ref_stats_spatial = evaluator.read_statistics(ref_batch, ref_acts)
 
-    # print("computing sample batch activations...")
-    sample_acts = evaluator.read_activations(sample_batch)
-    # print("computing/reading sample batch statistics...")
-    sample_stats, sample_stats_spatial = evaluator.read_statistics(sample_batch, sample_acts)
 
-    # print("Computing evaluations...")
+    print("computing sample batch activations...")
+    sample_acts = evaluator.read_activations(sample_batch)
+    print("computing/reading sample batch statistics...")
+    sample_stats, sample_stats_spatial = evaluator.read_statistics(sample_batch, sample_acts)   
+
+    print("Computing evaluations...")
     IS = evaluator.compute_inception_score(sample_acts[0])
-    FID = sample_stats.frechet_distance(ref_stats)
-    sFID = sample_stats_spatial.frechet_distance(ref_stats_spatial)
+    FID = sample_stats.frechet_distance(ref_stats, sqrtm_func)
+    sFID = sample_stats_spatial.frechet_distance(ref_stats_spatial, sqrtm_func) 
     prec, recall = evaluator.compute_prec_recall(ref_acts[0], sample_acts[0])
     
     if verbose:
@@ -94,9 +98,10 @@ class FIDStatistics:
         self.mu = mu
         self.sigma = sigma
 
-    def frechet_distance(self, other, eps=1e-6):
+    def frechet_distance(self, other, sqrtm_func, eps=1e-6):
         """
         Compute the Frechet distance between two sets of statistics.
+        sqrtm_func: passed from RunEvaluate
         """
         # https://github.com/bioinf-jku/TTUR/blob/73ab375cdf952a12686d9aa7978567771084da42/fid.py#L132
         mu1, sigma1 = self.mu, self.sigma
@@ -104,6 +109,7 @@ class FIDStatistics:
 
         mu1 = np.atleast_1d(mu1)
         mu2 = np.atleast_1d(mu2)
+
 
         sigma1 = np.atleast_2d(sigma1)
         sigma2 = np.atleast_2d(sigma2)
@@ -118,7 +124,9 @@ class FIDStatistics:
         diff = mu1 - mu2
 
         # product might be almost singular
-        covmean, _ = linalg.sqrtm(sigma1.dot(sigma2), disp=False)
+        covmean, _ = sqrtm_func(sigma1.dot(sigma2), disp=False)
+
+
         if not np.isfinite(covmean).all():
             msg = (
                 "fid calculation produces singular product; adding %s to diagonal of cov estimates"
@@ -126,7 +134,7 @@ class FIDStatistics:
             )
             warnings.warn(msg)
             offset = np.eye(sigma1.shape[0]) * eps
-            covmean = linalg.sqrtm((sigma1 + offset).dot(sigma2 + offset))
+            covmean = sqrtm_func((sigma1 + offset).dot(sigma2 + offset))
 
         # numerical error might give slight imaginary component
         if np.iscomplexobj(covmean):
@@ -172,6 +180,7 @@ class Evaluator:
         :return: a tuple of numpy arrays of shape [N x X], where X is a feature
                  dimension. The tuple is (pool_3, spatial).
         """
+
         preds = []
         spatial_preds = []
         for batch in tqdm(batches):
@@ -198,6 +207,7 @@ class Evaluator:
 
     def compute_statistics(self, activations: np.ndarray) -> FIDStatistics:
         mu = np.mean(activations, axis=0)
+        np.set_printoptions(threshold = np.inf)
         sigma = np.cov(activations, rowvar=False)
         return FIDStatistics(mu, sigma)
 
@@ -670,3 +680,5 @@ def _numpy_partition(arr, kth, **kwargs):
 
     with ThreadPool(num_workers) as pool:
         return list(pool.map(partial(np.partition, kth=kth, **kwargs), batches))
+
+
