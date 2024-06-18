@@ -151,6 +151,6 @@ TrainLoop(
     evaluate = evaluate,
     eval_logger = eval_logger,
     reference_dataset_dir=ref_dataset_npz, # If sampling is true, then Evaluation will be done here,
-    eval_func=runEvaluate,
+    eval_func=None,
 ).run_loop()       
 
