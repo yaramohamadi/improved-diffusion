@@ -5,6 +5,7 @@
 import os 
 import copy
 import matplotlib.pyplot as plt 
+import numpy as np
 
 import torch as th
 from improved_diffusion.script_util import create_model, create_gaussian_diffusion
@@ -62,14 +63,6 @@ load_model_path="/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/
 data_dir = '/home/ymbahram/scratch/pokemon/pokemon10/' 
 # If you are resuming a previously aborted training, include the path to the checkpoint here
 resume_checkpoint= ""
-# Where to log the training loss (File does not have to exist)
-loss_logger="/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results_s09/trainlog.csv"
-# If evaluation is true during training, where to save the FID stuff
-eval_logger="/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results_s09/evallog.csv"
-# Directory to save checkpoints in
-checkpoint_dir = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results_s09/checkpoints/"
-# Whenever you are saving checkpoints, a batch of images are also sampled, where to produce these images
-save_samples_dir= "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results_s09/samples/"
 # Only need this if we are evaluating FID and stuff while training
 ref_dataset_npz = '/home/ymbahram/scratch/pokemon/pokemon_64x64.npz'
 
@@ -104,73 +97,106 @@ diffusion = create_gaussian_diffusion(
     timestep_respacing=timestep_respacing,
 )
 
-# ________________ Load Pretrained ____________
 
-model_path=load_model_path
-checkpoint = th.load(model_path)
-model.load_state_dict(checkpoint, strict = True) 
+for g in [#'0-1', 
+    '1-0', '0_5-1_5', '1_5-0_5', '0_8-1_2', '1_2-0_8', '1-5', '5-1', '0-5']:
 
-model.to('cuda')
+    # ________________ Load Pretrained ____________
 
-# ________________classifier-free guidance_______________
-pretrained_model = copy.deepcopy(model)
-pretrained_model.to('cuda')
-guidance_scale = 0.9
-pretrained_samples = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/results/pretrained_samples/"
-classifier_free = True
+    model_path=load_model_path
+    checkpoint = th.load(model_path)
+    model.load_state_dict(checkpoint, strict = True) 
+
+    model.to('cuda')
+
+    # ________________classifier-free guidance_______________
+    pretrained_model = copy.deepcopy(model)
+    pretrained_model.to('cuda')
+    pretrained_samples = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/results/pretrained_samples/"
+    classifier_free = True
+
+    # Imagine we are training for 200 epochs max
+    #guidance_scale = np.ones(200)*0.9
+    if g == '0-1':
+        guidance_scale = np.linspace(0, 1, 201)
+    elif g == '1-0':
+        guidance_scale = np.linspace(1, 0, 201)
+    elif g == '0_5-1_5':
+        guidance_scale = np.linspace(0.5, 1.5, 201)
+    elif g == '1_5-0_5':
+        guidance_scale = np.linspace(1.5, 0.5, 201)
+    elif g == '0_8-1_2':
+        guidance_scale = np.linspace(0.8, 1.2, 201)
+    elif g == '1_2-0_8':
+        guidance_scale = np.linspace(1.2, 0.8, 201)
+    elif g == '1-5':
+        guidance_scale = np.linspace(1, 5, 201)
+    elif g == '5-1':
+        guidance_scale = np.linspace(5, 1, 201)
+    elif g == '0-5':
+        guidance_scale = np.linspace(5, 0, 201)
+
+    # Where to log the training loss (File does not have to exist)
+    loss_logger=f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/schedule_guidance/{g}/trainlog.csv"
+    # If evaluation is true during training, where to save the FID stuff
+    eval_logger=f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/schedule_guidance/{g}/evallog.csv"
+    # Directory to save checkpoints in
+    checkpoint_dir = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/schedule_guidance/{g}/checkpoints/"
+    # Whenever you are saving checkpoints, a batch of images are also sampled, where to produce these images
+    save_samples_dir= f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/schedule_guidance/{g}/samples/"
 
 
-pretrained_data = load_data(
-    data_dir=pretrained_samples,
-    batch_size=batch_size,
-    image_size=image_size,
-    class_cond=False,
-)
+    pretrained_data = load_data(
+        data_dir=pretrained_samples,
+        batch_size=batch_size,
+        image_size=image_size,
+        class_cond=False,
+    )
 
-# ________________ Train _________________ 
+    # ________________ Train _________________ 
 
-data = load_data(
-    data_dir=data_dir,
-    batch_size=batch_size,
-    image_size=image_size,
-    class_cond=False,
-)
+    data = load_data(
+        data_dir=data_dir,
+        batch_size=batch_size,
+        image_size=image_size,
+        class_cond=False,
+    )
 
-schedule_sampler = create_named_schedule_sampler("uniform", diffusion)
+    schedule_sampler = create_named_schedule_sampler("uniform", diffusion)
 
-TrainLoop(
-    model=model,
-    diffusion=diffusion,
-    data=data,
-    batch_size=batch_size,
-    microbatch=microbatch,
-    lr=lr,
-    ema_rate=ema_rate,
-    log_interval=log_interval,
-    save_interval=save_interval,
-    resume_checkpoint=resume_checkpoint,
-    use_fp16=use_fp16,
-    fp16_scale_growth=fp16_scale_growth,
-    schedule_sampler=schedule_sampler,
-    weight_decay=weight_decay,
-    lr_anneal_steps=lr_anneal_steps,
-    # next 2 For logging
-    loss_logger=loss_logger,
-    checkpoint_dir = checkpoint_dir,
-    # next 4 For sampling
-    sample = True, # Doing sampling for a batch in training every time saving
-    use_ddim=False,
-    save_samples_dir=save_samples_dir,
-    how_many_samples=how_many_samples,
-    image_size=image_size,
-    # For evaluating
-    evaluate = evaluate,
-    eval_logger = eval_logger,
-    reference_dataset_dir=ref_dataset_npz, # If sampling is true, then Evaluation will be done here,
-    eval_func=None,
-    # For classifier-free guidanace
-    pretrained_model=pretrained_model,
-    guidance_scale=guidance_scale,
-    pretrained_data=pretrained_data,
-).run_loop()       
+    TrainLoop(
+        model=model,
+        diffusion=diffusion,
+        data=data,
+        batch_size=batch_size,
+        microbatch=microbatch,
+        lr=lr,
+        ema_rate=ema_rate,
+        log_interval=log_interval,
+        save_interval=save_interval,
+        resume_checkpoint=resume_checkpoint,
+        use_fp16=use_fp16,
+        fp16_scale_growth=fp16_scale_growth,
+        schedule_sampler=schedule_sampler,
+        weight_decay=weight_decay,
+        lr_anneal_steps=lr_anneal_steps,
+        # next 2 For logging
+        loss_logger=loss_logger,
+        checkpoint_dir = checkpoint_dir,
+        # next 4 For sampling
+        sample = True, # Doing sampling for a batch in training every time saving
+        use_ddim=False,
+        save_samples_dir=save_samples_dir,
+        how_many_samples=how_many_samples,
+        image_size=image_size,
+        # For evaluating
+        evaluate = evaluate,
+        eval_logger = eval_logger,
+        reference_dataset_dir=ref_dataset_npz, # If sampling is true, then Evaluation will be done here,
+        eval_func=None,
+        # For classifier-free guidanace
+        pretrained_model=pretrained_model,
+        guidance_scale=guidance_scale,
+        pretrained_data=pretrained_data,
+    ).run_loop()       
 
