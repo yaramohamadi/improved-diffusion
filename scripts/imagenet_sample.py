@@ -6,16 +6,18 @@ from improved_diffusion.script_util import create_model, create_gaussian_diffusi
 import os 
 import matplotlib.pyplot as plt 
 import torch as th
-
+import copy
 
 # Sampling 
 batch_size=16
-timestep_respacing="ddim250"
+timestep_respacing="ddim50"
 use_ddim=True
-num_samples=1000
+num_samples=50
 clip_denoised=True
-save_samples_dir ="./results/pokemon10/finetuning/samples/_250000/"
-model_path = "./results/pokemon10/finetuning/checkpoints/ema_0.9999_025000.pt"
+save_samples_dir ="/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results_s5/samples/test"
+model_path = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results_s5/checkpoints/ema_0.9999_000200.pt"
+source_model_path = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/pretrained_models/imagenet64_uncond_100M_1500K.pt"
+
 os.makedirs(save_samples_dir, exist_ok=True)
 
 # IMAGENET IDDPM Configuration
@@ -56,7 +58,6 @@ model = create_model(
         num_heads_upsample=num_heads_upsample,
         use_scale_shift_norm=use_scale_shift_norm,
         dropout=dropout,
-        time_aware = time_aware # TIMEAWARE
 )
 
 diffusion = create_gaussian_diffusion(
@@ -74,13 +75,20 @@ diffusion = create_gaussian_diffusion(
 
 # ________________ Load Pretrained ____________
 
+source_model = copy.deepcopy(model)
+
 checkpoint = th.load(model_path)
 model.load_state_dict(checkpoint)
+checkpoint = th.load(source_model_path)
+source_model.load_state_dict(checkpoint)
+
+model.to('cuda')
+source_model.to('cuda')
+model.eval()
+source_model.eval()
 
 # ________________ Sample _________________ 
 
-model.to('cuda')
-model.eval()
 
 all_images = []
 all_labels = []
@@ -88,7 +96,7 @@ i = 0
 while len(all_images) * batch_size < num_samples:
 
     print(f"sampling {batch_size} images")
-    sample_fn = (diffusion.p_sample_loop if not use_ddim else self.diffusion.ddim_sample_loop)
+    sample_fn = (diffusion.p_sample_loop if not use_ddim else diffusion.ddim_sample_loop)
     sample = sample_fn(
         model,
         (batch_size, 3, image_size , image_size),
@@ -102,6 +110,6 @@ while len(all_images) * batch_size < num_samples:
 
     # Save images
     for sidx, s in enumerate(sample):
-        plt.imsave(os.path.join(save_samples_dir, f'{520 + sidx + i*batch_size}.jpg'), s)
+        plt.imsave(os.path.join(save_samples_dir, f'{sidx + i*batch_size}.jpg'), s)
 
     i = i+1
