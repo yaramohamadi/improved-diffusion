@@ -69,7 +69,7 @@ class TrainLoop:
         eval_func=None,
     ):
         self.pretrained_data=pretrained_data
-        self.guidance_scale=guidance_scale,
+        self.guidance_scale=guidance_scale
         self.pretrained_model=pretrained_model
         self.image_size=image_size
         self.save_samples_dir = save_samples_dir
@@ -185,21 +185,21 @@ class TrainLoop:
                 yield # This terminology is for working with tqdm and infinite while loops 
 
         for _ in tqdm(loop()):
+            
             batch, cond = next(self.data)
             # classifier-free guidance
             pretrained_batch, _ = next(self.pretrained_data)
-
             self.run_step(batch, pretrained_batch, cond) # classifier-free guidance
             if self.step % self.save_interval == 0:
                 print(f"Training step: {self.step+self.resume_step}")
-                self.save()
+                # self.save()
                 if self.sample: # Added this for sampling
                     self.model.eval()
                     self.samplefunc() # Possible metric evaluations happening here also
                     self.model.train()
             self.step += 1
             if self.step == 201:
-                exit()
+                break
             
         # Save the last checkpoint if it wasn't already saved.
         if (self.step - 1) % self.save_interval != 0:
@@ -235,7 +235,7 @@ class TrainLoop:
                 micro,
                 self.pretrained_model, # classifier-free guidance  
                 pretrained_batch, # classifier-free guidance
-                self.guidance_scale, # classifier-free guidance
+                self.guidance_scale[self.step + self.resume_step], # classifier-free guidance
                 t,
                 model_kwargs=micro_cond,
             )
@@ -248,9 +248,9 @@ class TrainLoop:
                 )
 
             loss = (losses["loss"] * weights).mean()
-            log_loss_dict(
-                {k: v * weights for k, v in losses.items()}, self.loss_logger
-            )
+            # log_loss_dict(
+            #     {k: v * weights for k, v in losses.items()}, self.loss_logger
+            # )
             if self.use_fp16:
                 loss_scale = 2 ** self.lg_loss_scale
                 (loss * loss_scale).backward()
@@ -368,14 +368,13 @@ class TrainLoop:
              if ind <5: # Save 5 batches as images to see the visualizations
                  for sidx, s in enumerate(sample):
                      plt.imsave(os.path.join(im_path, f'{sidx + ind*self.batch_size}.png'), s)
-                 
-             all_images.extend(sample)
+        #     all_images.extend(sample)
 #
-        all_images = all_images[: self.how_many_samples]
-         
-        sample_path = os.path.join(self.save_samples_dir, f"samples_{self.step+self.resume_step}.npz")
-        np.savez(sample_path, all_images)
-        print("sampling complete")
+        # all_images = all_images[: self.how_many_samples]
+        #  
+        # sample_path = os.path.join(self.save_samples_dir, f"samples_{self.step+self.resume_step}.npz")
+        # np.savez(sample_path, all_images)
+        # print("sampling complete")
 
         # Evaluation metrics, FID, sFID, ... # Problematic -> Forget it.
         if self.evaluate:
