@@ -52,7 +52,7 @@ use_scale_shift_norm=True
 timestep_respacing="ddim50"
 use_ddim=True
 sample = True, # Doing sampling for a batch in training every time saving
-how_many_samples=50
+how_many_samples=2503
 image_size=image_size
 evaluate = False # If you want to perform evaluation during training (Currently every 25 steps)
 
@@ -65,6 +65,18 @@ data_dir = '/home/ymbahram/scratch/pokemon/pokemon10/'
 resume_checkpoint= ""
 # Only need this if we are evaluating FID and stuff while training
 ref_dataset_npz = '/home/ymbahram/scratch/pokemon/pokemon_64x64.npz'
+
+
+# For guidance scheduler
+def create_scaled_line(start, end, a=0):
+    x = np.linspace(0, 1, 201)
+    if a == 0:
+        y = x
+    else:
+        y = (np.exp(a * x) - 1) / (np.exp(a) - 1)    
+    scaled_y = start + (end - start) * y
+    return scaled_y
+
 
 
 # ____________________ Model ____________________
@@ -98,8 +110,9 @@ diffusion = create_gaussian_diffusion(
 )
 
 
-for g in [#'0-1', 
-    '1-0', '0_5-1_5', '1_5-0_5', '0_8-1_2', '1_2-0_8', '1-5', '5-1', '0-5']:
+for g in [
+    'a0-0_8-1_2', 'a2_5-0_8-1_2', 'a5-0_8-1_2', 'a7_5-0_8-1_2', 
+    'a0-0_8-1', 'a2_5-0_8-1', 'a5-0_8-1', 'a7_5-0_8-1']:
 
     # ________________ Load Pretrained ____________
 
@@ -116,34 +129,35 @@ for g in [#'0-1',
     classifier_free = True
 
     # Imagine we are training for 200 epochs max
-    #guidance_scale = np.ones(200)*0.9
-    if g == '0-1':
-        guidance_scale = np.linspace(0, 1, 201)
-    elif g == '1-0':
-        guidance_scale = np.linspace(1, 0, 201)
-    elif g == '0_5-1_5':
-        guidance_scale = np.linspace(0.5, 1.5, 201)
-    elif g == '1_5-0_5':
-        guidance_scale = np.linspace(1.5, 0.5, 201)
-    elif g == '0_8-1_2':
-        guidance_scale = np.linspace(0.8, 1.2, 201)
-    elif g == '1_2-0_8':
-        guidance_scale = np.linspace(1.2, 0.8, 201)
-    elif g == '1-5':
-        guidance_scale = np.linspace(1, 5, 201)
-    elif g == '5-1':
-        guidance_scale = np.linspace(5, 1, 201)
-    elif g == '0-5':
-        guidance_scale = np.linspace(5, 0, 201)
+    
+    # 0.8 - 1.2
+    if g == 'a0-0_8-1_2':
+        guidance_scale = create_scaled_line(0.8, 1.2, a=0) # Linear line
+    elif g == 'a2_5-0_8-1_2':
+        guidance_scale = create_scaled_line(0.8, 1.2, a=-2.5) 
+    elif g == 'a5-0_8-1_2':
+        guidance_scale = create_scaled_line(0.8, 1.2, a=-5) 
+    elif g == 'a7_5-0_8-1_2':
+        guidance_scale = create_scaled_line(0.8, 1.2, a=-7.5) # Most curved
+    # 0.8 - 1
+    elif g == 'a0-0_8-1':
+        guidance_scale = create_scaled_line(0.8, 1, a=0) # Linear line
+    elif g == 'a2_5-0_8-1':
+        guidance_scale = create_scaled_line(0.8, 1, a=-2.5) 
+    elif g == 'a5-0_8-1':
+        guidance_scale = create_scaled_line(0.8, 1, a=-5) 
+    elif g == 'a7_5-0_8-1':
+        guidance_scale = create_scaled_line(0.8, 1, a=-7.5) # Most curved
+
 
     # Where to log the training loss (File does not have to exist)
-    loss_logger=f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/schedule_guidance/{g}/trainlog.csv"
+    loss_logger=f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/curved_schedule/{g}/trainlog.csv"
     # If evaluation is true during training, where to save the FID stuff
-    eval_logger=f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/schedule_guidance/{g}/evallog.csv"
+    eval_logger=f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/curved_schedule/{g}/evallog.csv"
     # Directory to save checkpoints in
-    checkpoint_dir = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/schedule_guidance/{g}/checkpoints/"
+    checkpoint_dir = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/curved_schedule/{g}/checkpoints/"
     # Whenever you are saving checkpoints, a batch of images are also sampled, where to produce these images
-    save_samples_dir= f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/schedule_guidance/{g}/samples/"
+    save_samples_dir= f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/curved_schedule/{g}/samples/"
 
 
     pretrained_data = load_data(
