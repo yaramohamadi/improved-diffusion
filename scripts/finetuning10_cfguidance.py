@@ -111,8 +111,11 @@ diffusion = create_gaussian_diffusion(
 
 
 for g in [
-    'a0-0_8-1_2', 'a2_5-0_8-1_2', 'a5-0_8-1_2', 'a7_5-0_8-1_2', 
-    'a0-0_8-1', 'a2_5-0_8-1', 'a5-0_8-1', 'a7_5-0_8-1']:
+    #'a0-0_8-1_2', 'a2_5-0_8-1_2', 'a5-0_8-1_2', 'a7_5-0_8-1_2', 
+    #'a0-0_8-1', 'a2_5-0_8-1', 'a5-0_8-1', 'a7_5-0_8-1'
+    'a-2_5-0_8-1_2', 'a-5-0_8-1_2', 'a-7_5-0_8-1_2',
+    'a-2_5-0_8-1', 'a-5-0_8-1', 'a-7_5-0_8-1',
+    ]:
 
     # ________________ Load Pretrained ____________
 
@@ -135,19 +138,31 @@ for g in [
         guidance_scale = create_scaled_line(0.8, 1.2, a=0) # Linear line
     elif g == 'a2_5-0_8-1_2':
         guidance_scale = create_scaled_line(0.8, 1.2, a=-2.5) 
+    elif g == 'a-2_5-0_8-1_2': 
+        guidance_scale = create_scaled_line(0.8, 1.2, a=2.5) # Minus
     elif g == 'a5-0_8-1_2':
         guidance_scale = create_scaled_line(0.8, 1.2, a=-5) 
+    elif g == 'a-5-0_8-1_2':
+        guidance_scale = create_scaled_line(0.8, 1.2, a=5) # Minus
     elif g == 'a7_5-0_8-1_2':
         guidance_scale = create_scaled_line(0.8, 1.2, a=-7.5) # Most curved
+    elif g == 'a-7_5-0_8-1_2':
+        guidance_scale = create_scaled_line(0.8, 1.2, a=7.5) # Minus
     # 0.8 - 1
     elif g == 'a0-0_8-1':
         guidance_scale = create_scaled_line(0.8, 1, a=0) # Linear line
     elif g == 'a2_5-0_8-1':
         guidance_scale = create_scaled_line(0.8, 1, a=-2.5) 
+    elif g == 'a-2_5-0_8-1':
+        guidance_scale = create_scaled_line(0.8, 1, a=2.5) 
     elif g == 'a5-0_8-1':
         guidance_scale = create_scaled_line(0.8, 1, a=-5) 
+    elif g == 'a-5-0_8-1':
+        guidance_scale = create_scaled_line(0.8, 1, a=5) 
     elif g == 'a7_5-0_8-1':
         guidance_scale = create_scaled_line(0.8, 1, a=-7.5) # Most curved
+    elif g == 'a-7_5-0_8-1':
+        guidance_scale = create_scaled_line(0.8, 1, a=7.5) # Most curved
 
 
     # Where to log the training loss (File does not have to exist)
