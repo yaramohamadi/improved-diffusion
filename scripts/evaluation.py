@@ -19,7 +19,7 @@ from scipy import linalg
 
 INCEPTION_V3_URL = "https://openaipublic.blob.core.windows.net/diffusion/jul-2021/ref_batches/classify_image_graph_def.pb"
 # Need to change this for different systems
-INCEPTION_V3_PATH = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/improved-diffusion/evaluation/classify_image_graph_def.pb"
+INCEPTION_V3_PATH = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/improved-diffusion/scripts/classify_image_graph_def.pb"
 
 FID_POOL_NAME = "pool_3:0"
 FID_SPATIAL_NAME = "mixed_6/conv:0"
