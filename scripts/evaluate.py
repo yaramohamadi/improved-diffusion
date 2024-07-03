@@ -2,14 +2,13 @@ import sys
 import pandas as pd
 import numpy as np
 
-from evaluation_util import runEvaluate
+from evaluation import runEvaluate
 
 ref_path = '/home/ymbahram/scratch/pokemon/pokemon_64x64.npz'
 
-
-
 for g in [
-    'a5-0_8-1', 'a7_5-0_8-1']:
+    'a-2_5-0_8-1_2', 'a-5-0_8-1_2', 'a-7_5-0_8-1_2',
+    'a-2_5-0_8-1', 'a-5-0_8-1', 'a-7_5-0_8-1',]:
     
     data_list = []
 

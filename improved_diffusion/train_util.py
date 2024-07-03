@@ -191,8 +191,7 @@ class TrainLoop:
             pretrained_batch, _ = next(self.pretrained_data)
             self.run_step(batch, pretrained_batch, cond) # classifier-free guidance
             if self.step % self.save_interval == 0:
-                print(f"Training step: {self.step+self.resume_step}")
-                # self.save()
+                self.save()
                 if self.sample: # Added this for sampling
                     self.model.eval()
                     self.samplefunc() # Possible metric evaluations happening here also
