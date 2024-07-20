@@ -67,17 +67,6 @@ resume_checkpoint= ""
 ref_dataset_npz = '/home/ymbahram/scratch/pokemon/pokemon_64x64.npz'
 
 
-# For guidance scheduler
-def create_scaled_line(start, end, a=0):
-    x = np.linspace(0, 1, 201)
-    if a == 0:
-        y = x
-    else:
-        y = (np.exp(a * x) - 1) / (np.exp(a) - 1)    
-    scaled_y = start + (end - start) * y
-    return scaled_y
-
-
 
 # ____________________ Model ____________________
 
@@ -109,13 +98,30 @@ diffusion = create_gaussian_diffusion(
     timestep_respacing=timestep_respacing,
 )
 
+# For guidance scheduler
+def create_scaled_line(start, end, a=0):
+    x = np.linspace(0, 1, 50)
+    if a == 0:
+        y = x
+    else:
+        y = (np.exp(a * x) - 1) / (np.exp(a) - 1)    
+    scaled_y = start + (end - start) * y
+    return scaled_y
 
-for g in [
+
+
+for g, g_name in {
+    # Fixed
+    # 0.8: '0_8', 0.9: '0_9', 0.95: '0_95', 1: '1', 1.05: '1_05', 1.1: '1_1', 1.2: '1_2',
+    # Curved
     #'a0-0_8-1_2', 'a2_5-0_8-1_2', 'a5-0_8-1_2', 'a7_5-0_8-1_2', 
     #'a0-0_8-1', 'a2_5-0_8-1', 'a5-0_8-1', 'a7_5-0_8-1'
-    'a-2_5-0_8-1_2', 'a-5-0_8-1_2', 'a-7_5-0_8-1_2',
-    'a-2_5-0_8-1', 'a-5-0_8-1', 'a-7_5-0_8-1',
-    ]:
+    #'a-2_5-0_8-1_2', 'a-5-0_8-1_2', 'a-7_5-0_8-1_2',
+    #'a-2_5-0_8-1', 'a-5-0_8-1', 'a-7_5-0_8-1',
+    # Linear - Based on time (Not epoch)
+    0.25: '1-0_25', 0.5: '1-0_5', 0.75: '1-0_75', 0.9: '1-0_9'
+    # Curved - Based on time (Not epoch) # TODO 
+    }.items():
 
     # ________________ Load Pretrained ____________
 
@@ -131,48 +137,56 @@ for g in [
     pretrained_samples = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/results/pretrained_samples/"
     classifier_free = True
 
+    # ____________ BASED ON TIME NOT EPOCH __________________
+    clf_time_based = True 
+    guidance_scale = np.linspace(g, 1, 50)
+
+
     # Imagine we are training for 200 epochs max
     
+    # Fixed
+    # guidance_scale = np.array([g for _ in range(201)]) # Fixed Line
+    # Curved
     # 0.8 - 1.2
-    if g == 'a0-0_8-1_2':
-        guidance_scale = create_scaled_line(0.8, 1.2, a=0) # Linear line
-    elif g == 'a2_5-0_8-1_2':
-        guidance_scale = create_scaled_line(0.8, 1.2, a=-2.5) 
-    elif g == 'a-2_5-0_8-1_2': 
-        guidance_scale = create_scaled_line(0.8, 1.2, a=2.5) # Minus
-    elif g == 'a5-0_8-1_2':
-        guidance_scale = create_scaled_line(0.8, 1.2, a=-5) 
-    elif g == 'a-5-0_8-1_2':
-        guidance_scale = create_scaled_line(0.8, 1.2, a=5) # Minus
-    elif g == 'a7_5-0_8-1_2':
-        guidance_scale = create_scaled_line(0.8, 1.2, a=-7.5) # Most curved
-    elif g == 'a-7_5-0_8-1_2':
-        guidance_scale = create_scaled_line(0.8, 1.2, a=7.5) # Minus
-    # 0.8 - 1
-    elif g == 'a0-0_8-1':
-        guidance_scale = create_scaled_line(0.8, 1, a=0) # Linear line
-    elif g == 'a2_5-0_8-1':
-        guidance_scale = create_scaled_line(0.8, 1, a=-2.5) 
-    elif g == 'a-2_5-0_8-1':
-        guidance_scale = create_scaled_line(0.8, 1, a=2.5) 
-    elif g == 'a5-0_8-1':
-        guidance_scale = create_scaled_line(0.8, 1, a=-5) 
-    elif g == 'a-5-0_8-1':
-        guidance_scale = create_scaled_line(0.8, 1, a=5) 
-    elif g == 'a7_5-0_8-1':
-        guidance_scale = create_scaled_line(0.8, 1, a=-7.5) # Most curved
-    elif g == 'a-7_5-0_8-1':
-        guidance_scale = create_scaled_line(0.8, 1, a=7.5) # Most curved
+    # if g == 'a0-0_8-1_2':
+    #     guidance_scale = create_scaled_line(0.8, 1.2, a=0) # Linear line
+    # elif g == 'a2_5-0_8-1_2': 
+    #     guidance_scale = create_scaled_line(0.8, 1.2, a=-2.5) 
+    # elif g == 'a-2_5-0_8-1_2': 
+    #     guidance_scale = create_scaled_line(0.8, 1.2, a=2.5) # Minus
+    # elif g == 'a5-0_8-1_2':
+    #     guidance_scale = create_scaled_line(0.8, 1.2, a=-5) 
+    # elif g == 'a-5-0_8-1_2':
+    #     guidance_scale = create_scaled_line(0.8, 1.2, a=5) # Minus
+    # elif g == 'a7_5-0_8-1_2':
+    #     guidance_scale = create_scaled_line(0.8, 1.2, a=-7.5) # Most curved
+    # elif g == 'a-7_5-0_8-1_2':
+    #     guidance_scale = create_scaled_line(0.8, 1.2, a=7.5) # Minus
+    # # 0.8 - 1
+    # elif g == 'a0-0_8-1':
+    #     guidance_scale = create_scaled_line(0.8, 1, a=0) # Linear line
+    # elif g == 'a2_5-0_8-1':
+    #     guidance_scale = create_scaled_line(0.8, 1, a=-2.5) 
+    # elif g == 'a-2_5-0_8-1':
+    #     guidance_scale = create_scaled_line(0.8, 1, a=2.5) 
+    # elif g == 'a5-0_8-1':
+    #     guidance_scale = create_scaled_line(0.8, 1, a=-5) 
+    # elif g == 'a-5-0_8-1':
+    #     guidance_scale = create_scaled_line(0.8, 1, a=5) 
+    # elif g == 'a7_5-0_8-1':
+    #     guidance_scale = create_scaled_line(0.8, 1, a=-7.5) # Most curved
+    # elif g == 'a-7_5-0_8-1':
+    #     guidance_scale = create_scaled_line(0.8, 1, a=7.5) # Most curved
 
 
     # Where to log the training loss (File does not have to exist)
-    loss_logger=f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/curved_schedule/{g}/trainlog.csv"
+    loss_logger=f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/time_linear_guidance/{g_name}/trainlog.csv"
     # If evaluation is true during training, where to save the FID stuff
-    eval_logger=f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/curved_schedule/{g}/evallog.csv"
+    eval_logger=f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/time_linear_guidance/{g_name}/evallog.csv"
     # Directory to save checkpoints in
-    checkpoint_dir = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/curved_schedule/{g}/checkpoints/"
+    checkpoint_dir = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/time_linear_guidance/{g_name}/checkpoints/"
     # Whenever you are saving checkpoints, a batch of images are also sampled, where to produce these images
-    save_samples_dir= f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/curved_schedule/{g}/samples/"
+    save_samples_dir= f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/time_linear_guidance/{g_name}/samples/"
 
 
     pretrained_data = load_data(
@@ -227,5 +241,6 @@ for g in [
         pretrained_model=pretrained_model,
         guidance_scale=guidance_scale,
         pretrained_data=pretrained_data,
+        clf_time_based=clf_time_based
     ).run_loop()       
 

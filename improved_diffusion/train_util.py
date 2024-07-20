@@ -48,6 +48,7 @@ class TrainLoop:
         pretrained_model,
         guidance_scale,
         pretrained_data,
+        clf_time_based=False,
         # till here
         use_fp16=False,
         fp16_scale_growth=1e-3,
@@ -68,6 +69,7 @@ class TrainLoop:
         eval_logger="evallog.csv",
         eval_func=None,
     ):
+        self.clf_time_based=clf_time_based
         self.pretrained_data=pretrained_data
         self.guidance_scale=guidance_scale
         self.pretrained_model=pretrained_model
@@ -228,13 +230,21 @@ class TrainLoop:
             last_batch = (i + self.microbatch) >= batch.shape[0]
             t, weights = self.schedule_sampler.sample(micro.shape[0], 'cuda') # REMOVED
 
+            if self.clf_time_based == True: # time-based guidance
+                guidance = th.tensor(self.guidance_scale, device='cuda', dtype=th.float32) 
+                guidance = guidance[t]
+                guidance = guidance.view(guidance.size()[0], 1, 1, 1)
+            else: # classifier-free guidance
+                guidance = self.guidance_scale[self.step + self.resume_step]
+                guidance = th.tensor([guidance], device='cuda', dtype=th.float32) 
+
             compute_losses = functools.partial(
                 self.diffusion.training_losses,
                 self.model,
                 micro,
                 self.pretrained_model, # classifier-free guidance  
                 pretrained_batch, # classifier-free guidance
-                self.guidance_scale[self.step + self.resume_step], # classifier-free guidance
+                guidance, # classifier-free guidance
                 t,
                 model_kwargs=micro_cond,
             )
