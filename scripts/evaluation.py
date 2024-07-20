@@ -80,6 +80,8 @@ def runEvaluate(ref_batch, sample_batch, sqrtm_func=None, verbose=True):
     sFID = sample_stats_spatial.frechet_distance(ref_stats_spatial, sqrtm_func) 
     prec, recall = evaluator.compute_prec_recall(ref_acts[0], sample_acts[0])
     
+    tf.keras.backend.clear_session()
+    
     if verbose:
         print("Inception Score:", IS)
         print("FID:", FID)
@@ -88,6 +90,8 @@ def runEvaluate(ref_batch, sample_batch, sqrtm_func=None, verbose=True):
         print("Recall:", recall)
 
     return {"IS": IS, "FID": FID, "sFID": sFID, "Precision": prec, "Recall": recall}
+
+
 
 class InvalidFIDException(Exception):
     pass
