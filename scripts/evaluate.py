@@ -7,18 +7,19 @@ from evaluation import runEvaluate
 ref_path = '/home/ymbahram/scratch/pokemon/pokemon_64x64.npz'
 
 for g in [
-    'a-2_5-0_8-1_2', 'a-5-0_8-1_2', 'a-7_5-0_8-1_2',
-    'a-2_5-0_8-1', 'a-5-0_8-1', 'a-7_5-0_8-1',]:
+    #'a-2_5-0_8-1_2', 'a-5-0_8-1_2', 'a-7_5-0_8-1_2',
+    #'a-2_5-0_8-1', 'a-5-0_8-1', 'a-7_5-0_8-1',
+    '0_8', '0_9', '0_95', '1', '1_05', '1_1', '1_2']:
     
     data_list = []
 
     for iteration in np.arange(0, 201, 25):
-        sample_path = f'/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/curved_schedule/{g}/samples/samples_{iteration}.npz'
+        sample_path = f'/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/fixed_guidance/{g}/samples/samples_{iteration}.npz'
         results = runEvaluate(ref_path, sample_path, verbose=True)
         data_list.append(results)
 
     df = pd.DataFrame(data_list)
-    csv_file = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/curved_schedule/{g}/evaluation.csv"
+    csv_file = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/fixed_guidance/{g}/evaluation.csv"
     df.to_csv(csv_file, index=False)
 
     print(f"{g} has been written to {csv_file}")
