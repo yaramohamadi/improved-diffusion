@@ -1,5 +1,3 @@
-# Thank god I did'nt have to change these.
-
 from abc import ABC, abstractmethod
 
 import numpy as np

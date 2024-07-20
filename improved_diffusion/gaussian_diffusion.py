@@ -778,7 +778,6 @@ class GaussianDiffusion:
             assert model_output.shape == target.shape == x_start.shape
             
             # ________________________where the loss is created________________________________
-            guidance_scale = th.tensor([guidance_scale], device=x_start.device, dtype=th.float32) 
             model_output = source_model_output + guidance_scale * (model_output - source_model_output) # Classifier-free guidance
             #__________________________________________________________________________________
 
