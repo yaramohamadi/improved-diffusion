@@ -565,6 +565,7 @@ class GaussianDiffusion:
         model,
         shape,
         source_model=None, # classifier-free guidance
+        guidance=None, # classifier-free guidance
         noise=None,
         clip_denoised=True,
         denoised_fn=None,
@@ -583,6 +584,7 @@ class GaussianDiffusion:
             model,
             shape,
             source_model=source_model, # classifier-free guidance
+            guidance=guidance, # classifier-free guidance
             noise=noise,
             clip_denoised=clip_denoised,
             denoised_fn=denoised_fn,
@@ -592,13 +594,14 @@ class GaussianDiffusion:
             eta=eta,
         ):
             final = sample
-        return final["sample"]
+        return final # ["sample"]
 
     def ddim_sample_loop_progressive(
         self,
         model,
         shape,
         source_model=None, # classifier-free guidance
+        guidance=None, # classifier-free guidance Guidance here in sampling is just a scalar for now
         noise=None,
         clip_denoised=True,
         denoised_fn=None,
@@ -620,8 +623,10 @@ class GaussianDiffusion:
             img = noise
         else:
             img = th.randn(*shape, device=device)
-        source_img = copy.deepcopy(img)
+            img_source = copy.deepcopy(img) # classifier-free guidance: Here I am assuming that they both start from the same initial noise
         indices = list(range(self.num_timesteps))[::-1]
+
+        guidance = th.tensor([guidance], device='cuda', dtype=th.float32) 
 
         if progress:
             # Lazy import so that we don't depend on tqdm.
@@ -643,20 +648,21 @@ class GaussianDiffusion:
                 )
                 img = out["sample"]
 
-                # if source_model is not None: # classifier-free guidance
-                #     out_source = self.ddim_sample(
-                #         source_model,
-                #         img_source,
-                #         t,
-                #         clip_denoised=clip_denoised,
-                #         denoised_fn=denoised_fn,
-                #         model_kwargs=model_kwargs,
-                #         eta=eta,
-                #     )
-                #     img_source = out_source["sample"]
-                #     img = img_source + guidance * (img - img_source)
+                if source_model is not None: # classifier-free guidance
+                    out_source = self.ddim_sample(
+                        source_model,
+                        img_source,
+                        t,
+                        clip_denoised=clip_denoised,
+                        denoised_fn=denoised_fn,
+                        model_kwargs=model_kwargs,
+                        eta=eta,
+                    )
+                    img_source = out_source["sample"]
 
-                yield out
+                    img = img_source + guidance * (img - img_source)
+
+                yield img
 
     def _vb_terms_bpd(
         self, model, x_start, x_t, t, clip_denoised=True, model_kwargs=None
@@ -693,13 +699,10 @@ class GaussianDiffusion:
         output = th.where((t == 0), decoder_nll, kl)
         return {"output": output, "pred_xstart": out["pred_xstart"]}
 
-    def training_losses(self, model, x_start, source_model, source_x_start, guidance_scale, t, model_kwargs=None, noise=None): # Classifier-free guidance 
+    def training_losses(self, model, x_start, source_model, guidance_scale, t, model_kwargs=None, noise=None): # Classifier-free guidance 
         """
         Compute training losses for a single timestep.
 
-        :source_x_start: classifier-free guidance 
-        :source_x_start: classifier-free guidance 
-        :source_x_start: classifier-free guidance 
         :param model: the model to evaluate loss on.
         :param x_start: the [N x C x ...] tensor of inputs.
         :param t: a batch of timestep indices.
@@ -714,8 +717,6 @@ class GaussianDiffusion:
         if noise is None:
             noise = th.randn_like(x_start)
         x_t = self.q_sample(x_start, t, noise=noise)
-        # classifier-free guidance (Warning: Here I am using the same noise as the target sample.)
-        source_x_t = self.q_sample(source_x_start, t, noise=noise)
 
         terms = {}
 
@@ -750,7 +751,7 @@ class GaussianDiffusion:
                 B, C = x_t.shape[:2]
                 assert model_output.shape == (B, C * 2, *x_t.shape[2:])
                 model_output, model_var_values = th.split(model_output, C, dim=1)
-                source_model_output, source_model_var_values = th.split(source_model_output, C, dim=1) # Classifier-free guidance
+                source_model_output, _ = th.split(source_model_output, C, dim=1) # Classifier-free guidance
 
 
                 # Learn the variance using the variational bound, but don't let
@@ -777,9 +778,9 @@ class GaussianDiffusion:
             }[self.model_mean_type]
             assert model_output.shape == target.shape == x_start.shape
             
-            # ________________________where the loss is created________________________________
-            model_output = source_model_output + guidance_scale * (model_output - source_model_output) # Classifier-free guidance
-            #__________________________________________________________________________________
+            # ________________________________where the loss is created________________________________
+            model_output = model_output + guidance_scale * (source_model_output - model_output) # Classifier-free guidance
+            # _________________________________________________________________________________________
 
             terms["mse"] = mean_flat((target - model_output) ** 2)
             if "vb" in terms:
