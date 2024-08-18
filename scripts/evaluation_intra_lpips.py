@@ -128,7 +128,7 @@ To run, execute the following functions
 '''
 
 baseline = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/time_linear_guidance/0_9-1/evallog.csv'
-dataset = 
+dataset = ''
 
 intra_cluster_dist(baseline, dataset)
 get_close_far_members(baseline, dataset)

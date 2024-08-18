@@ -72,7 +72,6 @@ diffusion = create_gaussian_diffusion(
     timestep_respacing=timestep_respacing,
 )
 
-
 # ________________ Load Pretrained ____________
 
 source_model = copy.deepcopy(model)

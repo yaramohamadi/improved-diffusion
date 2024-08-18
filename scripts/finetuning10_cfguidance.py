@@ -112,6 +112,7 @@ def create_scaled_line(start, end, a=0):
 
 for g, g_name in {
     # Fixed
+    0.1:'1', 0.25: '0_25', 0.5: '0_5', 1: '1', 2.5: '2_5', 5: '5', 10: '10',
     # 0.8: '0_8', 0.9: '0_9', 0.95: '0_95', 1: '1', 1.05: '1_05', 1.1: '1_1', 1.2: '1_2',
     # Curved
     #'a0-0_8-1_2', 'a2_5-0_8-1_2', 'a5-0_8-1_2', 'a7_5-0_8-1_2', 
@@ -119,8 +120,8 @@ for g, g_name in {
     #'a-2_5-0_8-1_2', 'a-5-0_8-1_2', 'a-7_5-0_8-1_2',
     #'a-2_5-0_8-1', 'a-5-0_8-1', 'a-7_5-0_8-1',
     # Linear - Based on time (Not epoch)
-    0.25: '1-0_25', 0.5: '1-0_5', 0.75: '1-0_75', 0.9: '1-0_9'
-    # Curved - Based on time (Not epoch) # TODO 
+    #0.25: '1-0_25', 0.5: '1-0_5', 0.75: '1-0_75', 0.9: '1-0_9'
+    # Curved - Based on time (Not epoch) # TODO
     }.items():
 
     # ________________ Load Pretrained ____________
@@ -134,18 +135,16 @@ for g, g_name in {
     # ________________classifier-free guidance_______________
     pretrained_model = copy.deepcopy(model)
     pretrained_model.to('cuda')
-    pretrained_samples = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/results/pretrained_samples/"
     classifier_free = True
 
     # ____________ BASED ON TIME NOT EPOCH __________________
-    clf_time_based = True 
-    guidance_scale = np.linspace(g, 1, 50)
-
+    clf_time_based = False 
+    # guidance_scale = np.linspace(g, 1, 50)
 
     # Imagine we are training for 200 epochs max
     
     # Fixed
-    # guidance_scale = np.array([g for _ in range(201)]) # Fixed Line
+    guidance_scale = np.array([g for _ in range(201)]) # Fixed Line
     # Curved
     # 0.8 - 1.2
     # if g == 'a0-0_8-1_2':
@@ -180,21 +179,13 @@ for g, g_name in {
 
 
     # Where to log the training loss (File does not have to exist)
-    loss_logger=f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/time_linear_guidance/{g_name}/trainlog.csv"
+    loss_logger=f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_trg_results/fixed_guidance/{g_name}/trainlog.csv"
     # If evaluation is true during training, where to save the FID stuff
-    eval_logger=f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/time_linear_guidance/{g_name}/evallog.csv"
+    eval_logger=f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_trg_results/fixed_guidance/{g_name}/evallog.csv"
     # Directory to save checkpoints in
-    checkpoint_dir = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/time_linear_guidance/{g_name}/checkpoints/"
+    checkpoint_dir = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_trg_results/fixed_guidance/{g_name}/checkpoints/"
     # Whenever you are saving checkpoints, a batch of images are also sampled, where to produce these images
-    save_samples_dir= f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/time_linear_guidance/{g_name}/samples/"
-
-
-    pretrained_data = load_data(
-        data_dir=pretrained_samples,
-        batch_size=batch_size,
-        image_size=image_size,
-        class_cond=False,
-    )
+    save_samples_dir= f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_trg_results/fixed_guidance/{g_name}/samples/"
 
     # ________________ Train _________________ 
 
@@ -240,7 +231,6 @@ for g, g_name in {
         # For classifier-free guidanace
         pretrained_model=pretrained_model,
         guidance_scale=guidance_scale,
-        pretrained_data=pretrained_data,
         clf_time_based=clf_time_based
     ).run_loop()       
 
