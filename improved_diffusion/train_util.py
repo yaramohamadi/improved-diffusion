@@ -47,7 +47,6 @@ class TrainLoop:
         # For classifier-guidance
         pretrained_model,
         guidance_scale,
-        pretrained_data,
         clf_time_based=False,
         # till here
         use_fp16=False,
@@ -70,7 +69,6 @@ class TrainLoop:
         eval_func=None,
     ):
         self.clf_time_based=clf_time_based
-        self.pretrained_data=pretrained_data
         self.guidance_scale=guidance_scale
         self.pretrained_model=pretrained_model
         self.image_size=image_size
@@ -189,9 +187,7 @@ class TrainLoop:
         for _ in tqdm(loop()):
             
             batch, cond = next(self.data)
-            # classifier-free guidance
-            pretrained_batch, _ = next(self.pretrained_data)
-            self.run_step(batch, pretrained_batch, cond) # classifier-free guidance
+            self.run_step(batch, cond) 
             if self.step % self.save_interval == 0:
                 self.save()
                 if self.sample: # Added this for sampling
@@ -206,21 +202,20 @@ class TrainLoop:
         if (self.step - 1) % self.save_interval != 0:
             self.save()
 
-    def run_step(self, batch, pretrained_batch, cond): # classifier-free guidance
-        self.forward_backward(batch, pretrained_batch, cond)  # classifier-free guidance
+    def run_step(self, batch, cond): 
+        self.forward_backward(batch, cond)  
         if self.use_fp16:
             self.optimize_fp16()
         else:
             self.optimize_normal()
         # self.log_step()
 
-    def forward_backward(self, batch, pretrained_batch, cond): # classifier-free guidance
+    def forward_backward(self, batch, cond): 
         """
         Compute loss by calling diffusion.training_losses 
         In order to get output also we should output something from training_losses
         """
         zero_grad(self.model_params)
-        pretrained_batch = pretrained_batch.to('cuda')  # classifier-free guidance
         for i in range(0, batch.shape[0], self.microbatch):
             micro = batch[i : i + self.microbatch].to('cuda') # REMOVED
             micro_cond = {
@@ -243,7 +238,6 @@ class TrainLoop:
                 self.model,
                 micro,
                 self.pretrained_model, # classifier-free guidance  
-                pretrained_batch, # classifier-free guidance
                 guidance, # classifier-free guidance
                 t,
                 model_kwargs=micro_cond,
@@ -257,9 +251,7 @@ class TrainLoop:
                 )
 
             loss = (losses["loss"] * weights).mean()
-            # log_loss_dict(
-            #     {k: v * weights for k, v in losses.items()}, self.loss_logger
-            # )
+
             if self.use_fp16:
                 loss_scale = 2 ** self.lg_loss_scale
                 (loss * loss_scale).backward()
