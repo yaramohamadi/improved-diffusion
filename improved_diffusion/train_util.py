@@ -346,46 +346,48 @@ class TrainLoop:
     # I CREATED THIS FUNCTION, sample batches everytime you save checkpoints 
     def samplefunc(self):
 
-        # Create folder
-        im_path = os.path.join(self.save_samples_dir, str(self.step+self.resume_step))
-        os.makedirs(im_path, exist_ok=True)
+            print(f"sampling {self.how_many_samples} images")
+            sample_fn = (self.diffusion.p_sample_loop if not self.use_ddim else self.diffusion.ddim_sample_loop)
 
-        print(f"sampling {self.how_many_samples} images")
-        sample_fn = (self.diffusion.p_sample_loop if not self.use_ddim else self.diffusion.ddim_sample_loop)
+            # Create folder
+            im_path = os.path.join(self.save_samples_dir, str(self.step+self.resume_step))
+            os.makedirs(im_path, exist_ok=True)
 
-        all_images = []
-        for ind, _ in tqdm(enumerate(range(0, self.how_many_samples + self.batch_size - 1, self.batch_size))):
-            sample = sample_fn(
-                self.model,
-                (self.batch_size, 3, self.image_size , self.image_size),
-                clip_denoised=True,
-                model_kwargs={}, # This is not needed, just class conditional stuff
-                progress=False
-            )
-            sample = ((sample + 1) * 127.5).clamp(0, 255).to(th.uint8)
-            sample = sample.permute(0, 2, 3, 1)
-            sample = sample.contiguous().cpu().numpy()
+            all_images = []
+            for ind, _ in tqdm(enumerate(range(0, self.how_many_samples + self.batch_size - 1, self.batch_size))):
+                sample = sample_fn(
+                    self.model,
+                    (self.batch_size, 3, self.image_size , self.image_size),
+                    source_model=self.pretrained_model, # classifier-free guidance  guidance = th.tensor([guidance], device='cuda', dtype=th.float32) 
+                    guidance=False, # classifier-free guidance
+                    clip_denoised=True,
+                    model_kwargs={}, # This is not needed, just class conditional stuff
+                    progress=False
+                )
+                sample = ((sample + 1) * 127.5).clamp(0, 255).to(th.uint8)
+                sample = sample.permute(0, 2, 3, 1)
+                sample = sample.contiguous().cpu().numpy()
 
-            if ind <5: # Save 5 batches as images to see the visualizations
-                for sidx, s in enumerate(sample):
-                    plt.imsave(os.path.join(im_path, f'{sidx + ind*self.batch_size}.png'), s)
-            all_images.extend(sample)
+                if ind <5: # Save 5 batches as images to see the visualizations
+                    for sidx, s in enumerate(sample):
+                        plt.imsave(os.path.join(im_path, f'{sidx + ind*self.batch_size}.png'), s)
+                all_images.extend(sample)
 
-        all_images = all_images[: self.how_many_samples]
+            all_images = all_images[: self.how_many_samples]
+            
+            sample_path = os.path.join(self.save_samples_dir, f"samples_{self.step+self.resume_step}.npz")
+            np.savez(sample_path, all_images)
+            print("sampling complete")
+
+            # Evaluation metrics, FID, sFID, ... # Problematic -> Forget it.
+            if self.evaluate:
+                print(self.reference_dataset_dir)
+                print(sample_path)
+                eval_dict = self.eval_func(self.reference_dataset_dir, sample_path, verbose=True)
+                # Save the evaluation log
+                eval_dict['step']=self.step+self.resume_step
+                log_eval_dict(eval_dict, self.eval_logger)
         
-        sample_path = os.path.join(self.save_samples_dir, f"samples_{self.step+self.resume_step}.npz")
-        np.savez(sample_path, all_images)
-        print("sampling complete")
-
-        # Evaluation metrics, FID, sFID, ... # Problematic -> Forget it.
-        if self.evaluate:
-            print(self.reference_dataset_dir)
-            print(sample_path)
-            eval_dict = self.eval_func(self.reference_dataset_dir, sample_path, verbose=True)
-            # Save the evaluation log
-            eval_dict['step']=self.step+self.resume_step
-            log_eval_dict(eval_dict, self.eval_logger)
-    
 
 def parse_resume_step_from_filename(filename):
     """

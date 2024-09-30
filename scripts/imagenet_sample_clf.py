@@ -14,7 +14,7 @@ from tqdm import tqdm
 batch_size=10
 timestep_respacing="ddim50"
 use_ddim=True
-num_samples=50
+num_samples=2503
 clip_denoised=True
 source_model_path = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/pretrained_models/imagenet64_uncond_100M_1500K.pt"
 
@@ -87,53 +87,52 @@ classifier_free = True
 
 # ________________ Sample _________________ 
 
-for g, g_name in {0.8: '0_8', 0.9: '0_9', 0.95: '0_95', 1: '1', 1.05:'1_05', 1.1: '1_1', 1.2: '1_2'}.items(): # Fixed guidances I want to try
+for initial_guide, init_g_name in {0:'0', 0.05: '0_05', 0.1: '0_1', 0.2: '0_2'}.items():
+    for g, g_name in {0:'0', 0.05: '0_05', 0.1: '0_1', 0.2: '0_2'}.items(): # Fixed guidances I want to try
 
-    save_samples_dir = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/fixed_guidance/{g_name}/clf_sampling/"
-    os.makedirs(save_samples_dir, exist_ok=True)
-    save_samples_dir = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/fixed_guidance/{g_name}/clf_sampling/xs_xt_dif/"
-    os.makedirs(save_samples_dir, exist_ok=True)
+        save_samples_dir = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_trg_results/fixed_guidance_dataset/data10/0_1/samples_{g_name}/"
+        os.makedirs(save_samples_dir, exist_ok=True)
 
-    print(f'===============================Now onto {g_name}+++++++++++++++++++++++++++')
+        print(f'===============================Now onto {g}+++++++++++++++++++++++++++')
 
-    for epoch in tqdm(['000', '025', '050', '075', '100', '125', '150', '175', '200']): # Sample models from each time-step
+        for epoch in tqdm(['075']): # Sample models from each time-step
 
-        output_dir = os.path.join(save_samples_dir, epoch)
-        os.makedirs(output_dir, exist_ok=True)
-        # Load model
-        model_path = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/fixed_guidance/{g_name}/checkpoints/model000{epoch}.pt"
-        checkpoint = th.load(model_path)
-        model.load_state_dict(checkpoint)
-        
-        all_images = []
-        i = 0
-        while len(all_images) * batch_size < num_samples:
+            output_dir = os.path.join(save_samples_dir, epoch)
+            os.makedirs(output_dir, exist_ok=True)
+            # Load model
+            model_path = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_trg_results/fixed_guidance_dataset/data10/0_1/checkpoints/model000{epoch}.pt"
+            checkpoint = th.load(model_path)
+            model.load_state_dict(checkpoint)
+            
+            all_images = []
+            i = 0
 
-            # print(f"sampling {batch_size} images")
-            sample_fn = (diffusion.p_sample_loop if not use_ddim else diffusion.ddim_sample_loop)
-            sample = sample_fn(
-                model,
-                (batch_size, 3, image_size , image_size),
-                source_model=source_model, # classifier-free guidance
-                guidance=g,
-                clip_denoised=True,
-                model_kwargs={}, # This is not needed, just class conditional stuff
-                progress=False
-            )
-            sample = ((sample + 1) * 127.5).clamp(0, 255).to(th.uint8)
-            sample = sample.permute(0, 2, 3, 1)
-            sample = sample.contiguous().cpu().numpy()
+            while len(all_images) < num_samples:
 
-            # Save images
-            if i <5:
-                for sidx, s in enumerate(sample):
-                    #print(output_dir)
-                    #print(os.path.join(output_dir, f'{sidx + i*batch_size}.jpg'))
-                    plt.imsave(os.path.join(output_dir, f'{sidx + i*batch_size}.jpg'), s)
-            all_images.extend(sample)
-            i = i+1
+                # print(f"sampling {batch_size} images")
+                sample_fn = (diffusion.p_sample_loop if not use_ddim else diffusion.ddim_sample_loop)
+                sample = sample_fn(
+                    model,
+                    (batch_size, 3, image_size , image_size),
+                    source_model=source_model, # classifier-free guidance
+                    guidance=g,
+                    clip_denoised=True,
+                    model_kwargs={}, # This is not needed, just class conditional stuff
+                    progress=False
+                )
+                sample = ((sample + 1) * 127.5).clamp(0, 255).to(th.uint8)
+                sample = sample.permute(0, 2, 3, 1)
+                sample = sample.contiguous().cpu().numpy()
 
-        #all_images = all_images[: num_samples]
-        #sample_path = os.path.join(save_samples_dir, f"samples.npz")
-        #np.savez(sample_path, all_images)
-        #print("sampling complete")
+                # Save images
+                if i <5:
+                    for sidx, s in enumerate(sample):
+                        plt.imsave(os.path.join(output_dir, f'{sidx + i*batch_size}.jpg'), s)
+                all_images.extend(sample)
+                i = i+1
+
+            all_images = all_images[: num_samples]
+            
+            sample_path = os.path.join(save_samples_dir, f"samples_{epoch}.npz")
+            np.savez(sample_path, all_images)
+            print("sampling complete")

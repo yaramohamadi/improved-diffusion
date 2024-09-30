@@ -230,8 +230,17 @@ class GaussianDiffusion:
         )
         return posterior_mean, posterior_variance, posterior_log_variance_clipped
 
-    def p_mean_variance(
-        self, model, x, t, clip_denoised=True, denoised_fn=None, model_kwargs=None
+    def p_mean_variance( # Classifier-free guidance (CORE)
+        self, 
+        model, 
+        x, 
+        t,
+        source_model=None,
+        source_x=None, 
+        guidance=None,
+        clip_denoised=True, 
+        denoised_fn=None, 
+        model_kwargs=None
     ):
         """
         Apply the model to get p(x_{t-1} | x_t), as well as a prediction of
@@ -258,11 +267,22 @@ class GaussianDiffusion:
 
         B, C = x.shape[:2]
         assert t.shape == (B,)
+
         model_output = model(x, self._scale_timesteps(t), **model_kwargs)
 
         if self.model_var_type in [ModelVarType.LEARNED, ModelVarType.LEARNED_RANGE]:
             assert model_output.shape == (B, C * 2, *x.shape[2:])
             model_output, model_var_values = th.split(model_output, C, dim=1)
+
+            if guidance is not None: # Classifier-free guidance
+                source_output = source_model(source_x, self._scale_timesteps(t), **model_kwargs)
+                source_output, _ = th.split(source_output, C, dim=1) # Clssifier-free guidance
+                guidance = th.tensor([guidance], device='cuda', dtype=th.float32) 
+
+                # ______________________Classifier-free guidance____________________________
+                model_output = model_output + guidance * (source_output - model_output)
+                # __________________________________________________________________________
+
             if self.model_var_type == ModelVarType.LEARNED:
                 model_log_variance = model_var_values
                 model_variance = th.exp(model_log_variance)
@@ -477,11 +497,14 @@ class GaussianDiffusion:
                 yield out
                 img = out["sample"]
 
-    def ddim_sample(
+    def ddim_sample( # Classifier-free guidance
         self,
         model,
         x,
         t,
+        source_model=None,
+        source_x=None,
+        guidance=None,
         clip_denoised=True,
         denoised_fn=None,
         model_kwargs=None,
@@ -492,17 +515,23 @@ class GaussianDiffusion:
 
         Same usage as p_sample().
         """
-        out = self.p_mean_variance(
+
+        out = self.p_mean_variance( # Classifier-free guidance
             model,
             x,
             t,
+            source_model=source_model,
+            source_x=source_x,
+            guidance=guidance,
             clip_denoised=clip_denoised,
             denoised_fn=denoised_fn,
             model_kwargs=model_kwargs,
         )
+        
         # Usually our model outputs epsilon, but we re-derive it
         # in case we used x_start or x_prev prediction.
         eps = self._predict_eps_from_xstart(x, t, out["pred_xstart"])
+
         alpha_bar = _extract_into_tensor(self.alphas_cumprod, t, x.shape)
         alpha_bar_prev = _extract_into_tensor(self.alphas_cumprod_prev, t, x.shape)
         sigma = (
@@ -623,10 +652,9 @@ class GaussianDiffusion:
             img = noise
         else:
             img = th.randn(*shape, device=device)
-            img_source = copy.deepcopy(img) # classifier-free guidance: Here I am assuming that they both start from the same initial noise
+            # classifier-free guidance: Here I am assuming that they both start from the same initial noise
+            # source_img = copy.deepcopy(img)
         indices = list(range(self.num_timesteps))[::-1]
-
-        guidance = th.tensor([guidance], device='cuda', dtype=th.float32) 
 
         if progress:
             # Lazy import so that we don't depend on tqdm.
@@ -637,31 +665,32 @@ class GaussianDiffusion:
         for i in indices:
             t = th.tensor([i] * shape[0], device=device)
             with th.no_grad():
-                out = self.ddim_sample(
-                    model,
-                    img,
-                    t,
-                    clip_denoised=clip_denoised,
-                    denoised_fn=denoised_fn,
-                    model_kwargs=model_kwargs,
-                    eta=eta,
-                )
-                img = out["sample"]
-
-                if source_model is not None: # classifier-free guidance
-                    out_source = self.ddim_sample(
-                        source_model,
-                        img_source,
+                if guidance is None: # Unguided sampling
+                    out = self.ddim_sample(
+                        model,
+                        img,
                         t,
                         clip_denoised=clip_denoised,
                         denoised_fn=denoised_fn,
                         model_kwargs=model_kwargs,
                         eta=eta,
                     )
-                    img_source = out_source["sample"]
+                    img = out["sample"]
 
-                    img = img_source + guidance * (img - img_source)
-
+                if guidance is not None: # classifier-free guidance
+                    out = self.ddim_sample(
+                        model,
+                        img,
+                        t,
+                        source_model=source_model,
+                        guidance=guidance,
+                        source_x=img,
+                        clip_denoised=clip_denoised,
+                        denoised_fn=denoised_fn,
+                        model_kwargs=model_kwargs,
+                        eta=eta,
+                    )
+                    img = out["sample"]
                 yield img
 
     def _vb_terms_bpd(
@@ -737,7 +766,7 @@ class GaussianDiffusion:
 
         # Classifier-free guidance : In my experiments, LossType is RESCALED_MSE
         # Warning: I will leave VB out of our computation and focus solely on MEAN for cf-guidance
-        # TODO: once do it with VB and see difference
+        # TODO: once do it with VB and see difference, The variances will have to be added + their covariance. 
         elif self.loss_type == LossType.MSE or self.loss_type == LossType.RESCALED_MSE:
             model_output = model(x_t, self._scale_timesteps(t), **model_kwargs)
             source_model_output = source_model(x_t, self._scale_timesteps(t), **model_kwargs).detach() # Classifier-free guidance, need to detach frozen source model
@@ -751,8 +780,7 @@ class GaussianDiffusion:
                 B, C = x_t.shape[:2]
                 assert model_output.shape == (B, C * 2, *x_t.shape[2:])
                 model_output, model_var_values = th.split(model_output, C, dim=1)
-                source_model_output, _ = th.split(source_model_output, C, dim=1) # Classifier-free guidance
-
+                source_model_output, _ = th.split(source_model_output, C, dim=1)
 
                 # Learn the variance using the variational bound, but don't let
                 # it affect our mean prediction.
@@ -781,6 +809,7 @@ class GaussianDiffusion:
             # ________________________________where the loss is created________________________________
             model_output = model_output + guidance_scale * (source_model_output - model_output) # Classifier-free guidance
             # _________________________________________________________________________________________
+
 
             terms["mse"] = mean_flat((target - model_output) ** 2)
             if "vb" in terms:
