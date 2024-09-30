@@ -6,20 +6,21 @@ from evaluation import runEvaluate
 
 ref_path = '/home/ymbahram/scratch/pokemon/pokemon_64x64.npz'
 
-for g in [
-    #'a-2_5-0_8-1_2', 'a-5-0_8-1_2', 'a-7_5-0_8-1_2',
-    #'a-2_5-0_8-1', 'a-5-0_8-1', 'a-7_5-0_8-1',
-    '0_8', '0_9', '0_95', '1', '1_05', '1_1', '1_2']:
-    
-    data_list = []
 
-    for iteration in np.arange(0, 201, 25):
-        sample_path = f'/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/fixed_guidance/{g}/samples/samples_{iteration}.npz'
+    
+data_list = []
+
+for g, g_name in {0:'0', 0.1:'0_1', 0.05: '0_05', 0.2:'0_2'
+        }.items(): 
+    
+    for epoch in np.arange(0, 201, 25):
+        sample_path = f'/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_trg_results/fixed_guidance_dataset/data10/{g_name}/samples/samples_{epoch}.npz'
         results = runEvaluate(ref_path, sample_path, verbose=True)
+        results['epoch'] = epoch
         data_list.append(results)
 
     df = pd.DataFrame(data_list)
-    csv_file = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/fixed_guidance/{g}/evaluation.csv"
+    csv_file = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_trg_results/fixed_guidance_dataset/data10/evaluation.csv"
     df.to_csv(csv_file, index=False)
 
     print(f"{g} has been written to {csv_file}")
