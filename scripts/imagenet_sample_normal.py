@@ -87,25 +87,26 @@ classifier_free = True
 
 # ________________ Sample _________________ 
 
-for g in [1.2]: # Fixed guidances I want to try
+for g, g_name in {0.8: '0_8', 0.9: '0_9', 0.95: '0_95', 1: '1', 1.05:'1_05', 1.1: '1_1', 1.2: '1_2'}.items(): # Fixed guidances I want to try
 
-    save_samples_dir = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/fixed_guidance/1/clf_sampling/diff_guidance/{g}"
+    save_samples_dir = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/fixed_guidance/{g_name}/clf_sampling/"
+    os.makedirs(save_samples_dir, exist_ok=True)
+    save_samples_dir = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/fixed_guidance/{g_name}/clf_sampling/xs_xt_dif/"
     os.makedirs(save_samples_dir, exist_ok=True)
 
-    print(f'===============================Now onto {g}+++++++++++++++++++++++++++')
+    print(f'===============================Now onto {g_name}+++++++++++++++++++++++++++')
 
-    for epoch in tqdm(['075']): # Sample models from each time-step
+    for epoch in tqdm(['000', '025', '050', '075', '100', '125', '150', '175', '200']): # Sample models from each time-step
 
         output_dir = os.path.join(save_samples_dir, epoch)
         os.makedirs(output_dir, exist_ok=True)
         # Load model
-        model_path = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/fixed_guidance/1/checkpoints/model000{epoch}.pt"
+        model_path = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/fixed_guidance/{g_name}/checkpoints/model000{epoch}.pt"
         checkpoint = th.load(model_path)
         model.load_state_dict(checkpoint)
         
         all_images = []
         i = 0
-
         while len(all_images) * batch_size < num_samples:
 
             # print(f"sampling {batch_size} images")
