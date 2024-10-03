@@ -37,59 +37,48 @@ lpips_feature_extractor = Model(inputs=vgg_model.input, outputs=vgg_model.get_la
 
 
 # Add LPIPS score computation to runEvaluate function
-def runEvaluate(ref_batch, sample_batch, FID=False, IS=False, sFID=False, prec_recall=False, KID=False, LPIPS=False, source_batch=None, intra_LPIPS=True, target_batch=None, verbose=True):
+def runEvaluate(ref_batch, sample_batch, FID=False, IS=False, sFID=False, prec_recall=False, KID=False, LPIPS=True, verbose=True):
     """
     Evaluate several metrics, including LPIPS-like perceptual distance between datasets.
     """
+    config = tf.ConfigProto(allow_soft_placement=True)
+    config.gpu_options.allow_growth = True
+    evaluator = Evaluator(tf.Session(config=config))
 
-    if FID == True or IS == True or sFID==True or prec_recall==True: 
-        config = tf.ConfigProto(allow_soft_placement=True)
-        config.gpu_options.allow_growth = True
-        evaluator = Evaluator(tf.Session(config=config))
 
-        evaluator.warmup()
+    ref_acts = evaluator.read_activations(ref_batch)
+    ref_stats, ref_stats_spatial = evaluator.read_statistics(ref_batch, ref_acts)
 
-        ref_acts = evaluator.read_activations(ref_batch)
-        ref_stats, ref_stats_spatial = evaluator.read_statistics(ref_batch, ref_acts)
-
-        sample_acts = evaluator.read_activations(sample_batch)
-        sample_stats, sample_stats_spatial = evaluator.read_statistics(sample_batch, sample_acts)
-
-    results = {}
+    sample_acts = evaluator.read_activations(sample_batch)
+    sample_stats, sample_stats_spatial = evaluator.read_statistics(sample_batch, sample_acts)
 
     if IS:
-        IS_score = evaluator.compute_inception_score(sample_acts[0])
-        results['IS'] = IS_score
+        IS = evaluator.compute_inception_score(sample_acts[0])
+        print("Inception Score:", IS)
     if FID:
-        FID_score = sample_stats.frechet_distance(ref_stats)
-        results['FID'] = FID_score
+        FID = sample_stats.frechet_distance(ref_stats)
+        print("FID:", FID)
     if sFID:
-        sFID_score = sample_stats_spatial.frechet_distance(ref_stats_spatial)
-        results['sFID'] = sFID_score
+        sFID = sample_stats_spatial.frechet_distance(ref_stats_spatial)
+        print("sFID:", sFID)
     if prec_recall:
         prec, recall = evaluator.compute_prec_recall(ref_acts[0], sample_acts[0])
-        results['Precision'] = prec
-        results['Recall'] = recall
+        print("Precision:", prec)
+        print("Recall:", recall)
     if KID:
-        KID_score = evaluator.compute_kid(ref_acts[0], sample_acts[0])
-        results['KID'] = KID_score
+        KID = evaluator.compute_kid(ref_acts[0], sample_acts[0])
+        print("KID:", KID)
     if LPIPS:
-        lpips_score = compute_lpips_between_distributions(source_batch, sample_batch, lim=1000)
-        results['LPIPS'] = lpips_score
-    if intra_LPIPS:
-        intra_lpips = compute_intra_cluster_feature_distance(target_batch, sample_batch, lim=1000)
-        results['intra_LPIPS'] = intra_lpips
+        lpips_score = compute_lpips_between_distributions(ref_batch, sample_batch)
+        print("LPIPS:", lpips_score)
 
-    if verbose:
-        for key, value in results.items():
-            print(f"{key}: {value}")
-
-    return results
+    return {"IS": IS, "FID": FID, "sFID": sFID, "Precision": prec, "Recall": recall, "KID": KID, "LPIPS": lpips_score}
 
 
-# ___________________ LPIPS ______________________
 
-def compute_lpips_between_distributions(npz_file1, npz_file2, lim=1000, batch_size=64):
+
+
+def compute_lpips_between_distributions(npz_file1, npz_file2, batch_size=64):
     """
     Compute LPIPS-like score between two datasets, treating them as distributions.
 
@@ -108,8 +97,8 @@ def compute_lpips_between_distributions(npz_file1, npz_file2, lim=1000, batch_si
 
         # Compute pairwise distances
         lpips_scores = []
-        for i in range(max(features1.shape[0], lim)):
-            for j in range(max(features2.shape[0], lim)):
+        for i in range(features1.shape[0]):
+            for j in range(features2.shape[0]):
                 dist = np.linalg.norm(features1[i] - features2[j])  # Euclidean distance
                 lpips_scores.append(dist)
 
@@ -140,76 +129,6 @@ def preprocess_images(images):
     return preprocess_input(images_resized)
 
 
-
-# ___________________ Intra-cluster LPIPS ______________________
-
-
-# Compute intra-cluster feature distances (similar to intra-cluster LPIPS)
-def compute_intra_cluster_feature_distance(npz_target, npz_generated, lim=1000, batch_size=64):
-
-    with open_npz_array(npz_target, 'arr_0') as reader1, open_npz_array(npz_generated, 'arr_0') as reader2:
-        images_target = preprocess_images(np.concatenate([batch for batch in reader1.read_batches(batch_size)]))
-        images_generated = preprocess_images(np.concatenate([batch for batch in reader2.read_batches(batch_size)]))
-
-        # Extract features from both datasets
-        features_target = extract_features_from_vgg(images_target, batch_size)
-        features_generated = extract_features_from_vgg(images_generated, batch_size)
-
-        features_target = features_target[:10] # TODO TMP remove
-        features_generated = features_generated[:lim]
-
-        cluster_assignments = assign_to_clusters(features_generated, features_target)
-
-        unique_clusters, frequencies = np.unique(cluster_assignments, return_counts=True)
-        print(unique_clusters)
-        print(frequencies)
-        exit()
-        intra_cluster_distances = []
-
-        for cluster in unique_clusters:
-            cluster_indices = np.where(cluster_assignments == cluster)[0]
-            cluster_features = tf.gather(features_generated, cluster_indices)
-
-            # Compute pairwise feature distances within the cluster
-            pairwise_distances = []
-            for i in range(len(cluster_features)):
-                for j in range(i + 1, len(cluster_features)):
-                    dist = np.linalg.norm(cluster_features[i] - cluster_features[j])
-                    pairwise_distances.append(dist)
-
-            # Average pairwise feature distance for this cluster
-            if pairwise_distances:
-                avg_distance = np.mean(pairwise_distances)
-                intra_cluster_distances.append(avg_distance)
-
-        # Average distances across all clusters
-        return np.mean(intra_cluster_distances)
-
-
-# Assign generated images to clusters based on feature similarity to target images
-def assign_to_clusters(generated_features, target_features):
-    num_target_images = target_features.shape[0]
-    num_generated_images = generated_features.shape[0]
-
-    # Initialize cluster assignments
-    cluster_assignments = np.zeros(num_generated_images)
-
-    # Compute feature distances and assign each generated image to the closest target image (cluster)
-    for i in range(num_generated_images):
-        min_distance = float('inf')
-        best_cluster = -1
-        for j in range(num_target_images):
-            dist = np.linalg.norm(generated_features[i] - target_features[j])
-            if dist < min_distance:
-                min_distance = dist
-                best_cluster = j
-        cluster_assignments[i] = best_cluster
-
-    return cluster_assignments
-
-
-
-# __________________________ FID _________________________________
 
 class InvalidFIDException(Exception):
     pass
@@ -282,9 +201,6 @@ class Evaluator:
             self.softmax_input = tf.placeholder(tf.float32, shape=[None, 2048])
             self.pool_features, self.spatial_features = _create_feature_graph(self.image_input)
             self.softmax = _create_softmax_graph(self.softmax_input)
-
-    def warmup(self):
-        self.compute_activations(np.zeros([1, 8, 64, 64, 3]))
 
     def read_activations(self, npz_path: str) -> Tuple[np.ndarray, np.ndarray]:
         with open_npz_array(npz_path, "arr_0") as reader:
