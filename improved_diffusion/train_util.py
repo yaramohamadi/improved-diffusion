@@ -67,7 +67,10 @@ class TrainLoop:
         reference_dataset_dir="", # If sampling is true, then Evaluation will be done here
         eval_logger="evallog.csv",
         eval_func=None,
+        # For fixing sampling
+        noise_vector=None,
     ):
+        self.noise_vector=noise_vector
         self.clf_time_based=clf_time_based
         self.guidance_scale=guidance_scale
         self.pretrained_model=pretrained_model
@@ -355,11 +358,19 @@ class TrainLoop:
 
             all_images = []
             for ind, _ in tqdm(enumerate(range(0, self.how_many_samples + self.batch_size - 1, self.batch_size))):
+
+                # Fixing for same sample generation (Deterministic sampling is done by default in the code)
+                if self.noise_vector != None:
+                    initial_noise = self.noise_vector[ind]
+                else: 
+                    initial_noise = None
+
                 sample = sample_fn(
                     self.model,
                     (self.batch_size, 3, self.image_size , self.image_size),
                     source_model=self.pretrained_model, # classifier-free guidance  guidance = th.tensor([guidance], device='cuda', dtype=th.float32) 
                     guidance=False, # classifier-free guidance
+                    noise=initial_noise,
                     clip_denoised=True,
                     model_kwargs={}, # This is not needed, just class conditional stuff
                     progress=False

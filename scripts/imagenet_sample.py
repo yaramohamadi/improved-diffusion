@@ -6,17 +6,22 @@ from improved_diffusion.script_util import create_model, create_gaussian_diffusi
 import os 
 import matplotlib.pyplot as plt 
 import torch as th
-import copy
+import numpy as np
 
 # Sampling 
-batch_size=16
+batch_size=10
 timestep_respacing="ddim50"
 use_ddim=True
-num_samples=50
+num_samples=2500
 clip_denoised=True
-save_samples_dir ="/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results_s5/samples/test"
-model_path = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results_s5/checkpoints/ema_0.9999_000200.pt"
-source_model_path = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/pretrained_models/imagenet64_uncond_100M_1500K.pt"
+save_samples_dir ="/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_trg_results/results_samesample/pretrained_samples"
+# model_path = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_trg_results/results_samesample/data10/0_05/checkpoints/model000075.pt"
+model_path="/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/pretrained_models/imagenet64_uncond_100M_1500K.pt"
+# Fixed noise vector
+noise_vector = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/classifier-free-guidance/code_for_parse/pokemon_fixed_noise.npy'
+# Load the noise vector from the .npy file
+noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
+
 
 os.makedirs(save_samples_dir, exist_ok=True)
 
@@ -74,17 +79,11 @@ diffusion = create_gaussian_diffusion(
 
 # ________________ Load Pretrained ____________
 
-source_model = copy.deepcopy(model)
-
 checkpoint = th.load(model_path)
 model.load_state_dict(checkpoint)
-checkpoint = th.load(source_model_path)
-source_model.load_state_dict(checkpoint)
 
 model.to('cuda')
-source_model.to('cuda')
 model.eval()
-source_model.eval()
 
 # ________________ Sample _________________ 
 
@@ -100,6 +99,8 @@ while len(all_images) * batch_size < num_samples:
         model,
         (batch_size, 3, image_size , image_size),
         clip_denoised=True,
+        noise=noise_vector[i],
+        guidance=None,
         model_kwargs={}, # This is not needed, just class conditional stuff
         progress=True
     )

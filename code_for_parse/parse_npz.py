@@ -37,4 +37,8 @@ def create_npz_from_images(folder_path, output_file, img_size=(224, 224)):
 
 if __name__ == "__main__":
 
-    create_npz_from_images(folder_path='/home/ymbahram/scratch/pokemon/pokemon10/', output_file='/home/ymbahram/scratch/pokemon/pokemon_10.npz', img_size=(64,64))
+    create_npz_from_images(folder_path='/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_trg_results/results_samesample/pretrained_samples',
+                           # '/home/ymbahram/scratch/pokemon/pokemon10/', 
+                           # output_file='/home/ymbahram/scratch/pokemon/pokemon_10.npz', 
+                           output_file='/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/classifier-free-guidance/evaluation/imagenet_pretrained.npz',
+                           img_size=(64,64))
