@@ -821,12 +821,15 @@ class GaussianDiffusion:
             # _________________________________________________________________________________________
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             # P2 weighting time-step weighting
             weight = _extract_into_tensor(1 / (self.p2_k + self.snr)**self.p2_gamma, t, target.shape)
 
             terms["mse"] = mean_flat(weight * (target - model_output) ** 2)
 
 =======
+=======
+>>>>>>> 0e1e2e856568fae4e6b8bc880851164f92397661
 
             terms["mse"] = mean_flat((target - model_output) ** 2)
 >>>>>>> 0e1e2e856568fae4e6b8bc880851164f92397661

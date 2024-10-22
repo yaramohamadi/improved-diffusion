@@ -7,6 +7,7 @@ import os
 import matplotlib.pyplot as plt 
 import torch as th
 <<<<<<< HEAD
+<<<<<<< HEAD
 import numpy as np
 
 # Sampling 
@@ -24,6 +25,8 @@ noise_vector = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/c
 noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
 
 =======
+=======
+>>>>>>> 0e1e2e856568fae4e6b8bc880851164f92397661
 import copy
 
 # Sampling 
@@ -35,6 +38,9 @@ clip_denoised=True
 save_samples_dir ="/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results_s5/samples/test"
 model_path = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results_s5/checkpoints/ema_0.9999_000200.pt"
 source_model_path = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/pretrained_models/imagenet64_uncond_100M_1500K.pt"
+<<<<<<< HEAD
+>>>>>>> 0e1e2e856568fae4e6b8bc880851164f92397661
+=======
 >>>>>>> 0e1e2e856568fae4e6b8bc880851164f92397661
 
 os.makedirs(save_samples_dir, exist_ok=True)
@@ -104,6 +110,7 @@ model.to('cuda')
 source_model.to('cuda')
 model.eval()
 source_model.eval()
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 model.to('cuda')
@@ -111,6 +118,8 @@ model.eval()
 =======
 # ________________ Sample _________________ 
 
+>>>>>>> 0e1e2e856568fae4e6b8bc880851164f92397661
+=======
 >>>>>>> 0e1e2e856568fae4e6b8bc880851164f92397661
 
 # ________________ Sample _________________ 
