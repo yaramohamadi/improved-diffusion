@@ -6,6 +6,7 @@ from improved_diffusion.script_util import create_model, create_gaussian_diffusi
 import os 
 import matplotlib.pyplot as plt 
 import torch as th
+<<<<<<< HEAD
 import numpy as np
 
 # Sampling 
@@ -22,6 +23,19 @@ noise_vector = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/c
 # Load the noise vector from the .npy file
 noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
 
+=======
+import copy
+
+# Sampling 
+batch_size=16
+timestep_respacing="ddim50"
+use_ddim=True
+num_samples=50
+clip_denoised=True
+save_samples_dir ="/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results_s5/samples/test"
+model_path = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results_s5/checkpoints/ema_0.9999_000200.pt"
+source_model_path = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/pretrained_models/imagenet64_uncond_100M_1500K.pt"
+>>>>>>> 0e1e2e856568fae4e6b8bc880851164f92397661
 
 os.makedirs(save_samples_dir, exist_ok=True)
 
@@ -79,11 +93,25 @@ diffusion = create_gaussian_diffusion(
 
 # ________________ Load Pretrained ____________
 
+source_model = copy.deepcopy(model)
+
 checkpoint = th.load(model_path)
 model.load_state_dict(checkpoint)
+checkpoint = th.load(source_model_path)
+source_model.load_state_dict(checkpoint)
 
 model.to('cuda')
+source_model.to('cuda')
 model.eval()
+source_model.eval()
+
+<<<<<<< HEAD
+model.to('cuda')
+model.eval()
+=======
+# ________________ Sample _________________ 
+
+>>>>>>> 0e1e2e856568fae4e6b8bc880851164f92397661
 
 # ________________ Sample _________________ 
 

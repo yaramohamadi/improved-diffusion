@@ -67,10 +67,14 @@ class TrainLoop:
         reference_dataset_dir="", # If sampling is true, then Evaluation will be done here
         eval_logger="evallog.csv",
         eval_func=None,
+<<<<<<< HEAD
         # For fixing sampling
         noise_vector=None,
     ):
         self.noise_vector=noise_vector
+=======
+    ):
+>>>>>>> 0e1e2e856568fae4e6b8bc880851164f92397661
         self.clf_time_based=clf_time_based
         self.guidance_scale=guidance_scale
         self.pretrained_model=pretrained_model
@@ -228,6 +232,7 @@ class TrainLoop:
             last_batch = (i + self.microbatch) >= batch.shape[0]
             t, weights = self.schedule_sampler.sample(micro.shape[0], 'cuda') # REMOVED
 
+<<<<<<< HEAD
             if self.clf_time_based == True: # time-based guidance # time-schedule based on p2 weighting  time-step weighting
                 guidance = th.tensor(self.guidance_scale, device='cuda', dtype=th.float32) 
                 guidance = guidance[t]
@@ -241,6 +246,12 @@ class TrainLoop:
                 # print(guidance.size())
                 # print("****"*20)
 
+=======
+            if self.clf_time_based == True: # time-based guidance
+                guidance = th.tensor(self.guidance_scale, device='cuda', dtype=th.float32) 
+                guidance = guidance[t]
+                guidance = guidance.view(guidance.size()[0], 1, 1, 1)
+>>>>>>> 0e1e2e856568fae4e6b8bc880851164f92397661
             else: # classifier-free guidance
                 guidance = self.guidance_scale[self.step + self.resume_step]
                 guidance = th.tensor([guidance], device='cuda', dtype=th.float32) 
@@ -367,6 +378,7 @@ class TrainLoop:
 
             all_images = []
             for ind, _ in tqdm(enumerate(range(0, self.how_many_samples + self.batch_size - 1, self.batch_size))):
+<<<<<<< HEAD
 
                 # Fixing for same sample generation (Deterministic sampling is done by default in the code)
                 if self.noise_vector != None:
@@ -393,6 +405,26 @@ class TrainLoop:
                         plt.imsave(os.path.join(im_path, f'{sidx + ind*self.batch_size}.png'), s)
                 all_images.extend(sample)
 
+=======
+                sample = sample_fn(
+                    self.model,
+                    (self.batch_size, 3, self.image_size , self.image_size),
+                    source_model=self.pretrained_model, # classifier-free guidance  guidance = th.tensor([guidance], device='cuda', dtype=th.float32) 
+                    guidance=False, # classifier-free guidance
+                    clip_denoised=True,
+                    model_kwargs={}, # This is not needed, just class conditional stuff
+                    progress=False
+                )
+                sample = ((sample + 1) * 127.5).clamp(0, 255).to(th.uint8)
+                sample = sample.permute(0, 2, 3, 1)
+                sample = sample.contiguous().cpu().numpy()
+
+                if ind <5: # Save 5 batches as images to see the visualizations
+                    for sidx, s in enumerate(sample):
+                        plt.imsave(os.path.join(im_path, f'{sidx + ind*self.batch_size}.png'), s)
+                all_images.extend(sample)
+
+>>>>>>> 0e1e2e856568fae4e6b8bc880851164f92397661
             all_images = all_images[: self.how_many_samples]
             
             sample_path = os.path.join(self.save_samples_dir, f"samples_{self.step+self.resume_step}.npz")
