@@ -1,40 +1,32 @@
-
-import matplotlib.pyplot as plt 
-import numpy as np 
 import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
 
 
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 6))
-colors = plt.cm.Reds(np.linspace(0.1, 1, 5))  # Shades of red
+colors = plt.cm.Blues(np.linspace(0.2, 1, 8))  # Shades of red
 
-for idx, (g, g_name) in enumerate({
-    0.25: '0_25-1', 0.5: '0_5-1', 0.75: '0_75-1', 0.9: '0_9-1'
-    }.items()):
-    
-    guidance_scale = np.linspace(1, g, 50)
+x = np.arange(0, 201, 25)
 
-    csv_file = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/time_linear_guidance/{g_name}/evaluation.csv"
-    csv_file = pd.read_csv(csv_file)
-    y = csv_file['FID'].min()
-    x = [ 0.25, 
-    0.5, 0.75, 0.9]
-    y = [0 if i!=g else y for i in x]
-    #x = np.arange(0, 301, 25)
-    #ax1.plot(x, y, label=time_weight, color=colors[idx])
-    ax1.bar(x, y, label=g, color=colors[idx], width=0.1)
-    x = np.linspace(0, 50, 50)
-    ax2.plot(x, guidance_scale, label=g, color=colors[idx])
+csv_file = f"/home/ymbahram/scratch/clf_trg_results/results_samesample/time-step_g-only/data10/evaluation.csv" # Only KID
+df = pd.read_csv(csv_file)
 
-ax1.set_title('FID vs Timestep')
-ax1.set_xlabel('Timestep')
-ax1.set_ylabel('FID')
-ax1.legend()
-ax1.set_ylim([0, 140])
+g = 0
+df = df[df['g']==g] # select for plot
 
-ax2.set_title('Time-based linear schedule')
-ax2.set_xlabel('Time-step')
-ax2.set_ylabel('Linear Schedule')
+for color, p2_gamma in zip(colors, [0#, 0.1, 0.3, 1, 3, 10
+                                    ]):
 
-ax2.legend()
+    if p2_gamma == 0:
+        plt.plot(x, df[df['p2_gamma']==0]['KID'], label=p2_gamma, color='red')
+    else:
+        plt.plot(x, df[df['p2_gamma']==p2_gamma]['KID'], label=p2_gamma, color=color)
 
-plt.savefig('/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_results/time_linear_guidance/evaluation.png')
+
+plt.xlabel('Epoch')
+plt.ylabel('KID')
+plt.title(f'KID P2_gamma (g only {g}) Schedule adaptation over fixed guidances for data10-shot pokemon')
+plt.legend()
+plt.ylim([0,0.5])
+# Show the plot
+plt.tight_layout()
+plt.savefig(f'/home/ymbahram/scratch/clf_trg_results/results_samesample/time-step_g-only/data10/KID_{g}.png')

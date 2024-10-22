@@ -228,10 +228,19 @@ class TrainLoop:
             last_batch = (i + self.microbatch) >= batch.shape[0]
             t, weights = self.schedule_sampler.sample(micro.shape[0], 'cuda') # REMOVED
 
-            if self.clf_time_based == True: # time-based guidance
+            if self.clf_time_based == True: # time-based guidance # time-schedule based on p2 weighting  time-step weighting
                 guidance = th.tensor(self.guidance_scale, device='cuda', dtype=th.float32) 
                 guidance = guidance[t]
                 guidance = guidance.view(guidance.size()[0], 1, 1, 1)
+                # print("****"*20)
+                # print('T is like this now:')
+                # print(t)
+                # print(t.size())
+                # print("Now guidance is like this:")
+                # print(guidance)
+                # print(guidance.size())
+                # print("****"*20)
+
             else: # classifier-free guidance
                 guidance = self.guidance_scale[self.step + self.resume_step]
                 guidance = th.tensor([guidance], device='cuda', dtype=th.float32) 
