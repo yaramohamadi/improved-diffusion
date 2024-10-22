@@ -1,3 +1,5 @@
 .DS_Store
 __pycache__/
-/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files
+# Ignore large filess
+util_files/
+clf_trg_results/
