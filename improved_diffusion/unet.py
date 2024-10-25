@@ -197,6 +197,137 @@ class ResBlock(TimestepBlock):
         return self.skip_connection(x) + h
 
 
+# _________________________________ TIMEAWARE ________________________________
+
+
+class Time_FusionBlock(TimestepBlock):
+    """
+    Time-Fusion module with weight sharing.
+    :param channels: Number of input channels.
+    :param emb_channels: Number of channels in the time embeddings.
+    :param im_size: Image size for layer normalization.
+    :param num_heads: Number of attention heads.
+    :param use_checkpoint: Whether to use gradient checkpointing.
+    """
+    def __init__(self, channels, emb_channels, im_size=8, num_heads=1, use_checkpoint=False):
+        super().__init__()
+        self.channels = channels
+        self.emb_channels = emb_channels
+        self.num_heads = num_heads
+        self.use_checkpoint = use_checkpoint
+
+        # Layer normalization for input features
+        self.layernorm = nn.LayerNorm([channels, im_size ** 2])
+        self.layernorm2 = nn.LayerNorm([channels, im_size ** 2])
+
+        # Matching dimension of time embedding to Z_in
+        self.feed_forward1 = nn.Sequential(
+            linear(emb_channels, channels),
+            SiLU(),
+            linear(channels, channels)
+        )
+
+        # Linear layer after adding time-embedding to Z_in
+        self.feed_forward2 = nn.Sequential(
+            conv_nd(1, channels, channels, 1),
+            SiLU()
+        )
+
+        # Attention layers for cross-attention
+        self.q = conv_nd(1, channels, channels, 1)
+        self.k = conv_nd(1, channels, channels, 1)
+        self.v = conv_nd(1, channels, channels, 1)
+        self.crossattention = QKVAttention()
+
+        # Projection layer for the output of the attention
+        self.proj_out = zero_module(conv_nd(1, channels, channels, 1))
+
+    def forward(self, x, emb):
+        return checkpoint(self._forward, (x, emb), self.parameters(), self.use_checkpoint)
+
+    def _forward(self, x, emb):
+        # Process the time embedding and add it to the input
+        emb = self.feed_forward1(emb)
+        emb = emb.unsqueeze(-1).repeat(1, 1, x.shape[-1])
+        h = self.feed_forward2(emb + x)
+        h = self.layernorm(h)
+
+        # Cross-attention between Z_in and the modified input features
+        b, c, *spatial = x.shape
+        x = x.reshape(b, c, -1)
+        h = h.reshape(b, c, -1)
+
+        q = self.q(h) # Z-query
+        k = self.k(x) # Z-in
+        v = self.v(x) # Z-in
+
+        qkv = th.cat((q, k, v), dim=1)
+        qkv = qkv.reshape(b * self.num_heads, -1, qkv.shape[2])
+
+        h = self.crossattention(qkv)
+        h = h.reshape(b, -1, h.shape[-1])
+
+        return self.layernorm2(h)
+
+
+
+class Time_AttentionBlock(TimestepBlock):
+    """
+    Time aware attention block with weight sharing.
+    """
+
+    def __init__(self, channels, emb_channels, time_fusion, num_heads=1, use_checkpoint=False):
+        super().__init__()
+        self.channels = channels
+        self.emb_channels = emb_channels
+        self.num_heads = num_heads
+        self.use_checkpoint = use_checkpoint
+
+        # Normalization and QKV attention
+        self.norm = normalization(channels)
+        self.qkv = conv_nd(1, channels, channels * 3, 1)
+        self.attention = QKVAttention()
+        self.proj_out = zero_module(conv_nd(1, channels, channels, 1))
+
+        # Reference to the shared time-fusion block (to share weights)
+        self.time_fusion = time_fusion
+
+        # Time-scaling module to compute alpha_t scaling factor
+        self.time_scaling = nn.Sequential(
+            linear(emb_channels, channels),
+            SiLU(),
+            linear(channels, channels),
+            nn.Sigmoid()
+        )
+
+    def forward(self, x, emb):
+        return checkpoint(self._forward, (x, emb), self.parameters(), self.use_checkpoint)
+
+    def _forward(self, x, emb):
+        b, c, *spatial = x.shape
+
+        # Perform attention operations
+        x = x.reshape(b, c, -1)
+        qkv = self.qkv(self.norm(x))
+        qkv = qkv.reshape(b * self.num_heads, -1, qkv.shape[2])
+        h = self.attention(qkv)
+        h = h.reshape(b, -1, h.shape[-1])
+
+        # Compute time scaling factor alpha_t
+        alpha_t = self.time_scaling(emb)
+        
+        # Perform time fusion with shared weight block
+        z = self.time_fusion(h, emb)
+        
+        # Final output of the time-aware adapter
+        alpha_t = alpha_t[..., None]
+        h = (1 - alpha_t) * h + alpha_t * z
+
+        h = self.proj_out(h)
+        return (x + h).reshape(b, c, *spatial)
+
+
+# _________________________________ END ________________________________
 
 
 
@@ -299,7 +430,7 @@ class UNetModel(nn.Module):
         class-conditional with `num_classes` classes.
     :param use_checkpoint: use gradient checkpointing to reduce memory usage.
     :param num_heads: the number of attention heads in each attention layer.
-    :param time-aware: Related to paper A3FT for time-aware attention fine-tuning.
+    :param time_aware: Related to paper A3FT for time-aware attention fine-tuning.
     """
 
     def __init__(
@@ -317,7 +448,8 @@ class UNetModel(nn.Module):
         use_checkpoint=False,
         num_heads=1,
         num_heads_upsample=-1,
-        use_scale_shift_norm=False
+        use_scale_shift_norm=False,
+        time_aware = False # TIMEAWARE
     ):
         super().__init__()
 
@@ -337,12 +469,24 @@ class UNetModel(nn.Module):
         self.num_heads = num_heads
         self.num_heads_upsample = num_heads_upsample
 
+        # TIMEAWARE: Define shared Time-Fusion blocks for specific channels
+        self.time_aware = time_aware
+
         time_embed_dim = model_channels * 4
         self.time_embed = nn.Sequential(
             linear(model_channels, time_embed_dim),
             SiLU(),
             linear(time_embed_dim, time_embed_dim),
         )
+        
+        if self.time_aware:
+            # Generalized for future changes in resolution choices.
+            self.time_fusion_blocks = {
+                384: Time_FusionBlock(channels=384, im_size=16, emb_channels=time_embed_dim, num_heads=num_heads, use_checkpoint=use_checkpoint),
+                512: Time_FusionBlock(channels=512, im_size=8, emb_channels=time_embed_dim, num_heads=num_heads, use_checkpoint=use_checkpoint),
+            }
+
+        
         
         if self.num_classes is not None:
             self.label_emb = nn.Embedding(num_classes, time_embed_dim)
@@ -373,7 +517,7 @@ class UNetModel(nn.Module):
 
                 ch = mult * model_channels
                 if ds in attention_resolutions:
-                        layers.append(AttentionBlock(ch, use_checkpoint=use_checkpoint, num_heads=num_heads))
+                        layers.append(self._get_attention_block(ch, time_embed_dim)) # TIME-AWARE
                         
                 self.input_blocks.append(TimestepEmbedSequential(*layers))
                 input_block_chans.append(ch)
@@ -393,9 +537,8 @@ class UNetModel(nn.Module):
                 use_checkpoint=use_checkpoint,
                 use_scale_shift_norm=use_scale_shift_norm,
             ),
-                AttentionBlock(
-                ch, use_checkpoint=use_checkpoint, num_heads=num_heads
-            ),
+                self._get_attention_block(ch, time_embed_dim)
+            , # TIME-AWARE
             ResBlock(
                 ch,
                 time_embed_dim,
@@ -422,7 +565,7 @@ class UNetModel(nn.Module):
                 ]
                 ch = model_channels * mult
                 if ds in attention_resolutions:
-                    layers.append(AttentionBlock(ch, use_checkpoint=use_checkpoint, num_heads=num_heads))
+                    layers.append(self._get_attention_block(ch, time_embed_dim)) # TIME-AWARE
                         
                 if level and i == num_res_blocks:
                     layers.append(Upsample(ch, conv_resample, dims=dims))
@@ -435,6 +578,20 @@ class UNetModel(nn.Module):
             zero_module(conv_nd(dims, model_channels, out_channels, 3, padding=1)),
         )
 
+
+    # __________________________ TIME-AWARE ________________________________
+    def _get_attention_block(self, ch, time_embed_dim):
+        """
+        Selects and returns the appropriate attention block based on `time_aware` flag.
+        """
+        if self.time_aware and ch in self.time_fusion_blocks:
+            return Time_AttentionBlock(
+                ch, emb_channels=time_embed_dim, time_fusion=self.time_fusion_blocks[ch], use_checkpoint=self.use_checkpoint, num_heads=self.num_heads
+            )
+        return AttentionBlock(ch, use_checkpoint=self.use_checkpoint, num_heads=self.num_heads)
+    # __________________________ END _______________________________________
+
+    
     def convert_to_fp16(self):
         """
         Convert the torso of the model to float16.
