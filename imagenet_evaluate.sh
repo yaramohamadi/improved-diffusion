@@ -12,5 +12,4 @@ module load python/3.11.5
 source /home/ymbahram/projects/def-hadi87/ymbahram/gputorch/bin/activate
 # pip install -e .
 
-python /home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/classifier-free-guidance/evaluation/evaluate.py
-
+python /home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/a3ft/scripts/finetuning_samesample_a3ft.py

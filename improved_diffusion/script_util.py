@@ -95,7 +95,7 @@ def create_model(
     num_heads_upsample,
     use_scale_shift_norm,
     dropout,
-    time_aware = False # TIMEAWARE
+    time_aware = False, # TIMEAWARE
 ):
     if image_size == 256:
         channel_mult = (1, 1, 2, 2, 4, 4)
@@ -123,6 +123,7 @@ def create_model(
         num_heads=num_heads,
         num_heads_upsample=num_heads_upsample,
         use_scale_shift_norm=use_scale_shift_norm,
+        time_aware=time_aware,
     )
 
 
