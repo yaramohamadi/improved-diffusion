@@ -128,10 +128,13 @@ ref_dataset_npz = '/home/ymbahram/scratch/pokemon/pokemon_64x64.npz'
 # Fixed noise vector
 noise_vector = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/pokemon_fixed_noise.npy'
 
+# Load the noise vector from the .npy file
+noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
+
 
 # ____________________ Model ____________________
 
-modes = ['a3ft', 'finetune', 'attention_finetune']
+modes = ['finetune', 'attention_finetune']
 
 for mode in modes: 
 
@@ -169,10 +172,6 @@ for mode in modes:
         rescale_learned_sigmas=rescale_learned_sigmas,
         timestep_respacing=timestep_respacing,
     )
-
-    # Load the noise vector from the .npy file
-    noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
-
 
     for dataset_size in [10]:#, 100, 700, 2503]:
 
