@@ -7,28 +7,22 @@ colors = plt.cm.Blues(np.linspace(0.2, 1, 8))  # Shades of red
 
 x = np.arange(0, 201, 25)
 
-csv_file = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_trg_results/results_samesample/data10/evaluation_all.csv"
-df = pd.read_csv(csv_file)
 
-for color, (guidance, file) in zip(colors, {
-            #0.8: '0_8', 0.9: '0_9', 0.95: '0_95', 1: '1', 1.05: '1_05', 1.1: '1_1', 1.2: '1_2',
-            0:'0', 0.05: '0_05' , 0.1: '0_1'# , 0.2: '0_2'
-            # 0:'0', 0.1: '0_1', 0.5: '0_5', 0.25: '0_25', 1:'1', 2.5:'2_5', 5:'5', 10:'10'
-}.items()):
 
-    # Load the CSV file into a DataFrame
-    # csv_file = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_trg_results/fixed_guidance/{file}/evaluation.csv"
+modes = ['a3ft', 'attention_finetune', 'finetune']
+metric = 'FID'
 
-    if guidance == 0:
-        plt.plot(x, df[df['g']==guidance]['intra_LPIPS'], label=guidance, color='red')
-    else:
-        plt.plot(x, df[df['g']==guidance]['intra_LPIPS'], label=guidance, color=color)
+for mode in modes: 
+    csv_file = f"/home/ymbahram/scratch/baselines/a3ft/results_samesample/data10/{mode}/{metric}.csv"
+    df = pd.read_csv(csv_file)
+
+    plt.plot(x, df[metric], label=mode)
 
 
 plt.xlabel('Epoch')
-plt.ylabel('intra_LPIPS')
-plt.title('intra_LPIPS adaptation over fixed guidances for data10-shot pokemon')
+plt.ylabel(metric)
+plt.title('a3ft over fixed guidances for data10-shot pokemon')
 plt.legend()
 # Show the plot
 plt.tight_layout()
-plt.savefig('/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_trg_results/results_samesample/data10/intra_LPIPS.png')
+plt.savefig(f'/home/ymbahram/scratch/baselines/a3ft/results_samesample/data10/{metric}.png')
