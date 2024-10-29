@@ -69,7 +69,9 @@ class TrainLoop:
         eval_func=None,
         # For fixing sampling
         noise_vector=None,
+        epochs=201,
     ):
+        self.epochs=epochs
         self.noise_vector=noise_vector
         self.clf_time_based=clf_time_based
         self.guidance_scale=guidance_scale
@@ -198,7 +200,7 @@ class TrainLoop:
                     self.samplefunc() # Possible metric evaluations happening here also
                     self.model.train()
             self.step += 1
-            if self.step == 201:
+            if self.step == self.epochs:
                 break
             
         # Save the last checkpoint if it wasn't already saved.

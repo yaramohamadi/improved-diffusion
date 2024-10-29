@@ -1,14 +1,6 @@
 .gitignore
-LICENSE
-README.md
 imagenet_sample.sh
 setup.py
-.ipynb_checkpoints/3-checkpoint.ipynb
-.ipynb_checkpoints/Initial time-checkpoint.ipynb
-datasets/README.md
-datasets/cifar10.py
-datasets/lsun_bedroom.py
-datasets/.ipynb_checkpoints/lsun_bedroom-checkpoint.py
 evaluation/__init__.py
 evaluation/evaluation.py
 improved_diffusion/__init__.py
@@ -22,7 +14,6 @@ improved_diffusion/nn.py
 improved_diffusion/resample.py
 improved_diffusion/respace.py
 improved_diffusion/script_util.py
-improved_diffusion/tmp2.py
 improved_diffusion/train_util.py
 improved_diffusion/unet.py
 improved_diffusion.egg-info/PKG-INFO
@@ -39,9 +30,6 @@ improved_diffusion/.ipynb_checkpoints/resample-checkpoint.py
 improved_diffusion/.ipynb_checkpoints/script_util-checkpoint.py
 improved_diffusion/.ipynb_checkpoints/train_util-checkpoint.py
 improved_diffusion/.ipynb_checkpoints/unet-checkpoint.py
-scripts/evaluate.py
-scripts/evaluation.py
-scripts/evaluation_plots.py
 scripts/finetuning10.py
 scripts/finetuning10_cfguidance.py
 scripts/imagenet_sample.py

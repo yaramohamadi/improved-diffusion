@@ -8,44 +8,43 @@ importlib.reload(evaluation)
 ref_path = '/home/ymbahram/scratch/pokemon/pokemon_64x64.npz' # The target full dataset
 target_path = '/home/ymbahram/scratch/pokemon/pokemon_10.npz' # The target 10-shot dataset
 source_batch = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/imagenet_pretrained.npz' # Source samples from pre-fixed noise vectors
-
-data_list = []
-
-for g, g_name in {0:'0',0.05:'0_05',0.1:'0_1'
-        }.items(): 
     
-    for p2_gamma in [0, 0.1, 0.3, 1, 3, 10]:
+modes = ['attention_finetune', 'finetune', 'a3ft']
 
-        if g == 0 and p2_gamma in [0.1, 0.3, 1, 3, 10]:
-            continue
+for mode in modes: 
 
-        for epoch in np.arange(0, 201, 25):
+    for g, g_name in {0:'0'
+            }.items(): 
+
+        for dataset_size in [10]:
+
+            data_list = []
+
+            print("__________________________ STARTING FROM FIRST EPOCH_____________________")
+
+            for epoch in np.arange(0, 201, 25):
+                
+                print("*"*20)
+                print(f"{g_name} {mode} configuration {epoch} epoch")
+                print("*"*20)
+                sample_path = f"/home/ymbahram/scratch/baselines/a3ft/results_samesample/data{dataset_size}/{mode}/samples/samples_{epoch}.npz"
+                results = evaluation.runEvaluate(ref_path, sample_path, 
+                                    #FID=True, 
+                                    #IS=True, 
+                                    #sFID=True, 
+                                    #prec_recall=True, 
+                                    # KID=True, 
+                                    # LPIPS=True, source_batch=source_batch, 
+                                    intra_LPIPS=True, target_batch=target_path, 
+                                    verbose=True)
+                
+                results['epoch'] = epoch
+                results['mode'] = mode
+                data_list.append(results)
+
+                df = pd.DataFrame(data_list)
+                csv_file = f"/home/ymbahram/scratch/baselines/a3ft/results_samesample/data{dataset_size}/{mode}/intra_LPIPS.csv"
+                df.to_csv(csv_file, index=False)
+
+                print(f"_______________________________{g} {mode} {epoch} has been written to {csv_file}_______________________")
             
-            if g == 0.1 and (epoch == 175 or epoch == 200):
-                continue
-
-            print("*"*20)
-            print(f"{g_name} {p2_gamma} configuration {epoch} epoch")
-            print("*"*20)
-            sample_path = f'/home/ymbahram/scratch/clf_trg_results/results_samesample/time-step/data10_2/{g_name}_{p2_gamma}/samples/samples_{epoch}.npz'
-            results = evaluation.runEvaluate(ref_path, sample_path, 
-                                #FID=True, 
-                                #IS=True, 
-                                #sFID=True, 
-                                #prec_recall=True, 
-                                KID=True, 
-                                # LPIPS=True, source_batch=source_batch, 
-                                # intra_LPIPS=True, target_batch=target_path, 
-                                verbose=True)
-
-            results['epoch'] = epoch
-            results['g'] = g
-            results['p2_gamma'] = p2_gamma
-            data_list.append(results)
-
-            df = pd.DataFrame(data_list)
-            csv_file = f"/home/ymbahram/scratch/clf_trg_results/results_samesample/time-step/data10_2/evaluation.csv"
-            df.to_csv(csv_file, index=False)
-
-            print(f"_______________________________{g_name} {p2_gamma} has been written to {csv_file}_______________________")
-        

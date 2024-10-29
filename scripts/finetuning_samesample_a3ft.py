@@ -75,7 +75,8 @@ def selective_freeze_unfreeze(model, time_aware=False, target_channels=(384, 512
 
 
 
-# Training  
+# Training 
+epochs = 201 
 batch_size=10
 schedule_sampler="uniform" 
 lr=1e-4
@@ -134,7 +135,7 @@ noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
 
 # ____________________ Model ____________________
 
-modes = ['finetune', 'attention_finetune']
+modes = ['attention_finetune', 'finetune'] # 'a3ft'] # , 
 
 for mode in modes: 
 
@@ -173,7 +174,7 @@ for mode in modes:
         timestep_respacing=timestep_respacing,
     )
 
-    for dataset_size in [10]:#, 100, 700, 2503]:
+    for dataset_size in [10]:
 
         # The dataset you want to finetune on
         data_dir = f'/home/ymbahram/scratch/pokemon/pokemon{dataset_size}/' 
@@ -215,7 +216,7 @@ for mode in modes:
 
             # Imagine we are training for 200 epochs max 
             # Fixed
-            guidance_scale = np.array([g for _ in range(201)]) # Fixed Line
+            guidance_scale = np.array([g for _ in range(epochs)]) # Fixed Line
 
             # Where to log the training loss (File does not have to exist)
             loss_logger=f"/home/ymbahram/scratch/baselines/a3ft/results_samesample/data{dataset_size}/{mode}/trainlog.csv"
@@ -260,5 +261,6 @@ for mode in modes:
                 guidance_scale=guidance_scale,
                 clf_time_based=False,
                 # for fixed sampling
-                noise_vector=noise_vector
+                noise_vector=noise_vector,
+                epochs=epochs,
             ).run_loop()
