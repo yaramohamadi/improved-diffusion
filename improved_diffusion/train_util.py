@@ -140,9 +140,10 @@ class TrainLoop:
 
         if resume_checkpoint:
             self.resume_step = parse_resume_step_from_filename(resume_checkpoint)
-            # REMOVED 
-            print(f"loading model from checkpoint: {resume_checkpoint}...")
-
+            print("______________________________")
+            print(f"Resuming model from checkpoint: {resume_checkpoint}...")
+            print(f"Resuming step is {self.resume_step}")
+            print("______________________________")
             with bf.BlobFile(resume_checkpoint, "rb") as f:
                 data = f.read()
             self.model.load_state_dict(
