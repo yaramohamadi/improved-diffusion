@@ -137,15 +137,9 @@ noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
 # ____________________ Model ____________________
 
 
-# , 'finetune', 'attention_finetune'
-
-modes = ['a3ft']
+modes = ['a3ft', 'finetune', 'attention_finetune']
 
 for mode in modes: 
-
-    print("*"*20)
-    print('Mode : ', mode)
-    print("*"*20)
     
     # TIMEAWARE
     time_aware = True if mode =='a3ft' else False
@@ -210,16 +204,16 @@ for mode in modes:
 
             # _____________ IF RESUMING KEEP THIS
             epochs = 501
-            path300 = "/home/ymbahram/scratch/baselines/a3ft/results_samesample/data{dataset_size}/{mode}/checkpoints/model000300.pt"
-            path200 = "/home/ymbahram/scratch/baselines/a3ft/results_samesample/data{dataset_size}/{mode}/checkpoints/model000200.pt"
+            path300 = f"/home/ymbahram/scratch/baselines/a3ft/results_samesample/data{dataset_size}/{mode}/checkpoints/model000300.pt"
             if os.path.isfile(path300):
                 print("-------Resuming from 300...")
                 load_model_path = path300
                 resume_checkpoint = path300
-            elif os.path.isfile(path200):
-                print("-------Resuming from 200...")
-                load_model_path = path300
-                resume_checkpoint = path300
+            else:
+                print("Checkpoint not detected bro....")
+                print('Starting from scratch bro....')
+                load_model_path = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/imagenet64_uncond_100M_1500K.pt"
+                resume_checkpoint = ""
         
             model_path=load_model_path
             checkpoint = th.load(model_path)

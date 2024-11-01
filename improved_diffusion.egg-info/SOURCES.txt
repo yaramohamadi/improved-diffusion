@@ -30,10 +30,6 @@ improved_diffusion/.ipynb_checkpoints/resample-checkpoint.py
 improved_diffusion/.ipynb_checkpoints/script_util-checkpoint.py
 improved_diffusion/.ipynb_checkpoints/train_util-checkpoint.py
 improved_diffusion/.ipynb_checkpoints/unet-checkpoint.py
-scripts/finetuning10.py
-scripts/finetuning10_cfguidance.py
-scripts/imagenet_sample.py
-scripts/tmp.py
 scripts/.ipynb_checkpoints/image_nll-checkpoint.py
 scripts/.ipynb_checkpoints/image_sample-checkpoint.py
 scripts/.ipynb_checkpoints/image_train-checkpoint.py
