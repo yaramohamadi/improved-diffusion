@@ -75,8 +75,8 @@ def selective_freeze_unfreeze(model, time_aware=False, target_channels=(384, 512
 
 
 
-# Training 
-epochs = 201 
+# Training  
+epochs = 501 
 batch_size=10
 schedule_sampler="uniform" 
 lr=1e-4
@@ -174,7 +174,7 @@ for mode in modes:
         timestep_respacing=timestep_respacing,
     )
 
-    for dataset_size in [10]:
+    for dataset_size in [2503]:
 
         # The dataset you want to finetune on
         data_dir = f'/home/ymbahram/scratch/pokemon/pokemon{dataset_size}/' 
@@ -214,7 +214,6 @@ for mode in modes:
             pretrained_model = copy.deepcopy(model)
             pretrained_model.to('cuda')
 
-            # Imagine we are training for 200 epochs max 
             # Fixed
             guidance_scale = np.array([g for _ in range(epochs)]) # Fixed Line
 

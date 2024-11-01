@@ -194,18 +194,18 @@ class TrainLoop:
             
             batch, cond = next(self.data)
             self.run_step(batch, cond) 
-            if self.step % self.save_interval == 0:
+            if (self.step  + self.resume_step ) % self.save_interval == 0:
                 self.save()
                 if self.sample: # Added this for sampling
                     self.model.eval()
                     self.samplefunc() # Possible metric evaluations happening here also
                     self.model.train()
             self.step += 1
-            if self.step == self.epochs:
+            if self.step + self.resume_step == self.epochs:
                 break
             
         # Save the last checkpoint if it wasn't already saved.
-        if (self.step - 1) % self.save_interval != 0:
+        if (self.step  + self.resume_step - 1) % self.save_interval != 0:
             self.save()
 
     def run_step(self, batch, cond): 
