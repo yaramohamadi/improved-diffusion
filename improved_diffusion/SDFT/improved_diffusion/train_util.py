@@ -69,7 +69,9 @@ class TrainLoop:
         eval_func=None,
         # For fixing sampling
         noise_vector=None,
+        epochs=201
     ):
+        self.epochs=epochs
         self.noise_vector=noise_vector
         self.clf_time_based=clf_time_based
         self.guidance_scale=guidance_scale
@@ -192,18 +194,20 @@ class TrainLoop:
             batch, cond = next(self.data)
             self.run_step(batch, cond) 
             if self.step % self.save_interval == 0:
-                self.save()
+                if self.checkpoint_dir != "": 
+                    self.save()
                 if self.sample: # Added this for sampling
                     self.model.eval()
                     self.samplefunc() # Possible metric evaluations happening here also
                     self.model.train()
             self.step += 1
-            if self.step == 201:
+            if self.step + self.resume_step == self.epochs:
                 break
             
         # Save the last checkpoint if it wasn't already saved.
         if (self.step - 1) % self.save_interval != 0:
-            self.save()
+            if self.checkpoint_dir != "": 
+                self.save()
 
     def run_step(self, batch, cond): 
         self.forward_backward(batch, cond)  
@@ -232,14 +236,6 @@ class TrainLoop:
                 guidance = th.tensor(self.guidance_scale, device='cuda', dtype=th.float32) 
                 guidance = guidance[t]
                 guidance = guidance.view(guidance.size()[0], 1, 1, 1)
-                # print("****"*20)
-                # print('T is like this now:')
-                # print(t)
-                # print(t.size())
-                # print("Now guidance is like this:")
-                # print(guidance)
-                # print(guidance.size())
-                # print("****"*20)
 
             if self.clf_time_based == True: # time-based guidance
                 guidance = th.tensor(self.guidance_scale, device='cuda', dtype=th.float32) 
@@ -268,6 +264,9 @@ class TrainLoop:
                 )
 
             loss = (losses["loss"] * weights).mean()
+            log_loss_dict(
+                {k: v * weights for k, v in losses.items()}, self.loss_logger
+            )
 
             if self.use_fp16:
                 loss_scale = 2 ** self.lg_loss_scale
@@ -398,25 +397,6 @@ class TrainLoop:
                         plt.imsave(os.path.join(im_path, f'{sidx + ind*self.batch_size}.png'), s)
                 all_images.extend(sample)
 
-
-                sample = sample_fn(
-                    self.model,
-                    (self.batch_size, 3, self.image_size , self.image_size),
-                    source_model=self.pretrained_model, # classifier-free guidance  guidance = th.tensor([guidance], device='cuda', dtype=th.float32) 
-                    guidance=False, # classifier-free guidance
-                    clip_denoised=True,
-                    model_kwargs={}, # This is not needed, just class conditional stuff
-                    progress=False
-                )
-                sample = ((sample + 1) * 127.5).clamp(0, 255).to(th.uint8)
-                sample = sample.permute(0, 2, 3, 1)
-                sample = sample.contiguous().cpu().numpy()
-
-                if ind <5: # Save 5 batches as images to see the visualizations
-                    for sidx, s in enumerate(sample):
-                        plt.imsave(os.path.join(im_path, f'{sidx + ind*self.batch_size}.png'), s)
-                all_images.extend(sample)
-
             all_images = all_images[: self.how_many_samples]
             
             sample_path = os.path.join(self.save_samples_dir, f"samples_{self.step+self.resume_step}.npz")
@@ -466,6 +446,12 @@ def find_ema_checkpoint(main_checkpoint, step, rate):
 
 # YO YO YO Im changin here
 def log_loss_dict(losses, loss_logger):
+
+    # Check if directory exists
+    directory = os.path.dirname(loss_logger)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+        print(f"Created directory: {directory}")
 
     # Check if the file exists
     file_exists = os.path.isfile(loss_logger)

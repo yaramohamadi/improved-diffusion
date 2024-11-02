@@ -241,6 +241,11 @@ def create_gaussian_diffusion(
     timestep_respacing="",
     p2_gamma=0, # For time-step weighting
     p2_k=1, # For time-step weighting
+    SDFT=False,# For SDFT
+    gamma_distil=0,# For SDFT
+    gamma_aux=0,# For SDFT
+    lambda_distil=0, # for SDFTT
+    lambda_aux=0, # for SDFT
 ):
     betas = gd.get_named_beta_schedule(noise_schedule, steps)
     if use_kl:
@@ -270,6 +275,11 @@ def create_gaussian_diffusion(
         rescale_timesteps=rescale_timesteps,
         p2_gamma=p2_gamma, # For time-step weighting
         p2_k=p2_gamma, # For time-step weighting
+        SDFT=SDFT,# For SDFT
+        gamma_distil=gamma_distil,# For SDFT
+        gamma_aux=gamma_aux,# For SDFT
+        lambda_distil=lambda_distil, # for SDFT
+        lambda_aux=lambda_aux, # for SDFT
     )
 
 

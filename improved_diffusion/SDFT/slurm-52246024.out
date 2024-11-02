@@ -1,0 +1,67 @@
+Looking in links: /cvmfs/soft.computecanada.ca/custom/python/wheelhouse/gentoo2023/x86-64-v4, /cvmfs/soft.computecanada.ca/custom/python/wheelhouse/gentoo2023/x86-64-v3, /cvmfs/soft.computecanada.ca/custom/python/wheelhouse/gentoo2023/generic, /cvmfs/soft.computecanada.ca/custom/python/wheelhouse/generic
+Obtaining file:///lustre03/project/6086105/ymbahram/improved_diffusion/SDFT
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: blobfile>=1.0.5 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from improved-diffusion==0.0.0) (2.1.1)
+Requirement already satisfied: torch in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from improved-diffusion==0.0.0) (2.3.1+computecanada)
+Requirement already satisfied: tqdm in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from improved-diffusion==0.0.0) (4.66.4+computecanada)
+Requirement already satisfied: pycryptodomex~=3.8 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from blobfile>=1.0.5->improved-diffusion==0.0.0) (3.19.0+computecanada)
+Requirement already satisfied: urllib3<3,>=1.25.3 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from blobfile>=1.0.5->improved-diffusion==0.0.0) (2.2.1)
+Requirement already satisfied: lxml~=4.9 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from blobfile>=1.0.5->improved-diffusion==0.0.0) (4.9.2+computecanada)
+Requirement already satisfied: filelock~=3.0 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from blobfile>=1.0.5->improved-diffusion==0.0.0) (3.13.1+computecanada)
+Requirement already satisfied: typing-extensions>=4.8.0 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (4.11.0+computecanada)
+Requirement already satisfied: sympy in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (1.12+computecanada)
+Requirement already satisfied: networkx in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (3.3+computecanada)
+Requirement already satisfied: jinja2 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (3.1.4+computecanada)
+Requirement already satisfied: fsspec in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (2024.3.1+computecanada)
+Requirement already satisfied: numpy<2.0,>=1.26 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (1.26.4+computecanada)
+Requirement already satisfied: MarkupSafe>=2.0 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from jinja2->torch->improved-diffusion==0.0.0) (2.1.3+computecanada)
+Requirement already satisfied: mpmath>=0.19 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from sympy->torch->improved-diffusion==0.0.0) (1.3.0+computecanada)
+Installing collected packages: improved-diffusion
+  Attempting uninstall: improved-diffusion
+    Found existing installation: improved-diffusion 0.0.0
+    Uninstalling improved-diffusion-0.0.0:
+      Successfully uninstalled improved-diffusion-0.0.0
+  Running setup.py develop for improved-diffusion
+Successfully installed improved-diffusion-0.0.0
+********************
+lambda_distil: 0, gamma_aux: 999, gamma_distil: 9999
+********************
+********************
+fixed guidance is 0
+********************
+0it [00:00, ?it/s]saving model 0...
+saving model 0.9999...
+sampling 10 images
+
+0it [00:00, ?it/s][A
+1it [03:14, 194.59s/it][A
+2it [03:26, 87.03s/it] [A2it [03:26, 103.16s/it]
+1it [05:27, 327.82s/it]sampling complete
+2it [05:28, 135.31s/it]3it [05:29, 74.16s/it] 4it [05:30, 45.04s/it]5it [05:30, 28.95s/it]6it [05:30, 19.24s/it]7it [05:31, 13.08s/it]8it [05:31,  9.04s/it]9it [05:32,  6.34s/it]10it [05:32,  4.51s/it]11it [05:32,  3.25s/it]12it [05:33,  2.38s/it]13it [05:33,  1.78s/it]14it [05:34,  1.37s/it]15it [05:34,  1.08s/it]16it [05:34,  1.15it/s]17it [05:35,  1.37it/s]18it [05:35,  1.58it/s]19it [05:36,  1.78it/s]20it [05:36,  1.94it/s]21it [05:36,  2.08it/s]22it [05:37,  2.19it/s]23it [05:37,  2.27it/s]24it [05:38,  2.33it/s]25it [05:38,  2.38it/s]saving model 0...
+saving model 0.9999...
+sampling 10 images
+
+0it [00:00, ?it/s][A
+1it [00:09,  9.09s/it][A
+2it [00:23, 11.99s/it][A2it [00:23, 11.55s/it]
+26it [08:34, 53.03s/it]sampling complete
+27it [08:34, 37.24s/it]28it [08:35, 26.19s/it]29it [08:35, 18.45s/it]30it [08:35, 13.04s/it]31it [08:36,  9.25s/it]32it [08:36,  6.59s/it]33it [08:37,  4.73s/it]34it [08:37,  3.43s/it]35it [08:37,  2.52s/it]36it [08:38,  1.89s/it]37it [08:38,  1.44s/it]38it [08:39,  1.13s/it]39it [08:39,  1.10it/s]40it [08:39,  1.32it/s]41it [08:40,  1.54it/s]42it [08:40,  1.74it/s]43it [08:41,  1.91it/s]44it [08:41,  2.06it/s]45it [08:41,  2.17it/s]46it [08:42,  2.26it/s]47it [08:42,  2.33it/s]48it [08:43,  2.37it/s]49it [08:43,  2.41it/s]50it [08:43,  2.43it/s]saving model 0...
+saving model 0.9999...
+sampling 10 images
+
+0it [00:00, ?it/s][A
+1it [00:13, 13.63s/it][A
+2it [00:24, 12.19s/it][A2it [00:24, 12.41s/it]
+51it [09:16, 10.02s/it]sampling complete
+52it [09:16,  7.14s/it]53it [09:17,  5.12s/it]54it [09:17,  3.70s/it]55it [09:18,  2.71s/it]56it [09:18,  2.02s/it]57it [09:18,  1.53s/it]58it [09:19,  1.20s/it]59it [09:19,  1.04it/s]60it [09:20,  1.26it/s]61it [09:20,  1.48it/s]62it [09:20,  1.68it/s]63it [09:21,  1.86it/s]64it [09:21,  2.01it/s]65it [09:22,  2.13it/s]66it [09:22,  2.23it/s]67it [09:22,  2.30it/s]68it [09:23,  2.35it/s]69it [09:23,  2.39it/s]70it [09:24,  2.42it/s]71it [09:24,  2.44it/s]72it [09:24,  2.45it/s]73it [09:25,  2.45it/s]74it [09:25,  2.46it/s]75it [09:26,  2.47it/s]saving model 0...
+saving model 0.9999...
+sampling 10 images
+
+0it [00:00, ?it/s][A
+1it [00:20, 20.12s/it][A
+2it [00:32, 15.29s/it][A2it [00:32, 16.02s/it]
+76it [20:02, 191.22s/it]sampling complete
+77it [20:02, 133.98s/it]78it [20:03, 93.91s/it] 79it [20:03, 65.86s/it]80it [20:04, 46.22s/it]81it [20:04, 32.47s/it]82it [20:05, 22.85s/it]83it [20:06, 16.57s/it]84it [20:07, 11.72s/it]85it [20:07,  8.32s/it]86it [20:08,  5.95s/it]87it [20:08,  4.28s/it]88it [20:08,  3.12s/it]89it [20:09,  2.30s/it]90it [20:09,  1.73s/it]91it [20:10,  1.33s/it]92it [20:10,  1.05s/it]93it [20:10,  1.16it/s]94it [20:11,  1.39it/s]95it [20:11,  1.60it/s]96it [20:12,  1.79it/s]97it [20:12,  1.95it/s]98it [20:12,  2.09it/s]99it [20:13,  2.19it/s]99it [20:13, 12.26s/it]
+saving model 0...
+saving model 0.9999...
