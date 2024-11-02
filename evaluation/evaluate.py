@@ -9,20 +9,23 @@ ref_path = '/home/ymbahram/scratch/pokemon/pokemon_64x64.npz' # The target full 
 target_path = '/home/ymbahram/scratch/pokemon/pokemon_10.npz' # The target 10-shot dataset
 source_batch = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/imagenet_pretrained.npz' # Source samples from pre-fixed noise vectors
     
-modes = ['attention_finetune'] # 'attention_finetune', 'finetune', 
+modes = ['finetune'] 
 
 for mode in modes: 
 
     for g, g_name in {0:'0'
             }.items(): 
 
-        for dataset_size in [100]:
-
-            data_list = []
+        for dataset_size in [2503]:
+                
+            file_path = f"/home/ymbahram/scratch/baselines/a3ft/results_samesample/data{dataset_size}/{mode}/FID_KID.csv"
+            #df = pd.read_csv(file_path)
+            #first_epoch = df['epoch'].max()
+            first_epoch = -25
 
             print("__________________________ STARTING FROM FIRST EPOCH_____________________")
 
-            for epoch in np.arange(0, 201, 25):
+            for epoch in np.arange(first_epoch + 25, 501, 25):
                 
                 print("*"*20)
                 print(f"{g_name} {mode} configuration {epoch} epoch")
@@ -40,11 +43,11 @@ for mode in modes:
                 
                 results['epoch'] = epoch
                 results['mode'] = mode
-                data_list.append(results)
 
-                df = pd.DataFrame(data_list)
-                csv_file = f"/home/ymbahram/scratch/baselines/a3ft/results_samesample/data{dataset_size}/{mode}/FID_KID.csv"
-                df.to_csv(csv_file, index=False)
+                df_add = pd.DataFrame([results])
 
-                print(f"_______________________________{g} {mode} {epoch} has been written to {csv_file}_______________________")
+                # Append
+                df_add.to_csv(file_path, mode="a", index=False, header=not pd.io.common.file_exists(file_path))
+
+                print(f"_______________________________{g} {mode} {epoch} has been written to {file_path}_______________________")
             

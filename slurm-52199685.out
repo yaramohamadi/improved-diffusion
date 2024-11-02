@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/a3ft/scripts/finetuning_samesample_a3ft_metface.py", line 16, in <module>
-    from improved_diffusion.unet import AttentionBlock, Time_AttentionBlock
-ImportError: cannot import name 'Time_AttentionBlock' from 'improved_diffusion.unet' (/lustre03/project/6086105/ymbahram/improved_diffusion/SDFT/improved_diffusion/unet.py)
