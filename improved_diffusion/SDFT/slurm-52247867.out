@@ -1,133 +1,0 @@
-Looking in links: /cvmfs/soft.computecanada.ca/custom/python/wheelhouse/gentoo2023/x86-64-v4, /cvmfs/soft.computecanada.ca/custom/python/wheelhouse/gentoo2023/x86-64-v3, /cvmfs/soft.computecanada.ca/custom/python/wheelhouse/gentoo2023/generic, /cvmfs/soft.computecanada.ca/custom/python/wheelhouse/generic
-Obtaining file:///lustre03/project/6086105/ymbahram/improved_diffusion/SDFT
-  Preparing metadata (setup.py): started
-  Preparing metadata (setup.py): finished with status 'done'
-Requirement already satisfied: blobfile>=1.0.5 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from improved-diffusion==0.0.0) (2.1.1)
-Requirement already satisfied: torch in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from improved-diffusion==0.0.0) (2.3.1+computecanada)
-Requirement already satisfied: tqdm in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from improved-diffusion==0.0.0) (4.66.4+computecanada)
-Requirement already satisfied: pycryptodomex~=3.8 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from blobfile>=1.0.5->improved-diffusion==0.0.0) (3.19.0+computecanada)
-Requirement already satisfied: urllib3<3,>=1.25.3 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from blobfile>=1.0.5->improved-diffusion==0.0.0) (2.2.1)
-Requirement already satisfied: lxml~=4.9 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from blobfile>=1.0.5->improved-diffusion==0.0.0) (4.9.2+computecanada)
-Requirement already satisfied: filelock~=3.0 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from blobfile>=1.0.5->improved-diffusion==0.0.0) (3.13.1+computecanada)
-Requirement already satisfied: typing-extensions>=4.8.0 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (4.11.0+computecanada)
-Requirement already satisfied: sympy in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (1.12+computecanada)
-Requirement already satisfied: networkx in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (3.3+computecanada)
-Requirement already satisfied: jinja2 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (3.1.4+computecanada)
-Requirement already satisfied: fsspec in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (2024.3.1+computecanada)
-Requirement already satisfied: numpy<2.0,>=1.26 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (1.26.4+computecanada)
-Requirement already satisfied: MarkupSafe>=2.0 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from jinja2->torch->improved-diffusion==0.0.0) (2.1.3+computecanada)
-Requirement already satisfied: mpmath>=0.19 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from sympy->torch->improved-diffusion==0.0.0) (1.3.0+computecanada)
-Installing collected packages: improved-diffusion
-  Attempting uninstall: improved-diffusion
-    Found existing installation: improved-diffusion 0.0.0
-    Uninstalling improved-diffusion-0.0.0:
-      Successfully uninstalled improved-diffusion-0.0.0
-  Running setup.py develop for improved-diffusion
-Successfully installed improved-diffusion-0.0.0
-********************
-lambda_auxs: 0, gamma_aux: 9999, gamma_distil: 999
-********************
-********************
-fixed guidance is 0
-********************
-0it [00:00, ?it/s]Created directory: /home/ymbahram/scratch/baselines/SDFT/results_samesample/data10/aux_ablate/lambda_aux_only_0/gamma_aux9999
-sampling 1 images
-
-0it [00:00, ?it/s][A
-1it [00:13, 13.55s/it][A1it [00:13, 13.56s/it]
-1it [00:58, 58.58s/it]sampling complete
-2it [00:58, 24.37s/it]3it [00:59, 13.43s/it]4it [00:59,  8.29s/it]5it [01:00,  5.45s/it]6it [01:00,  3.74s/it]7it [01:01,  2.65s/it]8it [01:01,  1.94s/it]9it [01:01,  1.46s/it]10it [01:02,  1.14s/it]11it [01:02,  1.09it/s]12it [01:03,  1.31it/s]13it [01:03,  1.52it/s]14it [01:03,  1.72it/s]15it [01:04,  1.88it/s]16it [01:04,  2.02it/s]17it [01:05,  2.12it/s]18it [01:05,  2.20it/s]19it [01:06,  2.27it/s]20it [01:06,  2.30it/s]21it [01:06,  2.34it/s]22it [01:07,  2.36it/s]23it [01:07,  2.38it/s]24it [01:08,  2.39it/s]25it [01:08,  2.40it/s]sampling 1 images
-
-0it [00:00, ?it/s][A
-1it [00:06,  6.70s/it][A1it [00:06,  6.70s/it]
-26it [01:15,  2.49s/it]sampling complete
-27it [01:16,  1.87s/it]28it [01:16,  1.46s/it]29it [01:17,  1.14s/it]30it [01:17,  1.08it/s]31it [01:17,  1.30it/s]32it [01:18,  1.51it/s]33it [01:18,  1.70it/s]34it [01:19,  1.86it/s]35it [01:19,  2.00it/s]36it [01:20,  2.10it/s]37it [01:20,  2.19it/s]38it [01:20,  2.25it/s]39it [01:21,  2.30it/s]40it [01:21,  2.33it/s]41it [01:22,  2.35it/s]42it [01:22,  2.17it/s]43it [01:23,  2.23it/s]44it [01:23,  2.28it/s]45it [01:23,  2.31it/s]46it [01:24,  2.34it/s]47it [01:24,  2.36it/s]48it [01:25,  2.38it/s]49it [01:25,  2.39it/s]49it [01:26,  1.76s/it]
-********************
-lambda_auxs: 0.1, gamma_aux: 10, gamma_distil: 999
-********************
-********************
-fixed guidance is 0
-********************
-0it [00:00, ?it/s]Created directory: /home/ymbahram/scratch/baselines/SDFT/results_samesample/data10/aux_ablate/lambda_aux_only_0.1/gamma_aux10
-sampling 1 images
-
-0it [00:00, ?it/s][A
-1it [00:06,  6.37s/it][A1it [00:06,  6.37s/it]
-1it [00:07,  7.32s/it]sampling complete
-2it [00:07,  3.32s/it]3it [00:08,  2.05s/it]4it [00:08,  1.45s/it]5it [00:09,  1.11s/it]6it [00:09,  1.09it/s]7it [00:10,  1.27it/s]8it [00:10,  1.42it/s]9it [00:11,  1.54it/s]10it [00:12,  1.63it/s]11it [00:12,  1.71it/s]12it [00:13,  1.76it/s]13it [00:13,  1.80it/s]14it [00:14,  1.83it/s]15it [00:14,  1.85it/s]16it [00:15,  1.86it/s]17it [00:15,  1.87it/s]18it [00:16,  1.88it/s]19it [00:16,  1.89it/s]20it [00:17,  1.89it/s]21it [00:17,  1.90it/s]22it [00:18,  1.89it/s]23it [00:18,  1.90it/s]24it [00:19,  1.90it/s]25it [00:19,  1.90it/s]sampling 1 images
-
-0it [00:00, ?it/s][A
-1it [00:06,  6.23s/it][A1it [00:06,  6.23s/it]
-26it [00:26,  2.40s/it]sampling complete
-27it [00:27,  1.84s/it]28it [00:27,  1.45s/it]29it [00:28,  1.17s/it]30it [00:28,  1.02it/s]31it [00:29,  1.18it/s]32it [00:29,  1.34it/s]33it [00:30,  1.47it/s]34it [00:30,  1.57it/s]35it [00:31,  1.59it/s]36it [00:32,  1.67it/s]37it [00:32,  1.74it/s]38it [00:33,  1.78it/s]39it [00:33,  1.82it/s]40it [00:34,  1.84it/s]41it [00:34,  1.85it/s]42it [00:35,  1.86it/s]43it [00:35,  1.87it/s]44it [00:36,  1.88it/s]45it [00:36,  1.89it/s]46it [00:37,  1.89it/s]47it [00:37,  1.89it/s]48it [00:38,  1.89it/s]49it [00:38,  1.89it/s]49it [00:39,  1.24it/s]
-********************
-lambda_auxs: 0.1, gamma_aux: 30, gamma_distil: 999
-********************
-********************
-fixed guidance is 0
-********************
-0it [00:00, ?it/s]Created directory: /home/ymbahram/scratch/baselines/SDFT/results_samesample/data10/aux_ablate/lambda_aux_only_0.1/gamma_aux30
-sampling 1 images
-
-0it [00:00, ?it/s][A
-1it [00:06,  6.61s/it][A1it [00:06,  6.61s/it]
-1it [00:07,  7.14s/it]sampling complete
-2it [00:07,  3.25s/it]3it [00:08,  2.01s/it]4it [00:08,  1.42s/it]5it [00:09,  1.10s/it]6it [00:09,  1.10it/s]7it [00:10,  1.28it/s]8it [00:10,  1.43it/s]9it [00:11,  1.55it/s]10it [00:11,  1.64it/s]11it [00:12,  1.71it/s]12it [00:12,  1.76it/s]13it [00:13,  1.80it/s]14it [00:14,  1.83it/s]15it [00:14,  1.85it/s]16it [00:15,  1.86it/s]17it [00:15,  1.87it/s]18it [00:16,  1.87it/s]19it [00:16,  1.88it/s]20it [00:17,  1.88it/s]21it [00:17,  1.88it/s]22it [00:18,  1.88it/s]23it [00:18,  1.88it/s]24it [00:19,  1.88it/s]25it [00:19,  1.88it/s]sampling 1 images
-
-0it [00:00, ?it/s][A
-1it [00:42, 42.61s/it][A1it [00:42, 42.61s/it]
-26it [01:03, 13.32s/it]sampling complete
-27it [01:03,  9.49s/it]28it [01:04,  6.80s/it]29it [01:04,  4.92s/it]30it [01:05,  3.60s/it]31it [01:05,  2.68s/it]32it [01:06,  2.03s/it]33it [01:06,  1.58s/it]34it [01:07,  1.27s/it]35it [01:07,  1.04s/it]36it [01:08,  1.12it/s]37it [01:08,  1.28it/s]38it [01:09,  1.42it/s]39it [01:09,  1.53it/s]40it [01:10,  1.63it/s]41it [01:10,  1.70it/s]42it [01:11,  1.76it/s]43it [01:11,  1.80it/s]44it [01:12,  1.83it/s]45it [01:13,  1.85it/s]46it [01:13,  1.86it/s]47it [01:14,  1.87it/s]48it [01:14,  1.87it/s]49it [01:15,  1.88it/s]49it [01:15,  1.54s/it]
-********************
-lambda_auxs: 0.1, gamma_aux: 100, gamma_distil: 999
-********************
-********************
-fixed guidance is 0
-********************
-0it [00:00, ?it/s]/lustre03/project/6086105/ymbahram/improved_diffusion/SDFT/improved_diffusion/gaussian_diffusion.py:876: RuntimeWarning: overflow encountered in power
-  weight_aux = _extract_into_tensor(1 / (self.p2_k + self.snr)**self.gamma_aux, t, target.shape)
-Created directory: /home/ymbahram/scratch/baselines/SDFT/results_samesample/data10/aux_ablate/lambda_aux_only_0.1/gamma_aux100
-sampling 1 images
-
-0it [00:00, ?it/s][A
-1it [00:07,  7.24s/it][A1it [00:07,  7.24s/it]
-1it [00:07,  7.91s/it]sampling complete
-2it [00:08,  3.57s/it]3it [00:08,  2.18s/it]4it [00:09,  1.57s/it]5it [00:10,  1.20s/it]6it [00:10,  1.03it/s]7it [00:11,  1.21it/s]8it [00:11,  1.37it/s]9it [00:12,  1.50it/s]10it [00:12,  1.60it/s]11it [00:13,  1.69it/s]12it [00:13,  1.74it/s]13it [00:14,  1.79it/s]14it [00:14,  1.82it/s]15it [00:15,  1.84it/s]16it [00:15,  1.86it/s]17it [00:16,  1.87it/s]18it [00:16,  1.88it/s]19it [00:17,  1.88it/s]20it [00:18,  1.89it/s]21it [00:18,  1.89it/s]22it [00:19,  1.89it/s]23it [00:19,  1.90it/s]24it [00:20,  1.90it/s]25it [00:20,  1.90it/s]sampling 1 images
-
-0it [00:00, ?it/s][A
-1it [00:07,  7.31s/it][A1it [00:07,  7.31s/it]
-26it [00:28,  2.73s/it]sampling complete
-27it [00:29,  2.07s/it]28it [00:29,  1.61s/it]29it [00:30,  1.28s/it]30it [00:30,  1.06s/it]31it [00:31,  1.11it/s]32it [00:31,  1.27it/s]33it [00:32,  1.41it/s]34it [00:32,  1.53it/s]35it [00:33,  1.62it/s]36it [00:33,  1.70it/s]37it [00:34,  1.75it/s]38it [00:34,  1.80it/s]39it [00:35,  1.83it/s]40it [00:35,  1.85it/s]41it [00:36,  1.87it/s]42it [00:36,  1.88it/s]43it [00:37,  1.88it/s]44it [00:38,  1.89it/s]45it [00:38,  1.89it/s]46it [00:39,  1.90it/s]47it [00:39,  1.89it/s]48it [00:40,  1.90it/s]49it [00:40,  1.89it/s]49it [00:41,  1.19it/s]
-********************
-lambda_auxs: 0.3, gamma_aux: 10, gamma_distil: 999
-********************
-********************
-fixed guidance is 0
-********************
-0it [00:00, ?it/s]Created directory: /home/ymbahram/scratch/baselines/SDFT/results_samesample/data10/aux_ablate/lambda_aux_only_0.3/gamma_aux10
-sampling 1 images
-
-0it [00:00, ?it/s][A
-1it [01:05, 65.50s/it][A1it [01:05, 65.50s/it]
-1it [01:06, 66.43s/it]sampling complete
-2it [01:07, 27.73s/it]3it [01:07, 15.30s/it]4it [01:08,  9.47s/it]5it [01:08,  6.25s/it]6it [01:09,  4.30s/it]7it [01:09,  3.07s/it]8it [01:10,  2.26s/it]9it [01:10,  1.72s/it]10it [01:11,  1.35s/it]11it [01:11,  1.10s/it]12it [01:12,  1.08it/s]13it [01:12,  1.25it/s]14it [01:13,  1.39it/s]15it [01:13,  1.51it/s]16it [01:14,  1.61it/s]17it [01:14,  1.69it/s]18it [01:15,  1.75it/s]19it [01:15,  1.79it/s]20it [01:16,  1.82it/s]21it [01:17,  1.84it/s]22it [01:17,  1.86it/s]23it [01:18,  1.87it/s]24it [01:18,  1.88it/s]25it [01:19,  1.88it/s]sampling 1 images
-
-0it [00:00, ?it/s][A
-1it [00:05,  5.69s/it][A1it [00:05,  5.69s/it]
-26it [01:25,  2.24s/it]sampling complete
-27it [01:25,  1.73s/it]28it [01:26,  1.37s/it]29it [01:26,  1.11s/it]30it [01:27,  1.07it/s]31it [01:28,  1.23it/s]32it [01:28,  1.37it/s]33it [01:29,  1.50it/s]34it [01:29,  1.60it/s]35it [01:30,  1.68it/s]36it [01:30,  1.74it/s]37it [01:31,  1.79it/s]38it [01:31,  1.82it/s]39it [01:32,  1.84it/s]40it [01:32,  1.86it/s]41it [01:33,  1.87it/s]42it [01:33,  1.88it/s]43it [01:34,  1.88it/s]44it [01:34,  1.89it/s]45it [01:35,  1.89it/s]46it [01:35,  1.89it/s]47it [01:36,  1.89it/s]48it [01:36,  1.89it/s]49it [01:37,  1.89it/s]49it [01:38,  2.00s/it]
-********************
-lambda_auxs: 0.3, gamma_aux: 30, gamma_distil: 999
-********************
-********************
-fixed guidance is 0
-********************
-0it [00:00, ?it/s]Created directory: /home/ymbahram/scratch/baselines/SDFT/results_samesample/data10/aux_ablate/lambda_aux_only_0.3/gamma_aux30
-sampling 1 images
-
-0it [00:00, ?it/s][A
-1it [00:05,  5.73s/it][A1it [00:05,  5.73s/it]
-1it [00:06,  6.32s/it]sampling complete
-2it [00:06,  2.92s/it]3it [00:07,  1.83s/it]4it [00:07,  1.31s/it]5it [00:08,  1.03s/it]6it [00:08,  1.16it/s]7it [00:09,  1.33it/s]8it [00:10,  1.47it/s]9it [00:10,  1.58it/s]10it [00:11,  1.66it/s]11it [00:11,  1.73it/s]12it [00:12,  1.78it/s]13it [00:12,  1.81it/s]14it [00:13,  1.84it/s]15it [00:13,  1.85it/s]16it [00:14,  1.87it/s]17it [00:14,  1.88it/s]18it [00:15,  1.88it/s]19it [00:15,  1.89it/s]20it [00:16,  1.89it/s]21it [00:16,  1.88it/s]22it [00:17,  1.89it/s]23it [00:17,  1.89it/s]24it [00:18,  1.89it/s]25it [00:19,  1.89it/s]sampling 1 images
-
-0it [00:00, ?it/s][Aslurmstepd: error: *** JOB 52247867 ON bg11614 CANCELLED AT 2024-11-01T21:01:11 ***

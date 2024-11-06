@@ -92,13 +92,14 @@ model = create_model(
 noise_vector = th.tensor(np.load(noise_vector))  # Load on CPU
 noise_vector = noise_vector.to('cuda')  # Transfer to GPU if memory allows
 
-lambda_auxs = [0] #0.1 , 0.3, 1]
-lambda_distils = [0, 0.1, 0.3, 1]
+
+lambda_auxs = [0] 
+lambda_distils = [0.001, 0.005, 0.1]
 # SDFT: Output from auxiliary input drastically collapses in smaller timesteps therefore larger gamma (Less influence in smaller timesteps)
-gamma_auxs = [#0, 0.1, 0.6, 3
+gamma_auxs = [
     999]
-gamma_distils = [#0, 0.1, 0.6, 3
-                10, 30, 100]
+gamma_distils = [0 #, 0.1, 1
+                 ]
 
 
 for lambda_distil in lambda_distils: # SDFT: We assume that these two hyperparameters should be the same, just like in the paper

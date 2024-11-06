@@ -1,34 +1,50 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 
 
-colors = plt.cm.Blues(np.linspace(0.2, 1, 8))  # Shades of red
+# Define the lambda_distils and gamma_distils we're interested in plotting
+lambda_auxs_to_plot = [0.1, 0.3, 1]
+gamma_auxs_to_plot = [10, 30, 100]
 
-x = np.arange(0, 201, 25)
+# Define the path for the baseline file (lambda_distil = 0)
+baseline_path = '/home/ymbahram/scratch/baselines/SDFT/results_samesample/data10/aux_ablate/lambda_aux_only_0/FID_KID.csv'
 
-csv_file = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_trg_results/results_samesample/data10/evaluation_all.csv"
-df = pd.read_csv(csv_file)
+# Load baseline data
+baseline_data = pd.read_csv(baseline_path)
 
-for color, (guidance, file) in zip(colors, {
-            #0.8: '0_8', 0.9: '0_9', 0.95: '0_95', 1: '1', 1.05: '1_05', 1.1: '1_1', 1.2: '1_2',
-            0:'0', 0.05: '0_05' , 0.1: '0_1'# , 0.2: '0_2'
-            # 0:'0', 0.1: '0_1', 0.5: '0_5', 0.25: '0_25', 1:'1', 2.5:'2_5', 5:'5', 10:'10'
-}.items()):
+# Placeholder dictionary to store data for each lambda_distil
+data_by_lambda = {ld: [] for ld in lambda_auxs_to_plot}
 
-    # Load the CSV file into a DataFrame
-    # csv_file = f"/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_trg_results/fixed_guidance/{file}/evaluation.csv"
+# Loop through the lambda_distils and gamma_distils to load and plot
+for lambda_aux in lambda_auxs_to_plot:
+    for gamma_aux in gamma_auxs_to_plot:
+        sample_path = f'/home/ymbahram/scratch/baselines/SDFT/results_samesample/data10/aux_ablate/lambda_aux_only_{lambda_aux}/FID_KID.csv'
+        try:
+            # Load data
+            data = pd.read_csv(sample_path)
+            # Filter for the specific lambda_distil and gamma_distil values
+            filtered_data = data[data['gamma_aux'] == gamma_aux]
+            data_by_lambda[lambda_aux].append((gamma_aux, filtered_data))
+        except FileNotFoundError:
+            print(f"File not found for lambda_aux {lambda_aux} and gamma_aux {gamma_aux}")
 
-    if guidance == 0:
-        plt.plot(x, df[df['g']==guidance]['intra_LPIPS'], label=guidance, color='red')
-    else:
-        plt.plot(x, df[df['g']==guidance]['intra_LPIPS'], label=guidance, color=color)
+# Plotting
+fig, axes = plt.subplots(1, len(lambda_auxs_to_plot), figsize=(18, 6), sharey=True)
 
+for idx, lambda_aux in enumerate(lambda_auxs_to_plot):
+    ax = axes[idx]
+    # Plot baseline
+    ax.plot(baseline_data['epoch'], baseline_data['FID'], label="Baseline (λ=0)", linestyle="--", color="black")
+    
+    # Plot each gamma_distil line for the current lambda_distil
+    for gamma_aux, gamma_data in data_by_lambda[lambda_aux]:
+        ax.plot(gamma_data['epoch'], gamma_data['FID'], label=f"γ={gamma_aux}")
 
-plt.xlabel('Epoch')
-plt.ylabel('intra_LPIPS')
-plt.title('intra_LPIPS adaptation over fixed guidances for data10-shot pokemon')
-plt.legend()
-# Show the plot
-plt.tight_layout()
-plt.savefig('/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_trg_results/results_samesample/data10/intra_LPIPS.png')
+    ax.set_title(f"λ={lambda_aux}")
+    ax.set_xlabel("Epoch")
+    ax.legend()
+    ax.grid(True)
+
+axes[0].set_ylabel("FID")
+plt.suptitle("FID vs Epoch for Different λ and γ Values")
+plt.savefig('/home/ymbahram/scratch/baselines/SDFT/results_samesample/data10/aux_ablate/FID.png')

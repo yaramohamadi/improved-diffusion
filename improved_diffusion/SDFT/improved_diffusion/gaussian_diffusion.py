@@ -890,15 +890,19 @@ class GaussianDiffusion:
         This is a helper function used for normalizing the AUX weight and Lambda weight (Needed for stable training, not mentioned in the paper)
         """
         # Replace positive inf values with a large finite limit if there are finite values
+
         finite_mask = ~th.isinf(weight_tensor)
-        
+            
         if finite_mask.any():  # If there are any finite values
             finite_min = weight_tensor[finite_mask].min()
             finite_max = weight_tensor[finite_mask].max()
             
-            # If all finite values are 0 and there are infs, treat 0 as min and normalize infs to 1
-            if finite_min == 0 and finite_max == 0:
-                weight_tensor = th.where(th.isinf(weight_tensor), th.tensor(1.0), th.tensor(0.0))
+            # If all finite values are the same (e.g., all 1s), set tensor to 1 (no range to normalize)
+            if finite_min == finite_max:
+                print('________________________')
+                print("Min and Max weights are the same for loss function")
+                print('________________________')
+                weight_tensor = th.ones_like(weight_tensor) if finite_min > 0 else th.zeros_like(weight_tensor)
             else:
                 # Clip any remaining inf values to the finite min or max
                 weight_tensor = th.clamp(weight_tensor, min=finite_min, max=finite_max)

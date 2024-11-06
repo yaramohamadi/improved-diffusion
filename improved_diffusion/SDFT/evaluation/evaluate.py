@@ -35,13 +35,13 @@ for lambda_distil in lambda_distils: # SDFT: We assume that these two hyperparam
                 for gsample, gsample_name in {0.0:'0'
                     }.items(): 
 
-                    for epoch in np.arange(0, 201, 25):
+                    for epoch in np.arange(0, 151, 25):
                         
                         print("*"*20)
                         print(f"lambda_distil: {lambda_distil}, gamma_aux: {gamma_aux}, gamma_distil: {gamma_distil} epoch {epoch} ")
                         print("*"*20)
 
-                        sample_path = f'/home/ymbahram/scratch/baselines/SDFT/results_samesample/data{dataset_size}/lambda_distil_only_{lambda_distil}/gamma_distil{gamma_distil}/samples/samples_{epoch}.npz'
+                        sample_path = f'/home/ymbahram/scratch/baselines/SDFT/results_samesample/data{dataset_size}/distil_ablate/lambda_distil_only_{lambda_distil}/gamma_distil{gamma_distil}/samples/samples_{epoch}.npz'
                         results = evaluation.runEvaluate(ref_path, sample_path, 
                                             FID=True, 
                                             #IS=True, 
@@ -58,7 +58,7 @@ for lambda_distil in lambda_distils: # SDFT: We assume that these two hyperparam
                         data_list.append(results)
 
                         df = pd.DataFrame(data_list)
-                        csv_file = f"/home/ymbahram/scratch/baselines/SDFT/results_samesample/data{dataset_size}/lambda_distil_only_{lambda_distil}/FIDKID_evaluation.csv"
+                        csv_file = f"/home/ymbahram/scratch/baselines/SDFT/results_samesample/data{dataset_size}/distil_ablate/lambda_distil_only_{lambda_distil}/FID_KID.csv"
                         df.to_csv(csv_file, index=False)
 
     print(f"___________________________File Written____/lambda_distil_only_{lambda_distil}/FIDKID_evaluation.csv_______________________")
