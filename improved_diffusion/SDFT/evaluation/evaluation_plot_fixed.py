@@ -3,8 +3,13 @@ import matplotlib.pyplot as plt
 
 
 # Define the lambda_distils and gamma_distils we're interested in plotting
-lambda_auxs_to_plot = [0.1, 0.3, 1]
-gamma_auxs_to_plot = [10, 30, 100]
+lambda_auxs_to_plot = [#0.1, 0.3, 1
+    0.001, 0.005, 0.1]
+gamma_auxs_to_plot = [0 , 0.1, 1
+    #10, 30, 100
+    ]
+
+metric='KID'
 
 # Define the path for the baseline file (lambda_distil = 0)
 baseline_path = '/home/ymbahram/scratch/baselines/SDFT/results_samesample/data10/aux_ablate/lambda_aux_only_0/FID_KID.csv'
@@ -18,7 +23,7 @@ data_by_lambda = {ld: [] for ld in lambda_auxs_to_plot}
 # Loop through the lambda_distils and gamma_distils to load and plot
 for lambda_aux in lambda_auxs_to_plot:
     for gamma_aux in gamma_auxs_to_plot:
-        sample_path = f'/home/ymbahram/scratch/baselines/SDFT/results_samesample/data10/aux_ablate/lambda_aux_only_{lambda_aux}/FID_KID.csv'
+        sample_path = f'/home/ymbahram/scratch/baselines/SDFT/results_samesample/data10/aux_ablate/lambda_aux_only_{lambda_aux}/FID_KID_newHyperparameters.csv'
         try:
             # Load data
             data = pd.read_csv(sample_path)
@@ -34,17 +39,17 @@ fig, axes = plt.subplots(1, len(lambda_auxs_to_plot), figsize=(18, 6), sharey=Tr
 for idx, lambda_aux in enumerate(lambda_auxs_to_plot):
     ax = axes[idx]
     # Plot baseline
-    ax.plot(baseline_data['epoch'], baseline_data['FID'], label="Baseline (λ=0)", linestyle="--", color="black")
+    ax.plot(baseline_data['epoch'], baseline_data[metric], label="Baseline (λ=0)", linestyle="--", color="black")
     
     # Plot each gamma_distil line for the current lambda_distil
     for gamma_aux, gamma_data in data_by_lambda[lambda_aux]:
-        ax.plot(gamma_data['epoch'], gamma_data['FID'], label=f"γ={gamma_aux}")
+        ax.plot(gamma_data['epoch'], gamma_data[metric], label=f"γ={gamma_aux}")
 
     ax.set_title(f"λ={lambda_aux}")
     ax.set_xlabel("Epoch")
     ax.legend()
     ax.grid(True)
 
-axes[0].set_ylabel("FID")
-plt.suptitle("FID vs Epoch for Different λ and γ Values")
-plt.savefig('/home/ymbahram/scratch/baselines/SDFT/results_samesample/data10/aux_ablate/FID.png')
+axes[0].set_ylabel(metric)
+plt.suptitle(f"{metric} vs Epoch for Different λ and γ Values")
+plt.savefig(f'/home/ymbahram/scratch/baselines/SDFT/results_samesample/data10/aux_ablate/{metric}_newHyperparameters.png')

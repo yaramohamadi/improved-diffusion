@@ -10,12 +10,11 @@ target_path = '/home/ymbahram/scratch/pokemon/pokemon_10.npz' # The target 10-sh
 source_batch = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/imagenet_pretrained.npz' # Source samples from pre-fixed noise vectors
     
 lambda_auxs = [0] #0.1 , 0.3, 1]
-lambda_distils = [0, 0.1, 0.3, 1]
+lambda_distils = [0.001, 0.005, 0.1]
 # SDFT: Output from auxiliary input drastically collapses in smaller timesteps therefore larger gamma (Less influence in smaller timesteps)
 gamma_auxs = [#0, 0.1, 0.6, 3
     9999]
-gamma_distils = [#0, 0.1, 0.6, 3
-                10, 30, 100]
+gamma_distils = [0, 0.1, 1]
 
 for lambda_distil in lambda_distils: # SDFT: We assume that these two hyperparameters should be the same, just like in the paper
 
@@ -23,12 +22,6 @@ for lambda_distil in lambda_distils: # SDFT: We assume that these two hyperparam
 
     for gamma_aux in gamma_auxs:
         for gamma_distil in gamma_distils:
-
-            if lambda_distil == 0:
-                if gamma_distil == 10: # For lambda = 0 its gonna just be like fine-tuning so the gamma value does not matter here
-                    gamma_distil = 9999
-                else:
-                    continue
 
             for dataset_size in [10]:#, 100, 700, 2503]:
 
@@ -58,7 +51,7 @@ for lambda_distil in lambda_distils: # SDFT: We assume that these two hyperparam
                         data_list.append(results)
 
                         df = pd.DataFrame(data_list)
-                        csv_file = f"/home/ymbahram/scratch/baselines/SDFT/results_samesample/data{dataset_size}/distil_ablate/lambda_distil_only_{lambda_distil}/FID_KID.csv"
+                        csv_file = f"/home/ymbahram/scratch/baselines/SDFT/results_samesample/data{dataset_size}/distil_ablate/lambda_distil_only_{lambda_distil}/FID_KID_newHyperparameters.csv"
                         df.to_csv(csv_file, index=False)
 
     print(f"___________________________File Written____/lambda_distil_only_{lambda_distil}/FIDKID_evaluation.csv_______________________")

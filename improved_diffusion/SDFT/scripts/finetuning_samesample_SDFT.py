@@ -94,11 +94,12 @@ noise_vector = noise_vector.to('cuda')  # Transfer to GPU if memory allows
 
 
 lambda_auxs = [0] 
-lambda_distils = [0.001, 0.005, 0.1]
+lambda_distils = [#0.001, 0.005, 0.1
+    0.01]
 # SDFT: Output from auxiliary input drastically collapses in smaller timesteps therefore larger gamma (Less influence in smaller timesteps)
 gamma_auxs = [
     999]
-gamma_distils = [0 #, 0.1, 1
+gamma_distils = [0, 0.1, 1
                  ]
 
 
