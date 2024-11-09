@@ -1,281 +1,0 @@
-Looking in links: /cvmfs/soft.computecanada.ca/custom/python/wheelhouse/gentoo2023/x86-64-v4, /cvmfs/soft.computecanada.ca/custom/python/wheelhouse/gentoo2023/x86-64-v3, /cvmfs/soft.computecanada.ca/custom/python/wheelhouse/gentoo2023/generic, /cvmfs/soft.computecanada.ca/custom/python/wheelhouse/generic
-Obtaining file:///lustre03/project/6086105/ymbahram/improved_diffusion/SDFT
-  Preparing metadata (setup.py): started
-  Preparing metadata (setup.py): finished with status 'done'
-Requirement already satisfied: blobfile>=1.0.5 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from improved-diffusion==0.0.0) (2.1.1)
-Requirement already satisfied: torch in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from improved-diffusion==0.0.0) (2.3.1+computecanada)
-Requirement already satisfied: tqdm in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from improved-diffusion==0.0.0) (4.66.4+computecanada)
-Requirement already satisfied: pycryptodomex~=3.8 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from blobfile>=1.0.5->improved-diffusion==0.0.0) (3.19.0+computecanada)
-Requirement already satisfied: urllib3<3,>=1.25.3 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from blobfile>=1.0.5->improved-diffusion==0.0.0) (2.2.1)
-Requirement already satisfied: lxml~=4.9 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from blobfile>=1.0.5->improved-diffusion==0.0.0) (4.9.2+computecanada)
-Requirement already satisfied: filelock~=3.0 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from blobfile>=1.0.5->improved-diffusion==0.0.0) (3.13.1+computecanada)
-Requirement already satisfied: typing-extensions>=4.8.0 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (4.11.0+computecanada)
-Requirement already satisfied: sympy in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (1.12+computecanada)
-Requirement already satisfied: networkx in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (3.3+computecanada)
-Requirement already satisfied: jinja2 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (3.1.4+computecanada)
-Requirement already satisfied: fsspec in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (2024.3.1+computecanada)
-Requirement already satisfied: numpy<2.0,>=1.26 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (1.26.4+computecanada)
-Requirement already satisfied: MarkupSafe>=2.0 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from jinja2->torch->improved-diffusion==0.0.0) (2.1.3+computecanada)
-Requirement already satisfied: mpmath>=0.19 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from sympy->torch->improved-diffusion==0.0.0) (1.3.0+computecanada)
-Installing collected packages: improved-diffusion
-  Attempting uninstall: improved-diffusion
-    Found existing installation: improved-diffusion 0.0.0
-    Uninstalling improved-diffusion-0.0.0:
-      Successfully uninstalled improved-diffusion-0.0.0
-  Running setup.py develop for improved-diffusion
-Successfully installed improved-diffusion-0.0.0
-********************
-lambda_distil: 0.01, gamma_aux: 999, gamma_distil: 0
-********************
-********************
-fixed guidance is 0
-********************
-0it [00:00, ?it/s]________________________
-Min and Max weights are the same for loss function
-________________________
-Created directory: /home/ymbahram/scratch/baselines/SDFT/results_samesample/data10/distil_ablate/lambda_distil_only_0.01/gamma_distil0
-sampling 2500 images
-
-0it [00:00, ?it/s][A
-1it [00:07,  7.09s/it][A
-2it [00:15,  7.84s/it][A
-3it [00:22,  7.25s/it][A
-4it [00:28,  7.01s/it][A
-5it [00:35,  6.89s/it][A
-6it [00:40,  6.43s/it][A
-7it [00:46,  6.15s/it][A
-8it [00:51,  5.96s/it][A
-9it [00:57,  5.84s/it][A
-10it [01:03,  5.76s/it][A
-11it [01:08,  5.70s/it][A
-12it [01:14,  5.66s/it][A
-13it [01:19,  5.64s/it][A
-14it [01:25,  5.62s/it][A
-15it [01:31,  5.61s/it][A
-16it [01:36,  5.60s/it][A
-17it [01:42,  5.60s/it][A
-18it [01:47,  5.60s/it][A
-19it [01:53,  5.60s/it][A
-20it [01:58,  5.60s/it][A
-21it [02:04,  5.60s/it][A
-22it [02:10,  5.60s/it][A
-23it [02:15,  5.60s/it][A
-24it [02:21,  5.60s/it][A
-25it [02:26,  5.60s/it][A
-26it [02:32,  5.60s/it][A
-27it [02:38,  5.60s/it][A
-28it [02:43,  5.60s/it][A
-29it [02:49,  5.60s/it][A
-30it [02:54,  5.60s/it][A
-31it [03:00,  5.60s/it][A
-32it [03:06,  5.60s/it][A
-33it [03:11,  5.60s/it][A
-34it [03:17,  5.60s/it][A
-35it [03:22,  5.60s/it][A
-36it [03:28,  5.60s/it][A
-37it [03:34,  5.60s/it][A
-38it [03:39,  5.60s/it][A
-39it [03:45,  5.60s/it][A
-40it [03:50,  5.60s/it][A
-41it [03:56,  5.60s/it][A
-42it [04:02,  5.60s/it][A
-43it [04:07,  5.60s/it][A
-44it [04:13,  5.60s/it][A
-45it [04:18,  5.60s/it][A
-46it [04:24,  5.60s/it][A
-47it [04:30,  5.60s/it][A
-48it [04:35,  5.60s/it][A
-49it [04:41,  5.60s/it][A
-50it [04:46,  5.60s/it][A
-51it [04:52,  5.60s/it][A
-52it [04:58,  5.61s/it][A
-53it [05:03,  5.60s/it][A
-54it [05:09,  5.60s/it][A
-55it [05:14,  5.60s/it][A
-56it [05:20,  5.60s/it][A
-57it [05:26,  5.60s/it][A
-58it [05:31,  5.60s/it][A
-59it [05:37,  5.60s/it][A
-60it [05:42,  5.60s/it][A
-61it [05:48,  5.60s/it][A
-62it [05:54,  5.60s/it][A
-63it [05:59,  5.60s/it][A
-64it [06:05,  5.61s/it][A
-65it [06:10,  5.61s/it][A
-66it [06:16,  5.61s/it][A
-67it [06:22,  5.60s/it][A
-68it [06:27,  5.60s/it][A
-69it [06:33,  5.60s/it][A
-70it [06:38,  5.60s/it][A
-71it [06:44,  5.60s/it][A
-72it [06:50,  5.60s/it][A
-73it [06:55,  5.60s/it][A
-74it [07:01,  5.60s/it][A
-75it [07:06,  5.60s/it][A
-76it [07:12,  5.61s/it][A
-77it [07:18,  5.60s/it][A
-78it [07:23,  5.60s/it][A
-79it [07:29,  5.60s/it][A
-80it [07:34,  5.60s/it][A
-81it [07:40,  5.60s/it][A
-82it [07:46,  5.60s/it][A
-83it [07:51,  5.60s/it][A
-84it [07:57,  5.60s/it][A
-85it [08:02,  5.60s/it][A
-86it [08:08,  5.60s/it][A
-87it [08:14,  5.60s/it][A
-88it [08:19,  5.61s/it][A
-89it [08:25,  5.60s/it][A
-90it [08:30,  5.60s/it][A
-91it [08:36,  5.60s/it][A
-92it [08:42,  5.60s/it][A
-93it [08:47,  5.60s/it][A
-94it [08:53,  5.60s/it][A
-95it [08:58,  5.60s/it][A
-96it [09:04,  5.60s/it][A
-97it [09:10,  5.60s/it][A
-98it [09:15,  5.60s/it][A
-99it [09:21,  5.60s/it][A
-100it [09:27,  5.61s/it][A
-101it [09:32,  5.61s/it][A
-102it [09:38,  5.61s/it][A
-103it [09:43,  5.60s/it][A
-104it [09:49,  5.60s/it][A
-105it [09:55,  5.60s/it][A
-106it [10:00,  5.60s/it][A
-107it [10:06,  5.60s/it][A
-108it [10:11,  5.60s/it][A
-109it [10:17,  5.60s/it][A
-110it [10:23,  5.60s/it][A
-111it [10:28,  5.60s/it][A
-112it [10:34,  5.61s/it][A
-113it [10:39,  5.61s/it][A
-114it [10:45,  5.61s/it][A
-115it [10:51,  5.60s/it][A
-116it [10:56,  5.60s/it][A
-117it [11:02,  5.60s/it][A
-118it [11:07,  5.60s/it][A
-119it [11:13,  5.60s/it][A
-120it [11:19,  5.60s/it][A
-121it [11:24,  5.60s/it][A
-122it [11:30,  5.60s/it][A
-123it [11:35,  5.60s/it][A
-124it [11:41,  5.61s/it][A
-125it [11:47,  5.61s/it][A
-126it [11:52,  5.61s/it][A
-127it [11:58,  5.61s/it][A
-128it [12:03,  5.60s/it][A
-129it [12:09,  5.60s/it][A
-130it [12:15,  5.60s/it][A
-131it [12:20,  5.60s/it][A
-132it [12:26,  5.60s/it][A
-133it [12:31,  5.60s/it][A
-134it [12:37,  5.60s/it][A
-135it [12:43,  5.60s/it][A
-136it [12:48,  5.61s/it][A
-137it [12:54,  5.60s/it][A
-138it [12:59,  5.60s/it][A
-139it [13:05,  5.60s/it][A
-140it [13:11,  5.60s/it][A
-141it [13:16,  5.60s/it][A
-142it [13:22,  5.60s/it][A
-143it [13:27,  5.60s/it][A
-144it [13:33,  5.60s/it][A
-145it [13:39,  5.60s/it][A
-146it [13:44,  5.60s/it][A
-147it [13:50,  5.60s/it][A
-148it [13:55,  5.61s/it][A
-149it [14:01,  5.61s/it][A
-150it [14:07,  5.61s/it][A
-151it [14:12,  5.61s/it][A
-152it [14:18,  5.60s/it][A
-153it [14:23,  5.60s/it][A
-154it [14:29,  5.60s/it][A
-155it [14:35,  5.60s/it][A
-156it [14:40,  5.60s/it][A
-157it [14:46,  5.60s/it][A
-158it [14:51,  5.60s/it][A
-159it [14:57,  5.60s/it][A
-160it [15:03,  5.61s/it][A
-161it [15:08,  5.61s/it][A
-162it [15:14,  5.61s/it][A
-163it [15:19,  5.60s/it][A
-164it [15:25,  5.60s/it][A
-165it [15:31,  5.60s/it][A
-166it [15:36,  5.60s/it][A
-167it [15:42,  5.60s/it][A
-168it [15:47,  5.60s/it][A
-169it [15:53,  5.60s/it][A
-170it [15:59,  5.60s/it][A
-171it [16:04,  5.60s/it][A
-172it [16:10,  5.61s/it][A
-173it [16:15,  5.61s/it][A
-174it [16:21,  5.61s/it][A
-175it [16:27,  5.60s/it][A
-176it [16:32,  5.60s/it][A
-177it [16:38,  5.60s/it][A
-178it [16:43,  5.60s/it][A
-179it [16:49,  5.60s/it][A
-180it [16:55,  5.60s/it][A
-181it [17:00,  5.60s/it][A
-182it [17:06,  5.60s/it][A
-183it [17:12,  5.61s/it][A
-184it [17:17,  5.61s/it][A
-185it [17:23,  5.60s/it][A
-186it [17:28,  5.60s/it][A
-187it [17:34,  5.61s/it][A
-188it [17:40,  5.61s/it][A
-189it [17:45,  5.60s/it][A
-190it [17:51,  5.60s/it][A
-191it [17:56,  5.60s/it][A
-192it [18:02,  5.60s/it][A
-193it [18:08,  5.60s/it][A
-194it [18:13,  5.60s/it][A
-195it [18:19,  5.60s/it][A
-196it [18:24,  5.61s/it][A
-197it [18:30,  5.61s/it][A
-198it [18:36,  5.61s/it][A
-199it [18:41,  5.61s/it][A
-200it [18:47,  5.60s/it][A
-201it [18:52,  5.60s/it][A
-202it [18:58,  5.60s/it][A
-203it [19:04,  5.60s/it][A
-204it [19:09,  5.60s/it][A
-205it [19:15,  5.60s/it][A
-206it [19:20,  5.60s/it][A
-207it [19:26,  5.60s/it][A
-208it [19:32,  5.61s/it][A
-209it [19:37,  5.61s/it][A
-210it [19:43,  5.61s/it][A
-211it [19:48,  5.61s/it][A
-212it [19:54,  5.60s/it][A
-213it [20:00,  5.60s/it][A
-214it [20:05,  5.60s/it][A
-215it [20:11,  5.60s/it][A
-216it [20:16,  5.60s/it][A
-217it [20:22,  5.60s/it][A
-218it [20:28,  5.60s/it][A
-219it [20:33,  5.61s/it][A
-220it [20:39,  5.61s/it][A
-221it [20:44,  5.61s/it][A
-222it [20:50,  5.61s/it][A
-223it [20:56,  5.61s/it][A
-224it [21:01,  5.60s/it][A
-225it [21:07,  5.60s/it][A
-226it [21:12,  5.60s/it][A
-227it [21:18,  5.60s/it][A
-228it [21:24,  5.60s/it][A
-229it [21:29,  5.60s/it][A
-230it [21:35,  5.60s/it][A
-231it [21:40,  5.60s/it][A
-232it [21:46,  5.61s/it][A
-233it [21:52,  5.60s/it][A
-234it [21:57,  5.60s/it][A
-235it [22:03,  5.61s/it][A
-236it [22:09,  5.61s/it][A
-237it [22:14,  5.60s/it][A
-238it [22:20,  5.60s/it][A
-239it [22:25,  5.60s/it][A
-240it [22:31,  5.60s/it][A
-241it [22:37,  5.60s/it][A
-242it [22:42,  5.60s/it][A

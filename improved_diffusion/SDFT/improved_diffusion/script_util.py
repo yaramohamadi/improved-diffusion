@@ -3,7 +3,8 @@ import inspect
 
 from . import gaussian_diffusion as gd
 from .respace import SpacedDiffusion, space_timesteps
-from .unet import SuperResModel, UNetModel
+from .unet import SuperResModel, UNetModel, EncoderUNetModel
+
 
 NUM_CLASSES = 1000
 
@@ -81,6 +82,43 @@ def create_model_and_diffusion(
         timestep_respacing=timestep_respacing,
     )
     return model, diffusion
+
+
+
+
+def create_classifier(
+    image_size,
+    model_channels,
+    num_res_blocks,
+    classifier_attention_resolutions,
+    classifier_use_scale_shift_norm,
+    classifier_pool,
+):
+    if image_size == 512:
+        channel_mult = (0.5, 1, 1, 2, 2, 4, 4)
+    elif image_size == 256:
+        channel_mult = (1, 1, 2, 2, 4, 4)
+    elif image_size == 128:
+        channel_mult = (1, 1, 2, 3, 4)
+    elif image_size == 64:
+        channel_mult = (1, 2, 3, 4)
+    else:
+        raise ValueError(f"unsupported image size: {image_size}")
+
+    attention_ds = []
+    for res in classifier_attention_resolutions.split(","):
+        attention_ds.append(image_size // int(res))
+
+    return EncoderUNetModel(
+        in_channels=3,
+        model_channels=model_channels,
+        out_channels=2, # We need to see which domain it is and that is enough
+        num_res_blocks=num_res_blocks,
+        attention_resolutions=tuple(attention_ds),
+        channel_mult=channel_mult,
+        use_scale_shift_norm=classifier_use_scale_shift_norm,
+        pool=classifier_pool,
+)
 
 
 def create_model(
@@ -241,11 +279,6 @@ def create_gaussian_diffusion(
     timestep_respacing="",
     p2_gamma=0, # For time-step weighting
     p2_k=1, # For time-step weighting
-    SDFT=False,# For SDFT
-    gamma_distil=0,# For SDFT
-    gamma_aux=0,# For SDFT
-    lambda_distil=0, # for SDFTT
-    lambda_aux=0, # for SDFT
 ):
     betas = gd.get_named_beta_schedule(noise_schedule, steps)
     if use_kl:
@@ -275,11 +308,6 @@ def create_gaussian_diffusion(
         rescale_timesteps=rescale_timesteps,
         p2_gamma=p2_gamma, # For time-step weighting
         p2_k=p2_gamma, # For time-step weighting
-        SDFT=SDFT,# For SDFT
-        gamma_distil=gamma_distil,# For SDFT
-        gamma_aux=gamma_aux,# For SDFT
-        lambda_distil=lambda_distil, # for SDFT
-        lambda_aux=lambda_aux, # for SDFT
     )
 
 

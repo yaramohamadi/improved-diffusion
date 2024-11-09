@@ -15,6 +15,7 @@ import gc
 gc.collect()
 th.cuda.empty_cache()
 
+
 # Training  
 epochs = 151
 batch_size=10

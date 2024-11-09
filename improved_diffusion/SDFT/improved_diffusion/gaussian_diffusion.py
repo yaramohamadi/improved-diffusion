@@ -111,9 +111,6 @@ class GaussianDiffusion:
     :param model_mean_type: a ModelMeanType determining what the model outputs.
     :param model_var_type: a ModelVarType determining how variance is output.
     :param loss_type: a LossType determining the loss function to use.
-    :param SDFT: if True, SDFT is performed.
-    :param gamma_distill: hyperparameter for distillation loss (related to SDFT).
-    :param gamma_aux: hyperparameter for auxiliary loss (related to SDFT)
     :param rescale_timesteps: if True, pass floating point timesteps into the
                               model so that they are always scaled like in the
                               original paper (0 to 1000).
@@ -129,11 +126,6 @@ class GaussianDiffusion:
         rescale_timesteps=False,
         p2_gamma=0, # For time-step weighting
         p2_k=1, # For time-step weighting
-        SDFT=False,# For SDFT
-        gamma_distil=0,# For SDFT
-        gamma_aux=0,# For SDFT
-        lambda_distil=0, # for SDFT
-        lambda_aux=0, # for SDFT
     ):
         self.model_mean_type = model_mean_type
         self.model_var_type = model_var_type
@@ -141,11 +133,6 @@ class GaussianDiffusion:
         self.rescale_timesteps = rescale_timesteps
         self.g2_gamma=p2_gamma # For time-step weighting
         self.p2_k=p2_k # For time-step weighting
-        self.SDFT=SDFT # for SDFT
-        self.gamma_distil=gamma_distil # for SDFT
-        self.gamma_aux=gamma_aux # for SDFT
-        self.lambda_distil=lambda_distil # for SDFT
-        self.lambda_aux=lambda_aux # for SDFT
 
         # Use float64 for accuracy.
         betas = np.array(betas, dtype=np.float64)
@@ -759,7 +746,7 @@ class GaussianDiffusion:
                         t, 
                         model_kwargs=None, 
                         noise=None
-                        ): # for SDFT ): 
+                        ): 
         """
         Compute training losses for a single timestep.
 
@@ -777,9 +764,7 @@ class GaussianDiffusion:
         if noise is None:
             noise = th.randn_like(x_start)
         x_t = self.q_sample(x_start, t, noise=noise)
-        # for SDFT, create X_T
-        if self.SDFT:
-            x_T = th.randn(x_t.shape, dtype=x_t.dtype, device=x_t.device)
+
         terms = {}
 
 
@@ -804,10 +789,6 @@ class GaussianDiffusion:
             model_output = model(x_t, self._scale_timesteps(t), **model_kwargs)
             source_model_output = source_model(x_t, self._scale_timesteps(t), **model_kwargs).detach() # Classifier-free guidance, need to detach frozen source model
 
-            # for SDFT: Create model output and source model output from X_T, note that the timestep embedding still takes t not T.
-            model_output_T = model(x_T, self._scale_timesteps(t), **model_kwargs)
-            source_model_output_T = source_model(x_T, self._scale_timesteps(t), **model_kwargs).detach() 
-
             # These outputs contain both Variance and Mean output values. We should split the two first.
 
             # Classifier-free guidance: True -> This is the case
@@ -818,11 +799,7 @@ class GaussianDiffusion:
                 B, C = x_t.shape[:2]
                 assert model_output.shape == (B, C * 2, *x_t.shape[2:])
                 model_output, model_var_values = th.split(model_output, C, dim=1)
-                source_model_output, _ = th.split(source_model_output, C, dim=1) # Classifier-free guidance and SDFT
-                # for SDFT 
-                source_model_output_T, _ = th.split(source_model_output_T, C, dim=1)
-                model_output_T, _ = th.split(model_output_T, C, dim=1)
-
+                source_model_output, _ = th.split(source_model_output, C, dim=1) # Classifier-free guidance 
 
                 # Learn the variance using the variational bound, but don't let
                 # it affect our mean prediction.
@@ -849,10 +826,10 @@ class GaussianDiffusion:
             assert model_output.shape == target.shape == x_start.shape
             
             # ________________________________where the loss is created________________________________
-            model_output = model_output + guidance_scale * (source_model_output - model_output) # Classifier-free guidance (we have it as zero for default of SDFT)
+            model_output = model_output + guidance_scale * (source_model_output - model_output) # Classifier-free guidance (we have it as zero for default)
             # _________________________________________________________________________________________
 
-            # P2 weighting time-step weighting (Weight is a tensor filled with 1 for default of SDFT)
+            # P2 weighting time-step weighting (Weight is a tensor filled with 1 for default)
             weight = _extract_into_tensor(1 / (self.p2_k + self.snr)**self.p2_gamma, t, target.shape)
 
             # Diffusion Loss
@@ -862,22 +839,7 @@ class GaussianDiffusion:
                 terms["loss"] = terms["mse"] + terms["vb"]
             else:
                 terms["loss"] = terms["mse"]
-            if self.SDFT: # for SDFT add losses
-                
-                if self.lambda_distil != 0:
-                    # SDFT -> distillation loss
-                    weight_distill = _extract_into_tensor(1 / (self.p2_k + self.snr)**self.gamma_distil, t, target.shape)
-                    weight_distill = self.normalize_weight(weight_distill)
-                    terms["L_distill"] =  mean_flat(weight_distill * (source_model_output - model_output) **2) # TODO: To mean over anything that is not batch -> Over T, over Channels, over pixels (Not sure if I should do this but paper is averaging over T at least)
-                    terms["loss"] += self.lambda_distil * terms["L_distill"]
-
-                if self.lambda_aux != 0:
-                    # SDFT -> auxiliary loss
-                    weight_aux = _extract_into_tensor(1 / (self.p2_k + self.snr)**self.gamma_aux, t, target.shape)
-                    weight_aux = self.normalize_weight(weight_aux)
-                    terms["L_aux"] =  mean_flat(weight_aux * (source_model_output_T - model_output_T) **2) # To mean over anything that is not batch -> Over T, over Channels, over pixels (Not sure if I should do this but paper is averaging over T at least)
-                    terms["loss"] += self.lambda_aux * terms["L_aux"]
-
+            
         else:
             raise NotImplementedError(self.loss_type)
 
