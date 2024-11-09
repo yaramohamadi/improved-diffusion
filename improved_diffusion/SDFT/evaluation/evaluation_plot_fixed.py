@@ -4,12 +4,12 @@ import matplotlib.pyplot as plt
 
 # Define the lambda_distils and gamma_distils we're interested in plotting
 lambda_auxs_to_plot = [#0.1, 0.3, 1
-    0.001, 0.005, 0.1]
+    0.001, 0.005, 0.01, 0.1]
 gamma_auxs_to_plot = [0 , 0.1, 1
     #10, 30, 100
     ]
 
-metric='KID'
+metric='FID'
 
 # Define the path for the baseline file (lambda_distil = 0)
 baseline_path = '/home/ymbahram/scratch/baselines/SDFT/results_samesample/data10/aux_ablate/lambda_aux_only_0/FID_KID.csv'

@@ -1,45 +1,35 @@
-import os
 from PIL import Image
-import matplotlib.pyplot as plt
-import numpy as np
+import os
+import math
 
-def create_grid_image(folder_path, subfolder_choice, output_folder, grid_size=(5, 10), image_size=(64, 64)):
-    """
-    Create a grid image from a folder of images and save it.
+def create_image_grid(input_folder, output_image_path, grid_size=(5, 10), image_size=(100, 100)):
+    # List and sort all image files numerically by name assuming they are named 0 to 49
+    image_files = sorted([os.path.join(input_folder, f) for f in os.listdir(input_folder) if f.lower().endswith(('png', 'jpg', 'jpeg'))], 
+                         key=lambda x: int(os.path.splitext(os.path.basename(x))[0]))
     
-    :param folder_path: Path to the folder containing subfolders with images.
-    :param subfolder_choice: Choice of subfolder to select (_0, _0_1, or _0_05).
-    :param output_folder: Output folder to save the grid images.
-    :param grid_size: Number of rows and columns for the grid.
-    :param image_size: Resize each image to this size.
-    """
-    folders = sorted([f for f in os.listdir(folder_path) if os.path.isdir(os.path.join(folder_path, f))])
-    
-    for folder in folders:
-        subfolder_path = os.path.join(folder_path, folder, subfolder_choice)
-        image_files = sorted([f for f in os.listdir(subfolder_path) if f.endswith('.jpg') or f.endswith('.png')], key=lambda x: int(x.split('.')[0]))
+    # Ensure there are enough images for the grid
+    if len(image_files) < grid_size[0] * grid_size[1]:
+        raise ValueError("Not enough images to fill the grid.")
 
-        # Create a blank canvas for the grid
-        grid_image = Image.new('RGB', (grid_size[1] * image_size[0], grid_size[0] * image_size[1]))
+    # Create a blank canvas for the grid
+    grid_width = grid_size[1] * image_size[0]
+    grid_height = grid_size[0] * image_size[1]
+    grid_image = Image.new('RGB', (grid_width, grid_height))
 
-        for i, image_file in enumerate(image_files):
-            img = Image.open(os.path.join(subfolder_path, image_file)).resize(image_size)
-            row, col = divmod(i, grid_size[1])
-            grid_image.paste(img, (col * image_size[0], row * image_size[1]))
+    # Loop through and place each image on the grid
+    for i, image_path in enumerate(image_files[:grid_size[0] * grid_size[1]]):
+        img = Image.open(image_path).resize(image_size)
+        x = (i % grid_size[1]) * image_size[0]
+        y = (i // grid_size[1]) * image_size[1]
+        grid_image.paste(img, (x, y))
 
-        # Add folder name as a title
-        plt.figure(figsize=(10, 8))
-        plt.imshow(grid_image)
-        plt.title(f"Folder: {folder}", fontsize=16)
-        plt.axis('off')
-        
-        # Save the output image
-        output_image_path = os.path.join(output_folder, f'grid{subfolder_choice}_{folder}.png')
-        plt.savefig(output_image_path)
-        plt.close()
+    # Save the final grid image
+    grid_image.save(output_image_path)
+    print(f"Grid image saved as {output_image_path}")
 
-# Example usage:
-folder_path = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_trg_results/fixed_guidance_and_sampling/0_1/samples'  # Path to the main directory
-subfolder_choice = '_0'  # Choose between '_0', '_0_1', or '_0_05'
-output_folder = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/clf_trg_results/fixed_guidance_and_sampling/0_1'
-create_grid_image(folder_path, subfolder_choice, output_folder)
+# Set the folder path containing the images and the output path
+input_folder = 'path/to/your/images'
+output_image_path = 'path/to/save/grid_image.jpg'
+
+# Create the image grid
+create_image_grid(input_folder, output_image_path, grid_size=(5, 10), image_size=(100, 100))

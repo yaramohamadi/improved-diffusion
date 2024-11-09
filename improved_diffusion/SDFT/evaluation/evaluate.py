@@ -10,7 +10,10 @@ target_path = '/home/ymbahram/scratch/pokemon/pokemon_10.npz' # The target 10-sh
 source_batch = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/imagenet_pretrained.npz' # Source samples from pre-fixed noise vectors
     
 lambda_auxs = [0] #0.1 , 0.3, 1]
-lambda_distils = [0.001, 0.005, 0.1]
+lambda_distils = [# 0.001, 0.005, 
+    #0.1
+    0.01
+    ]
 # SDFT: Output from auxiliary input drastically collapses in smaller timesteps therefore larger gamma (Less influence in smaller timesteps)
 gamma_auxs = [#0, 0.1, 0.6, 3
     9999]

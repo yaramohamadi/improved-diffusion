@@ -11,7 +11,8 @@ source_batch = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/u
     
 lambda_distils = [0] #0.1 , 0.3, 1]
 lambda_auxs = [#0.001, 
-    0.005
+    #0.005
+    0.01
     #, 0.1
     ]
 # SDFT: Output from auxiliary input drastically collapses in smaller timesteps therefore larger gamma (Less influence in smaller timesteps)

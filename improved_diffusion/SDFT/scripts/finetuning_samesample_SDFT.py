@@ -93,17 +93,15 @@ noise_vector = th.tensor(np.load(noise_vector))  # Load on CPU
 noise_vector = noise_vector.to('cuda')  # Transfer to GPU if memory allows
 
 
-lambda_auxs = [0] 
-lambda_distils = [#0.001, 0.005, 0.1
-    0.01]
+lambda_auxs = [0.001, 0.005] 
+lambda_distils = [0.001, 0.005]
 # SDFT: Output from auxiliary input drastically collapses in smaller timesteps therefore larger gamma (Less influence in smaller timesteps)
 gamma_auxs = [
-    999]
-gamma_distils = [0, 0.1, 1
-                 ]
+    0.1]
+gamma_distils = [0.1]
 
 
-for lambda_distil in lambda_distils: # SDFT: We assume that these two hyperparameters should be the same, just like in the paper
+for lambda_distil, lambda_aux in zip(lambda_distils, lambda_auxs): # SDFT: We assume that these two hyperparameters should be the same, just like in the paper
     for gamma_aux in gamma_auxs:
         for gamma_distil in gamma_distils:
 
@@ -114,7 +112,7 @@ for lambda_distil in lambda_distils: # SDFT: We assume that these two hyperparam
                     continue
             
             print("*"*20)
-            print(f"lambda_distil: {lambda_distil}, gamma_aux: {gamma_aux}, gamma_distil: {gamma_distil}")
+            print(f"lambda_distil: {lambda_distil}, lambda_aux: {lambda_aux}, gamma_aux: {gamma_aux}, gamma_distil: {gamma_distil}")
             print("*"*20)
 
             diffusion = create_gaussian_diffusion(
@@ -131,10 +129,10 @@ for lambda_distil in lambda_distils: # SDFT: We assume that these two hyperparam
                 gamma_distil=gamma_distil,# For SDFT
                 gamma_aux=gamma_aux,# For SDFT
                 lambda_distil=lambda_distil, # for SDFT
-                lambda_aux=lambda_auxs[0], # for SDFT
+                lambda_aux=lambda_aux, # for SDFT
             )
 
-            for dataset_size in [10]:#, 100, 700, 2503]:
+            for dataset_size in [10, 100, 700, 2503]:
 
                 # The dataset you want to finetune on
                 data_dir = f'/home/ymbahram/scratch/pokemon/pokemon{dataset_size}/' 
@@ -174,13 +172,13 @@ for lambda_distil in lambda_distils: # SDFT: We assume that these two hyperparam
                     guidance_scale = np.array([g for _ in range(epochs)]) # Fixed Line
 
                     # Where to log the training loss (File does not have to exist)
-                    loss_logger=f"/home/ymbahram/scratch/baselines/SDFT/results_samesample/data{dataset_size}/distil_ablate/lambda_distil_only_{lambda_distil}/gamma_distil{gamma_distil}/trainlog.csv"
+                    loss_logger=f"/home/ymbahram/scratch/baselines/SDFT/results_samesample/data{dataset_size}/combined_lamdas_{lambda_distil}/gamma_distil{gamma_distil}_gamma_aux{gamma_aux}/trainlog.csv"
                     # If evaluation is true during training, where to save the FID stuff
-                    eval_logger=f"/home/ymbahram/scratch/baselines/SDFT/results_samesample/data{dataset_size}/distil_ablate/lambda_distil_only_{lambda_distil}/gamma_distil{gamma_distil}/evallog.csv"
+                    eval_logger=f"/home/ymbahram/scratch/baselines/SDFT/results_samesample/data{dataset_size}/combined_lamdas_{lambda_distil}/gamma_distil{gamma_distil}_gamma_aux{gamma_aux}/evallog.csv"
                     # Directory to save checkpoints in
-                    checkpoint_dir = "" # f"/home/ymbahram/scratch/baselines/SDFT/results_samesample/data{dataset_size}/distil_ablate/lambda_distil_only_{lambda_distil}/gamma_distil{gamma_distil}/checkpoints/"
+                    checkpoint_dir = f"/home/ymbahram/scratch/baselines/SDFT/results_samesample/data{dataset_size}/combined_lamdas_{lambda_distil}/gamma_distil{gamma_distil}_gamma_aux{gamma_aux}/checkpoints/"
                     # Whenever you are saving checkpoints, a batch of images are also sampled, where to produce these images
-                    save_samples_dir= f"/home/ymbahram/scratch/baselines/SDFT/results_samesample/data{dataset_size}/distil_ablate/lambda_distil_only_{lambda_distil}/gamma_distil{gamma_distil}/samples/"
+                    save_samples_dir= f"/home/ymbahram/scratch/baselines/SDFT/results_samesample/data{dataset_size}/combined_lamdas_{lambda_distil}/gamma_distil{gamma_distil}_gamma_aux{gamma_aux}/samples/"
 
                     # ________________ Train _________________ 
 

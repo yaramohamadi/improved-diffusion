@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 # Define the lambda_distils and gamma_distils we're interested in plotting
 lambda_distils_to_plot = [#0.1, 0.3, 1
-    0.001, 0.005, 0.1]
+    0.001, 0.005, 0.01, 0.1]
 gamma_distils_to_plot = [0 , 0.1, 1
     #10, 30, 100
     ]
@@ -37,17 +37,17 @@ fig, axes = plt.subplots(1, len(lambda_distils_to_plot), figsize=(18, 6), sharey
 for idx, lambda_distil in enumerate(lambda_distils_to_plot):
     ax = axes[idx]
     # Plot baseline
-    ax.plot(baseline_data['epoch'], baseline_data['KID'], label="Baseline (λ=0)", linestyle="--", color="black")
+    ax.plot(baseline_data['epoch'], baseline_data['FID'], label="Baseline (λ=0)", linestyle="--", color="black")
     
     # Plot each gamma_distil line for the current lambda_distil
     for gamma_distil, gamma_data in data_by_lambda[lambda_distil]:
-        ax.plot(gamma_data['epoch'], gamma_data['KID'], label=f"γ={gamma_distil}")
+        ax.plot(gamma_data['epoch'], gamma_data['FID'], label=f"γ={gamma_distil}")
 
     ax.set_title(f"λ={lambda_distil}")
     ax.set_xlabel("Epoch")
     ax.legend()
     ax.grid(True)
 
-axes[0].set_ylabel("KID")
-plt.suptitle("KID vs Epoch for Different λ and γ Values")
-plt.savefig('/home/ymbahram/scratch/baselines/SDFT/results_samesample/data10/distil_ablate/KID_newHyperparameters.png')
+axes[0].set_ylabel("FID")
+plt.suptitle("FID vs Epoch for Different λ and γ Values")
+plt.savefig('/home/ymbahram/scratch/baselines/SDFT/results_samesample/data10/distil_ablate/FID_newHyperparameters.png')
