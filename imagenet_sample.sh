@@ -13,4 +13,4 @@ source /home/ymbahram/projects/def-hadi87/ymbahram/gputorch/bin/activate
 # pip install -e .
 
 # python /home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/a3ft/scripts/finetuning_samesample_a3ft2.py
-python /home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/a3ft/evaluation/evaluate2.py
+python /home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/a3ft-clf-p2/improved-diffusion/evaluation/evaluate.py

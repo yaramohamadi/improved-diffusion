@@ -1,35 +1,44 @@
 import pandas as pd
+
+# Load the uploaded CSV file to inspect its structure
+file_path = '/home/ymbahram/scratch/clf_trg_results/results_samesample/g_p2_a3ft/data10/finetune/FID_KID.csv'
+data = pd.read_csv(file_path)
+
 import matplotlib.pyplot as plt
-import numpy as np
 
+# Define the metric to plot ('FID' or 'KID')
+metric = 'FID'  # Change to 'KID' if needed
 
-colors = plt.cm.Blues(np.linspace(0.2, 1, 8))  # Shades of red
+# Extract unique values for g and gamma
+unique_g_values = data['g'].unique()
+unique_gamma_values = data['gamma'].unique()
 
+# Set up subplots with a consistent y-axis scale
+n_subplots = len(unique_g_values)
+fig, axes = plt.subplots(1, n_subplots, figsize=(5 * n_subplots, 6), sharex=True)
 
-modes = ['a3ft',  'finetune'] # 'attention_finetune',
-metric = 'KID'
+if n_subplots == 1:
+    axes = [axes]  # Ensure axes is iterable for a single subplot
 
-for mode in modes: 
+# Determine the y-axis limits for consistent scaling
+y_min = data[metric].min()
+y_max = data[metric].max()
 
-    plt.figure(figsize=(6, 4))
+# Create subplots for each g
+for ax, g in zip(axes, unique_g_values):
+    subset = data[data['g'] == g]
+    
+    for gamma in unique_gamma_values:
+        gamma_subset = subset[subset['gamma'] == gamma]
+        ax.plot(gamma_subset['epoch'], gamma_subset[metric], label=f'Gamma: {gamma}')
+    
+    ax.set_title(f'g = {g}', fontsize=14)
+    ax.set_xlabel('Epoch', fontsize=12)
+    ax.set_ylabel(metric, fontsize=12)
+    ax.legend(title='Gamma', fontsize=10, loc='best')
+    ax.grid(True)
+    ax.set_ylim(y_min, y_max)  # Set consistent y-axis limits
 
-    for data in ['data10', 'data100', 'data700', 'data2503']:
-        if data == 'data10':
-           csv_file = f"/home/ymbahram/scratch/baselines/a3ft/results_samesample/{data}/{mode}/{metric}.csv"
-        else:
-            csv_file = f"/home/ymbahram/scratch/baselines/a3ft/results_samesample/{data}/{mode}/FID_KID.csv"
-        df = pd.read_csv(csv_file)
-
-        x = np.arange(0, len(df[metric])*25, 25)
-        plt.plot(x, df[metric], label=f"{mode}-{data}")
-
-
-    plt.xlabel('Epoch')
-    plt.ylabel(metric)
-    plt.title(f'{mode} over 0 guidances for pokemon')
-    plt.legend()
-    plt.ylim([0, 0.3])
-    # Show the plot
-    plt.tight_layout()
-    plt.savefig(f'/home/ymbahram/scratch/baselines/a3ft/results_samesample/{metric}_{mode}_over_data.png')
-    plt.show()
+# Adjust layout
+plt.tight_layout()
+plt.savefig('/home/ymbahram/scratch/clf_trg_results/results_samesample/g_p2_a3ft/data10/finetune/FID.png')

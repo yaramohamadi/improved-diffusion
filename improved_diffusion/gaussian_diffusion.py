@@ -816,14 +816,15 @@ class GaussianDiffusion:
             }[self.model_mean_type]
             assert model_output.shape == target.shape == x_start.shape
             
-            # ________________________________where the loss is created________________________________
-            model_output = model_output + guidance_scale * (source_model_output - model_output) # Classifier-free guidance
-            # _________________________________________________________________________________________
-
+            
             # P2 weighting time-step weighting
             weight = _extract_into_tensor(1 / (self.p2_k + self.snr)**self.p2_gamma, t, target.shape)
 
-            terms["mse"] = mean_flat(weight * (target - model_output) ** 2)
+            # ________________________________where the loss is created________________________________
+            model_output = model_output + guidance_scale * weight * (source_model_output - model_output) # Classifier-free guidance
+            # _________________________________________________________________________________________
+            
+            terms["mse"] = mean_flat((target - model_output) ** 2)
 
             if "vb" in terms:
                 terms["loss"] = terms["mse"] + terms["vb"]
