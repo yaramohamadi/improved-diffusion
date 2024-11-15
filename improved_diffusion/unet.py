@@ -656,7 +656,7 @@ class EncoderUNetModel(nn.Module):
             ),
         )
 
-        if pool == "adaptive":
+        if pool == "adaptive":               
             self.out = nn.Sequential(
                 normalization(ch),
                 SiLU(),
@@ -674,12 +674,14 @@ class EncoderUNetModel(nn.Module):
             )
         elif pool == "spatial":
             self.out = nn.Sequential(
+                nn.Flatten(),
                 nn.Linear(ch * (ds ** 2), 2048),
                 nn.ReLU(),
                 nn.Linear(2048, out_channels),
             )
         elif pool == "spatial_v2":
             self.out = nn.Sequential(
+                nn.Flatten(),
                 nn.Linear(ch * (ds ** 2), 2048),
                 normalization(2048),
                 SiLU(),
@@ -703,6 +705,7 @@ class EncoderUNetModel(nn.Module):
         for module in self.input_blocks:
             h = module(h, emb)
         h = self.middle_block(h, emb)
+        
         return self.out(h)
 
 
