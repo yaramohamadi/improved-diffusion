@@ -135,7 +135,7 @@ noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
 
 # ____________________ Model ____________________
 
-modes = ['finetune'] # 'a3ft'] # ,  'attention_finetune', 
+modes = ['a3ft'] # 'finetune'] # ,  'attention_finetune', 
 
 for mode in modes: 
 
@@ -158,16 +158,16 @@ for mode in modes:
             class_cond=False,
         )
 
-        for g in [0, 0.01, 0.05, 0.1]:
+        for g in [0.1, 0.05]: # 0, 0.01, 0.05, 
 
-            for gamma in [0, 0.1, 10]:
+            for gamma in [10]:
 
                 print("*"*20)
                 print(f"guidance is {g} gamma is {gamma} mode is {mode}")
                 print("*"*20)
 
                 if g == 0:
-                    if gamma in [0.1, 10, 1, 10]:
+                    if gamma in [0.1, 1, 10]:
                         continue
 
                 model = create_model(
