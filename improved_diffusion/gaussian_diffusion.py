@@ -738,12 +738,13 @@ class GaussianDiffusion:
         output = th.where((t == 0), decoder_nll, kl)
         return {"output": output, "pred_xstart": out["pred_xstart"]}
 
+
     def training_losses(self, 
                         model, 
                         x_start, 
-                        source_model, # Classifier-free guidance 
-                        guidance_scale, # Classifier-free guidance 
                         t, 
+                        guidance_scale=0, # Classifier-free guidance 
+                        cond_func=None,
                         model_kwargs=None, 
                         noise=None
                         ): 
@@ -768,7 +769,7 @@ class GaussianDiffusion:
         terms = {}
 
 
-        # Classifier-free guidance : Ignore
+        # Classifier guidance : Ignore
         if self.loss_type == LossType.KL or self.loss_type == LossType.RESCALED_KL:
             terms["loss"] = self._vb_terms_bpd(
                 model=model,
@@ -782,16 +783,12 @@ class GaussianDiffusion:
                 terms["loss"] *= self.num_timesteps
 
 
-        # Classifier-free guidance : In my experiments, LossType is RESCALED_MSE
-        # Warning: I will leave VB out of our computation and focus solely on MEAN for cf-guidance
-        # TODO: once do it with VB and see difference, The variances will have to be added + their covariance. 
+        # Classifier guidance
         elif self.loss_type == LossType.MSE or self.loss_type == LossType.RESCALED_MSE:
             model_output = model(x_t, self._scale_timesteps(t), **model_kwargs)
-            source_model_output = source_model(x_t, self._scale_timesteps(t), **model_kwargs).detach() # Classifier-free guidance, need to detach frozen source model
-
             # These outputs contain both Variance and Mean output values. We should split the two first.
 
-            # Classifier-free guidance: True -> This is the case
+            # Classifier guidance: True -> This is the case
             if self.model_var_type in [
                 ModelVarType.LEARNED,
                 ModelVarType.LEARNED_RANGE,
@@ -799,7 +796,6 @@ class GaussianDiffusion:
                 B, C = x_t.shape[:2]
                 assert model_output.shape == (B, C * 2, *x_t.shape[2:])
                 model_output, model_var_values = th.split(model_output, C, dim=1)
-                source_model_output, _ = th.split(source_model_output, C, dim=1) # Classifier-free guidance 
 
                 # Learn the variance using the variational bound, but don't let
                 # it affect our mean prediction.
@@ -826,7 +822,13 @@ class GaussianDiffusion:
             assert model_output.shape == target.shape == x_start.shape
             
             # ________________________________where the loss is created________________________________
-            model_output = model_output + guidance_scale * (source_model_output - model_output) # Classifier-free guidance (we have it as zero for default)
+            if cond_func is not None:  
+                if guidance_scale == 0:
+                    print("Warning... Guidance is scale is 0 eventhough Classifier Guidance is done. Are you sure everything is ok?")
+
+                zero_classes = th.zeros(x_t.size()[0], dtype=th.int32, device='cuda', requires_grad=False)
+
+                model_output = model_output + cond_func(x_t, self._scale_timesteps(t), y=zero_classes, guidance_scale=guidance_scale) # Classifier guidance (we have it as zero for default)
             # _________________________________________________________________________________________
 
             # P2 weighting time-step weighting (Weight is a tensor filled with 1 for default)

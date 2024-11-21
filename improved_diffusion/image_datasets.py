@@ -1,19 +1,11 @@
 from PIL import Image
 import blobfile as bf
 import numpy as np
-from torch.utils.data import DataLoader, Dataset, WeightedRandomSampler
-import torch as th
-import math
-
-import random
+from torch.utils.data import DataLoader, Dataset
 
 
 def load_data(
-    *, data_dir, batch_size, image_size, class_cond=False, deterministic=False, 
-    weighted_sampling=False, # Classifier-guidance
-    random_crop=False, # Classifier-guidance
-    random_flip=True, # Classifier-guidance
-    infinite=True, # Classifier-guidance
+    *, data_dir, batch_size, image_size, class_cond=False, deterministic=False
 ):
     """
     For a dataset, create a generator over (images, kwargs) pairs.
@@ -35,42 +27,25 @@ def load_data(
         raise ValueError("unspecified data directory")
     all_files = _list_image_files_recursively(data_dir)
     classes = None
-    sampler = None
     if class_cond:
         # Assume classes are the first part of the filename,
         # before an underscore.
         class_names = [bf.basename(path).split("_")[0] for path in all_files]
         sorted_classes = {x: i for i, x in enumerate(sorted(set(class_names)))}
         classes = [sorted_classes[x] for x in class_names]
-
-        # Count the number of samples for each class
-        class_counts = th.bincount(th.tensor(classes))
-        class_weights = 1.0 / class_counts.float()
-
-        if weighted_sampling:
-            # Calculate the weight for each sample based on its class
-            sample_weights = [class_weights[class_idx] for class_idx in classes]
-            # Create the WeightedRandomSampler
-            sampler = WeightedRandomSampler(weights=sample_weights, num_samples=len(sample_weights), replacement=True)
-
-
     dataset = ImageDataset(
         image_size,
         all_files,
         classes=classes,
-        random_crop=random_crop, # classifier-guidance
-        random_flip=random_flip, # classifier-guidance
     )
-
     if deterministic:
         loader = DataLoader(
-            dataset, batch_size=batch_size, shuffle=False, num_workers=1, drop_last=True, pin_memory=True, sampler=sampler
+            dataset, batch_size=batch_size, shuffle=False, num_workers=1, drop_last=True, pin_memory=True
         )
     else:
         loader = DataLoader(
-            dataset, batch_size=batch_size, shuffle=True if sampler==None else False, num_workers=1, drop_last=True, pin_memory=True,  sampler=sampler
+            dataset, batch_size=batch_size, shuffle=True, num_workers=1, drop_last=True, pin_memory=True
         )
-
     while True:
         yield from loader
 
@@ -88,16 +63,11 @@ def _list_image_files_recursively(data_dir):
 
 
 class ImageDataset(Dataset):
-    def __init__(self, resolution, image_paths, classes=None, shard=0, num_shards=1,
-                         random_crop=False, # classifier-guidance
-                        random_flip=False, # classifier-guidance
-                        ):
+    def __init__(self, resolution, image_paths, classes=None, shard=0, num_shards=1):
         super().__init__()
         self.resolution = resolution
         self.local_images = image_paths[shard:][::num_shards]
         self.local_classes = None if classes is None else classes[shard:][::num_shards]
-        self.random_crop = random_crop
-        self.random_flip = random_flip
 
     def __len__(self):
         return len(self.local_images)
@@ -108,66 +78,26 @@ class ImageDataset(Dataset):
             pil_image = Image.open(f)
             pil_image.load()
 
-        pil_image = pil_image.convert("RGB")
+        # We are not on a new enough PIL to support the `reducing_gap`
+        # argument, which uses BOX downsampling at powers of two first.
+        # Thus, we do it by hand to improve downsample quality.
+        while min(*pil_image.size) >= 2 * self.resolution:
+            pil_image = pil_image.resize(
+                tuple(x // 2 for x in pil_image.size), resample=Image.BOX
+            )
 
-        if self.random_crop:
-            arr = random_crop_arr(pil_image, self.resolution)
-        else:
-            arr = center_crop_arr(pil_image, self.resolution)
+        scale = self.resolution / min(*pil_image.size)
+        pil_image = pil_image.resize(
+            tuple(round(x * scale) for x in pil_image.size), resample=Image.BICUBIC
+        )
 
-        if self.random_flip and random.random() < 0.5: # Classifier-guidance
-            arr = arr[:, ::-1]
+        arr = np.array(pil_image.convert("RGB"))
+        crop_y = (arr.shape[0] - self.resolution) // 2
+        crop_x = (arr.shape[1] - self.resolution) // 2
+        arr = arr[crop_y : crop_y + self.resolution, crop_x : crop_x + self.resolution]
+        arr = arr.astype(np.float32) / 127.5 - 1
 
         out_dict = {}
         if self.local_classes is not None:
             out_dict["y"] = np.array(self.local_classes[idx], dtype=np.int64)
         return np.transpose(arr, [2, 0, 1]), out_dict
-
-
-
-
-def center_crop_arr(pil_image, image_size):
-    # We are not on a new enough PIL to support the `reducing_gap`
-    # argument, which uses BOX downsampling at powers of two first.
-    # Thus, we do it by hand to improve downsample quality.
-    while min(*pil_image.size) >= 2 * image_size:
-        pil_image = pil_image.resize(
-            tuple(x // 2 for x in pil_image.size), resample=Image.BOX
-        )
-
-    scale = image_size / min(*pil_image.size)
-    pil_image = pil_image.resize(
-        tuple(round(x * scale) for x in pil_image.size), resample=Image.BICUBIC
-    )
-
-    arr = np.array(pil_image)
-    crop_y = (arr.shape[0] - image_size) // 2
-    crop_x = (arr.shape[1] - image_size) // 2
-    return arr[crop_y : crop_y + image_size, crop_x : crop_x + image_size]
-
-
-
-
-
-def random_crop_arr(pil_image, image_size, min_crop_frac=0.8, max_crop_frac=1.0):
-    min_smaller_dim_size = math.ceil(image_size / max_crop_frac)
-    max_smaller_dim_size = math.ceil(image_size / min_crop_frac)
-    smaller_dim_size = random.randrange(min_smaller_dim_size, max_smaller_dim_size + 1)
-
-    # We are not on a new enough PIL to support the `reducing_gap`
-    # argument, which uses BOX downsampling at powers of two first.
-    # Thus, we do it by hand to improve downsample quality.
-    while min(*pil_image.size) >= 2 * smaller_dim_size:
-        pil_image = pil_image.resize(
-            tuple(x // 2 for x in pil_image.size), resample=Image.BOX
-        )
-
-    scale = smaller_dim_size / min(*pil_image.size)
-    pil_image = pil_image.resize(
-        tuple(round(x * scale) for x in pil_image.size), resample=Image.BICUBIC
-    )
-
-    arr = np.array(pil_image)
-    crop_y = random.randrange(arr.shape[0] - image_size + 1)
-    crop_x = random.randrange(arr.shape[1] - image_size + 1)
-    return arr[crop_y : crop_y + image_size, crop_x : crop_x + image_size]
