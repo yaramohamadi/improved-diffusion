@@ -78,7 +78,7 @@ def selective_freeze_unfreeze(model, time_aware=False, target_channels=(384, 512
 divide_clf_params = True
 lambda_a2 = 1
 lambda_b2 = 1
-lambda_abs = [1.5, 8, 16]
+lambda_abs = [0, 2, 4, 16]
 
 # Training  
 epochs = 151 
@@ -251,13 +251,13 @@ for mode in modes:
                     guidance_scale = np.array([g for _ in range(epochs)]) # Fixed Line
 
                     # Where to log the training loss (File does not have to exist)
-                    loss_logger=f"/home/ymbahram/scratch/clf_trg_results/results_samesample/g_p2_a3ft/data{dataset_size}/a2b2/{mode}/ab{lambda_ab}_g{g}_gamma{gamma}/trainlog.csv"
+                    loss_logger=f"/home/ymbahram/scratch/clf_trg_results/results_samesample/g_p2_a3ft/data{dataset_size}/a2b2/a3ft_2/{mode}/ab{lambda_ab}_g{g}_gamma{gamma}/trainlog.csv"
                     # If evaluation is true during training, where to save the FID stuff
-                    eval_logger=f"/home/ymbahram/scratch/clf_trg_results/results_samesample/g_p2_a3ft/data{dataset_size}/a2b2/{mode}/ab{lambda_ab}_g{g}_gamma{gamma}/evallog.csv"
+                    eval_logger=f"/home/ymbahram/scratch/clf_trg_results/results_samesample/g_p2_a3ft/data{dataset_size}/a2b2/a3ft_2/{mode}/ab{lambda_ab}_g{g}_gamma{gamma}/evallog.csv"
                     # Directory to save checkpoints in
-                    checkpoint_dir = f"/home/ymbahram/scratch/clf_trg_results/results_samesample/g_p2_a3ft/data{dataset_size}/a2b2/{mode}/ab{lambda_ab}_g{g}_gamma{gamma}/checkpoints/"
+                    checkpoint_dir = f"/home/ymbahram/scratch/clf_trg_results/results_samesample/g_p2_a3ft/data{dataset_size}/a2b2/a3ft_2/{mode}/ab{lambda_ab}_g{g}_gamma{gamma}/checkpoints/"
                     # Whenever you are saving checkpoints, a batch of images are also sampled, where to produce these images
-                    save_samples_dir= f"/home/ymbahram/scratch/clf_trg_results/results_samesample/g_p2_a3ft/data{dataset_size}/a2b2/{mode}/ab{lambda_ab}_g{g}_gamma{gamma}/samples/"
+                    save_samples_dir= f"/home/ymbahram/scratch/clf_trg_results/results_samesample/g_p2_a3ft/data{dataset_size}/a2b2/a3ft_2/{mode}/ab{lambda_ab}_g{g}_gamma{gamma}/samples/"
 
                     # ________________ Train _________________ 
 

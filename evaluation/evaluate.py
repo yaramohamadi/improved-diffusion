@@ -13,12 +13,12 @@ modes = ['a3ft', 'finetune'] #
 
 for mode in modes: 
 
-    for g in [0.1, 0.05]: # Fixed guidances I want to try
+    for g in [0.05, 0.1, 1, 5]: # Fixed guidances I want to try
         for gamma in [10]:
 
             for dataset_size in [10]:
             
-                file_path = f"/home/ymbahram/scratch/clf_trg_results/results_samesample/g_p2_a3ft/data{dataset_size}/guided_sampling/FID_KID_intra.csv"
+                file_path = f"/home/ymbahram/scratch/baselines/classifier-guidance/results_samesample/data{dataset_size}/FID_KID_intra.csv"
 
                 print("__________________________ STARTING FROM FIRST EPOCH_____________________")
 

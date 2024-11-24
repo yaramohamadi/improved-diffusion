@@ -12,7 +12,7 @@ source_batch = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/u
 
 modes = ['a3ft'] # 'finetune'] # ,  'attention_finetune', 
 
-for ab in [0, 1, 2, 4]:
+for ab in [0, 2, 4, 8, 16]:
 
     for mode in modes: 
 
