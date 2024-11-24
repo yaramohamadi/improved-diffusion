@@ -9,31 +9,25 @@ ref_path = '/home/ymbahram/scratch/pokemon/pokemon_64x64.npz' # The target full 
 target_path = '/home/ymbahram/scratch/pokemon/pokemon_10.npz' # The target 10-shot dataset
 source_batch = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/imagenet_pretrained.npz' # Source samples from pre-fixed noise vectors
     
-modes = ['a3ft'] # 'finetune'
+modes = ['a3ft', 'finetune'] # 
 
 for mode in modes: 
 
-    for g in [# 0.01, 0.05, 0.1
-        0.05]: 
-            
-        for gamma in [#0, 0.1, 1, 
-            10]:
+    for g in [0.1, 0.05]: # Fixed guidances I want to try
+        for gamma in [10]:
 
             for dataset_size in [10]:
             
-                file_path = f"/home/ymbahram/scratch/clf_trg_results/results_samesample/g_p2_a3ft/data{dataset_size}/{mode}/KID_FID_Intra_LPIPS_0.05.csv"
-                #df = pd.read_csv(file_path)
-                #first_epoch = df['epoch'].max()
-                first_epoch = -25
+                file_path = f"/home/ymbahram/scratch/clf_trg_results/results_samesample/g_p2_a3ft/data{dataset_size}/guided_sampling/FID_KID_intra.csv"
 
                 print("__________________________ STARTING FROM FIRST EPOCH_____________________")
 
-                for epoch in np.arange(first_epoch + 25, 76, 25):
+                for epoch in ['000', '025', '050', '075', '100', '125', '150']:
                     
                     print("*"*20)
                     print(f"g {g} gamma {gamma} mode {mode} configuration {epoch} epoch")
                     print("*"*20)
-                    sample_path = f"/home/ymbahram/scratch/clf_trg_results/results_samesample/g_p2_a3ft/data{dataset_size}/{mode}/g{g}_gamma{gamma}/samples/samples_{epoch}.npz"
+                    sample_path = f"/home/ymbahram/scratch/clf_trg_results/results_samesample/g_p2_a3ft/data{dataset_size}/guided_sampling/{mode}/g{g}_gamma{gamma}/samples/samples_{epoch}.npz"
                     results = evaluation.runEvaluate(ref_path, sample_path, 
                                         FID=True, 
                                         #IS=True, 
@@ -41,13 +35,14 @@ for mode in modes:
                                         #prec_recall=True, 
                                         KID=True, 
                                         # LPIPS=True, source_batch=source_batch, 
-                                        intra_LPIPS=True, 
-                                        target_batch=target_path, 
+                                        # intra_LPIPS=True, 
+                                        # target_batch=target_path, 
                                         verbose=True)
                     
                     results['epoch'] = epoch
                     results['mode'] = mode
                     results['gamma'] = gamma
+                    results['g'] = g
 
                     df_add = pd.DataFrame([results])
 

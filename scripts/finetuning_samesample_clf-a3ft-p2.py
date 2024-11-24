@@ -158,7 +158,7 @@ for mode in modes:
             class_cond=False,
         )
 
-        for g in [0.1, 0.05]: # 0, 0.01, 0.05, 
+        for g in [0.1]: # 0, 0.01, 0.05, 
 
             for gamma in [10]:
 

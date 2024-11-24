@@ -9,41 +9,52 @@ ref_path = '/home/ymbahram/scratch/pokemon/pokemon_64x64.npz' # The target full 
 target_path = '/home/ymbahram/scratch/pokemon/pokemon_10.npz' # The target 10-shot dataset
 source_batch = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/imagenet_pretrained.npz' # Source samples from pre-fixed noise vectors
     
-modes = ['finetune', 'att']
 
-for mode in modes: 
+modes = ['a3ft'] # 'finetune'] # ,  'attention_finetune', 
 
-    for g, g_name in {0:'0'
-            }.items(): 
+for ab in [0, 1, 2, 4]:
 
-        for dataset_size in [10, 100, 700, 2503]:
+    for mode in modes: 
 
-            data_list = []
+        print("*"*20)
+        print('Mode : ', mode)
+        print("*"*20)
 
-            print("__________________________ STARTING FROM FIRST EPOCH_____________________")
+        for g in [0.1]: # Fixed guidances I want to try
+            for gamma in [10]:
 
-            for epoch in np.arange(0, 501, 25):
+                for dataset_size in [10]:
                 
-                print("*"*20)
-                print(f"{g_name} {mode} configuration {epoch} epoch")
-                print("*"*20)
-                sample_path = f"/home/ymbahram/scratch/baselines/a3ft/results_samesample/data{dataset_size}/{mode}/samples/samples_{epoch}.npz"
-                results = evaluation.runEvaluate(ref_path, sample_path, 
-                                    FID=True, 
-                                    #IS=True, 
-                                    #sFID=True, 
-                                    #prec_recall=True, 
-                                    KID=True, 
-                                    # LPIPS=True, source_batch=source_batch, 
-                                    # intra_LPIPS=True, target_batch=target_path, 
-                                    verbose=True)
-                
-                results['epoch'] = epoch
-                results['mode'] = mode
-                data_list.append(results)
+                    file_path = f"/home/ymbahram/scratch/clf_trg_results/results_samesample/g_p2_a3ft/data{dataset_size}/a2b2/{mode}/FID_KID_intra.csv"
 
-                df = pd.DataFrame(data_list)
-                csv_file = f"/home/ymbahram/scratch/baselines/a3ft/results_samesample/data{dataset_size}/{mode}/FID_KID.csv"
-                df.to_csv(csv_file, index=False)
+                    print("__________________________ STARTING FROM FIRST EPOCH_____________________")
 
-                print(f"_______________________________{g} {mode} {epoch} has been written to {csv_file}_______________________")
+                    for epoch in range(0, 151, 25):
+                        
+                        print("*"*20)
+                        print(f"g {g} gamma {gamma} mode {mode} configuration {epoch} epoch")
+                        print("*"*20)
+                        sample_path = f"/home/ymbahram/scratch/clf_trg_results/results_samesample/g_p2_a3ft/data{dataset_size}/a2b2/{mode}/ab{ab}_g{g}_gamma{gamma}/samples/samples_{epoch}.npz"
+                        results = evaluation.runEvaluate(ref_path, sample_path, 
+                                            FID=True, 
+                                            #IS=True, 
+                                            #sFID=True, 
+                                            #prec_recall=True, 
+                                            KID=True, 
+                                            # LPIPS=True, source_batch=source_batch, 
+                                            # intra_LPIPS=True, 
+                                            # target_batch=target_path, 
+                                            verbose=True)
+                        
+                        results['epoch'] = epoch
+                        results['mode'] = mode
+                        results['gamma'] = gamma
+                        results['g'] = g
+                        results['ab'] = ab
+
+                        df_add = pd.DataFrame([results])
+
+                        # Append
+                        df_add.to_csv(file_path, mode="a", index=False, header=not pd.io.common.file_exists(file_path))
+
+                        print(f"_______________________________{g} {mode} {epoch} has been written to {file_path}_______________________")

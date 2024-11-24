@@ -126,6 +126,10 @@ class GaussianDiffusion:
         rescale_timesteps=False,
         p2_gamma=0, # For time-step weighting
         p2_k=1, # For time-step weighting
+        divide_clf_params = False,
+        lambda_a2 = 1,
+        lambda_b2 = 1,
+        lambda_ab = 1,
     ):
         self.model_mean_type = model_mean_type
         self.model_var_type = model_var_type
@@ -133,6 +137,12 @@ class GaussianDiffusion:
         self.rescale_timesteps = rescale_timesteps
         self.g2_gamma=p2_gamma # For time-step weighting
         self.p2_k=p2_k # For time-step weighting
+
+        # divide clf params
+        self.divide_clf_params = divide_clf_params
+        self.lambda_a2 = lambda_a2
+        self.lambda_b2 = lambda_b2
+        self.lambda_ab = lambda_ab
 
         # Use float64 for accuracy.
         betas = np.array(betas, dtype=np.float64)
@@ -289,9 +299,29 @@ class GaussianDiffusion:
                 source_output, _ = th.split(source_output, C, dim=1) # Clssifier-free guidance
                 guidance = th.tensor([guidance], device='cuda', dtype=th.float32) 
 
-                # ______________________Classifier-free guidance____________________________
-                model_output = model_output + guidance * (source_output - model_output)
-                # __________________________________________________________________________
+                # P2 weighting time-step weighting
+                weight = _extract_into_tensor(1 / (self.p2_k + self.snr)**self.p2_gamma, t, model_output.shape)
+                
+
+                import matplotlib.pyplot as plt
+
+                
+
+                print("OK GUIDANCE IS NOT NONE AND WERE HERE")
+
+
+                print("T is ")
+                print(t)
+                print("scaling timestep")
+                print(self._scale_timesteps(t))
+                print("New weight is ")
+                print(weight[0])
+                print("Guidance is ")
+                print(guidance)
+
+                # ________________________________where the loss is created________________________________
+                model_output = model_output + guidance * weight * (source_output - model_output) # Classifier-free guidance
+                # _________________________________________________________________________________________
 
             if self.model_var_type == ModelVarType.LEARNED:
                 model_log_variance = model_var_values
@@ -820,11 +850,25 @@ class GaussianDiffusion:
             # P2 weighting time-step weighting
             weight = _extract_into_tensor(1 / (self.p2_k + self.snr)**self.p2_gamma, t, target.shape)
 
-            # ________________________________where the loss is created________________________________
-            model_output = model_output + guidance_scale * weight * (source_model_output - model_output) # Classifier-free guidance
-            # _________________________________________________________________________________________
-            
-            terms["mse"] = mean_flat((target - model_output) ** 2)
+            if self.divide_clf_params:
+                # ________________________________where the loss is created________________________________
+                model_output = model_output + guidance_scale * weight * (source_model_output - model_output) # Classifier-free guidance
+                # _________________________________________________________________________________________
+                (target - model_output - guidance_scale * weight * (source_model_output - model_output)) ** 2
+
+                a2 = self.lambda_a2 * (target - model_output)**2
+                b2 =  self.lambda_b2 * (guidance_scale * weight * (source_model_output - model_output))**2
+                ab = self.lambda_ab * guidance_scale * weight * (target - model_output) * (source_model_output - model_output)
+
+
+                terms["mse"] = mean_flat(a2 + b2 + ab)
+
+
+            else:
+                # ________________________________where the loss is created________________________________
+                model_output = model_output + guidance_scale * weight * (source_model_output - model_output) # Classifier-free guidance
+                # _________________________________________________________________________________________
+                terms["mse"] = mean_flat((target - model_output) ** 2)
 
             if "vb" in terms:
                 terms["loss"] = terms["mse"] + terms["vb"]
