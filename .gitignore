@@ -6,4 +6,4 @@ classifier-free-guidance/clf_trg_results/
 classifier-free-guidance/bfg-1.14.0.jar
 util_files/
 clf_trg_results/
-bfg-1.14.0.jar
+bfg-1.14.0.jarslurm-*.out
