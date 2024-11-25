@@ -57,7 +57,7 @@ use_scale_shift_norm=True
 timestep_respacing="ddim50"
 use_ddim=True
 sample = True, # Doing sampling for a batch in training every time saving
-how_many_samples= 10 # TODO CHANGE
+how_many_samples= 2500 # TODO CHANGE
 evaluate = False # If you want to perform evaluation during training (Currently every 25 steps)
 
 # PATHS   /home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/pretrained_models/
@@ -69,7 +69,6 @@ resume_checkpoint= ""
 ref_dataset_npz = '/home/ymbahram/scratch/pokemon/pokemon_64x64.npz'
 # Fixed noise vector
 noise_vector = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/pokemon_fixed_noise.npy'
-
 
 # ____________________ Classifier guidance ______________________
 
@@ -184,7 +183,7 @@ for dataset_size in [10]:#, 100, 700, 2503]:
         # If evaluation is true during training, where to save the FID stuff
         eval_logger=f"/home/ymbahram/scratch/baselines/classifier-guidance/results_samesample/data{dataset_size}/g{g}/evallog.csv"
         # Directory to save checkpoints in
-        checkpoint_dir = "" # f"/home/ymbahram/scratch/baselines/classifier-guidance/results_samesample/data{dataset_size}/distil_ablate/lambda_distil_only_{lambda_distil}/gamma_distil{gamma_distil}/checkpoints/"
+        checkpoint_dir = f"/home/ymbahram/scratch/baselines/classifier-guidance/results_samesample/data{dataset_size}/g{g}/samples/checkpoints" 
         # Whenever you are saving checkpoints, a batch of images are also sampled, where to produce these images
         save_samples_dir= f"/home/ymbahram/scratch/baselines/classifier-guidance/results_samesample/data{dataset_size}/g{g}/samples/"
 

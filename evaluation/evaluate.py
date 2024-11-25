@@ -9,50 +9,41 @@ ref_path = '/home/ymbahram/scratch/pokemon/pokemon_64x64.npz' # The target full 
 target_path = '/home/ymbahram/scratch/pokemon/pokemon_10.npz' # The target 10-shot dataset
 source_batch = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/imagenet_pretrained.npz' # Source samples from pre-fixed noise vectors
     
-lambda_auxs = [0] #0.1 , 0.3, 1]
-lambda_distils = [0.001, 0.005, 0.1]
-# SDFT: Output from auxiliary input drastically collapses in smaller timesteps therefore larger gamma (Less influence in smaller timesteps)
-gamma_auxs = [#0, 0.1, 0.6, 3
-    9999]
-gamma_distils = [0, 0.1, 1]
 
-for lambda_distil in lambda_distils: # SDFT: We assume that these two hyperparameters should be the same, just like in the paper
+for g in [0.05, 0.1, 1, 5]: # Fixed guidances I want to try
+    for gamma in [0]:
 
-    data_list = []
+        for dataset_size in [10]:
+        
+            file_path = f"/home/ymbahram/scratch/baselines/classifier-guidance/results_samesample/data{dataset_size}/Intra_LPIPS.csv"
 
-    for gamma_aux in gamma_auxs:
-        for gamma_distil in gamma_distils:
+            print("__________________________ STARTING FROM FIRST EPOCH_____________________")
 
-            for dataset_size in [10]:#, 100, 700, 2503]:
-
-                for gsample, gsample_name in {0.0:'0'
-                    }.items(): 
-
-                    for epoch in np.arange(0, 151, 25):
-                        
-                        print("*"*20)
-                        print(f"lambda_distil: {lambda_distil}, gamma_aux: {gamma_aux}, gamma_distil: {gamma_distil} epoch {epoch} ")
-                        print("*"*20)
-
-                        sample_path = f'/home/ymbahram/scratch/baselines/SDFT/results_samesample/data{dataset_size}/distil_ablate/lambda_distil_only_{lambda_distil}/gamma_distil{gamma_distil}/samples/samples_{epoch}.npz'
-                        results = evaluation.runEvaluate(ref_path, sample_path, 
-                                            FID=True, 
-                                            #IS=True, 
-                                            #sFID=True, 
-                                            #prec_recall=True, 
-                                            KID=True, 
-                                            # LPIPS=True, source_batch=source_batch, 
-                                            # intra_LPIPS=True, target_batch=target_path, 
-                                            verbose=True)
-
-                        results['epoch'] = epoch
-                        results['lambda_distil'] = lambda_distil
-                        results['gamma_distils'] = gamma_distil
-                        data_list.append(results)
-
-                        df = pd.DataFrame(data_list)
-                        csv_file = f"/home/ymbahram/scratch/baselines/SDFT/results_samesample/data{dataset_size}/distil_ablate/lambda_distil_only_{lambda_distil}/FID_KID_newHyperparameters.csv"
-                        df.to_csv(csv_file, index=False)
-
-    print(f"___________________________File Written____/lambda_distil_only_{lambda_distil}/FIDKID_evaluation.csv_______________________")
+            for epoch in range(0, 151, 25):
                 
+                print("*"*20)
+                print(f"g {g} gamma {gamma} configuration {epoch} epoch")
+                print("*"*20) 
+                sample_path = f"/home/ymbahram/scratch/baselines/classifier-guidance/results_samesample/data{dataset_size}/g{g}/samples/samples_{epoch}.npz"
+                results = evaluation.runEvaluate(ref_path, sample_path, 
+                                    # FID=True, 
+                                    #IS=True, 
+                                    #sFID=True, 
+                                    #prec_recall=True, 
+                                    # KID=True, 
+                                    # LPIPS=True, source_batch=source_batch, 
+                                    intra_LPIPS=True, 
+                                    target_batch=target_path, 
+                                    verbose=True)
+                
+                results['epoch'] = epoch
+                results['gamma'] = gamma
+                results['g'] = g
+
+                df_add = pd.DataFrame([results])
+
+                # Append
+                df_add.to_csv(file_path, mode="a", index=False, header=not pd.io.common.file_exists(file_path))
+
+                print(f"_______________________________{g} {epoch} has been written to {file_path}_______________________")
+

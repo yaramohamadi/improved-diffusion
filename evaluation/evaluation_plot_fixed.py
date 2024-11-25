@@ -1,55 +1,38 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-
-# Define the lambda_distils and gamma_distils we're interested in plotting
-lambda_auxs_to_plot = [#0.1, 0.3, 1
-    0.001, 0.005, 0.1]
-gamma_auxs_to_plot = [0 , 0.1, 1
-    #10, 30, 100
-    ]
-
-metric='KID'
-
 # Define the path for the baseline file (lambda_distil = 0)
-baseline_path = '/home/ymbahram/scratch/baselines/SDFT/results_samesample/data10/aux_ablate/lambda_aux_only_0/FID_KID.csv'
+data_path = '/home/ymbahram/scratch/baselines/classifier-guidance/results_samesample/data10/FID_KID.csv'
 
-# Load baseline data
-baseline_data = pd.read_csv(baseline_path)
 
-# Placeholder dictionary to store data for each lambda_distil
-data_by_lambda = {ld: [] for ld in lambda_auxs_to_plot}
+df = pd.read_csv(data_path)
 
-# Loop through the lambda_distils and gamma_distils to load and plot
-for lambda_aux in lambda_auxs_to_plot:
-    for gamma_aux in gamma_auxs_to_plot:
-        sample_path = f'/home/ymbahram/scratch/baselines/SDFT/results_samesample/data10/aux_ablate/lambda_aux_only_{lambda_aux}/FID_KID_newHyperparameters.csv'
-        try:
-            # Load data
-            data = pd.read_csv(sample_path)
-            # Filter for the specific lambda_distil and gamma_distil values
-            filtered_data = data[data['gamma_aux'] == gamma_aux]
-            data_by_lambda[lambda_aux].append((gamma_aux, filtered_data))
-        except FileNotFoundError:
-            print(f"File not found for lambda_aux {lambda_aux} and gamma_aux {gamma_aux}")
+# Create subplots
+fig, axes = plt.subplots(2, 1, figsize=(10, 10), sharex=True)
 
-# Plotting
-fig, axes = plt.subplots(1, len(lambda_auxs_to_plot), figsize=(18, 6), sharey=True)
+# Get unique g values
+unique_g = sorted(df["g"].unique())
 
-for idx, lambda_aux in enumerate(lambda_auxs_to_plot):
-    ax = axes[idx]
-    # Plot baseline
-    ax.plot(baseline_data['epoch'], baseline_data[metric], label="Baseline (λ=0)", linestyle="--", color="black")
-    
-    # Plot each gamma_distil line for the current lambda_distil
-    for gamma_aux, gamma_data in data_by_lambda[lambda_aux]:
-        ax.plot(gamma_data['epoch'], gamma_data[metric], label=f"γ={gamma_aux}")
+# Plot FID over epochs for each g value
+for g in unique_g:
+    subset = df[df["g"] == g]
+    axes[0].plot(subset["epoch"], subset["FID"], label=f"g={g}", marker='o')
+axes[0].set_title("FID over Epochs")
+axes[0].set_ylabel("FID")
+axes[0].legend()
+axes[0].grid(True)
 
-    ax.set_title(f"λ={lambda_aux}")
-    ax.set_xlabel("Epoch")
-    ax.legend()
-    ax.grid(True)
+# Plot KID over epochs for each g value
+for g in unique_g:
+    subset = df[df["g"] == g]
+    axes[1].plot(subset["epoch"], subset["KID"], label=f"g={g}", marker='o')
+axes[1].set_title("KID over Epochs")
+axes[1].set_xlabel("Epoch")
+axes[1].set_ylabel("KID")
+axes[1].legend()
+axes[1].grid(True)
 
-axes[0].set_ylabel(metric)
-plt.suptitle(f"{metric} vs Epoch for Different λ and γ Values")
-plt.savefig(f'/home/ymbahram/scratch/baselines/SDFT/results_samesample/data10/aux_ablate/{metric}_newHyperparameters.png')
+# Adjust layout and display
+plt.tight_layout()
+plt.savefig(f'/home/ymbahram/scratch/baselines/classifier-guidance/results_samesample/data10/FID_KID.png')
+
