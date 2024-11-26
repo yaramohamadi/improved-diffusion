@@ -823,6 +823,8 @@ class GaussianDiffusion:
             # P2 weighting time-step weighting
             weight = _extract_into_tensor(1 / (self.p2_k + self.snr)**self.p2_gamma, t, target.shape)
 
+            weight = self.normalize_weight(weight)
+
             terms["mse"] = mean_flat(weight * (target - model_output) ** 2)
 
             if "vb" in terms:
@@ -833,6 +835,39 @@ class GaussianDiffusion:
             raise NotImplementedError(self.loss_type)
 
         return terms
+
+
+    def normalize_weight(self, weight_tensor):
+        """
+        Normalize tensor to range 0 to 1 using min-max normalization.
+        This is a helper function used for normalizing the p2 weighting (Needed for stable training, not mentioned in the paper)
+        """
+        # Replace positive inf values with a large finite limit if there are finite values
+
+        finite_mask = ~th.isinf(weight_tensor)
+            
+        if finite_mask.any():  # If there are any finite values
+            finite_min = weight_tensor[finite_mask].min()
+            finite_max = weight_tensor[finite_mask].max()
+            
+            # If all finite values are the same (e.g., all 1s), set tensor to 1 (no range to normalize)
+            if finite_min == finite_max:
+                print('________________________')
+                print("Min and Max weights are the same for loss function")
+                print('________________________')
+                weight_tensor = th.ones_like(weight_tensor) if finite_min > 0 else th.zeros_like(weight_tensor)
+            else:
+                # Clip any remaining inf values to the finite min or max
+                weight_tensor = th.clamp(weight_tensor, min=finite_min, max=finite_max)
+                # Perform normalization
+                weight_tensor = (weight_tensor - finite_min) / (finite_max - finite_min)
+        else:
+            # If all values are inf or -inf, set the tensor to 0
+            weight_tensor = th.zeros_like(weight_tensor)
+        
+        return weight_tensor
+
+
 
     def _prior_bpd(self, x_start):
         """

@@ -10,7 +10,6 @@ from improved_diffusion.image_datasets import load_data
 from improved_diffusion.resample import create_named_schedule_sampler
 from improved_diffusion.train_util import TrainLoop
 
-
 # ________________________ TIME-AWARE __________________________
 from improved_diffusion.unet import AttentionBlock, Time_AttentionBlock
 
@@ -76,7 +75,7 @@ def selective_freeze_unfreeze(model, time_aware=False, target_channels=(384, 512
 
 
 # Training  
-epochs = 501 
+epochs = 150 
 batch_size=10
 schedule_sampler="uniform" 
 lr=1e-4
@@ -135,131 +134,131 @@ noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
 
 # ____________________ Model ____________________
 
-modes = ['attention_finetune', 'finetune'] # 'a3ft'] # , 
+modes = ['finetune'] # 'a3ft'] # ,  'attention_finetune', 
 
-for mode in modes: 
+for p2_gamma in [0, 0.5, 1, 5]:
+    for mode in modes: 
 
-    print("*"*20)
-    print('Mode : ', mode)
-    print("*"*20)
-    
-    # TIMEAWARE
-    time_aware = True if mode =='a3ft' else False
+        print("*"*20)
+        print('Mode : ', mode)
+        print("*"*20)
+        
+        # TIMEAWARE
+        time_aware = True if mode =='a3ft' else False
 
-    model = create_model(
-            image_size = image_size,
-            num_channels = num_channels,
-            num_res_blocks = num_res_blocks,
-            learn_sigma= learn_sigma,
-            class_cond= class_cond,
-            use_checkpoint= use_checkpoint,
-            attention_resolutions=attention_resolutions,
-            num_heads=num_heads,
-            num_heads_upsample=num_heads_upsample,
-            use_scale_shift_norm=use_scale_shift_norm,
-            dropout=dropout,
-            time_aware=time_aware, # TIME-AWARE
-    )
-
-
-    diffusion = create_gaussian_diffusion(
-        steps=diffusion_steps,
-        learn_sigma=learn_sigma,
-        sigma_small=sigma_small,
-        noise_schedule=noise_schedule,
-        use_kl=use_kl,
-        predict_xstart=predict_xstart,
-        rescale_timesteps=rescale_timesteps,
-        rescale_learned_sigmas=rescale_learned_sigmas,
-        timestep_respacing=timestep_respacing,
-    )
-
-    for dataset_size in [2503]:
-
-        # The dataset you want to finetune on
-        data_dir = f'/home/ymbahram/scratch/pokemon/pokemon{dataset_size}/' 
-
-        data = load_data(
-            data_dir=data_dir,
-            batch_size=batch_size,
-            image_size=image_size,
-            class_cond=False,
+        model = create_model(
+                image_size = image_size,
+                num_channels = num_channels,
+                num_res_blocks = num_res_blocks,
+                learn_sigma= learn_sigma,
+                class_cond= class_cond,
+                use_checkpoint= use_checkpoint,
+                attention_resolutions=attention_resolutions,
+                num_heads=num_heads,
+                num_heads_upsample=num_heads_upsample,
+                use_scale_shift_norm=use_scale_shift_norm,
+                dropout=dropout,
+                time_aware=time_aware, # TIME-AWARE
         )
 
-        for g, g_name in {
-            # Fixed
-            # 0:'0', 0.05:'0_05', 
-            0:'0' 
-            # # , 0.2: '0_2'
-            }.items():
 
-            print("*"*20)
-            print(f"g_name is {g_name}")
-            print("*"*20)
+        diffusion = create_gaussian_diffusion(
+            steps=diffusion_steps,
+            learn_sigma=learn_sigma,
+            sigma_small=sigma_small,
+            noise_schedule=noise_schedule,
+            use_kl=use_kl,
+            predict_xstart=predict_xstart,
+            rescale_timesteps=rescale_timesteps,
+            rescale_learned_sigmas=rescale_learned_sigmas,
+            timestep_respacing=timestep_respacing,
+            p2_gamma=p2_gamma, # For time-step weighting
+        )
 
-            # ________________ Load Pretrained ____________
+        for dataset_size in [10]:
 
-            model_path=load_model_path
-            checkpoint = th.load(model_path)
-            strict = False if time_aware else True # TIMEAWARE
-            model.load_state_dict(checkpoint, strict = strict) # TIMEAWARE: Because we are adding some new modules  
+            # The dataset you want to finetune on
+            data_dir = f'/home/ymbahram/scratch/pokemon/pokemon{dataset_size}/' 
 
-            model.to('cuda')
-            
-            # TIME-AWARE, in case of normal finetune, we dont freeze anything
-            if mode != 'finetune':
-                selective_freeze_unfreeze(model, time_aware)
-
-            # ________________classifier-free guidance (DONT NEED TODO removes)_______________
-            pretrained_model = copy.deepcopy(model)
-            pretrained_model.to('cuda')
-
-            # Fixed
-            guidance_scale = np.array([g for _ in range(epochs)]) # Fixed Line
-
-            # Where to log the training loss (File does not have to exist)
-            loss_logger=f"/home/ymbahram/scratch/baselines/a3ft/results_samesample/data{dataset_size}/{mode}/trainlog.csv"
-            # If evaluation is true during training, where to save the FID stuff
-            eval_logger=f"/home/ymbahram/scratch/baselines/a3ft/results_samesample/data{dataset_size}/{mode}/evallog.csv"
-            # Directory to save checkpoints in
-            checkpoint_dir = f"/home/ymbahram/scratch/baselines/a3ft/results_samesample/data{dataset_size}/{mode}/checkpoints/"
-            # Whenever you are saving checkpoints, a batch of images are also sampled, where to produce these images
-            save_samples_dir= f"/home/ymbahram/scratch/baselines/a3ft/results_samesample/data{dataset_size}/{mode}/samples/"
-
-            # ________________ Train _________________ 
-
-            schedule_sampler = create_named_schedule_sampler("uniform", diffusion)
-
-            TrainLoop(
-                model=model,
-                diffusion=diffusion,
-                data=data,
+            data = load_data(
+                data_dir=data_dir,
                 batch_size=batch_size,
-                microbatch=microbatch,
-                lr=lr,
-                ema_rate=ema_rate,
-                log_interval=log_interval,
-                save_interval=save_interval,
-                resume_checkpoint=resume_checkpoint,
-                use_fp16=use_fp16,
-                fp16_scale_growth=fp16_scale_growth,
-                schedule_sampler=schedule_sampler,
-                weight_decay=weight_decay,
-                lr_anneal_steps=lr_anneal_steps,
-                # next 2 For logging
-                loss_logger=loss_logger,
-                checkpoint_dir = checkpoint_dir,
-                # next 4 For sampling
-                sample = True, # Doing sampling for a batch in training every time saving
-                use_ddim=use_ddim,
-                save_samples_dir=save_samples_dir,
-                how_many_samples=how_many_samples,
                 image_size=image_size,
-                # For classifier-free guidanace (We dont need these, TODO delete later)
-                pretrained_model=pretrained_model,
-                guidance_scale=guidance_scale,
-                clf_time_based=False,
-                # for fixed sampling
-                noise_vector=noise_vector,
-                epochs=epochs,
-            ).run_loop()
+                class_cond=False,
+            )
+
+            for g, g_name in {
+                # Fixed
+                0:'0' 
+                }.items():
+
+                print("*"*20)
+                print(f"g_name is {g_name}")
+                print("*"*20)
+
+                # ________________ Load Pretrained ____________
+
+                model_path=load_model_path
+                checkpoint = th.load(model_path)
+                strict = False if time_aware else True # TIMEAWARE
+                model.load_state_dict(checkpoint, strict = strict) # TIMEAWARE: Because we are adding some new modules  
+
+                model.to('cuda')
+                
+                # TIME-AWARE, in case of normal finetune, we dont freeze anything
+                if mode != 'finetune':
+                    selective_freeze_unfreeze(model, time_aware)
+
+                # ________________classifier-free guidance (DONT NEED TODO removes)_______________
+                pretrained_model = copy.deepcopy(model)
+                pretrained_model.to('cuda')
+
+                # Fixed
+                guidance_scale = np.array([g for _ in range(epochs)]) # Fixed Line
+
+                # Where to log the training loss (File does not have to exist)
+                loss_logger=f"/home/ymbahram/scratch/baselines/{mode}/data{dataset_size}/trainlog.csv"
+                # If evaluation is true during training, where to save the FID stuff
+                eval_logger=f"/home/ymbahram/scratch/baselines/{mode}/data{dataset_size}/evallog.csv"
+                # Directory to save checkpoints in
+                checkpoint_dir = f"/home/ymbahram/scratch/baselines/{mode}/data{dataset_size}/checkpoints/"
+                # Whenever you are saving checkpoints, a batch of images are also sampled, where to produce these images
+                save_samples_dir= f"/home/ymbahram/scratch/baselines/{mode}/data{dataset_size}/samples/"
+
+                # ________________ Train _________________ 
+
+                schedule_sampler = create_named_schedule_sampler("uniform", diffusion)
+
+                TrainLoop(
+                    model=model,
+                    diffusion=diffusion,
+                    data=data,
+                    batch_size=batch_size,
+                    microbatch=microbatch,
+                    lr=lr,
+                    ema_rate=ema_rate,
+                    log_interval=log_interval,
+                    save_interval=save_interval,
+                    resume_checkpoint=resume_checkpoint,
+                    use_fp16=use_fp16,
+                    fp16_scale_growth=fp16_scale_growth,
+                    schedule_sampler=schedule_sampler,
+                    weight_decay=weight_decay,
+                    lr_anneal_steps=lr_anneal_steps,
+                    # next 2 For logging
+                    loss_logger=loss_logger,
+                    checkpoint_dir = checkpoint_dir,
+                    # next 4 For sampling
+                    sample = True, # Doing sampling for a batch in training every time saving
+                    use_ddim=use_ddim,
+                    save_samples_dir=save_samples_dir,
+                    how_many_samples=how_many_samples,
+                    image_size=image_size,
+                    # For classifier-free guidanace (We dont need these, TODO delete later)
+                    pretrained_model=pretrained_model,
+                    guidance_scale=guidance_scale,
+                    clf_time_based=False,
+                    # for fixed sampling
+                    noise_vector=noise_vector,
+                    epochs=epochs,
+                ).run_loop()

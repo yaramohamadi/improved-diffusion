@@ -2,7 +2,6 @@
 imagenet_sample.sh
 setup.py
 evaluation/__init__.py
-evaluation/evaluation.py
 improved_diffusion/__init__.py
 improved_diffusion/dist_util.py
 improved_diffusion/fp16_util.py

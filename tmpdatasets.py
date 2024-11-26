@@ -3,12 +3,20 @@ import random
 
 from PIL import Image
 import blobfile as bf
+from mpi4py import MPI
 import numpy as np
 from torch.utils.data import DataLoader, Dataset
 
 
 def load_data(
-    *, data_dir, batch_size, image_size, class_cond=False, deterministic=False, random_crop=False, random_flip=True,
+    *,
+    data_dir,
+    batch_size,
+    image_size,
+    class_cond=False,
+    deterministic=False,
+    random_crop=False,
+    random_flip=True,
 ):
     """
     For a dataset, create a generator over (images, kwargs) pairs.
@@ -42,16 +50,18 @@ def load_data(
         image_size,
         all_files,
         classes=classes,
+        shard=MPI.COMM_WORLD.Get_rank(),
+        num_shards=MPI.COMM_WORLD.Get_size(),
         random_crop=random_crop,
         random_flip=random_flip,
     )
     if deterministic:
         loader = DataLoader(
-            dataset, batch_size=batch_size, shuffle=False, num_workers=1, drop_last=True, pin_memory=True
+            dataset, batch_size=batch_size, shuffle=False, num_workers=1, drop_last=True
         )
     else:
         loader = DataLoader(
-            dataset, batch_size=batch_size, shuffle=True, num_workers=1, drop_last=True, pin_memory=True
+            dataset, batch_size=batch_size, shuffle=True, num_workers=1, drop_last=True
         )
     while True:
         yield from loader
@@ -70,7 +80,16 @@ def _list_image_files_recursively(data_dir):
 
 
 class ImageDataset(Dataset):
-    def __init__(self, resolution, image_paths, classes=None, shard=0, num_shards=1, random_crop=False, random_flip=True,):
+    def __init__(
+        self,
+        resolution,
+        image_paths,
+        classes=None,
+        shard=0,
+        num_shards=1,
+        random_crop=False,
+        random_flip=True,
+    ):
         super().__init__()
         self.resolution = resolution
         self.local_images = image_paths[shard:][::num_shards]
@@ -95,6 +114,7 @@ class ImageDataset(Dataset):
 
         if self.random_flip and random.random() < 0.5:
             arr = arr[:, ::-1]
+
         arr = arr.astype(np.float32) / 127.5 - 1
 
         out_dict = {}
