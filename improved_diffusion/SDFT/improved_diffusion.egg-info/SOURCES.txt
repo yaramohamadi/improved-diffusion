@@ -39,11 +39,6 @@ improved_diffusion/.ipynb_checkpoints/unet-checkpoint.py
 scripts/finetuning10.py
 scripts/finetuning10_cfguidance.py
 scripts/finetuning_dataset_clf.py
-scripts/imagenet_sample.py
-scripts/imagenet_sample_clf.py
-scripts/imagenet_sample_clf_samesample.py
-scripts/imagenet_sample_normal.py
-scripts/tmp.py
 scripts/.ipynb_checkpoints/image_nll-checkpoint.py
 scripts/.ipynb_checkpoints/image_sample-checkpoint.py
 scripts/.ipynb_checkpoints/image_train-checkpoint.py

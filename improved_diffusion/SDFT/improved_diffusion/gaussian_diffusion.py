@@ -854,6 +854,7 @@ class GaussianDiffusion:
 
             # P2 weighting time-step weighting (Weight is a tensor filled with 1 for default of SDFT)
             weight = _extract_into_tensor(1 / (self.p2_k + self.snr)**self.p2_gamma, t, target.shape)
+            weight = normalize_weight(weight) # Apply normalization
 
             # Diffusion Loss
             terms["mse"] = mean_flat(weight * (target - model_output) ** 2)
