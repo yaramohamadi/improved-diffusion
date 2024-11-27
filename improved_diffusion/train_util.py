@@ -194,12 +194,23 @@ class TrainLoop:
             
             batch, cond = next(self.data)
             self.run_step(batch, cond) 
-            if (self.step  + self.resume_step ) % self.save_interval == 0:
-                self.save()
-                if self.sample: # Added this for sampling
-                    self.model.eval()
-                    self.samplefunc() # Possible metric evaluations happening here also
-                    self.model.train()
+
+            if self.epochs == 501: # Dont want too much sampling here # TODO Temporary, remove
+                if self.step + self.resume_step >= 200:
+                    if (self.step  + self.resume_step ) % self.save_interval == 0:
+                        self.save()
+                        if self.sample: # Added this for sampling
+                            self.model.eval()
+                            self.samplefunc() # Possible metric evaluations happening here also
+                            self.model.train()
+                else:
+                    if (self.step  + self.resume_step ) % (self.save_interval * 4) == 0: # Sampling twice less than before
+                        self.save()
+                        if self.sample: # Added this for sampling
+                            self.model.eval()
+                            self.samplefunc() # Possible metric evaluations happening here also
+                            self.model.train()
+
             self.step += 1
             if self.step + self.resume_step == self.epochs:
                 break

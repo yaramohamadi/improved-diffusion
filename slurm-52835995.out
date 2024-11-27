@@ -1,0 +1,1458 @@
+********************
+Gamma:  0 Mode :  finetune
+********************
+********************
+g_name is 0
+********************
+0it [00:00, ?it/s]1it [00:06,  6.54s/it]________________________
+Min and Max weights are the same for loss function
+________________________
+2it [00:06,  2.87s/it]________________________
+Min and Max weights are the same for loss function
+________________________
+3it [00:07,  1.70s/it]________________________
+Min and Max weights are the same for loss function
+________________________
+4it [00:07,  1.14s/it]________________________
+Min and Max weights are the same for loss function
+________________________
+5it [00:07,  1.19it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+6it [00:08,  1.53it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+7it [00:08,  1.86it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+8it [00:08,  2.17it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+9it [00:08,  2.44it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+10it [00:09,  2.66it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+11it [00:09,  2.84it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+12it [00:09,  2.99it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+13it [00:10,  3.09it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+14it [00:10,  3.17it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+15it [00:10,  3.23it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+16it [00:11,  3.26it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+17it [00:11,  3.29it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+18it [00:11,  3.31it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+19it [00:11,  3.24it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+20it [00:12,  3.28it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+21it [00:12,  3.30it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+22it [00:12,  3.31it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+23it [00:13,  3.33it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+24it [00:13,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+25it [00:13,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+26it [00:14,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+27it [00:14,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+28it [00:14,  3.36it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+29it [00:14,  3.36it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+30it [00:15,  3.36it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+31it [00:15,  3.36it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+32it [00:15,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+33it [00:16,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+34it [00:16,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+35it [00:16,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+36it [00:16,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+37it [00:17,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+38it [00:17,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+39it [00:17,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+40it [00:18,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+41it [00:18,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+42it [00:18,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+43it [00:19,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+44it [00:19,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+45it [00:19,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+46it [00:19,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+47it [00:20,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+48it [00:20,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+49it [00:20,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+50it [00:21,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+51it [00:21,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+52it [00:21,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+53it [00:22,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+54it [00:22,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+55it [00:22,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+56it [00:22,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+57it [00:23,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+58it [00:23,  3.33it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+59it [00:23,  3.33it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+60it [00:24,  3.33it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+61it [00:24,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+62it [00:24,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+63it [00:25,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+64it [00:25,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+65it [00:25,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+66it [00:25,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+67it [00:26,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+68it [00:26,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+69it [00:26,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+70it [00:27,  3.33it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+71it [00:27,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+72it [00:27,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+73it [00:28,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+74it [00:28,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+75it [00:28,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+76it [00:28,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+77it [00:29,  3.33it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+78it [00:29,  3.33it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+79it [00:29,  3.33it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+80it [00:30,  3.33it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+81it [00:30,  3.33it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+82it [00:30,  3.33it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+83it [00:31,  3.33it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+84it [00:31,  3.33it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+85it [00:31,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+86it [00:31,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+87it [00:32,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+88it [00:32,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+89it [00:32,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+90it [00:33,  3.33it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+91it [00:33,  3.33it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+92it [00:33,  3.33it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+93it [00:34,  3.33it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+94it [00:34,  3.33it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+95it [00:34,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+96it [00:34,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+97it [00:35,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+98it [00:35,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+99it [00:35,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+100it [00:36,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+101it [00:36,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+102it [00:36,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+103it [00:37,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+104it [00:37,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+105it [00:37,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+106it [00:37,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+107it [00:38,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+108it [00:38,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+109it [00:38,  3.36it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+110it [00:39,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+111it [00:39,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+112it [00:39,  3.36it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+113it [00:40,  3.36it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+114it [00:40,  3.36it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+115it [00:40,  3.36it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+116it [00:40,  3.36it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+117it [00:41,  3.36it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+118it [00:41,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+119it [00:41,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+120it [00:42,  3.36it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+121it [00:42,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+122it [00:42,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+123it [00:43,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+124it [00:43,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+125it [00:43,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+126it [00:43,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+127it [00:44,  3.36it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+128it [00:44,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+129it [00:44,  2.99it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+130it [00:45,  2.58it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+131it [00:45,  2.77it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+132it [00:46,  2.92it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+133it [00:46,  3.05it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+134it [00:46,  3.14it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+135it [00:46,  3.20it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+136it [00:47,  3.25it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+137it [00:47,  3.28it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+138it [00:47,  3.31it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+139it [00:48,  3.33it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+140it [00:48,  3.34it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+141it [00:48,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+142it [00:49,  3.36it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+143it [00:49,  3.36it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+144it [00:49,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+145it [00:49,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+146it [00:50,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+147it [00:50,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+148it [00:50,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+149it [00:51,  3.35it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+149it [00:51,  2.90it/s]
+________________________
+Min and Max weights are the same for loss function
+________________________
+saving model 0...
+saving model 0.9999...
+********************
+Gamma:  0.1 Mode :  finetune
+********************
+********************
+g_name is 0
+********************
+0it [00:00, ?it/s]1it [00:00,  1.61it/s]2it [00:00,  2.28it/s]3it [00:01,  2.64it/s]4it [00:01,  2.85it/s]5it [00:01,  2.98it/s]6it [00:02,  3.06it/s]7it [00:02,  3.12it/s]8it [00:02,  3.16it/s]9it [00:03,  3.19it/s]10it [00:03,  3.20it/s]11it [00:03,  3.22it/s]12it [00:04,  3.23it/s]13it [00:04,  3.23it/s]14it [00:04,  3.23it/s]15it [00:04,  3.24it/s]16it [00:05,  3.24it/s]17it [00:05,  3.24it/s]18it [00:05,  3.25it/s]19it [00:06,  3.24it/s]20it [00:06,  3.24it/s]21it [00:06,  3.24it/s]22it [00:07,  3.23it/s]23it [00:07,  3.24it/s]24it [00:07,  3.24it/s]25it [00:08,  3.24it/s]26it [00:08,  3.24it/s]27it [00:08,  3.24it/s]28it [00:08,  3.24it/s]29it [00:09,  3.24it/s]30it [00:09,  3.24it/s]31it [00:09,  3.24it/s]32it [00:10,  3.24it/s]33it [00:10,  3.24it/s]34it [00:10,  3.24it/s]35it [00:11,  3.24it/s]36it [00:11,  3.24it/s]37it [00:11,  3.24it/s]38it [00:12,  3.24it/s]39it [00:12,  3.24it/s]40it [00:12,  3.24it/s]41it [00:12,  3.24it/s]42it [00:13,  3.24it/s]43it [00:13,  3.24it/s]44it [00:13,  3.24it/s]45it [00:14,  3.24it/s]46it [00:14,  3.24it/s]47it [00:14,  3.24it/s]48it [00:15,  3.24it/s]49it [00:15,  3.24it/s]50it [00:15,  3.24it/s]51it [00:16,  3.23it/s]52it [00:16,  3.23it/s]53it [00:16,  3.23it/s]54it [00:16,  3.24it/s]55it [00:17,  3.24it/s]56it [00:17,  3.24it/s]57it [00:17,  3.24it/s]58it [00:18,  3.24it/s]59it [00:18,  3.23it/s]60it [00:18,  3.23it/s]61it [00:19,  3.24it/s]62it [00:19,  3.24it/s]63it [00:19,  3.24it/s]64it [00:20,  3.24it/s]65it [00:20,  3.24it/s]66it [00:20,  3.23it/s]67it [00:20,  3.24it/s]68it [00:21,  3.24it/s]69it [00:21,  3.24it/s]70it [00:21,  3.24it/s]71it [00:22,  3.24it/s]72it [00:22,  3.23it/s]73it [00:22,  3.24it/s]74it [00:23,  3.24it/s]75it [00:23,  3.24it/s]76it [00:23,  3.24it/s]77it [00:24,  3.23it/s]78it [00:24,  3.24it/s]79it [00:24,  3.23it/s]80it [00:25,  3.24it/s]81it [00:25,  3.24it/s]82it [00:25,  3.24it/s]83it [00:25,  3.24it/s]84it [00:26,  3.24it/s]85it [00:26,  3.24it/s]86it [00:26,  3.24it/s]87it [00:27,  3.24it/s]88it [00:27,  3.24it/s]89it [00:27,  3.24it/s]90it [00:28,  3.23it/s]91it [00:28,  3.23it/s]92it [00:28,  3.23it/s]93it [00:29,  3.23it/s]94it [00:29,  3.23it/s]95it [00:29,  3.23it/s]96it [00:29,  3.23it/s]97it [00:30,  3.22it/s]98it [00:30,  3.22it/s]99it [00:30,  3.22it/s]100it [00:31,  3.23it/s]101it [00:31,  3.23it/s]102it [00:31,  3.23it/s]103it [00:32,  3.23it/s]104it [00:32,  3.22it/s]105it [00:32,  3.23it/s]106it [00:33,  3.23it/s]107it [00:33,  3.22it/s]108it [00:33,  3.22it/s]109it [00:33,  3.23it/s]110it [00:34,  3.23it/s]111it [00:34,  3.23it/s]112it [00:34,  3.23it/s]113it [00:35,  3.23it/s]114it [00:35,  3.24it/s]115it [00:35,  3.23it/s]116it [00:36,  3.23it/s]117it [00:36,  3.23it/s]118it [00:36,  3.23it/s]119it [00:37,  3.23it/s]120it [00:37,  3.22it/s]121it [00:37,  3.21it/s]122it [00:38,  3.21it/s]123it [00:38,  3.21it/s]124it [00:38,  3.21it/s]125it [00:38,  3.20it/s]126it [00:39,  3.21it/s]127it [00:39,  3.21it/s]128it [00:39,  3.21it/s]129it [00:40,  3.21it/s]130it [00:40,  3.21it/s]131it [00:40,  3.21it/s]132it [00:41,  3.20it/s]133it [00:41,  3.20it/s]134it [00:41,  3.21it/s]135it [00:42,  3.20it/s]136it [00:42,  3.21it/s]137it [00:42,  3.21it/s]138it [00:43,  3.21it/s]139it [00:43,  3.21it/s]140it [00:43,  3.21it/s]141it [00:43,  3.20it/s]142it [00:44,  3.21it/s]143it [00:44,  3.21it/s]144it [00:44,  3.20it/s]145it [00:45,  3.20it/s]146it [00:45,  3.20it/s]147it [00:45,  3.20it/s]148it [00:46,  3.21it/s]149it [00:46,  3.20it/s]149it [00:46,  3.19it/s]
+saving model 0...
+saving model 0.9999...
+********************
+Gamma:  0.5 Mode :  finetune
+********************
+********************
+g_name is 0
+********************
+0it [00:00, ?it/s]1it [00:00,  3.24it/s]2it [00:00,  3.20it/s]3it [00:00,  3.19it/s]4it [00:01,  3.18it/s]5it [00:01,  3.17it/s]6it [00:01,  3.16it/s]7it [00:02,  3.16it/s]8it [00:02,  3.17it/s]9it [00:02,  3.17it/s]10it [00:03,  3.17it/s]11it [00:03,  3.17it/s]12it [00:03,  3.16it/s]13it [00:04,  3.16it/s]14it [00:04,  3.16it/s]15it [00:04,  3.16it/s]16it [00:05,  3.16it/s]17it [00:05,  3.16it/s]18it [00:05,  3.16it/s]19it [00:05,  3.17it/s]20it [00:06,  3.16it/s]21it [00:06,  3.16it/s]22it [00:06,  3.16it/s]23it [00:07,  3.17it/s]24it [00:07,  3.16it/s]25it [00:07,  3.16it/s]26it [00:08,  3.16it/s]27it [00:08,  3.17it/s]28it [00:08,  3.16it/s]29it [00:09,  3.16it/s]30it [00:09,  3.16it/s]31it [00:09,  3.16it/s]32it [00:10,  3.16it/s]33it [00:10,  3.16it/s]34it [00:10,  3.16it/s]35it [00:11,  3.16it/s]36it [00:11,  3.17it/s]37it [00:11,  3.16it/s]38it [00:12,  3.16it/s]39it [00:12,  3.16it/s]40it [00:12,  3.16it/s]41it [00:12,  3.15it/s]42it [00:13,  3.15it/s]43it [00:13,  3.15it/s]44it [00:13,  3.16it/s]45it [00:14,  3.16it/s]46it [00:14,  3.16it/s]47it [00:14,  3.13it/s]48it [00:15,  3.14it/s]49it [00:15,  3.14it/s]50it [00:15,  3.15it/s]51it [00:16,  3.15it/s]52it [00:16,  3.16it/s]53it [00:16,  3.16it/s]54it [00:17,  3.16it/s]55it [00:17,  3.16it/s]56it [00:17,  3.15it/s]57it [00:18,  3.15it/s]58it [00:18,  3.15it/s]59it [00:18,  3.15it/s]60it [00:18,  3.16it/s]61it [00:19,  3.16it/s]62it [00:19,  3.16it/s]63it [00:19,  3.16it/s]64it [00:20,  3.16it/s]65it [00:20,  3.16it/s]66it [00:20,  3.16it/s]67it [00:21,  3.15it/s]68it [00:21,  3.16it/s]69it [00:21,  3.16it/s]70it [00:22,  3.16it/s]71it [00:22,  3.16it/s]72it [00:22,  3.16it/s]73it [00:23,  3.17it/s]74it [00:23,  3.16it/s]75it [00:23,  3.16it/s]76it [00:24,  3.16it/s]77it [00:24,  3.16it/s]78it [00:24,  3.16it/s]79it [00:25,  3.16it/s]80it [00:25,  3.16it/s]81it [00:25,  3.16it/s]82it [00:25,  3.16it/s]83it [00:26,  3.15it/s]84it [00:26,  3.15it/s]85it [00:26,  3.13it/s]86it [00:27,  3.14it/s]87it [00:27,  3.14it/s]88it [00:27,  3.14it/s]89it [00:28,  3.14it/s]90it [00:28,  3.15it/s]91it [00:28,  3.15it/s]92it [00:29,  3.14it/s]93it [00:29,  3.14it/s]94it [00:29,  3.14it/s]95it [00:30,  3.14it/s]96it [00:30,  3.14it/s]97it [00:30,  3.14it/s]98it [00:31,  3.14it/s]99it [00:31,  3.14it/s]100it [00:31,  3.14it/s]101it [00:32,  3.14it/s]102it [00:32,  3.15it/s]103it [00:32,  3.14it/s]104it [00:32,  3.14it/s]105it [00:33,  3.13it/s]106it [00:33,  3.13it/s]107it [00:33,  3.14it/s]108it [00:34,  3.14it/s]109it [00:34,  3.15it/s]110it [00:34,  3.15it/s]111it [00:35,  3.15it/s]112it [00:35,  3.14it/s]113it [00:35,  3.14it/s]114it [00:36,  3.14it/s]115it [00:36,  3.14it/s]116it [00:36,  3.14it/s]117it [00:37,  3.14it/s]118it [00:37,  3.13it/s]119it [00:37,  3.13it/s]120it [00:38,  3.13it/s]121it [00:38,  3.13it/s]122it [00:38,  3.14it/s]123it [00:39,  3.14it/s]124it [00:39,  3.14it/s]125it [00:39,  3.14it/s]126it [00:39,  3.14it/s]127it [00:40,  3.14it/s]128it [00:40,  3.13it/s]129it [00:40,  3.14it/s]130it [00:41,  3.14it/s]131it [00:41,  3.14it/s]132it [00:41,  3.14it/s]133it [00:42,  3.14it/s]134it [00:42,  3.13it/s]135it [00:42,  3.13it/s]136it [00:43,  3.13it/s]137it [00:43,  3.13it/s]138it [00:43,  3.14it/s]139it [00:44,  3.14it/s]140it [00:44,  3.14it/s]141it [00:44,  3.14it/s]142it [00:45,  3.14it/s]143it [00:45,  3.14it/s]144it [00:45,  3.14it/s]145it [00:46,  3.14it/s]146it [00:46,  3.14it/s]147it [00:46,  3.15it/s]148it [00:46,  3.14it/s]149it [00:47,  3.14it/s]149it [00:47,  3.13it/s]
+saving model 0...
+saving model 0.9999...
+********************
+Gamma:  1 Mode :  finetune
+********************
+********************
+g_name is 0
+********************
+0it [00:00, ?it/s]1it [00:00,  3.19it/s]2it [00:00,  3.15it/s]3it [00:00,  3.14it/s]4it [00:01,  3.13it/s]5it [00:01,  3.13it/s]6it [00:01,  3.13it/s]7it [00:02,  3.11it/s]8it [00:02,  3.11it/s]9it [00:02,  3.11it/s]10it [00:03,  3.11it/s]11it [00:03,  3.12it/s]12it [00:03,  3.12it/s]13it [00:04,  3.12it/s]14it [00:04,  3.12it/s]15it [00:04,  3.12it/s]16it [00:05,  3.11it/s]17it [00:05,  3.11it/s]18it [00:05,  3.11it/s]19it [00:06,  3.11it/s]20it [00:06,  2.58it/s]21it [00:06,  2.71it/s]22it [00:07,  2.82it/s]23it [00:07,  2.90it/s]24it [00:07,  2.97it/s]25it [00:08,  3.01it/s]26it [00:08,  3.04it/s]27it [00:08,  3.06it/s]28it [00:09,  3.08it/s]29it [00:09,  3.09it/s]30it [00:09,  3.10it/s]31it [00:10,  3.11it/s]32it [00:10,  3.12it/s]33it [00:10,  3.12it/s]34it [00:11,  3.12it/s]35it [00:11,  3.12it/s]36it [00:11,  3.12it/s]37it [00:12,  3.12it/s]38it [00:12,  3.12it/s]39it [00:12,  3.12it/s]40it [00:13,  3.12it/s]41it [00:13,  3.12it/s]42it [00:13,  3.12it/s]43it [00:14,  3.12it/s]44it [00:14,  3.12it/s]45it [00:14,  3.12it/s]46it [00:14,  3.12it/s]47it [00:15,  3.13it/s]48it [00:15,  3.13it/s]49it [00:15,  3.13it/s]50it [00:16,  3.12it/s]51it [00:16,  3.12it/s]52it [00:16,  3.11it/s]53it [00:17,  3.11it/s]54it [00:17,  3.11it/s]55it [00:17,  3.11it/s]56it [00:18,  3.12it/s]57it [00:18,  3.12it/s]58it [00:18,  3.13it/s]59it [00:19,  3.13it/s]60it [00:19,  3.13it/s]61it [00:19,  3.13it/s]62it [00:20,  3.13it/s]63it [00:20,  3.12it/s]64it [00:20,  3.12it/s]65it [00:21,  3.12it/s]66it [00:21,  3.12it/s]67it [00:21,  3.12it/s]68it [00:22,  3.12it/s]69it [00:22,  3.12it/s]70it [00:22,  3.12it/s]71it [00:22,  3.12it/s]72it [00:23,  3.12it/s]73it [00:23,  3.12it/s]74it [00:23,  3.12it/s]75it [00:24,  3.12it/s]76it [00:24,  3.12it/s]77it [00:24,  3.11it/s]78it [00:25,  3.12it/s]79it [00:25,  3.12it/s]80it [00:25,  3.12it/s]81it [00:26,  3.12it/s]82it [00:26,  3.12it/s]83it [00:26,  3.12it/s]84it [00:27,  3.12it/s]85it [00:27,  3.12it/s]86it [00:27,  3.12it/s]87it [00:28,  3.12it/s]88it [00:28,  3.12it/s]89it [00:28,  3.12it/s]90it [00:29,  3.12it/s]91it [00:29,  3.13it/s]92it [00:29,  3.12it/s]93it [00:30,  3.12it/s]94it [00:30,  3.12it/s]95it [00:30,  3.12it/s]96it [00:30,  3.12it/s]97it [00:31,  3.11it/s]98it [00:31,  3.11it/s]99it [00:31,  3.11it/s]100it [00:32,  3.11it/s]101it [00:32,  3.11it/s]102it [00:32,  3.11it/s]103it [00:33,  3.11it/s]104it [00:33,  3.11it/s]105it [00:33,  3.12it/s]106it [00:34,  3.12it/s]107it [00:34,  3.12it/s]108it [00:34,  3.12it/s]109it [00:35,  3.10it/s]110it [00:35,  3.10it/s]111it [00:35,  3.10it/s]112it [00:36,  3.10it/s]113it [00:36,  3.10it/s]114it [00:36,  3.10it/s]115it [00:37,  3.11it/s]116it [00:37,  3.11it/s]117it [00:37,  3.11it/s]118it [00:38,  3.11it/s]119it [00:38,  3.11it/s]120it [00:38,  3.11it/s]121it [00:39,  3.11it/s]122it [00:39,  3.11it/s]123it [00:39,  3.11it/s]124it [00:39,  3.11it/s]125it [00:40,  3.11it/s]126it [00:40,  3.11it/s]127it [00:40,  3.11it/s]128it [00:41,  3.11it/s]129it [00:41,  3.11it/s]130it [00:41,  3.11it/s]131it [00:42,  3.11it/s]132it [00:42,  3.11it/s]133it [00:42,  3.11it/s]134it [00:43,  3.11it/s]135it [00:43,  3.11it/s]136it [00:43,  3.11it/s]137it [00:44,  3.11it/s]138it [00:44,  3.11it/s]139it [00:44,  3.11it/s]140it [00:45,  3.12it/s]141it [00:45,  3.12it/s]142it [00:45,  3.12it/s]143it [00:46,  3.11it/s]144it [00:46,  3.11it/s]145it [00:46,  3.11it/s]146it [00:47,  3.11it/s]147it [00:47,  3.11it/s]148it [00:47,  3.11it/s]149it [00:48,  3.11it/s]149it [00:48,  3.08it/s]
+saving model 0...
+saving model 0.9999...
+********************
+Gamma:  0 Mode :  finetune
+********************
+********************
+g_name is 0
+********************
+0it [00:00, ?it/s]1it [00:00,  3.19it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+2it [00:00,  3.16it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+3it [00:00,  3.14it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+4it [00:01,  3.14it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+5it [00:01,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+6it [00:01,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+7it [00:02,  3.14it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+8it [00:02,  3.14it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+9it [00:02,  3.14it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+10it [00:03,  3.14it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+11it [00:03,  3.14it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+12it [00:03,  3.14it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+13it [00:04,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+14it [00:04,  3.14it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+15it [00:04,  3.14it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+16it [00:05,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+17it [00:05,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+18it [00:05,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+19it [00:06,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+20it [00:06,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+21it [00:06,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+22it [00:07,  3.09it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+23it [00:07,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+24it [00:07,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+25it [00:07,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+26it [00:08,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+27it [00:08,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+28it [00:08,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+29it [00:09,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+30it [00:09,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+31it [00:09,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+32it [00:10,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+33it [00:10,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+34it [00:10,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+35it [00:11,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+36it [00:11,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+37it [00:11,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+38it [00:12,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+39it [00:12,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+40it [00:12,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+41it [00:13,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+42it [00:13,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+43it [00:13,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+44it [00:14,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+45it [00:14,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+46it [00:14,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+47it [00:15,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+48it [00:15,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+49it [00:15,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+50it [00:15,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+51it [00:16,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+52it [00:16,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+53it [00:16,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+54it [00:17,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+55it [00:17,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+56it [00:17,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+57it [00:18,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+58it [00:18,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+59it [00:18,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+60it [00:19,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+61it [00:19,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+62it [00:19,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+63it [00:20,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+64it [00:20,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+65it [00:20,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+66it [00:21,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+67it [00:21,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+68it [00:21,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+69it [00:22,  3.08it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+70it [00:22,  3.09it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+71it [00:22,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+72it [00:23,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+73it [00:23,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+74it [00:23,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+75it [00:24,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+76it [00:24,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+77it [00:24,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+78it [00:24,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+79it [00:25,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+80it [00:25,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+81it [00:25,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+82it [00:26,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+83it [00:26,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+84it [00:26,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+85it [00:27,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+86it [00:27,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+87it [00:27,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+88it [00:28,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+89it [00:28,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+90it [00:28,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+91it [00:29,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+92it [00:29,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+93it [00:29,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+94it [00:30,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+95it [00:30,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+96it [00:30,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+97it [00:31,  3.06it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+98it [00:31,  3.08it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+99it [00:31,  3.09it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+100it [00:32,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+101it [00:32,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+102it [00:32,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+103it [00:32,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+104it [00:33,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+105it [00:33,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+106it [00:33,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+107it [00:34,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+108it [00:34,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+109it [00:34,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+110it [00:35,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+111it [00:35,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+112it [00:35,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+113it [00:36,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+114it [00:36,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+115it [00:36,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+116it [00:37,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+117it [00:37,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+118it [00:37,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+119it [00:38,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+120it [00:38,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+121it [00:38,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+122it [00:39,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+123it [00:39,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+124it [00:39,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+125it [00:40,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+126it [00:40,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+127it [00:40,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+128it [00:41,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+129it [00:41,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+130it [00:41,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+131it [00:41,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+132it [00:42,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+133it [00:42,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+134it [00:42,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+135it [00:43,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+136it [00:43,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+137it [00:43,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+138it [00:44,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+139it [00:44,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+140it [00:44,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+141it [00:45,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+142it [00:45,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+143it [00:45,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+144it [00:46,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+145it [00:46,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+146it [00:46,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+147it [00:47,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+148it [00:47,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+149it [00:47,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+149it [00:48,  3.10it/s]
+________________________
+Min and Max weights are the same for loss function
+________________________
+saving model 0...
+saving model 0.9999...
+********************
+Gamma:  0.1 Mode :  finetune
+********************
+********************
+g_name is 0
+********************
+0it [00:00, ?it/s]1it [00:00,  3.21it/s]2it [00:00,  3.17it/s]3it [00:00,  3.16it/s]4it [00:01,  3.14it/s]5it [00:01,  3.14it/s]6it [00:01,  3.14it/s]7it [00:02,  3.14it/s]8it [00:02,  3.13it/s]9it [00:02,  3.13it/s]10it [00:03,  3.13it/s]11it [00:03,  3.13it/s]12it [00:03,  3.13it/s]13it [00:04,  3.13it/s]14it [00:04,  3.13it/s]15it [00:04,  3.13it/s]16it [00:05,  3.13it/s]17it [00:05,  3.13it/s]18it [00:05,  3.13it/s]19it [00:06,  3.13it/s]20it [00:06,  3.12it/s]21it [00:06,  3.13it/s]22it [00:07,  3.12it/s]23it [00:07,  3.12it/s]24it [00:07,  3.13it/s]25it [00:07,  3.13it/s]26it [00:08,  3.13it/s]27it [00:08,  3.13it/s]28it [00:08,  3.13it/s]29it [00:09,  3.12it/s]30it [00:09,  3.12it/s]31it [00:09,  3.12it/s]32it [00:10,  3.12it/s]33it [00:10,  3.12it/s]34it [00:10,  3.12it/s]35it [00:11,  3.12it/s]36it [00:11,  3.12it/s]37it [00:11,  3.12it/s]38it [00:12,  3.12it/s]39it [00:12,  3.12it/s]40it [00:12,  3.12it/s]41it [00:13,  3.11it/s]42it [00:13,  3.11it/s]43it [00:13,  3.11it/s]44it [00:14,  3.11it/s]45it [00:14,  3.11it/s]46it [00:14,  3.12it/s]47it [00:15,  3.12it/s]48it [00:15,  3.12it/s]49it [00:15,  3.12it/s]50it [00:16,  3.11it/s]51it [00:16,  3.11it/s]52it [00:16,  3.11it/s]53it [00:16,  3.11it/s]54it [00:17,  3.11it/s]55it [00:17,  3.11it/s]56it [00:17,  3.11it/s]57it [00:18,  3.12it/s]58it [00:18,  3.12it/s]59it [00:18,  3.12it/s]60it [00:19,  3.12it/s]61it [00:19,  3.12it/s]62it [00:19,  3.12it/s]63it [00:20,  3.12it/s]64it [00:20,  3.11it/s]65it [00:20,  3.11it/s]66it [00:21,  3.11it/s]67it [00:21,  3.11it/s]68it [00:21,  3.11it/s]69it [00:22,  3.11it/s]70it [00:22,  3.11it/s]71it [00:22,  3.11it/s]72it [00:23,  3.12it/s]73it [00:23,  3.12it/s]74it [00:23,  3.11it/s]75it [00:24,  3.11it/s]76it [00:24,  3.11it/s]77it [00:24,  3.11it/s]78it [00:24,  3.11it/s]79it [00:25,  3.11it/s]80it [00:25,  3.11it/s]81it [00:25,  3.11it/s]82it [00:26,  3.11it/s]83it [00:26,  3.11it/s]84it [00:26,  3.11it/s]85it [00:27,  3.11it/s]86it [00:27,  3.11it/s]87it [00:27,  3.11it/s]88it [00:28,  3.11it/s]89it [00:28,  3.11it/s]90it [00:28,  3.11it/s]91it [00:29,  3.11it/s]92it [00:29,  3.11it/s]93it [00:29,  3.11it/s]94it [00:30,  3.11it/s]95it [00:30,  3.12it/s]96it [00:30,  3.12it/s]97it [00:31,  3.12it/s]98it [00:31,  3.12it/s]99it [00:31,  3.12it/s]100it [00:32,  3.11it/s]101it [00:32,  3.11it/s]102it [00:32,  3.11it/s]103it [00:33,  3.11it/s]104it [00:33,  3.11it/s]105it [00:33,  3.11it/s]106it [00:34,  3.11it/s]107it [00:34,  3.11it/s]108it [00:34,  3.11it/s]109it [00:34,  3.11it/s]110it [00:35,  3.11it/s]111it [00:35,  3.11it/s]112it [00:35,  3.11it/s]113it [00:36,  3.11it/s]114it [00:36,  3.11it/s]115it [00:36,  3.11it/s]116it [00:37,  3.10it/s]117it [00:37,  3.10it/s]118it [00:37,  3.10it/s]119it [00:38,  3.10it/s]120it [00:38,  3.10it/s]121it [00:38,  3.10it/s]122it [00:39,  3.10it/s]123it [00:39,  3.10it/s]124it [00:39,  3.10it/s]125it [00:40,  3.10it/s]126it [00:40,  3.10it/s]127it [00:40,  3.10it/s]128it [00:41,  3.07it/s]129it [00:41,  3.08it/s]130it [00:41,  3.08it/s]131it [00:42,  3.09it/s]132it [00:42,  3.09it/s]133it [00:42,  3.10it/s]134it [00:43,  3.10it/s]135it [00:43,  3.11it/s]136it [00:43,  3.11it/s]137it [00:43,  3.11it/s]138it [00:44,  3.11it/s]139it [00:44,  3.11it/s]140it [00:44,  3.10it/s]141it [00:45,  3.11it/s]142it [00:45,  3.11it/s]143it [00:45,  3.11it/s]144it [00:46,  3.11it/s]145it [00:46,  3.11it/s]146it [00:46,  3.11it/s]147it [00:47,  3.11it/s]148it [00:47,  3.18it/s]149it [00:47,  3.16it/s]149it [00:48,  3.09it/s]
+saving model 0...
+saving model 0.9999...
+********************
+Gamma:  0.5 Mode :  finetune
+********************
+********************
+g_name is 0
+********************
+0it [00:00, ?it/s]1it [00:00,  3.21it/s]2it [00:00,  3.15it/s]3it [00:00,  3.14it/s]4it [00:01,  3.13it/s]5it [00:01,  3.12it/s]6it [00:01,  3.12it/s]7it [00:02,  3.11it/s]8it [00:02,  3.12it/s]9it [00:02,  3.11it/s]10it [00:03,  3.11it/s]11it [00:03,  3.11it/s]12it [00:03,  3.11it/s]13it [00:04,  3.11it/s]14it [00:04,  3.11it/s]15it [00:04,  3.11it/s]16it [00:05,  3.11it/s]17it [00:05,  3.11it/s]18it [00:05,  2.59it/s]19it [00:06,  2.72it/s]20it [00:06,  2.83it/s]21it [00:06,  2.92it/s]22it [00:07,  2.97it/s]23it [00:07,  3.02it/s]24it [00:07,  3.05it/s]25it [00:08,  3.07it/s]26it [00:08,  3.09it/s]27it [00:08,  3.10it/s]28it [00:09,  3.11it/s]29it [00:09,  3.11it/s]30it [00:09,  3.12it/s]31it [00:10,  3.12it/s]32it [00:10,  3.12it/s]33it [00:10,  3.11it/s]34it [00:11,  3.11it/s]35it [00:11,  3.11it/s]36it [00:11,  3.11it/s]37it [00:12,  3.11it/s]38it [00:12,  3.12it/s]39it [00:12,  3.11it/s]40it [00:13,  3.12it/s]41it [00:13,  3.12it/s]42it [00:13,  3.12it/s]43it [00:14,  3.12it/s]44it [00:14,  3.12it/s]45it [00:14,  3.12it/s]46it [00:14,  3.12it/s]47it [00:15,  3.12it/s]48it [00:15,  3.12it/s]49it [00:15,  3.12it/s]50it [00:16,  3.12it/s]51it [00:16,  3.12it/s]52it [00:16,  3.12it/s]53it [00:17,  3.13it/s]54it [00:17,  3.12it/s]55it [00:17,  3.12it/s]56it [00:18,  3.12it/s]57it [00:18,  3.12it/s]58it [00:18,  3.11it/s]59it [00:19,  3.11it/s]60it [00:19,  3.11it/s]61it [00:19,  3.11it/s]62it [00:20,  3.11it/s]63it [00:20,  3.11it/s]64it [00:20,  3.12it/s]65it [00:21,  3.12it/s]66it [00:21,  3.11it/s]67it [00:21,  3.11it/s]68it [00:22,  3.11it/s]69it [00:22,  3.11it/s]70it [00:22,  3.11it/s]71it [00:22,  3.11it/s]72it [00:23,  3.11it/s]73it [00:23,  3.11it/s]74it [00:23,  3.12it/s]75it [00:24,  3.11it/s]76it [00:24,  3.11it/s]77it [00:24,  3.11it/s]78it [00:25,  3.11it/s]79it [00:25,  3.11it/s]80it [00:25,  3.11it/s]81it [00:26,  3.11it/s]82it [00:26,  3.11it/s]83it [00:26,  3.11it/s]84it [00:27,  3.11it/s]85it [00:27,  3.11it/s]86it [00:27,  3.11it/s]87it [00:28,  3.12it/s]88it [00:28,  3.12it/s]89it [00:28,  3.12it/s]90it [00:29,  3.12it/s]91it [00:29,  3.12it/s]92it [00:29,  3.12it/s]93it [00:30,  3.12it/s]94it [00:30,  3.11it/s]95it [00:30,  3.11it/s]96it [00:31,  3.11it/s]97it [00:31,  3.11it/s]98it [00:31,  3.11it/s]99it [00:31,  3.12it/s]100it [00:32,  3.12it/s]101it [00:32,  3.12it/s]102it [00:32,  3.12it/s]103it [00:33,  3.12it/s]104it [00:33,  3.13it/s]105it [00:33,  3.13it/s]106it [00:34,  3.12it/s]107it [00:34,  3.12it/s]108it [00:34,  3.13it/s]109it [00:35,  3.12it/s]110it [00:35,  3.12it/s]111it [00:35,  3.12it/s]112it [00:36,  3.12it/s]113it [00:36,  3.12it/s]114it [00:36,  3.12it/s]115it [00:37,  3.12it/s]116it [00:37,  3.11it/s]117it [00:37,  3.11it/s]118it [00:38,  3.11it/s]119it [00:38,  3.11it/s]120it [00:38,  3.11it/s]121it [00:39,  3.12it/s]122it [00:39,  3.12it/s]123it [00:39,  3.12it/s]124it [00:39,  3.12it/s]125it [00:40,  3.12it/s]126it [00:40,  3.12it/s]127it [00:40,  3.12it/s]128it [00:41,  3.12it/s]129it [00:41,  3.12it/s]130it [00:41,  3.12it/s]131it [00:42,  3.12it/s]132it [00:42,  3.12it/s]133it [00:42,  3.13it/s]134it [00:43,  3.13it/s]135it [00:43,  3.12it/s]136it [00:43,  3.12it/s]137it [00:44,  3.12it/s]138it [00:44,  3.11it/s]139it [00:44,  3.11it/s]140it [00:45,  3.10it/s]141it [00:45,  3.10it/s]142it [00:45,  3.10it/s]143it [00:46,  3.10it/s]144it [00:46,  3.10it/s]145it [00:46,  3.11it/s]146it [00:47,  3.11it/s]147it [00:47,  3.11it/s]148it [00:47,  3.11it/s]149it [00:48,  3.11it/s]149it [00:48,  3.08it/s]
+saving model 0...
+saving model 0.9999...
+********************
+Gamma:  1 Mode :  finetune
+********************
+********************
+g_name is 0
+********************
+0it [00:00, ?it/s]1it [00:00,  3.17it/s]2it [00:00,  3.14it/s]3it [00:00,  3.04it/s]4it [00:01,  3.06it/s]5it [00:01,  3.08it/s]6it [00:01,  3.09it/s]7it [00:02,  3.10it/s]8it [00:02,  3.10it/s]9it [00:02,  3.09it/s]10it [00:03,  3.09it/s]11it [00:03,  3.10it/s]12it [00:03,  3.10it/s]13it [00:04,  3.10it/s]14it [00:04,  3.10it/s]15it [00:04,  3.10it/s]16it [00:05,  3.10it/s]17it [00:05,  3.09it/s]18it [00:05,  3.09it/s]19it [00:06,  3.09it/s]20it [00:06,  3.09it/s]21it [00:06,  3.09it/s]22it [00:07,  3.09it/s]23it [00:07,  3.09it/s]24it [00:07,  3.10it/s]25it [00:08,  3.10it/s]26it [00:08,  3.10it/s]27it [00:08,  3.10it/s]28it [00:09,  3.10it/s]29it [00:09,  3.10it/s]30it [00:09,  3.11it/s]31it [00:10,  3.11it/s]32it [00:10,  3.11it/s]33it [00:10,  3.11it/s]34it [00:10,  3.11it/s]35it [00:11,  3.11it/s]36it [00:11,  3.11it/s]37it [00:11,  3.11it/s]38it [00:12,  3.11it/s]39it [00:12,  3.11it/s]40it [00:12,  3.10it/s]41it [00:13,  3.10it/s]42it [00:13,  3.11it/s]43it [00:13,  3.11it/s]44it [00:14,  3.11it/s]45it [00:14,  3.11it/s]46it [00:14,  3.11it/s]47it [00:15,  3.11it/s]48it [00:15,  3.11it/s]49it [00:15,  3.11it/s]50it [00:16,  3.11it/s]51it [00:16,  3.11it/s]52it [00:16,  3.11it/s]53it [00:17,  3.11it/s]54it [00:17,  3.11it/s]55it [00:17,  3.11it/s]56it [00:18,  3.11it/s]57it [00:18,  3.11it/s]58it [00:18,  3.11it/s]59it [00:19,  3.11it/s]60it [00:19,  3.11it/s]61it [00:19,  3.11it/s]62it [00:19,  3.11it/s]63it [00:20,  3.11it/s]64it [00:20,  3.11it/s]65it [00:20,  3.11it/s]66it [00:21,  3.11it/s]67it [00:21,  3.11it/s]68it [00:21,  3.11it/s]69it [00:22,  3.11it/s]70it [00:22,  3.12it/s]71it [00:22,  3.12it/s]72it [00:23,  3.12it/s]73it [00:23,  3.12it/s]74it [00:23,  3.11it/s]75it [00:24,  3.11it/s]76it [00:24,  3.11it/s]77it [00:24,  3.11it/s]78it [00:25,  3.11it/s]79it [00:25,  3.10it/s]80it [00:25,  3.10it/s]81it [00:26,  3.10it/s]82it [00:26,  3.10it/s]83it [00:26,  3.10it/s]84it [00:27,  3.10it/s]85it [00:27,  3.10it/s]86it [00:27,  3.10it/s]87it [00:28,  3.11it/s]88it [00:28,  3.10it/s]89it [00:28,  3.10it/s]90it [00:28,  3.10it/s]91it [00:29,  3.10it/s]92it [00:29,  3.10it/s]93it [00:29,  3.10it/s]94it [00:30,  3.10it/s]95it [00:30,  3.11it/s]96it [00:30,  3.11it/s]97it [00:31,  3.11it/s]98it [00:31,  3.11it/s]99it [00:31,  3.11it/s]100it [00:32,  3.11it/s]101it [00:32,  3.11it/s]102it [00:32,  3.11it/s]103it [00:33,  3.11it/s]104it [00:33,  3.11it/s]105it [00:33,  3.11it/s]106it [00:34,  3.12it/s]107it [00:34,  3.12it/s]108it [00:34,  3.13it/s]109it [00:35,  3.13it/s]110it [00:35,  3.13it/s]111it [00:35,  3.13it/s]112it [00:36,  3.13it/s]113it [00:36,  3.12it/s]114it [00:36,  3.13it/s]115it [00:37,  3.13it/s]116it [00:37,  3.12it/s]117it [00:37,  3.12it/s]118it [00:37,  3.13it/s]119it [00:38,  3.13it/s]120it [00:38,  3.13it/s]121it [00:38,  3.13it/s]122it [00:39,  3.12it/s]123it [00:39,  3.12it/s]124it [00:39,  3.12it/s]125it [00:40,  3.12it/s]126it [00:40,  3.11it/s]127it [00:40,  3.11it/s]128it [00:41,  3.11it/s]129it [00:41,  3.11it/s]130it [00:41,  3.11it/s]131it [00:42,  3.09it/s]132it [00:42,  3.10it/s]133it [00:42,  3.10it/s]134it [00:43,  3.10it/s]135it [00:43,  3.10it/s]136it [00:43,  3.10it/s]137it [00:44,  3.10it/s]138it [00:44,  3.10it/s]139it [00:44,  3.10it/s]140it [00:45,  3.10it/s]141it [00:45,  3.10it/s]142it [00:45,  3.10it/s]143it [00:46,  3.09it/s]144it [00:46,  3.09it/s]145it [00:46,  3.09it/s]146it [00:46,  3.10it/s]147it [00:47,  3.10it/s]148it [00:47,  3.10it/s]149it [00:47,  3.10it/s]149it [00:48,  3.09it/s]
+saving model 0...
+saving model 0.9999...
+********************
+Gamma:  0 Mode :  finetune
+********************
+********************
+g_name is 0
+********************
+0it [00:00, ?it/s]1it [00:00,  3.23it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+2it [00:00,  3.16it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+3it [00:00,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+4it [00:01,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+5it [00:01,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+6it [00:01,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+7it [00:02,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+8it [00:02,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+9it [00:02,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+10it [00:03,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+11it [00:03,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+12it [00:03,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+13it [00:04,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+14it [00:04,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+15it [00:04,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+16it [00:05,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+17it [00:05,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+18it [00:05,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+19it [00:06,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+20it [00:06,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+21it [00:06,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+22it [00:07,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+23it [00:07,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+24it [00:07,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+25it [00:08,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+26it [00:08,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+27it [00:08,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+28it [00:08,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+29it [00:09,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+30it [00:09,  3.13it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+31it [00:09,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+32it [00:10,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+33it [00:10,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+34it [00:10,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+35it [00:11,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+36it [00:11,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+37it [00:11,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+38it [00:12,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+39it [00:12,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+40it [00:12,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+41it [00:13,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+42it [00:13,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+43it [00:13,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+44it [00:14,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+45it [00:14,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+46it [00:14,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+47it [00:15,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+48it [00:15,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+49it [00:15,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+50it [00:16,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+51it [00:16,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+52it [00:16,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+53it [00:16,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+54it [00:17,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+55it [00:17,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+56it [00:17,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+57it [00:18,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+58it [00:18,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+59it [00:18,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+60it [00:19,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+61it [00:19,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+62it [00:19,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+63it [00:20,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+64it [00:20,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+65it [00:20,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+66it [00:21,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+67it [00:21,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+68it [00:21,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+69it [00:22,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+70it [00:22,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+71it [00:22,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+72it [00:23,  3.12it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+73it [00:23,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+74it [00:23,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+75it [00:24,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+76it [00:24,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+77it [00:24,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+78it [00:25,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+79it [00:25,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+80it [00:25,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+81it [00:26,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+82it [00:26,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+83it [00:26,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+84it [00:26,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+85it [00:27,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+86it [00:27,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+87it [00:27,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+88it [00:28,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+89it [00:28,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+90it [00:28,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+91it [00:29,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+92it [00:29,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+93it [00:29,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+94it [00:30,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+95it [00:30,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+96it [00:30,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+97it [00:31,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+98it [00:31,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+99it [00:31,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+100it [00:32,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+101it [00:32,  3.07it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+102it [00:32,  3.08it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+103it [00:33,  3.09it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+104it [00:33,  3.09it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+105it [00:33,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+106it [00:34,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+107it [00:34,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+108it [00:34,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+109it [00:35,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+110it [00:35,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+111it [00:35,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+112it [00:35,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+113it [00:36,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+114it [00:36,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+115it [00:36,  3.07it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+116it [00:37,  3.08it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+117it [00:37,  3.08it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+118it [00:37,  3.09it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+119it [00:38,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+120it [00:38,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+121it [00:38,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+122it [00:39,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+123it [00:39,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+124it [00:39,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+125it [00:40,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+126it [00:40,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+127it [00:40,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+128it [00:41,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+129it [00:41,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+130it [00:41,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+131it [00:42,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+132it [00:42,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+133it [00:42,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+134it [00:43,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+135it [00:43,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+136it [00:43,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+137it [00:44,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+138it [00:44,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+139it [00:44,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+140it [00:45,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+141it [00:45,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+142it [00:45,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+143it [00:45,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+144it [00:46,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+145it [00:46,  3.10it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+146it [00:46,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+147it [00:47,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+148it [00:47,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+149it [00:47,  3.11it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+149it [00:48,  3.09it/s]
+________________________
+Min and Max weights are the same for loss function
+________________________
+saving model 0...
+saving model 0.9999...
+********************
+Gamma:  0.1 Mode :  finetune
+********************
+********************
+g_name is 0
+********************
+0it [00:00, ?it/s]1it [00:00,  3.22it/s]2it [00:00,  3.15it/s]3it [00:00,  3.13it/s]4it [00:01,  2.47it/s]5it [00:01,  2.66it/s]6it [00:02,  2.80it/s]7it [00:02,  2.90it/s]8it [00:02,  2.96it/s]9it [00:03,  3.01it/s]10it [00:03,  3.04it/s]11it [00:03,  3.06it/s]12it [00:04,  3.08it/s]13it [00:04,  3.09it/s]14it [00:04,  3.10it/s]15it [00:05,  3.10it/s]16it [00:05,  3.10it/s]17it [00:05,  3.11it/s]18it [00:05,  3.11it/s]19it [00:06,  3.11it/s]20it [00:06,  3.11it/s]21it [00:06,  3.11it/s]22it [00:07,  3.12it/s]23it [00:07,  3.12it/s]24it [00:07,  3.12it/s]25it [00:08,  3.12it/s]26it [00:08,  3.12it/s]27it [00:08,  3.12it/s]28it [00:09,  3.12it/s]29it [00:09,  3.12it/s]30it [00:09,  3.12it/s]31it [00:10,  3.12it/s]32it [00:10,  3.12it/s]33it [00:10,  3.12it/s]34it [00:11,  3.12it/s]35it [00:11,  3.12it/s]36it [00:11,  3.12it/s]37it [00:12,  3.12it/s]38it [00:12,  3.12it/s]39it [00:12,  3.11it/s]40it [00:13,  3.11it/s]41it [00:13,  3.10it/s]42it [00:13,  3.10it/s]43it [00:14,  3.11it/s]44it [00:14,  3.11it/s]45it [00:14,  3.11it/s]46it [00:14,  3.11it/s]47it [00:15,  3.11it/s]48it [00:15,  3.12it/s]49it [00:15,  3.12it/s]50it [00:16,  3.11it/s]51it [00:16,  3.11it/s]52it [00:16,  3.11it/s]53it [00:17,  3.11it/s]54it [00:17,  3.11it/s]55it [00:17,  3.11it/s]56it [00:18,  3.11it/s]57it [00:18,  3.12it/s]58it [00:18,  3.12it/s]59it [00:19,  3.11it/s]60it [00:19,  3.11it/s]61it [00:19,  3.11it/s]62it [00:20,  3.10it/s]63it [00:20,  3.10it/s]64it [00:20,  3.10it/s]65it [00:21,  3.10it/s]66it [00:21,  3.11it/s]67it [00:21,  3.11it/s]68it [00:22,  3.11it/s]69it [00:22,  3.11it/s]70it [00:22,  3.12it/s]71it [00:23,  3.12it/s]72it [00:23,  3.12it/s]73it [00:23,  3.12it/s]74it [00:23,  3.12it/s]75it [00:24,  3.12it/s]76it [00:24,  3.11it/s]77it [00:24,  3.11it/s]78it [00:25,  3.11it/s]79it [00:25,  3.11it/s]80it [00:25,  3.11it/s]81it [00:26,  3.11it/s]82it [00:26,  3.11it/s]83it [00:26,  3.12it/s]84it [00:27,  3.11it/s]85it [00:27,  3.11it/s]86it [00:27,  3.11it/s]87it [00:28,  3.11it/s]88it [00:28,  3.11it/s]89it [00:28,  3.11it/s]90it [00:29,  3.11it/s]91it [00:29,  3.11it/s]92it [00:29,  3.11it/s]93it [00:30,  3.11it/s]94it [00:30,  3.12it/s]95it [00:30,  3.11it/s]96it [00:31,  3.11it/s]97it [00:31,  3.11it/s]98it [00:31,  3.11it/s]99it [00:32,  3.11it/s]100it [00:32,  3.11it/s]101it [00:32,  3.11it/s]102it [00:32,  3.12it/s]103it [00:33,  3.12it/s]104it [00:33,  3.12it/s]105it [00:33,  3.12it/s]106it [00:34,  3.12it/s]107it [00:34,  3.12it/s]108it [00:34,  3.11it/s]109it [00:35,  3.11it/s]110it [00:35,  3.11it/s]111it [00:35,  3.11it/s]112it [00:36,  3.11it/s]113it [00:36,  3.11it/s]114it [00:36,  3.11it/s]115it [00:37,  3.11it/s]116it [00:37,  3.11it/s]117it [00:37,  3.11it/s]118it [00:38,  3.11it/s]119it [00:38,  3.11it/s]120it [00:38,  3.10it/s]121it [00:39,  3.10it/s]122it [00:39,  3.11it/s]123it [00:39,  3.11it/s]124it [00:40,  3.11it/s]125it [00:40,  3.11it/s]126it [00:40,  3.12it/s]127it [00:41,  3.12it/s]128it [00:41,  3.12it/s]129it [00:41,  3.12it/s]130it [00:41,  3.12it/s]131it [00:42,  3.11it/s]132it [00:42,  3.11it/s]133it [00:42,  3.11it/s]134it [00:43,  3.11it/s]135it [00:43,  3.11it/s]136it [00:43,  3.11it/s]137it [00:44,  3.11it/s]138it [00:44,  3.11it/s]139it [00:44,  3.11it/s]140it [00:45,  3.11it/s]141it [00:45,  3.12it/s]142it [00:45,  3.12it/s]143it [00:46,  3.11it/s]144it [00:46,  3.11it/s]145it [00:46,  3.11it/s]146it [00:47,  3.11it/s]147it [00:47,  3.11it/s]148it [00:47,  3.11it/s]149it [00:48,  3.11it/s]149it [00:48,  3.08it/s]
+saving model 0...
+saving model 0.9999...
+********************
+Gamma:  0.5 Mode :  finetune
+********************
+********************
+g_name is 0
+********************
+0it [00:00, ?it/s]1it [00:00,  3.16it/s]2it [00:00,  3.12it/s]3it [00:00,  3.11it/s]4it [00:01,  3.11it/s]5it [00:01,  3.11it/s]6it [00:01,  3.11it/s]7it [00:02,  3.11it/s]8it [00:02,  3.11it/s]9it [00:02,  3.12it/s]10it [00:03,  3.12it/s]11it [00:03,  3.12it/s]12it [00:03,  3.11it/s]13it [00:04,  3.11it/s]14it [00:04,  3.11it/s]15it [00:04,  3.11it/s]16it [00:05,  3.11it/s]17it [00:05,  3.11it/s]18it [00:05,  3.11it/s]19it [00:06,  3.11it/s]20it [00:06,  3.11it/s]21it [00:06,  3.11it/s]22it [00:07,  3.11it/s]23it [00:07,  3.11it/s]24it [00:07,  3.11it/s]25it [00:08,  3.11it/s]26it [00:08,  3.11it/s]27it [00:08,  3.11it/s]28it [00:08,  3.11it/s]29it [00:09,  3.11it/s]30it [00:09,  3.12it/s]31it [00:09,  3.11it/s]32it [00:10,  3.11it/s]33it [00:10,  3.12it/s]34it [00:10,  3.12it/s]35it [00:11,  3.12it/s]36it [00:11,  3.11it/s]37it [00:11,  3.11it/s]38it [00:12,  3.11it/s]39it [00:12,  3.10it/s]40it [00:12,  3.10it/s]41it [00:13,  3.10it/s]42it [00:13,  3.10it/s]43it [00:13,  3.10it/s]44it [00:14,  3.10it/s]45it [00:14,  3.11it/s]46it [00:14,  3.11it/s]47it [00:15,  3.11it/s]48it [00:15,  3.11it/s]49it [00:15,  3.11it/s]50it [00:16,  3.11it/s]51it [00:16,  3.11it/s]52it [00:16,  3.11it/s]53it [00:17,  3.11it/s]54it [00:17,  3.11it/s]55it [00:17,  3.11it/s]56it [00:18,  3.11it/s]57it [00:18,  3.11it/s]58it [00:18,  3.11it/s]59it [00:18,  3.11it/s]60it [00:19,  3.11it/s]61it [00:19,  3.11it/s]62it [00:19,  3.11it/s]63it [00:20,  3.11it/s]64it [00:20,  3.11it/s]65it [00:20,  3.11it/s]66it [00:21,  3.11it/s]67it [00:21,  3.11it/s]68it [00:21,  3.11it/s]69it [00:22,  3.11it/s]70it [00:22,  3.11it/s]71it [00:22,  3.11it/s]72it [00:23,  3.11it/s]73it [00:23,  3.11it/s]74it [00:23,  3.11it/s]75it [00:24,  3.11it/s]76it [00:24,  3.11it/s]77it [00:24,  3.11it/s]78it [00:25,  3.10it/s]79it [00:25,  3.10it/s]80it [00:25,  3.10it/s]81it [00:26,  3.09it/s]82it [00:26,  3.10it/s]83it [00:26,  3.10it/s]84it [00:27,  3.11it/s]85it [00:27,  3.11it/s]86it [00:27,  3.11it/s]87it [00:27,  3.11it/s]88it [00:28,  3.11it/s]89it [00:28,  3.11it/s]90it [00:28,  3.10it/s]91it [00:29,  3.11it/s]92it [00:29,  3.11it/s]93it [00:29,  3.11it/s]94it [00:30,  3.11it/s]95it [00:30,  3.11it/s]96it [00:30,  3.11it/s]97it [00:31,  3.11it/s]98it [00:31,  3.11it/s]99it [00:31,  3.11it/s]100it [00:32,  3.11it/s]101it [00:32,  3.11it/s]102it [00:32,  3.11it/s]103it [00:33,  3.11it/s]104it [00:33,  3.11it/s]105it [00:33,  3.11it/s]106it [00:34,  3.11it/s]107it [00:34,  3.11it/s]108it [00:34,  3.11it/s]109it [00:35,  3.11it/s]110it [00:35,  3.11it/s]111it [00:35,  3.11it/s]112it [00:36,  3.10it/s]113it [00:36,  3.10it/s]114it [00:36,  3.10it/s]115it [00:36,  3.10it/s]116it [00:37,  3.10it/s]117it [00:37,  3.10it/s]118it [00:37,  3.10it/s]119it [00:38,  3.10it/s]120it [00:38,  3.10it/s]121it [00:38,  3.10it/s]122it [00:39,  3.10it/s]123it [00:39,  3.10it/s]124it [00:39,  3.10it/s]125it [00:40,  3.10it/s]126it [00:40,  3.10it/s]127it [00:40,  3.10it/s]128it [00:41,  3.10it/s]129it [00:41,  3.10it/s]130it [00:41,  3.10it/s]131it [00:42,  3.11it/s]132it [00:42,  3.11it/s]133it [00:42,  3.11it/s]134it [00:43,  3.11it/s]135it [00:43,  3.10it/s]136it [00:43,  3.10it/s]137it [00:44,  3.10it/s]138it [00:44,  3.10it/s]139it [00:44,  3.10it/s]140it [00:45,  3.10it/s]141it [00:45,  3.10it/s]142it [00:45,  3.10it/s]143it [00:46,  3.11it/s]144it [00:46,  3.11it/s]145it [00:46,  3.11it/s]146it [00:46,  3.10it/s]147it [00:47,  3.10it/s]148it [00:47,  3.10it/s]149it [00:47,  3.10it/s]149it [00:48,  3.09it/s]
+saving model 0...
+saving model 0.9999...
+********************
+Gamma:  1 Mode :  finetune
+********************
+********************
+g_name is 0
+********************
+0it [00:00, ?it/s]1it [00:00,  3.23it/s]2it [00:00,  3.14it/s]3it [00:00,  3.14it/s]4it [00:01,  3.15it/s]5it [00:01,  3.15it/s]6it [00:01,  3.15it/s]7it [00:02,  3.14it/s]8it [00:02,  3.14it/s]9it [00:02,  3.14it/s]10it [00:03,  3.14it/s]11it [00:03,  3.14it/s]12it [00:03,  3.14it/s]13it [00:04,  3.14it/s]14it [00:04,  3.14it/s]15it [00:04,  3.14it/s]16it [00:05,  3.14it/s]17it [00:05,  3.14it/s]18it [00:05,  3.14it/s]19it [00:06,  3.13it/s]20it [00:06,  3.14it/s]21it [00:06,  3.13it/s]22it [00:07,  3.14it/s]23it [00:07,  3.14it/s]24it [00:07,  3.14it/s]25it [00:07,  3.14it/s]26it [00:08,  3.14it/s]27it [00:08,  3.14it/s]28it [00:08,  3.14it/s]29it [00:09,  3.14it/s]30it [00:09,  3.14it/s]31it [00:09,  3.14it/s]32it [00:10,  3.14it/s]33it [00:10,  3.14it/s]34it [00:10,  3.14it/s]35it [00:11,  3.14it/s]36it [00:11,  3.14it/s]37it [00:11,  3.14it/s]38it [00:12,  3.14it/s]39it [00:12,  3.14it/s]40it [00:12,  3.14it/s]41it [00:13,  3.14it/s]42it [00:13,  3.14it/s]43it [00:13,  3.14it/s]44it [00:14,  3.14it/s]45it [00:14,  3.14it/s]46it [00:14,  3.14it/s]47it [00:14,  3.14it/s]48it [00:15,  3.14it/s]49it [00:15,  3.14it/s]50it [00:15,  3.14it/s]51it [00:16,  3.15it/s]52it [00:16,  3.14it/s]53it [00:16,  3.14it/s]54it [00:17,  3.15it/s]55it [00:17,  3.15it/s]56it [00:17,  3.14it/s]57it [00:18,  3.14it/s]58it [00:18,  3.14it/s]59it [00:18,  3.14it/s]60it [00:19,  3.14it/s]61it [00:19,  3.13it/s]62it [00:19,  3.14it/s]63it [00:20,  3.14it/s]64it [00:20,  3.14it/s]65it [00:20,  3.14it/s]66it [00:21,  3.13it/s]67it [00:21,  3.13it/s]68it [00:21,  3.13it/s]69it [00:21,  3.14it/s]70it [00:22,  3.14it/s]71it [00:22,  3.14it/s]72it [00:22,  3.14it/s]73it [00:23,  3.14it/s]74it [00:23,  3.14it/s]75it [00:23,  3.14it/s]76it [00:24,  3.14it/s]77it [00:24,  3.14it/s]78it [00:24,  3.14it/s]79it [00:25,  3.14it/s]80it [00:25,  3.14it/s]81it [00:25,  3.13it/s]82it [00:26,  3.14it/s]83it [00:26,  3.14it/s]84it [00:26,  3.14it/s]85it [00:27,  3.14it/s]86it [00:27,  3.14it/s]87it [00:27,  3.13it/s]88it [00:28,  3.13it/s]89it [00:28,  3.13it/s]90it [00:28,  3.14it/s]91it [00:28,  3.14it/s]92it [00:29,  3.14it/s]93it [00:29,  3.14it/s]94it [00:29,  3.14it/s]95it [00:30,  3.14it/s]96it [00:30,  3.14it/s]97it [00:30,  3.14it/s]98it [00:31,  3.14it/s]99it [00:31,  3.14it/s]100it [00:31,  3.14it/s]101it [00:32,  3.14it/s]102it [00:32,  3.14it/s]103it [00:32,  3.14it/s]104it [00:33,  3.13it/s]105it [00:33,  3.12it/s]106it [00:33,  3.12it/s]107it [00:34,  3.12it/s]108it [00:34,  3.11it/s]109it [00:34,  3.11it/s]110it [00:35,  3.11it/s]111it [00:35,  3.11it/s]112it [00:35,  3.11it/s]113it [00:36,  3.11it/s]114it [00:36,  3.11it/s]115it [00:36,  3.12it/s]116it [00:36,  3.11it/s]117it [00:37,  3.12it/s]118it [00:37,  3.12it/s]119it [00:37,  3.12it/s]120it [00:38,  3.12it/s]121it [00:38,  3.11it/s]122it [00:38,  3.11it/s]123it [00:39,  3.12it/s]124it [00:39,  3.12it/s]125it [00:39,  3.12it/s]126it [00:40,  3.12it/s]127it [00:40,  3.13it/s]128it [00:40,  3.13it/s]129it [00:41,  3.13it/s]130it [00:41,  3.13it/s]131it [00:41,  3.13it/s]132it [00:42,  3.13it/s]133it [00:42,  3.13it/s]134it [00:42,  3.13it/s]135it [00:43,  3.13it/s]136it [00:43,  3.13it/s]137it [00:43,  3.13it/s]138it [00:44,  3.13it/s]139it [00:44,  3.13it/s]140it [00:44,  3.13it/s]141it [00:44,  3.13it/s]142it [00:45,  3.13it/s]143it [00:45,  3.12it/s]144it [00:45,  3.12it/s]145it [00:46,  3.12it/s]146it [00:46,  3.12it/s]147it [00:46,  3.13it/s]148it [00:47,  3.13it/s]149it [00:47,  3.13it/s]149it [00:47,  3.11it/s]
+saving model 0...
+saving model 0.9999...
