@@ -15,6 +15,33 @@ from improved_diffusion.unet import AttentionBlock, Time_AttentionBlock
 
 time_aware=True # TIME-AWARE
 
+# Helper function to log details of a layer
+def log_layer_details(layer, depth=0):
+    """
+    Recursively log details of a layer and its subcomponents.
+    
+    :param layer: The PyTorch module to inspect.
+    :param depth: The current recursion depth (for formatting output).
+    """
+    indent = "  " * depth  # Indentation for better visualization
+    print(f"{indent}Layer: {type(layer).__name__}, Total Parameters: {sum(p.numel() for p in layer.parameters())}")
+    
+    # Log attributes like channels, size, or other relevant properties
+    if hasattr(layer, 'channels'):
+        print(f"{indent}  Channels: {layer.channels}")
+    if hasattr(layer, 'kernel_size'):
+        print(f"{indent}  Kernel Size: {layer.kernel_size}")
+    if hasattr(layer, 'stride'):
+        print(f"{indent}  Stride: {layer.stride}")
+    if hasattr(layer, 'size'):
+        print(f"{indent}  Size: {layer.size}")
+    
+    # Iterate through sublayers if they exist
+    for name, sublayer in layer.named_children():
+        print(f"{indent}  Sub-layer: {name}")
+        log_layer_details(sublayer, depth + 1)
+
+
 
 def selective_freeze_unfreeze(model, time_aware=False, target_channels=(384, 512)):
     """
@@ -43,10 +70,18 @@ def selective_freeze_unfreeze(model, time_aware=False, target_channels=(384, 512
                     # Unfreeze time-aware blocks with target channels
                     if sub_layer.channels in target_channels and isinstance(sub_layer, Time_AttentionBlock):
                         unfreeze_block(sub_layer)
+                        print('time_attention block unfreezing')
+                        print("---------------------------")
+                        log_layer_details(sub_layer)
+                        print("---------------------------")
                 else:
                     # Unfreeze regular attention blocks when time-aware is False
                     if isinstance(sub_layer, AttentionBlock):
                         unfreeze_block(sub_layer)
+                        print('time_attention block unfreezing')
+                        print("---------------------------")
+                        log_layer_details(sub_layer)
+                        print("---------------------------")
     
     # Check the middle block
     for sub_layer in model.middle_block:
@@ -54,9 +89,16 @@ def selective_freeze_unfreeze(model, time_aware=False, target_channels=(384, 512
             if time_aware:
                 if sub_layer.channels in target_channels and isinstance(sub_layer, Time_AttentionBlock):
                     unfreeze_block(sub_layer)
-            else:
+                    print('time_attention block unfreezing')
+                    print("---------------------------")
+                    log_layer_details(sub_layer)
+                    print("---------------------------")
                 if isinstance(sub_layer, AttentionBlock):
                     unfreeze_block(sub_layer)
+                    print('time_attention block unfreezing')
+                    print("---------------------------")
+                    log_layer_details(sub_layer)
+                    print("---------------------------")
 
     # Iterate through output blocks similarly
     for block in model.output_blocks:
@@ -65,9 +107,17 @@ def selective_freeze_unfreeze(model, time_aware=False, target_channels=(384, 512
                 if time_aware:
                     if sub_layer.channels in target_channels and isinstance(sub_layer, Time_AttentionBlock):
                         unfreeze_block(sub_layer)
+                        print('time_attention block unfreezing')
+                        print("---------------------------")
+                        log_layer_details(sub_layer)
+                        print("---------------------------")
                 else:
                     if isinstance(sub_layer, AttentionBlock):
                         unfreeze_block(sub_layer)
+                        print('time_attention block unfreezing')
+                        print("---------------------------")
+                        log_layer_details(sub_layer)
+                        print("---------------------------")
 
     print(f"{'Time-aware' if time_aware else 'Regular'} attention blocks are now unfrozen for training.")# ______________________________________________________________
 # ____________________________________________________________
@@ -134,7 +184,7 @@ noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
 
 # ____________________ Model ____________________
 
-modes = ['a3ft'] # 'finetune'] # ,  'attention_finetune', 
+modes = ['a3ft'] # ''] # ,  'finetune',  attention_finetune
 
 for repetition in range(3):
     for p2_gamma in [0]:
