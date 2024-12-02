@@ -1,0 +1,42 @@
+Looking in links: /cvmfs/soft.computecanada.ca/custom/python/wheelhouse/gentoo2023/x86-64-v3, /cvmfs/soft.computecanada.ca/custom/python/wheelhouse/gentoo2023/generic, /cvmfs/soft.computecanada.ca/custom/python/wheelhouse/generic
+Obtaining file:///lustre06/project/6086105/ymbahram/improved-diffusion/improved_diffusion/SDFT
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: blobfile>=1.0.5 in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from improved-diffusion==0.0.0) (2.1.1+computecanada)
+Requirement already satisfied: torch in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from improved-diffusion==0.0.0) (2.3.0+computecanada)
+Requirement already satisfied: tqdm in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from improved-diffusion==0.0.0) (4.66.4+computecanada)
+Requirement already satisfied: numpy in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from improved-diffusion==0.0.0) (1.26.4+computecanada)
+Requirement already satisfied: matplotlib in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from improved-diffusion==0.0.0) (3.9.0+computecanada)
+Requirement already satisfied: pycryptodomex~=3.8 in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from blobfile>=1.0.5->improved-diffusion==0.0.0) (3.19.0+computecanada)
+Requirement already satisfied: filelock~=3.0 in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from blobfile>=1.0.5->improved-diffusion==0.0.0) (3.14.0)
+Requirement already satisfied: urllib3<3,>=1.25.3 in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from blobfile>=1.0.5->improved-diffusion==0.0.0) (2.2.3+computecanada)
+Requirement already satisfied: lxml~=4.9 in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from blobfile>=1.0.5->improved-diffusion==0.0.0) (4.9.2+computecanada)
+Requirement already satisfied: pyparsing>=2.3.1 in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from matplotlib->improved-diffusion==0.0.0) (3.1.2+computecanada)
+Requirement already satisfied: kiwisolver>=1.3.1 in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from matplotlib->improved-diffusion==0.0.0) (1.4.5+computecanada)
+Requirement already satisfied: pillow>=8 in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from matplotlib->improved-diffusion==0.0.0) (10.3.0+computecanada)
+Requirement already satisfied: packaging>=20.0 in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from matplotlib->improved-diffusion==0.0.0) (24.1+computecanada)
+Requirement already satisfied: cycler>=0.10 in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from matplotlib->improved-diffusion==0.0.0) (0.12.1+computecanada)
+Requirement already satisfied: python-dateutil>=2.7 in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from matplotlib->improved-diffusion==0.0.0) (2.9.0.post0+computecanada)
+Requirement already satisfied: contourpy>=1.0.1 in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from matplotlib->improved-diffusion==0.0.0) (1.2.1+computecanada)
+Requirement already satisfied: fonttools>=4.22.0 in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from matplotlib->improved-diffusion==0.0.0) (4.53.1+computecanada)
+Requirement already satisfied: sympy in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (1.12+computecanada)
+Requirement already satisfied: typing-extensions>=4.8.0 in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (4.12.0)
+Requirement already satisfied: networkx in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (3.3+computecanada)
+Requirement already satisfied: fsspec in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (2024.5.0+computecanada)
+Requirement already satisfied: jinja2 in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (3.1.4+computecanada)
+Requirement already satisfied: six>=1.5 in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from python-dateutil>=2.7->matplotlib->improved-diffusion==0.0.0) (1.16.0+computecanada)
+Requirement already satisfied: MarkupSafe>=2.0 in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from jinja2->torch->improved-diffusion==0.0.0) (2.1.3+computecanada)
+Requirement already satisfied: mpmath>=0.19 in /lustre06/project/6086105/ymbahram/gputorch3_10/lib/python3.10/site-packages (from sympy->torch->improved-diffusion==0.0.0) (1.3.0+computecanada)
+Installing collected packages: improved-diffusion
+  Attempting uninstall: improved-diffusion
+    Found existing installation: improved-diffusion 0.0.0
+    Uninstalling improved-diffusion-0.0.0:
+      Successfully uninstalled improved-diffusion-0.0.0
+  Running setup.py develop for improved-diffusion
+Successfully installed improved-diffusion-0.0.0
+Traceback (most recent call last):
+  File "/home/ymbahram/projects/def-hadi87/ymbahram/improved-diffusion/improved_diffusion/SDFT/evaluation/avg_SDFT_gammas_lambdas.py", line 5, in <module>
+    import evaluation 
+  File "/lustre06/project/6086105/ymbahram/improved-diffusion/improved_diffusion/SDFT/evaluation/evaluation.py", line 15, in <module>
+    import requests
+ModuleNotFoundError: No module named 'requests'

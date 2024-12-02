@@ -55,7 +55,7 @@ use_scale_shift_norm=True
 timestep_respacing="ddim50"
 use_ddim=True
 sample = True, # Doing sampling for a batch in training every time saving
-how_many_samples= 2500 # 2500 # TODO CHANGE
+how_many_samples= 1 #2500 # 2500 # TODO CHANGE
 image_size=image_size
 evaluate = False # If you want to perform evaluation during training (Currently every 25 steps)
 
@@ -65,7 +65,7 @@ load_model_path="/home/ymbahram/scratch/util_files/imagenet64_uncond_100M_1500K.
 # If you are resuming a previously aborted training, include the path to the checkpoint here
 resume_checkpoint= ""
 # Only need this if we are evaluating FID and stuff while training
-ref_dataset_npz = '/home/ymbahram/scratch/pokemon/pokemon_64x64.npz'
+ref_dataset_npz = '/home/ymbahram/scratch/datasets/pokemon/pokemon_64x64.npz'
 # Fixed noise vector
 noise_vector = '/home/ymbahram/scratch/util_files/pokemon_fixed_noise.npy'
 
@@ -108,7 +108,7 @@ for repetition in range(3):
             for gamma_aux, gamma_distil in zip(gamma_auxs, gamma_distils):
 
                     if lambda_distil == 0:
-                        if gamma_distil == 10: # For lambda = 0 its gonna just be like fine-tuning so the gamma value does not matter here
+                        if gamma_distil == 10: # For lambda = 0 its gonna just be like fine-tuning so the 1gamma value does not matter here
                             gamma_distil = 9999
                         else:
                             continue
@@ -138,7 +138,7 @@ for repetition in range(3):
                     for dataset_size in [10]: # , 100, 700, 2503
 
                         # The dataset you want to finetune on
-                        data_dir = f'/home/ymbahram/scratch/pokemon/pokemon{dataset_size}/' 
+                        data_dir = f'/home/ymbahram/scratch/datasets/pokemon/pokemon{dataset_size}/' 
 
                         data = load_data(
                             data_dir=data_dir,
