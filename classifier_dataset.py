@@ -1,31 +1,4 @@
 
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 from PIL import Image
 import blobfile as bf
 import numpy as np
