@@ -135,6 +135,7 @@ diffusion = create_gaussian_diffusion(
     rescale_timesteps=rescale_timesteps,
     rescale_learned_sigmas=rescale_learned_sigmas,
     timestep_respacing=timestep_respacing,
+    p2_gamma=p2_gamma,
 )
 
 for dataset_size in [10]:#, 100, 700, 2503]:
@@ -179,13 +180,13 @@ for dataset_size in [10]:#, 100, 700, 2503]:
         guidance_scale = np.array([g for _ in range(epochs)]) # Fixed Line
 
         # Where to log the training loss (File does not have to exist)
-        loss_logger=f"/home/ymbahram/scratch/baselines/classifier-guidance/results_samesample/data{dataset_size}/g{g}/trainlog.csv"
+        loss_logger=f"/home/ymbahram/scratch/baselines_avg/classifier-guidance/data{dataset_size}/g{g}_gamma{p2_gamma}_repeat{repetition}/trainlog.csv"
         # If evaluation is true during training, where to save the FID stuff
-        eval_logger=f"/home/ymbahram/scratch/baselines/classifier-guidance/results_samesample/data{dataset_size}/g{g}/evallog.csv"
+        eval_logger=f"/home/ymbahram/scratch/baselines_avg/classifier-guidance/data{dataset_size}/g{g}_gamma{p2_gamma}_repeat{repetition}/evallog.csv"
         # Directory to save checkpoints in
-        checkpoint_dir = f"/home/ymbahram/scratch/baselines/classifier-guidance/results_samesample/data{dataset_size}/g{g}/samples/checkpoints" 
+        checkpoint_dir = f"/home/ymbahram/scratch/baselines_avg/classifier-guidance/data{dataset_size}/g{g}_gamma{p2_gamma}_repeat{repetition}/checkpoints" 
         # Whenever you are saving checkpoints, a batch of images are also sampled, where to produce these images
-        save_samples_dir= f"/home/ymbahram/scratch/baselines/classifier-guidance/results_samesample/data{dataset_size}/g{g}/samples/"
+        save_samples_dir= f"/home/ymbahram/scratch/baselines_avg/classifier-guidance/data{dataset_size}/g{g}_gamma{p2_gamma}_repeat{repetition}/samples/"
 
         # ________________ Train _________________ 
 
