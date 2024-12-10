@@ -15,33 +15,6 @@ from improved_diffusion.unet import AttentionBlock, Time_AttentionBlock
 
 time_aware=True # TIME-AWARE
 
-# Helper function to log details of a layer
-def log_layer_details(layer, depth=0):
-    """
-    Recursively log details of a layer and its subcomponents.
-    
-    :param layer: The PyTorch module to inspect.
-    :param depth: The current recursion depth (for formatting output).
-    """
-    indent = "  " * depth  # Indentation for better visualization
-    print(f"{indent}Layer: {type(layer).__name__}, Total Parameters: {sum(p.numel() for p in layer.parameters())}")
-    
-    # Log attributes like channels, size, or other relevant properties
-    if hasattr(layer, 'channels'):
-        print(f"{indent}  Channels: {layer.channels}")
-    if hasattr(layer, 'kernel_size'):
-        print(f"{indent}  Kernel Size: {layer.kernel_size}")
-    if hasattr(layer, 'stride'):
-        print(f"{indent}  Stride: {layer.stride}")
-    if hasattr(layer, 'size'):
-        print(f"{indent}  Size: {layer.size}")
-    
-    # Iterate through sublayers if they exist
-    for name, sublayer in layer.named_children():
-        print(f"{indent}  Sub-layer: {name}")
-        log_layer_details(sublayer, depth + 1)
-
-
 
 def selective_freeze_unfreeze(model, time_aware=False, target_channels=(384, 512)):
     """
@@ -70,18 +43,10 @@ def selective_freeze_unfreeze(model, time_aware=False, target_channels=(384, 512
                     # Unfreeze time-aware blocks with target channels
                     if sub_layer.channels in target_channels and isinstance(sub_layer, Time_AttentionBlock):
                         unfreeze_block(sub_layer)
-                        print('time_attention block unfreezing')
-                        print("---------------------------")
-                        log_layer_details(sub_layer)
-                        print("---------------------------")
                 else:
                     # Unfreeze regular attention blocks when time-aware is False
                     if isinstance(sub_layer, AttentionBlock):
                         unfreeze_block(sub_layer)
-                        print('time_attention block unfreezing')
-                        print("---------------------------")
-                        log_layer_details(sub_layer)
-                        print("---------------------------")
     
     # Check the middle block
     for sub_layer in model.middle_block:
@@ -89,16 +54,9 @@ def selective_freeze_unfreeze(model, time_aware=False, target_channels=(384, 512
             if time_aware:
                 if sub_layer.channels in target_channels and isinstance(sub_layer, Time_AttentionBlock):
                     unfreeze_block(sub_layer)
-                    print('time_attention block unfreezing')
-                    print("---------------------------")
-                    log_layer_details(sub_layer)
-                    print("---------------------------")
+            else:
                 if isinstance(sub_layer, AttentionBlock):
                     unfreeze_block(sub_layer)
-                    print('time_attention block unfreezing')
-                    print("---------------------------")
-                    log_layer_details(sub_layer)
-                    print("---------------------------")
 
     # Iterate through output blocks similarly
     for block in model.output_blocks:
@@ -107,17 +65,9 @@ def selective_freeze_unfreeze(model, time_aware=False, target_channels=(384, 512
                 if time_aware:
                     if sub_layer.channels in target_channels and isinstance(sub_layer, Time_AttentionBlock):
                         unfreeze_block(sub_layer)
-                        print('time_attention block unfreezing')
-                        print("---------------------------")
-                        log_layer_details(sub_layer)
-                        print("---------------------------")
                 else:
                     if isinstance(sub_layer, AttentionBlock):
                         unfreeze_block(sub_layer)
-                        print('time_attention block unfreezing')
-                        print("---------------------------")
-                        log_layer_details(sub_layer)
-                        print("---------------------------")
 
     print(f"{'Time-aware' if time_aware else 'Regular'} attention blocks are now unfrozen for training.")# ______________________________________________________________
 # ____________________________________________________________
@@ -125,7 +75,7 @@ def selective_freeze_unfreeze(model, time_aware=False, target_channels=(384, 512
 
 
 # Training  
-epochs = 501
+epochs = 150 
 batch_size=10
 schedule_sampler="uniform" 
 lr=1e-4
@@ -164,7 +114,7 @@ use_scale_shift_norm=True
 timestep_respacing="ddim50"
 use_ddim=True
 sample = True, # Doing sampling for a batch in training every time saving
-how_many_samples= 2500 # 2500
+how_many_samples= 2500
 image_size=image_size
 evaluate = False # If you want to perform evaluation during training (Currently every 25 steps)
 
@@ -184,14 +134,16 @@ noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
 
 # ____________________ Model ____________________
 
-modes = ['a3ft'] # ''] # ,  'finetune',  attention_finetune
+p2_gamma = 0
 
 for repetition in range(3):
-    for p2_gamma in [0]:
-        for mode in modes: 
+    
+    for batch_size in [1, 5]:
+    
+        for mode, epochs in zip(['finetune', 'a3ft'], [151, 501]):  # 'attention_finetune', 
 
             print("*"*20)
-            print('Gamma: ', p2_gamma, 'Mode : ', mode)
+            print('Repeat: ', repetition, ' batch size: ', {batch_size}, ' Gamma: ', p2_gamma, ' Mode : ', mode)
             print("*"*20)
             
             # TIMEAWARE
@@ -268,13 +220,13 @@ for repetition in range(3):
                     guidance_scale = np.array([g for _ in range(epochs)]) # Fixed Line
 
                     # Where to log the training loss (File does not have to exist)
-                    loss_logger=f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/trainlog.csv"
+                    loss_logger=f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/{p2_gamma}_repeat{repetition}_batch_size{batch_size}/trainlog.csv"
                     # If evaluation is true during training, where to save the FID stuff
-                    eval_logger=f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/evallog.csv"
+                    eval_logger=f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/{p2_gamma}_repeat{repetition}_batch_size{batch_size}/evallog.csv"
                     # Directory to save checkpoints in
-                    checkpoint_dir = f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/checkpoints/"
+                    checkpoint_dir = f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/{p2_gamma}_repeat{repetition}_batch_size{batch_size}/checkpoints/"
                     # Whenever you are saving checkpoints, a batch of images are also sampled, where to produce these images
-                    save_samples_dir= f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/samples/"
+                    save_samples_dir= f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/{p2_gamma}_repeat{repetition}_batch_size{batch_size}/samples/"
 
                     # ________________ Train _________________ 
 

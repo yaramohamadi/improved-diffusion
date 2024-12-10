@@ -196,7 +196,7 @@ class TrainLoop:
             self.run_step(batch, cond) 
 
             if self.epochs == 501: # Dont want too much sampling here # TODO Temporary, remove
-                if self.step + self.resume_step >= 200:
+                if self.step + self.resume_step >= 300:
                     if (self.step  + self.resume_step ) % self.save_interval == 0:
                         self.save()
                         if self.sample: # Added this for sampling
