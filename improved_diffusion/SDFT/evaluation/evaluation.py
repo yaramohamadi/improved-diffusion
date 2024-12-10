@@ -25,12 +25,12 @@ import gc
 
 INCEPTION_V3_URL = "https://openaipublic.blob.core.windows.net/diffusion/jul-2021/ref_batches/classify_image_graph_def.pb"
 # Need to change this for different systems
-INCEPTION_V3_PATH = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/classify_image_graph_def.pb"
+INCEPTION_V3_PATH = "/home/ymbahram/scratch/util_files/classify_image_graph_def.pb"
 
 FID_POOL_NAME = "pool_3:0"
 FID_SPATIAL_NAME = "mixed_6/conv:0"
 
-VGG_PATH = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5"
+VGG_PATH = "/home/ymbahram/scratch/util_files/vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5"
 # VGG16 feature extraction model (excluding top layers)
 vgg_model = VGG16(weights=VGG_PATH, include_top=False)
 # Feature extraction model based on LPIPS-like metric (e.g., 'block5_conv3' layer)

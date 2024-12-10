@@ -16,7 +16,7 @@ gc.collect()
 th.cuda.empty_cache()
 
 # Training  
-epochs = 151
+epochs = 401
 batch_size=10
 schedule_sampler="uniform" # For time-step, should it be uniform or changing based on loss function
 lr=1e-4
@@ -55,7 +55,7 @@ use_scale_shift_norm=True
 timestep_respacing="ddim50"
 use_ddim=True
 sample = True, # Doing sampling for a batch in training every time saving
-how_many_samples= 1 #2500 # 2500 # TODO CHANGE
+how_many_samples= 2500 # 2500 # TODO CHANGE
 image_size=image_size
 evaluate = False # If you want to perform evaluation during training (Currently every 25 steps)
 
@@ -97,8 +97,8 @@ lambda_auxs = [0.001]
 lambda_distils = [0.001]
 # SDFT: Output from auxiliary input drastically collapses in smaller timesteps therefore larger gamma (Less influence in smaller timesteps)
 gamma_auxs = [
-    0.1, 1]
-gamma_distils = [0.1, 1]
+    0.1]
+gamma_distils = [0.1]
 
 for repetition in range(3):
 
@@ -135,7 +135,7 @@ for repetition in range(3):
                         p2_gamma=p2_gamma,
                     )
 
-                    for dataset_size in [10]: # , 100, 700, 2503
+                    for dataset_size in [500, 2503]: 
 
                         # The dataset you want to finetune on
                         data_dir = f'/home/ymbahram/scratch/datasets/pokemon/pokemon{dataset_size}/' 
