@@ -78,7 +78,6 @@ class TrainLoop:
 
         self.epochs=epochs
         self.noise_vector=noise_vector
-        self.guidance_scale=guidance_scale
         self.image_size=image_size
         self.save_samples_dir = save_samples_dir
         self.reference_dataset_dir = reference_dataset_dir

@@ -15,7 +15,6 @@ import gc
 gc.collect()
 th.cuda.empty_cache()
 
-
 # Classifier model
 image_size = 64
 model_channels = 128
@@ -55,6 +54,7 @@ eval_batch_size=100
 
 
 file_modes = ['spatial_v2']    # 'initial' # 'selective_freezing' 'adaptive', #'spatial', 
+
 
 for file_mode in file_modes:
 
@@ -150,9 +150,6 @@ for file_mode in file_modes:
         random_flip=False, # Classifier-guidance
         weighted_sampling=True,  # Classifier-guidance
     )
-
-
-
 
     if val_data_dir:
         val_data = load_data(
