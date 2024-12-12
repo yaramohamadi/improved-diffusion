@@ -75,7 +75,7 @@ def selective_freeze_unfreeze(model, time_aware=False, target_channels=(384, 512
 
 
 # Training  
-epochs = 150 
+epochs = 501 
 batch_size=10
 schedule_sampler="uniform" 
 lr=1e-4
@@ -227,6 +227,9 @@ for repetition in range(3):
                     checkpoint_dir = f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/{p2_gamma}_repeat{repetition}/checkpoints/"
                     # Whenever you are saving checkpoints, a batch of images are also sampled, where to produce these images
                     save_samples_dir= f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/{p2_gamma}_repeat{repetition}/samples/"
+
+                    # If you are resuming a previously aborted training, include the path to the checkpoint here
+                    resume_checkpoint= f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/{p2_gamma}_repeat{repetition}/checkpoints/model000125.pt"
 
                     # ________________ Train _________________ 
 

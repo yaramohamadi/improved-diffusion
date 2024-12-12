@@ -13,13 +13,17 @@ plt.figure(figsize=(10, 6))
 
 for gamma in summary["p2_gamma"].unique():
     gamma_data = summary[summary["p2_gamma"] == gamma]
-    plt.errorbar(
-        gamma_data["epoch"],
-        gamma_data["mean"],
-        yerr=gamma_data["std"],
-        label=f"p2_gamma = {gamma}",
-        capsize=4,
-        marker="o"
+    plt.plot(
+    gamma_data["epoch"], 
+    gamma_data["mean"], 
+    label=f"p2_gamma = {gamma}", 
+    marker="o"
+    )
+    plt.fill_between(
+        gamma_data["epoch"], 
+        gamma_data["mean"] - gamma_data["std"], 
+        gamma_data["mean"] + gamma_data["std"], 
+        alpha=0.2
     )
 
 # Customize plot

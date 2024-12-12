@@ -131,7 +131,6 @@ noise_vector = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/u
 # Load the noise vector from the .npy file
 noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
 
-
 # ____________________ Model ____________________
 
 p2_gamma = 0
@@ -141,6 +140,14 @@ for repetition in range(3):
     for batch_size in [1, 5]:
     
         for mode, epochs in zip(['finetune', 'a3ft'], [151, 501]):  # 'attention_finetune', 
+            
+            if repetition == 0 and batch_size == 1 and mode == 'a3ft':
+                resume_checkpoint= "/home/ymbahram/scratch/baselines_avg/a3ft/data10/0_repeat0_batch_size1/checkpoints/model000200.pt"
+            else:
+                resume_checkpoint= ""
+
+            if repetition == 0 and batch_size == 1 and mode == 'finetune':
+                continue
 
             print("*"*20)
             print('Repeat: ', repetition, ' batch size: ', {batch_size}, ' Gamma: ', p2_gamma, ' Mode : ', mode)

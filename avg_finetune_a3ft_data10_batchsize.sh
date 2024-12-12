@@ -12,4 +12,4 @@ module load python/3.11.5
 source /home/ymbahram/projects/def-hadi87/ymbahram/gputorch/bin/activate
 # pip install -e .
 
-python /home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/a3ft/scripts/avg_finetune_a3ft_data10_batchsize.py  # (27 h)
+python /home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/improved-diffusion/scripts/avg_finetune_a3ft_data10_batchsize.py  # (27 h)

@@ -50,6 +50,7 @@ class TrainLoop:
         clf_time_based=False,
         # till here
         use_fp16=False,
+        val_batch_size=10,
         fp16_scale_growth=1e-3,
         schedule_sampler=None,
         weight_decay=0.0,
@@ -91,6 +92,7 @@ class TrainLoop:
         self.diffusion = diffusion
         self.data = data
         self.batch_size = batch_size
+        self.val_batch_size = val_batch_size
         self.microbatch = microbatch if microbatch > 0 else batch_size
         self.lr = lr
         self.ema_rate = (
@@ -196,7 +198,7 @@ class TrainLoop:
             self.run_step(batch, cond) 
 
             if self.epochs == 501: # Dont want too much sampling here # TODO Temporary, remove
-                if self.step + self.resume_step >= 300:
+                if self.step + self.resume_step >= 125:
                     if (self.step  + self.resume_step ) % self.save_interval == 0:
                         self.save()
                         if self.sample: # Added this for sampling
@@ -379,7 +381,7 @@ class TrainLoop:
             os.makedirs(im_path, exist_ok=True)
 
             all_images = []
-            for ind, _ in tqdm(enumerate(range(0, self.how_many_samples + self.batch_size - 1, self.batch_size))):
+            for ind, _ in tqdm(enumerate(range(0, self.how_many_samples + self.val_batch_size - 1, self.val_batch_size))):
             
                 # Fixing for same sample generation (Deterministic sampling is done by default in the code)
                 if self.noise_vector != None:
@@ -389,7 +391,7 @@ class TrainLoop:
 
                 sample = sample_fn(
                     self.model,
-                    (self.batch_size, 3, self.image_size , self.image_size),
+                    (self.val_batch_size, 3, self.image_size , self.image_size),
                     source_model=self.pretrained_model, # classifier-free guidance  guidance = th.tensor([guidance], device='cuda', dtype=th.float32) 
                     guidance=False, # classifier-free guidance
                     noise=initial_noise,
@@ -403,7 +405,7 @@ class TrainLoop:
 
                 if ind <5: # Save 5 batches as images to see the visualizations
                     for sidx, s in enumerate(sample):
-                        plt.imsave(os.path.join(im_path, f'{sidx + ind*self.batch_size}.png'), s)
+                        plt.imsave(os.path.join(im_path, f'{sidx + ind*self.val_batch_size}.png'), s)
                 all_images.extend(sample)
 
             all_images = all_images[: self.how_many_samples]
