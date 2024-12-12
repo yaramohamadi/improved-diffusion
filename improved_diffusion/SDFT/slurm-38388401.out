@@ -1,0 +1,111 @@
+********************
+lambda_distil: 0.001, lambda_aux: 0.001, gamma_aux: 0.1, gamma_distil: 0.1
+********************
+********************
+fixed guidance is 0
+********************
+loading model from checkpoint: /home/ymbahram/scratch/baselines_avg/SDFT/data10/p2_gamma0_repeat0/lambdas0.001_gammas0.1/checkpoints/model000150.pt...
+loading optimizer state from checkpoint: /home/ymbahram/scratch/baselines_avg/SDFT/data10/p2_gamma0_repeat0/lambdas0.001_gammas0.1/checkpoints/opt000150.pt
+loading EMA from checkpoint: /home/ymbahram/scratch/baselines_avg/SDFT/data10/p2_gamma0_repeat0/lambdas0.001_gammas0.1/checkpoints/ema_0.9999_000150.pt...
+0it [00:00, ?it/s]________________________
+Min and Max weights are the same for loss function
+________________________
+saving model 0...
+saving model 0.9999...
+sampling 2500 images
+
+0it [00:00, ?it/s][A
+1it [00:09,  9.98s/it][A
+2it [00:32, 17.17s/it][A
+3it [00:36, 11.42s/it][A
+4it [00:51, 12.73s/it][A
+5it [00:58, 10.60s/it][A
+6it [01:00,  7.88s/it][A
+7it [01:03,  6.15s/it][A
+8it [01:06,  5.02s/it][A
+9it [01:08,  4.26s/it][A
+10it [01:11,  3.74s/it][A
+11it [01:13,  3.39s/it][A
+12it [01:16,  3.15s/it][A
+13it [01:19,  2.98s/it][A
+14it [01:21,  2.86s/it][A
+15it [01:24,  2.78s/it][A
+16it [01:26,  2.72s/it][A
+17it [01:29,  2.69s/it][A
+18it [01:32,  2.66s/it][A
+19it [01:34,  2.64s/it][A
+20it [01:37,  2.63s/it][A
+21it [01:39,  2.62s/it][A
+22it [01:42,  2.61s/it][A
+23it [01:45,  2.61s/it][A
+24it [01:47,  2.60s/it][A
+25it [01:50,  2.60s/it][A
+26it [01:52,  2.60s/it][A
+27it [01:55,  2.60s/it][A
+28it [01:57,  2.60s/it][A
+29it [02:00,  2.60s/it][A
+30it [02:03,  2.60s/it][A
+31it [02:05,  2.59s/it][A
+32it [02:08,  2.59s/it][A
+33it [02:10,  2.60s/it][A
+34it [02:13,  2.59s/it][A
+35it [02:16,  2.59s/it][A
+36it [02:18,  2.60s/it][A
+37it [02:21,  2.60s/it][A
+38it [02:23,  2.60s/it][A
+39it [02:26,  2.60s/it][A
+40it [02:29,  2.60s/it][A
+41it [02:31,  2.60s/it][A
+42it [02:34,  2.60s/it][A
+43it [02:36,  2.59s/it][A
+44it [02:39,  2.59s/it][A
+45it [02:42,  2.59s/it][A
+46it [02:44,  2.59s/it][A
+47it [02:47,  2.59s/it][A
+48it [02:49,  2.59s/it][A
+49it [02:52,  2.59s/it][A
+50it [02:55,  2.59s/it][A
+51it [02:57,  2.59s/it][A
+52it [03:00,  2.59s/it][A
+53it [03:02,  2.59s/it][A
+54it [03:05,  2.59s/it][A
+55it [03:08,  2.59s/it][A
+56it [03:10,  2.59s/it][A
+57it [03:13,  2.59s/it][A
+58it [03:15,  2.59s/it][A
+59it [03:18,  2.59s/it][A
+60it [03:21,  2.59s/it][A
+61it [03:23,  2.59s/it][A
+62it [03:26,  2.59s/it][A
+63it [03:28,  2.59s/it][A
+64it [03:31,  2.59s/it][A
+65it [03:33,  2.59s/it][A
+66it [03:36,  2.59s/it][A
+67it [03:39,  2.59s/it][A
+68it [03:41,  2.60s/it][A
+69it [03:44,  2.60s/it][A
+70it [03:46,  2.60s/it][A
+71it [03:49,  2.60s/it][A
+72it [03:52,  2.60s/it][A
+73it [03:54,  2.60s/it][A
+74it [03:57,  2.60s/it][A
+75it [03:59,  2.60s/it][A
+76it [04:02,  2.60s/it][A
+77it [04:05,  2.60s/it][A
+78it [04:07,  2.60s/it][A
+79it [04:10,  2.60s/it][A
+80it [04:12,  2.60s/it][A
+81it [04:15,  2.60s/it][A
+82it [04:18,  2.60s/it][A
+83it [04:20,  2.60s/it][A
+84it [04:23,  2.60s/it][A
+85it [04:25,  2.60s/it][A
+86it [04:28,  2.60s/it][A
+87it [04:31,  2.60s/it][A
+88it [04:33,  2.60s/it][A
+89it [04:36,  2.60s/it][A
+90it [04:38,  2.60s/it][A
+91it [04:41,  2.60s/it][A
+92it [04:44,  2.60s/it][A
+93it [04:46,  2.60s/it][A
+94it [04:49,  2.60s/it][A

@@ -135,8 +135,18 @@ for repetition in range(3):
                         p2_gamma=p2_gamma,
                     )
 
-                    for dataset_size in [500, 2503]: 
+                    for dataset_size in [10, 500, 2503]: 
+                        
 
+                        if dataset_size == 10:
+                            epochs = 301
+                            # If you are resuming a previously aborted training, include the path to the checkpoint here
+                            resume_checkpoint= f"/home/ymbahram/scratch/baselines_avg/SDFT/data{dataset_size}/p2_gamma{p2_gamma}_repeat{repetition}/lambdas{lambda_distil}_gammas{gamma_distil}/checkpoints/model000150.pt"
+                        else:
+                            epochs == 801
+                            resume_checkpoint= f"/home/ymbahram/scratch/baselines_avg/SDFT/data{dataset_size}/p2_gamma{p2_gamma}_repeat{repetition}/lambdas{lambda_distil}_gammas{gamma_distil}/checkpoints/model000400.pt"
+                        
+                            
                         # The dataset you want to finetune on
                         data_dir = f'/home/ymbahram/scratch/datasets/pokemon/pokemon{dataset_size}/' 
 
