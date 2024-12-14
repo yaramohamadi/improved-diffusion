@@ -33,4 +33,5 @@ plt.title("FID over Epochs for Different p2_gamma Values (Averaged over Repetiti
 plt.legend(title="p2_gamma")
 plt.grid(True, linestyle="--", alpha=0.7)
 plt.tight_layout()
+plt.ylim([70, 200])
 plt.savefig("/home/ymbahram/scratch/baselines_avg/finetune/data10/FID_KID.png")
