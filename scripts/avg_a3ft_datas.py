@@ -176,7 +176,7 @@ for repetition in range(3):
                 p2_gamma=p2_gamma, # For time-step weighting
             )
 
-            for dataset_size in [500, 2503]:
+            for dataset_size in [2503]: # 500, 10
 
                 # The dataset you want to finetune on
                 data_dir = f'/home/ymbahram/scratch/pokemon/pokemon{dataset_size}/' 
