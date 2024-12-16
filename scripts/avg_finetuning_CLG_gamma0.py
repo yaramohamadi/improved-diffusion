@@ -97,13 +97,19 @@ for param in classifier.parameters():
 
 
 def cond_fn(x, t, y=None, guidance_scale=0):
-        assert y is not None
-        with th.enable_grad():
-            x_in = x.detach().requires_grad_(True)
-            logits = classifier(x_in, t)
-            log_probs = F.log_softmax(logits, dim=-1)
-            selected = log_probs[range(len(logits)), y.view(-1)]
-            return th.autograd.grad(selected.sum(), x_in)[0] * guidance_scale
+
+    print("CLASSIFIER")
+    for name, param in classifier.named_parameters():
+        print(name)
+        print(param.requires_grad)
+        
+    assert y is not None
+    with th.enable_grad():
+        x_in = x.detach().requires_grad_(True)
+        logits = classifier(x_in, t)
+        log_probs = F.log_softmax(logits, dim=-1)
+        selected = log_probs[range(len(logits)), y.view(-1)]
+        return th.autograd.grad(selected.sum(), x_in)[0] * guidance_scale
 
 # ____________________ Model ____________________
 

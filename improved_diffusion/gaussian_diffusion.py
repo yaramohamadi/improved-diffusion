@@ -828,19 +828,7 @@ class GaussianDiffusion:
 
                 zero_classes = th.zeros(x_t.size()[0], dtype=th.int32, device='cuda', requires_grad=False)
 
-
-                print("x_t requires grad")
-                print(x_t.requires_grad)
-                print("timesteps requires grad")
-                print(self._scale_timesteps(t))
-                print("Y ")
-                print(zero_classes.requires_grad)
-                print('classifier-guidance')
-                print(guidance_scale.requires_grad())
-
                 model_output = model_output + cond_func(x_t, self._scale_timesteps(t), y=zero_classes, guidance_scale=guidance_scale) # Classifier guidance (we have it as zero for default)
-
-                exit()
             # _________________________________________________________________________________________
 
             # P2 weighting time-step weighting (Weight is a tensor filled with 1 for default)
