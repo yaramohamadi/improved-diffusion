@@ -1,0 +1,274 @@
+Looking in links: /cvmfs/soft.computecanada.ca/custom/python/wheelhouse/gentoo2023/x86-64-v4, /cvmfs/soft.computecanada.ca/custom/python/wheelhouse/gentoo2023/x86-64-v3, /cvmfs/soft.computecanada.ca/custom/python/wheelhouse/gentoo2023/generic, /cvmfs/soft.computecanada.ca/custom/python/wheelhouse/generic
+Obtaining file:///lustre03/project/6086105/ymbahram/improved_diffusion/classifier-guidance
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: blobfile>=1.0.5 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from improved-diffusion==0.0.0) (2.1.1+computecanada)
+Requirement already satisfied: torch in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from improved-diffusion==0.0.0) (2.5.1+computecanada)
+Requirement already satisfied: tqdm in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from improved-diffusion==0.0.0) (4.67.1+computecanada)
+Requirement already satisfied: pycryptodomex~=3.8 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from blobfile>=1.0.5->improved-diffusion==0.0.0) (3.19.0+computecanada)
+Requirement already satisfied: urllib3<3,>=1.25.3 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from blobfile>=1.0.5->improved-diffusion==0.0.0) (2.2.3+computecanada)
+Requirement already satisfied: lxml~=4.9 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from blobfile>=1.0.5->improved-diffusion==0.0.0) (4.9.2+computecanada)
+Requirement already satisfied: filelock~=3.0 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from blobfile>=1.0.5->improved-diffusion==0.0.0) (3.16.1+computecanada)
+Requirement already satisfied: typing-extensions>=4.8.0 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (4.12.2+computecanada)
+Requirement already satisfied: networkx in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (3.4.2+computecanada)
+Requirement already satisfied: jinja2 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (3.1.4+computecanada)
+Requirement already satisfied: fsspec in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (2024.10.0+computecanada)
+Requirement already satisfied: sympy==1.13.1 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from torch->improved-diffusion==0.0.0) (1.13.1+computecanada)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from sympy==1.13.1->torch->improved-diffusion==0.0.0) (1.3.0+computecanada)
+Requirement already satisfied: MarkupSafe>=2.0 in /lustre03/project/6086105/ymbahram/gputorch/lib/python3.10/site-packages (from jinja2->torch->improved-diffusion==0.0.0) (2.1.5+computecanada)
+Installing collected packages: improved-diffusion
+  Attempting uninstall: improved-diffusion
+    Found existing installation: improved-diffusion 0.0.0
+    Uninstalling improved-diffusion-0.0.0:
+      Successfully uninstalled improved-diffusion-0.0.0
+  Running setup.py develop for improved-diffusion
+Successfully installed improved-diffusion-0.0.0
+/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/classifier-guidance/scripts/avg_finetuning_CLG_gammas_gs.py:91: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  classifier_checkpoint = th.load(classifier_checkpoint)
+/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/classifier-guidance/scripts/avg_finetuning_CLG_gammas_gs.py:170: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = th.load(model_path)
+Loading classifier parameters
+********************
+fixed guidance is 1
+********************
+0it [00:00, ?it/s]Created directory: /home/ymbahram/scratch/baselines_avg/classifier-guidance/data10/gamma0.1_g1
+saving model 0...
+saving model 0.9999...
+sampling 2500 images
+
+0it [00:00, ?it/s][A
+1it [00:02,  2.97s/it][A
+2it [00:05,  2.97s/it][A
+3it [00:09,  3.09s/it][A
+4it [00:12,  3.01s/it][A
+5it [00:15,  3.02s/it][A
+6it [00:17,  2.94s/it][A
+7it [00:20,  2.90s/it][A
+8it [00:23,  2.87s/it][A
+9it [00:26,  2.85s/it][A
+10it [00:29,  2.84s/it][A
+11it [00:31,  2.83s/it][A
+12it [00:34,  2.83s/it][A
+13it [00:37,  2.83s/it][A
+14it [00:40,  2.82s/it][A
+15it [00:43,  2.82s/it][A
+16it [00:46,  2.83s/it][A
+17it [00:48,  2.83s/it][A
+18it [00:51,  2.83s/it][A
+19it [00:54,  2.83s/it][A
+20it [00:57,  2.83s/it][A
+21it [01:00,  2.83s/it][A
+22it [01:03,  2.83s/it][A
+23it [01:05,  2.83s/it][A
+24it [01:08,  2.83s/it][A
+25it [01:11,  2.83s/it][A
+26it [01:14,  2.83s/it][A
+27it [01:17,  2.83s/it][A
+28it [01:20,  2.84s/it][A
+29it [01:22,  2.84s/it][A
+30it [01:25,  2.84s/it][A
+31it [01:28,  2.84s/it][A
+32it [01:31,  2.84s/it][A
+33it [01:34,  2.84s/it][A
+34it [01:37,  2.84s/it][A
+35it [01:39,  2.84s/it][A
+36it [01:42,  2.83s/it][A
+37it [01:45,  2.84s/it][A
+38it [01:48,  2.84s/it][A
+39it [01:51,  2.83s/it][A
+40it [01:54,  2.84s/it][A
+41it [01:56,  2.84s/it][A
+42it [01:59,  2.84s/it][A
+43it [02:02,  2.84s/it][A
+44it [02:05,  2.84s/it][A
+45it [02:08,  2.84s/it][A
+46it [02:11,  2.83s/it][A
+47it [02:13,  2.83s/it][A
+48it [02:16,  2.83s/it][A
+49it [02:19,  2.83s/it][A
+50it [02:22,  2.83s/it][A
+51it [02:25,  2.83s/it][A
+52it [02:28,  2.83s/it][A
+53it [02:30,  2.83s/it][A
+54it [02:33,  2.83s/it][A
+55it [02:36,  2.83s/it][A
+56it [02:39,  2.83s/it][A
+57it [02:42,  2.83s/it][A
+58it [02:45,  2.83s/it][A
+59it [02:47,  2.83s/it][A
+60it [02:50,  2.83s/it][A
+61it [02:53,  2.83s/it][A
+62it [02:56,  2.83s/it][A
+63it [02:59,  2.83s/it][A
+64it [03:02,  2.83s/it][A
+65it [03:04,  2.83s/it][A
+66it [03:07,  2.83s/it][A
+67it [03:10,  2.83s/it][A
+68it [03:13,  2.83s/it][A
+69it [03:16,  2.83s/it][A
+70it [03:19,  2.82s/it][A
+71it [03:21,  2.82s/it][A
+72it [03:24,  2.82s/it][A
+73it [03:27,  2.83s/it][A
+74it [03:30,  2.83s/it][A
+75it [03:33,  2.83s/it][A
+76it [03:35,  2.83s/it][A
+77it [03:38,  2.83s/it][A
+78it [03:41,  2.82s/it][A
+79it [03:44,  2.82s/it][A
+80it [03:47,  2.82s/it][A
+81it [03:50,  2.82s/it][A
+82it [03:52,  2.82s/it][A
+83it [03:55,  2.82s/it][A
+84it [03:58,  2.82s/it][A
+85it [04:01,  2.82s/it][A
+86it [04:04,  2.82s/it][A
+87it [04:07,  2.82s/it][A
+88it [04:09,  2.82s/it][A
+89it [04:12,  2.82s/it][A
+90it [04:15,  2.82s/it][A
+91it [04:18,  2.82s/it][A
+92it [04:21,  2.82s/it][A
+93it [04:23,  2.82s/it][A
+94it [04:26,  2.82s/it][A
+95it [04:29,  2.82s/it][A
+96it [04:32,  2.82s/it][A
+97it [04:35,  2.82s/it][A
+98it [04:38,  2.83s/it][A
+99it [04:40,  2.82s/it][A
+100it [04:43,  2.82s/it][A
+101it [04:46,  2.82s/it][A
+102it [04:49,  2.82s/it][A
+103it [04:52,  2.82s/it][A
+104it [04:55,  2.82s/it][A
+105it [04:57,  2.82s/it][A
+106it [05:00,  2.82s/it][A
+107it [05:03,  2.82s/it][A
+108it [05:06,  2.82s/it][A
+109it [05:09,  2.82s/it][A
+110it [05:11,  2.82s/it][A
+111it [05:14,  2.82s/it][A
+112it [05:17,  2.83s/it][A
+113it [05:20,  2.83s/it][A
+114it [05:23,  2.83s/it][A
+115it [05:26,  2.82s/it][A
+116it [05:28,  2.82s/it][A
+117it [05:31,  2.82s/it][A
+118it [05:34,  2.82s/it][A
+119it [05:37,  2.82s/it][A
+120it [05:40,  2.82s/it][A
+121it [05:43,  2.82s/it][A
+122it [05:45,  2.82s/it][A
+123it [05:48,  2.82s/it][A
+124it [05:51,  2.82s/it][A
+125it [05:54,  2.82s/it][A
+126it [05:57,  2.82s/it][A
+127it [05:59,  2.82s/it][A
+128it [06:02,  2.82s/it][A
+129it [06:05,  2.82s/it][A
+130it [06:08,  2.82s/it][A
+131it [06:11,  2.82s/it][A
+132it [06:14,  2.82s/it][A
+133it [06:16,  2.82s/it][A
+134it [06:19,  2.83s/it][A
+135it [06:22,  2.83s/it][A
+136it [06:25,  2.82s/it][A
+137it [06:28,  2.83s/it][A
+138it [06:31,  2.83s/it][A
+139it [06:33,  2.83s/it][A
+140it [06:36,  2.83s/it][A
+141it [06:39,  2.82s/it][A
+142it [06:42,  2.82s/it][A
+143it [06:45,  2.82s/it][A
+144it [06:47,  2.82s/it][A
+145it [06:50,  2.82s/it][A
+146it [06:53,  2.82s/it][A
+147it [06:56,  2.82s/it][A
+148it [06:59,  2.82s/it][A
+149it [07:02,  2.82s/it][A
+150it [07:04,  2.82s/it][A
+151it [07:07,  2.82s/it][A
+152it [07:10,  2.82s/it][A
+153it [07:13,  2.82s/it][A
+154it [07:16,  2.83s/it][A
+155it [07:19,  2.83s/it][A
+156it [07:21,  2.83s/it][A
+157it [07:24,  2.82s/it][A
+158it [07:27,  2.82s/it][A
+159it [07:30,  2.82s/it][A
+160it [07:33,  2.82s/it][A
+161it [07:36,  2.82s/it][A
+162it [07:38,  2.82s/it][A
+163it [07:41,  2.82s/it][A
+164it [07:44,  2.82s/it][A
+165it [07:47,  2.82s/it][A
+166it [07:50,  2.83s/it][A
+167it [07:52,  2.83s/it][A
+168it [07:55,  2.83s/it][A
+169it [07:58,  2.83s/it][A
+170it [08:01,  2.83s/it][A
+171it [08:04,  2.83s/it][A
+172it [08:07,  2.83s/it][A
+173it [08:09,  2.83s/it][A
+174it [08:12,  2.83s/it][A
+175it [08:15,  2.83s/it][A
+176it [08:18,  2.83s/it][A
+177it [08:21,  2.83s/it][A
+178it [08:24,  2.83s/it][A
+179it [08:26,  2.83s/it][A
+180it [08:29,  2.83s/it][A
+181it [08:32,  2.83s/it][A
+182it [08:35,  2.83s/it][A
+183it [08:38,  2.83s/it][A
+184it [08:41,  2.83s/it][A
+185it [08:43,  2.83s/it][A
+186it [08:46,  2.83s/it][A
+187it [08:49,  2.83s/it][A
+188it [08:52,  2.83s/it][A
+189it [08:55,  2.83s/it][A
+190it [08:57,  2.83s/it][A
+191it [09:00,  2.83s/it][A
+192it [09:03,  2.83s/it][A
+193it [09:06,  2.83s/it][A
+194it [09:09,  2.82s/it][A
+195it [09:12,  2.83s/it][A
+196it [09:14,  2.83s/it][A
+197it [09:17,  2.83s/it][A
+198it [09:20,  2.83s/it][A
+199it [09:23,  2.83s/it][A
+200it [09:26,  2.83s/it][A
+201it [09:29,  2.83s/it][A
+202it [09:31,  2.83s/it][A
+203it [09:34,  2.83s/it][A
+204it [09:37,  2.83s/it][A
+205it [09:40,  2.83s/it][A
+206it [09:43,  2.83s/it][A
+207it [09:46,  2.83s/it][A
+208it [09:48,  2.83s/it][A
+209it [09:51,  2.83s/it][A
+210it [09:54,  2.83s/it][A
+211it [09:57,  2.83s/it][A
+212it [10:00,  2.83s/it][A
+213it [10:03,  2.83s/it][A
+214it [10:05,  2.83s/it][A
+215it [10:08,  2.83s/it][A
+216it [10:11,  2.83s/it][A
+217it [10:14,  2.83s/it][A
+218it [10:17,  2.83s/it][A
+219it [10:19,  2.83s/it][A
+220it [10:22,  2.83s/it][A
+221it [10:25,  2.83s/it][A
+222it [10:28,  2.83s/it][A
+223it [10:31,  2.83s/it][A
+224it [10:34,  2.83s/it][A
+225it [10:36,  2.83s/it][A
+226it [10:39,  2.83s/it][A
+227it [10:42,  2.83s/it][A
+228it [10:45,  2.83s/it][A
+229it [10:48,  2.83s/it][A
+230it [10:51,  2.83s/it][A
+231it [10:53,  2.83s/it][A
+232it [10:56,  2.83s/it][A
+233it [10:59,  2.83s/it][A
+234it [11:02,  2.83s/it][A
+235it [11:05,  2.83s/it][A
