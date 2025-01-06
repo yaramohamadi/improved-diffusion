@@ -44,9 +44,8 @@ class TrainLoop:
         log_interval,
         save_interval,
         resume_checkpoint,
-        # For classifier-guidance
+        # For DDPM
         pretrained_model,
-        guidance_scale,
         clf_time_based=False,
         # till here
         use_fp16=False,
@@ -74,7 +73,6 @@ class TrainLoop:
         self.epochs=epochs
         self.noise_vector=noise_vector
         self.clf_time_based=clf_time_based
-        self.guidance_scale=guidance_scale
         self.pretrained_model=pretrained_model
         self.image_size=image_size
         self.save_samples_dir = save_samples_dir
@@ -231,25 +229,15 @@ class TrainLoop:
             last_batch = (i + self.microbatch) >= batch.shape[0]
             t, weights = self.schedule_sampler.sample(micro.shape[0], 'cuda') # REMOVED
 
-            if self.clf_time_based == True: # time-based guidance # time-schedule based on p2 weighting  time-step weighting
-                guidance = th.tensor(self.guidance_scale, device='cuda', dtype=th.float32) 
-                guidance = guidance[t]
-                guidance = guidance.view(guidance.size()[0], 1, 1, 1)
-
-            else: # classifier-free guidance
-                guidance = self.guidance_scale[self.step + self.resume_step]
-                guidance = th.tensor([guidance], device='cuda', dtype=th.float32) 
-
             compute_losses = functools.partial(
                 self.diffusion.training_losses,
                 self.model,
                 micro,
-                self.pretrained_model, # classifier-free guidance  
-                guidance, # classifier-free guidance
+                self.pretrained_model, # DDPM
                 t,
                 model_kwargs=micro_cond,
             )
-
+            
             losses = compute_losses()
 
             if isinstance(self.schedule_sampler, LossAwareSampler):
@@ -372,8 +360,6 @@ class TrainLoop:
                 sample = sample_fn(
                     self.model,
                     (self.batch_size, 3, self.image_size , self.image_size),
-                    source_model=self.pretrained_model, # classifier-free guidance  guidance = th.tensor([guidance], device='cuda', dtype=th.float32) 
-                    guidance=False, # classifier-free guidance
                     noise=initial_noise,
                     clip_denoised=True,
                     model_kwargs={}, # This is not needed, just class conditional stuff

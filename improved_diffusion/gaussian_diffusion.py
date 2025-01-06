@@ -11,9 +11,97 @@ import copy
 
 import numpy as np
 import torch as th
+import torch.nn as nn
+import torch.nn.functional as F
+
+import pywt
 
 from .nn import mean_flat
 from .losses import normal_kl, discretized_gaussian_log_likelihood
+
+
+# _______________________________ DDPM Helper Functions ____________________________________ 
+
+# Define pairwise similarity loss using KL divergence and cosine similarity
+class PairwiseSimilarityLoss(nn.Module):
+    def __init__(self):
+        super(PairwiseSimilarityLoss, self).__init__()
+        self.kl_loss = nn.KLDivLoss(reduction='batchmean')
+        self.softmax = nn.Softmax(dim=1)
+
+    def forward(self, features_source, features_target):
+        # Normalize features to unit vectors
+        features_source = F.normalize(features_source, p=2, dim=1)
+        features_target = F.normalize(features_target, p=2, dim=1)
+
+        # Compute pairwise cosine similarity matrices
+        dist_source = th.mm(features_source, features_source.T)
+        dist_target = th.mm(features_target, features_target.T)
+
+        # Apply softmax and compute KL divergence
+        dist_source = self.softmax(dist_source)
+        dist_target = self.softmax(dist_target)
+        loss = self.kl_loss(th.log(dist_target), dist_source)
+
+        return loss
+
+# Function for Haar wavelet decomposition to extract high-frequency components
+
+def haar_wavelet_high_freq(img):
+    """
+    Decomposes an image using Haar wavelets and extracts the high-frequency components.
+    
+    Args:
+        img (torch.Tensor): Tensor of shape (B, C, H, W) representing a batch of images.
+        
+    Returns:
+        torch.Tensor: High-frequency components of the images, same shape as input.
+    """
+    batch_size, channels, height, width = img.size()
+    high_freq_components = th.zeros_like(img)
+    
+    for b in range(batch_size):
+        for c in range(channels):
+            coeffs = pywt.dwt2(img[b, c].cpu().numpy(), 'haar')
+            _, (LH, HL, HH) = coeffs
+            high_freq = LH + HL + HH
+            high_freq_components[b, c] = th.tensor(high_freq).to(img.device)
+    
+    return high_freq_components
+
+# High-frequency pairwise similarity loss
+class HighFrequencyPairwiseLoss(nn.Module):
+    def __init__(self):
+        super(HighFrequencyPairwiseLoss, self).__init__()
+        self.pairwise_loss = PairwiseSimilarityLoss()
+
+    def forward(self, source_images, target_images):
+        # Extract high-frequency components
+        high_freq_source = haar_wavelet_high_freq(source_images)
+        high_freq_target = haar_wavelet_high_freq(target_images)
+        
+        # Compute pairwise similarity loss on high-frequency components
+        loss = self.pairwise_loss(high_freq_source.view(high_freq_source.size(0), -1),
+                                  high_freq_target.view(high_freq_target.size(0), -1))
+        return loss
+
+# High-frequency MSE loss
+class HighFrequencyMSELoss(nn.Module):
+    def __init__(self):
+        super(HighFrequencyMSELoss, self).__init__()
+        self.mse_loss = nn.MSELoss()
+
+    def forward(self, target_images, real_images):
+        # Extract high-frequency components
+        high_freq_target = haar_wavelet_high_freq(target_images)
+        high_freq_real = haar_wavelet_high_freq(real_images)
+        
+        # Compute MSE loss on high-frequency components
+        loss = self.mse_loss(high_freq_target, high_freq_real)
+        return loss
+
+# ___________________________________________________________________________________________
+
 
 
 def get_named_beta_schedule(schedule_name, num_diffusion_timesteps):
@@ -126,10 +214,10 @@ class GaussianDiffusion:
         rescale_timesteps=False,
         p2_gamma=0, # For time-step weighting
         p2_k=1, # For time-step weighting
-        divide_clf_params = False,
-        lambda_a2 = 1,
-        lambda_b2 = 1,
-        lambda_ab = 1,
+        lambda_1=0,
+        lambda_2=0,
+        lambda_3=0,
+
     ):
         self.model_mean_type = model_mean_type
         self.model_var_type = model_var_type
@@ -138,11 +226,10 @@ class GaussianDiffusion:
         self.g2_gamma=p2_gamma # For time-step weighting
         self.p2_k=p2_k # For time-step weighting
 
-        # divide clf params
-        self.divide_clf_params = divide_clf_params
-        self.lambda_a2 = lambda_a2
-        self.lambda_b2 = lambda_b2
-        self.lambda_ab = lambda_ab
+        # DDPM-PA
+        self.lambda_1=lambda_1
+        self.lambda_2=lambda_2
+        self.lambda_3=lambda_3
 
         # Use float64 for accuracy.
         betas = np.array(betas, dtype=np.float64)
@@ -187,6 +274,11 @@ class GaussianDiffusion:
         self.p2_gamma = p2_gamma
         self.p2_k = p2_k
         self.snr = 1.0 / (1 - self.alphas_cumprod) - 1
+
+        # DDPM-PA
+        self.pairwise_loss_fn = PairwiseSimilarityLoss()
+        self.high_freq_pairwise_loss_fn = HighFrequencyPairwiseLoss()
+        self.high_freq_mse_loss_fn = HighFrequencyMSELoss()
 
 
     def q_mean_variance(self, x_start, t):
@@ -319,9 +411,9 @@ class GaussianDiffusion:
                 print("Guidance is ")
                 print(guidance)
 
-                # ________________________________where the loss is created________________________________
-                model_output = model_output + guidance * weight * (source_output - model_output) # Classifier-free guidance
-                # _________________________________________________________________________________________
+            # ________________________________where the loss is created________________________________
+            model_output = model_output + guidance * weight * (source_output - model_output) # Classifier-free guidance
+            # _________________________________________________________________________________________
 
             if self.model_var_type == ModelVarType.LEARNED:
                 model_log_variance = model_var_values
@@ -768,7 +860,7 @@ class GaussianDiffusion:
         output = th.where((t == 0), decoder_nll, kl)
         return {"output": output, "pred_xstart": out["pred_xstart"]}
 
-    def training_losses(self, model, x_start, source_model, guidance_scale, t, model_kwargs=None, noise=None): # Classifier-free guidance 
+    def training_losses(self, model, x_start, source_model, t, model_kwargs=None, noise=None): # Classifier-free guidance 
         """
         Compute training losses for a single timestep.
 
@@ -850,25 +942,33 @@ class GaussianDiffusion:
             # P2 weighting time-step weighting
             weight = _extract_into_tensor(1 / (self.p2_k + self.snr)**self.p2_gamma, t, target.shape)
 
-            if self.divide_clf_params:
-                # ________________________________where the loss is created________________________________
-                model_output = model_output + guidance_scale * weight * (source_model_output - model_output) # Classifier-free guidance
-                # _________________________________________________________________________________________
-                (target - model_output - guidance_scale * weight * (source_model_output - model_output)) ** 2
+            # ________________________________where the loss is created________________________________
+            model_output = model_output +  weight * (source_model_output - model_output) # Classifier-free guidance
 
-                a2 = self.lambda_a2 * (target - model_output)**2
-                b2 =  self.lambda_b2 * (guidance_scale * weight * (source_model_output - model_output))**2
-                ab = self.lambda_ab * guidance_scale * weight * (target - model_output) * (source_model_output - model_output)
+            # Compute pairwise similarity loss
+            features_source = source_model_output.view(x_t.shape[0], -1)
+            features_target = model_output.view(x_t.shape[0], -1)
+            pairwise_loss = self.pairwise_loss_fn(features_source, features_target)
 
+            # Compute high-frequency pairwise similarity loss
+            high_freq_pairwise_loss = self.high_freq_pairwise_loss_fn(source_model_output, model_output)
 
-                terms["mse"] = mean_flat(a2 + b2 + ab)
+            # Compute high-frequency MSE loss
+            high_freq_mse_loss = self.high_freq_mse_loss_fn(model_output, x_start)
 
+            # Combine losses
+            print("Loss pairwise:")
+            print(pairwise_loss)
+            print("Loss high-frequency pairwise:")
+            print(high_freq_pairwise_loss)
+            print("Loss high-frequency MSE:")
+            print(high_freq_mse_loss)
+            ddpm_loss = self.lambda_1 * pairwise_loss + self.lambda_2 * high_freq_pairwise_loss + self.lambda_3 * high_freq_mse_loss
 
-            else:
-                # ________________________________where the loss is created________________________________
-                model_output = model_output + guidance_scale * weight * (source_model_output - model_output) # Classifier-free guidance
-                # _________________________________________________________________________________________
-                terms["mse"] = mean_flat((target - model_output) ** 2)
+            exit()
+
+            # _________________________________________________________________________________________
+            terms["mse"] = mean_flat((target - model_output) ** 2) + ddpm_loss
 
             if "vb" in terms:
                 terms["loss"] = terms["mse"] + terms["vb"]
