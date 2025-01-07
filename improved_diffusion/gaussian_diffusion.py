@@ -353,7 +353,7 @@ class GaussianDiffusion:
         self, 
         model, 
         x, 
-        t,
+        t, 
         source_model=None,
         source_x=None, 
         guidance=None,
@@ -939,7 +939,6 @@ class GaussianDiffusion:
                 ModelMeanType.EPSILON: noise,
             }[self.model_mean_type]
             assert model_output.shape == target.shape == x_start.shape
-            
             
             # P2 weighting time-step weighting
             weight = _extract_into_tensor(1 / (self.p2_k + self.snr)**self.p2_gamma, t, target.shape)

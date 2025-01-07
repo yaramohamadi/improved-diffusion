@@ -19,7 +19,7 @@ for repetition in range(1):
             
             for lambda_2 in [0.1, 0.5, 1]:
                 
-                for lambda_3 in [0.04, 0.08]:
+                for lambda_3 in [0.01]:
 
                     for dataset_size in [10]:
 
