@@ -126,7 +126,7 @@ model = create_model(
 noise_vector = th.tensor(np.load(noise_vector))  # Load on CPU
 noise_vector = noise_vector.to('cuda')  # Transfer to GPU if memory allows
 
-for repetition in range(3):
+for repetition in range(1,3):
     
     for p2_gamma in [0.1]: # 0, , 0.5, 1, 10
 
@@ -157,7 +157,7 @@ for repetition in range(3):
 
             for g in [ # 0.05, 0.1, 5,
                 # Fixed
-                1,
+                1,  
                 ]:
 
                 print("*"*20)
@@ -181,14 +181,14 @@ for repetition in range(3):
                 # Fixed
                 guidance_scale = np.array([g for _ in range(epochs)]) # Fixed Line
 
-                # Where to log the training loss (File does not have to exist) # baselines_avg _repeat{repetition}
-                loss_logger=f"/home/ymbahram/scratch/baselines_avg/classifier-guidance/data{dataset_size}/gamma{p2_gamma}_g{g}/trainlog.csv"
+                # Where to log the training loss (File does not have to exist) # baselines_avg 
+                loss_logger=f"/home/ymbahram/scratch/baselines_avg/classifier-guidance/data{dataset_size}/gamma{p2_gamma}_g{g}_repeat{repetition}/trainlog.csv"
                 # If evaluation is true during training, where to save the FID stuff
-                eval_logger=f"/home/ymbahram/scratch/baselines_avg/classifier-guidance/data{dataset_size}/gamma{p2_gamma}_g{g}/evallog.csv"
+                eval_logger=f"/home/ymbahram/scratch/baselines_avg/classifier-guidance/data{dataset_size}/gamma{p2_gamma}_g{g}_repeat{repetition}/evallog.csv"
                 # Directory to save checkpoints in
-                checkpoint_dir = f"/home/ymbahram/scratch/baselines_avg/classifier-guidance/data{dataset_size}/gamma{p2_gamma}_g{g}/checkpoints" 
+                checkpoint_dir = f"/home/ymbahram/scratch/baselines_avg/classifier-guidance/data{dataset_size}/gamma{p2_gamma}_g{g}_repeat{repetition}/checkpoints" 
                 # Whenever you are saving checkpoints, a batch of images are also sampled, where to produce these images
-                save_samples_dir= f"/home/ymbahram/scratch/baselines_avg/classifier-guidance/data{dataset_size}/gamma{p2_gamma}_g{g}/samples/"
+                save_samples_dir= f"/home/ymbahram/scratch/baselines_avg/classifier-guidance/data{dataset_size}/gamma{p2_gamma}_g{g}_repeat{repetition}/samples/"
 
                 # ________________ Train _________________ 
 
