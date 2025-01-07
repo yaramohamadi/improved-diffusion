@@ -11,7 +11,7 @@ from improved_diffusion.resample import create_named_schedule_sampler
 from improved_diffusion.train_util import TrainLoop
  
 # Training  
-epochs = 151 
+epochs = 201
 batch_size=10
 schedule_sampler="uniform" 
 lr=1e-4
@@ -70,15 +70,15 @@ noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
 
 # ____________________ Model ____________________
 
-for repetition in range(3):
+for repetition in range(1):
 
     for p2_gamma in [0]: # TODO Quoi??
 
-        for lambda_1 in [0.1, 1]:
+        for lambda_1 in [0.1, 0.5, 1]:
             
-            for lambda_2 in [0.1, 1]:
+            for lambda_2 in [0.1, 0.5, 1]:
                 
-                for lambda_3 in [0.01, 0.08]:
+                for lambda_3 in [0.01]:
 
                     for dataset_size in [10]:
 
@@ -163,14 +163,14 @@ for repetition in range(3):
                                 # ________________classifier-free guidance (DONT NEED TODO removes)_______________
 
 
-                                # Where to log the training loss (File does not have to exist) ddpm-pa
-                                loss_logger=f"/home/ymbahram/scratch/baselines_avg/ddpm-pa/data{dataset_size}/l_1{lambda_1}_l2{lambda_2}_l3{lambda_3}_repetition{repetition}/trainlog.csv"
+                                # Where to log the training loss (File does not have to exist) ddpm-pa _repetition{repetition}
+                                loss_logger=f"/home/ymbahram/scratch/baselines/ddpm-pa/data{dataset_size}/l1_{lambda_1}_l2_{lambda_2}_l3_{lambda_3}/trainlog.csv"
                                 # If evaluation is true during training, where to save the FID stuff
-                                eval_logger=f"/home/ymbahram/scratch/baselines_avg/ddpm-pa/data{dataset_size}/l_1{lambda_1}_l2{lambda_2}_l3{lambda_3}_repetition{repetition}/evallog.csv"
+                                eval_logger=f"/home/ymbahram/scratch/baselines/ddpm-pa/data{dataset_size}/l1_{lambda_1}_l2_{lambda_2}_l3_{lambda_3}/evallog.csv"
                                 # Directory to save checkpoints in
-                                checkpoint_dir = f"/home/ymbahram/scratch/baselines_avg/ddpm-pa/data{dataset_size}/l_1{lambda_1}_l2{lambda_2}_l3{lambda_3}_repetition{repetition}/checkpoints/"
+                                checkpoint_dir = f"/home/ymbahram/scratch/baselines/ddpm-pa/data{dataset_size}/l1_{lambda_1}_l2_{lambda_2}_l3_{lambda_3}/checkpoints/"
                                 # Whenever you are saving checkpoints, a batch of images are also sampled, where to produce these images
-                                save_samples_dir= f"/home/ymbahram/scratch/baselines_avg/ddpm-pa/data{dataset_size}/l_1{lambda_1}_l2{lambda_2}_l3{lambda_3}_repetition{repetition}/samples/"
+                                save_samples_dir= f"/home/ymbahram/scratch/baselines/ddpm-pa/data{dataset_size}/l1_{lambda_1}_l2_{lambda_2}_l3_{lambda_3}/samples/"
 
                                 # ________________ Train _________________ 
 
@@ -194,6 +194,7 @@ for repetition in range(3):
                                     lr_anneal_steps=lr_anneal_steps,
                                     # next 2 For logging
                                     loss_logger=loss_logger,
+                                    eval_logger=eval_logger,
                                     checkpoint_dir = checkpoint_dir,
                                     # next 4 For sampling
                                     sample = True, # Doing sampling for a batch in training every time saving

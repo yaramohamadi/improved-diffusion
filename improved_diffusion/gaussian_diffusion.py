@@ -58,15 +58,22 @@ def haar_wavelet_high_freq(img):
         torch.Tensor: High-frequency components of the images, same shape as input.
     """
     batch_size, channels, height, width = img.size()
+
     high_freq_components = th.zeros_like(img)
     
     for b in range(batch_size):
         for c in range(channels):
-            coeffs = pywt.dwt2(img[b, c].cpu().numpy(), 'haar')
+
+            coeffs = pywt.dwt2(img[b, c].cpu().detach().numpy(), 'haar')
             _, (LH, HL, HH) = coeffs
             high_freq = LH + HL + HH
-            high_freq_components[b, c] = th.tensor(high_freq).to(img.device)
-    
+
+            # Convert high_freq back to a tensor and upsample to original size (This was not mentioned in paper but it is needed)
+            high_freq = th.tensor(high_freq).unsqueeze(0).unsqueeze(0).to(img.device)  # Add batch and channel dims
+            high_freq_upsampled = F.interpolate(high_freq, size=(height, width), mode='bilinear', align_corners=False)
+            high_freq_components[b, c] = high_freq_upsampled.squeeze(0).squeeze(0)
+
+
     return high_freq_components
 
 # High-frequency pairwise similarity loss
@@ -394,11 +401,6 @@ class GaussianDiffusion:
                 # P2 weighting time-step weighting
                 weight = _extract_into_tensor(1 / (self.p2_k + self.snr)**self.p2_gamma, t, model_output.shape)
                 
-
-                import matplotlib.pyplot as plt
-
-                
-
                 print("OK GUIDANCE IS NOT NONE AND WERE HERE")
 
 
@@ -411,9 +413,9 @@ class GaussianDiffusion:
                 print("Guidance is ")
                 print(guidance)
 
-            # ________________________________where the loss is created________________________________
-            model_output = model_output + guidance * weight * (source_output - model_output) # Classifier-free guidance
-            # _________________________________________________________________________________________
+                # ________________________________where the loss is created________________________________
+                model_output = model_output + guidance * weight * (source_output - model_output) # Classifier-free guidance
+                # _________________________________________________________________________________________
 
             if self.model_var_type == ModelVarType.LEARNED:
                 model_log_variance = model_var_values
@@ -957,15 +959,11 @@ class GaussianDiffusion:
             high_freq_mse_loss = self.high_freq_mse_loss_fn(model_output, x_start)
 
             # Combine losses
-            print("Loss pairwise:")
-            print(pairwise_loss)
-            print("Loss high-frequency pairwise:")
-            print(high_freq_pairwise_loss)
-            print("Loss high-frequency MSE:")
-            print(high_freq_mse_loss)
             ddpm_loss = self.lambda_1 * pairwise_loss + self.lambda_2 * high_freq_pairwise_loss + self.lambda_3 * high_freq_mse_loss
-
-            exit()
+            
+            terms['pairwise_loss'] = pairwise_loss
+            terms['high-frequency pairwise'] = high_freq_pairwise_loss
+            terms['high-frequency MSE'] = high_freq_mse_loss
 
             # _________________________________________________________________________________________
             terms["mse"] = mean_flat((target - model_output) ** 2) + ddpm_loss
