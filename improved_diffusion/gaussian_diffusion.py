@@ -940,11 +940,7 @@ class GaussianDiffusion:
             }[self.model_mean_type]
             assert model_output.shape == target.shape == x_start.shape
             
-            # P2 weighting time-step weighting
-            weight = _extract_into_tensor(1 / (self.p2_k + self.snr)**self.p2_gamma, t, target.shape)
-
-            # ________________________________where the loss is created________________________________
-            model_output = model_output +  weight * (source_model_output - model_output) # Classifier-free guidance
+            # ______________________________________ DDPM LOSS ______________________________________
 
             # Compute pairwise similarity loss
             features_source = source_model_output.view(x_t.shape[0], -1)
@@ -965,6 +961,7 @@ class GaussianDiffusion:
             terms['high-frequency MSE'] = high_freq_mse_loss
 
             # _________________________________________________________________________________________
+
             terms["mse"] = mean_flat((target - model_output) ** 2) + ddpm_loss
 
             if "vb" in terms:
