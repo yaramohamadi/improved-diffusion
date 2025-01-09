@@ -23,7 +23,7 @@ for repetition in range(3):
                     print("*"*20)
                     print(f"g {g} gamma {gamma} configuration {epoch} epoch")
                     print("*"*20) 
-                    sample_path = f"/home/ymbahram/scratch/baselines_avg/classifier-guidance/data{dataset_size}/gamma0_g{g}_repeat{repetition}/samples/samples_{epoch}.npz"
+                    sample_path = f"/home/ymbahram/scratch/baselines_avg/classifier-guidance/data{dataset_size}/gamma{gamma}_g{g}_repeat{repetition}/samples/samples_{epoch}.npz"
                     results = evaluation.runEvaluate(ref_path, sample_path, 
                                         FID=True, 
                                         #IS=True, 

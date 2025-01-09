@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Load the CSV file
-file_path = '/home/ymbahram/scratch/baselines_avg/classifier-guidance/data10/FID_KID.csv'
+file_path = '/home/ymbahram/scratch/baselines_avg/classifier-guidance/data10/gamma0.1_g1_FID_KID.csv'
 data = pd.read_csv(file_path)
 
 # Group by gamma and epoch, then calculate mean and std for FID
@@ -40,4 +40,4 @@ plt.grid(True)
 plt.tight_layout()
 
 # Show the plot
-plt.savefig("/home/ymbahram/scratch/baselines_avg/classifier-guidance/data10/FID_KID.png")
+plt.savefig("/home/ymbahram/scratch/baselines_avg/classifier-guidance/data10/gamma0.1_g1_FID_KID.png")
