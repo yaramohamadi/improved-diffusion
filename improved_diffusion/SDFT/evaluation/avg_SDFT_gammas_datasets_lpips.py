@@ -29,15 +29,16 @@ for repetition in range(3):
 
                         for dataset_size in [10, 500, 2503]:
 
-                            file_path = f"/home/ymbahram/scratch/baselines_avg/SDFT/data{dataset_size}/p2gamma0_FID_KID.csv"
+                            file_path = f"/home/ymbahram/scratch/baselines_avg/SDFT/dataset_LPIPS.csv"
 
                             print("__________________________ STARTING FROM FIRST EPOCH_____________________")
 
                             if dataset_size == 10:
-                                epochs = [175, 200, 225, 250, 275, 300]
-                            else:
-                                epochs = np.arange(425, 801, 25)
-                                
+                                epochs = [100]# [175, 200, 225, 250, 275, 300, 325, 350, 375, 400]
+                            elif dataset_size == 500:
+                                epochs = [775]
+                            elif dataset_size == 2503:
+                                epochs = [575]
                             for epoch in epochs:
                                 
                                 print("*"*20)
@@ -45,11 +46,11 @@ for repetition in range(3):
                                 print("*"*20)
                                 sample_path = f"/home/ymbahram/scratch/baselines_avg/SDFT/data{dataset_size}/p2_gamma{p2_gamma}_repeat{repetition}/lambdas{lambda_distil}_gammas{gamma_distil}/samples/samples_{epoch}.npz"
                                 results = evaluation.runEvaluate(ref_path, sample_path, 
-                                                    FID=True, 
+                                                    #FID=True, 
                                                     #IS=True, 
                                                     #sFID=True, 
                                                     #prec_recall=True, 
-                                                    KID=True, 
+                                                    #KID=True, 
                                                     # LPIPS=True, source_batch=source_batch, 
                                                     # intra_LPIPS=True, target_batch=target_path, 
                                                     verbose=True)

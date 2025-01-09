@@ -55,7 +55,7 @@ use_scale_shift_norm=True
 timestep_respacing="ddim50"
 use_ddim=True
 sample = True, # Doing sampling for a batch in training every time saving
-how_many_samples= 2500 # 2500 # TODO CHANGE
+how_many_samples= 50 #2500 # 2500 # TODO CHANGE
 image_size=image_size
 evaluate = False # If you want to perform evaluation during training (Currently every 25 steps)
 
@@ -141,14 +141,6 @@ for repetition in range(3):
                         if dataset_size == 10:
                             if repetition == 0:
                                 continue
-                                
-                            epochs = 301
-                            # If you are resuming a previously aborted training, include the path to the checkpoint here
-                            resume_checkpoint= f"/home/ymbahram/scratch/baselines_avg/SDFT/data{dataset_size}/p2_gamma{p2_gamma}_repeat{repetition}/lambdas{lambda_distil}_gammas{gamma_distil}/checkpoints/model000150.pt"
-                        else:
-                            epochs = 801
-                            resume_checkpoint= f"/home/ymbahram/scratch/baselines_avg/SDFT/data{dataset_size}/p2_gamma{p2_gamma}_repeat{repetition}/lambdas{lambda_distil}_gammas{gamma_distil}/checkpoints/model000400.pt"
-                        
                             
                         # The dataset you want to finetune on
                         data_dir = f'/home/ymbahram/scratch/datasets/pokemon/pokemon{dataset_size}/' 
@@ -188,13 +180,13 @@ for repetition in range(3):
                             guidance_scale = np.array([g for _ in range(epochs)]) # Fixed Line
 
                             # Where to log the training loss (File does not have to exist)
-                            loss_logger=f"/home/ymbahram/scratch/baselines_avg/SDFT/data{dataset_size}/p2_gamma{p2_gamma}_repeat{repetition}/lambdas{lambda_distil}_gammas{gamma_distil}/trainlog.csv"
+                            loss_logger=f"/home/ymbahram/scratch/datasets/pokemon/noise_vector_generations/trainlog.csv"
                             # If evaluation is true during training, where to save the FID stuff
-                            eval_logger=f"/home/ymbahram/scratch/baselines_avg/SDFT/data{dataset_size}/p2_gamma{p2_gamma}_repeat{repetition}/lambdas{lambda_distil}_gammas{gamma_distil}/evallog.csv"
+                            eval_logger=f"/home/ymbahram/scratch/datasets/pokemon/noise_vector_generations/evallog.csv"
                             # Directory to save checkpoints in
-                            checkpoint_dir = f"/home/ymbahram/scratch/baselines_avg/SDFT/data{dataset_size}/p2_gamma{p2_gamma}_repeat{repetition}/lambdas{lambda_distil}_gammas{gamma_distil}/checkpoints/"
+                            checkpoint_dir = f"/home/ymbahram/scratch/datasets/pokemon/noise_vector_generations/checkpoints/"
                             # Whenever you are saving checkpoints, a batch of images are also sampled, where to produce these images
-                            save_samples_dir= f"/home/ymbahram/scratch/baselines_avg/SDFT/data{dataset_size}/p2_gamma{p2_gamma}_repeat{repetition}/lambdas{lambda_distil}_gammas{gamma_distil}/samples/"
+                            save_samples_dir= f"/home/ymbahram/scratch/datasets/pokemon/noise_vector_generations/"
 
                             # ________________ Train _________________ 
 

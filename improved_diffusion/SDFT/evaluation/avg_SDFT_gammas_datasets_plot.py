@@ -1,6 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
+metric = 'KID'
 def plot_fid_over_epochs(dataset_sizes):
 
     # Plotting
@@ -15,7 +17,7 @@ def plot_fid_over_epochs(dataset_sizes):
         data = pd.read_csv(csv_file)
         
         # Ensure the CSV has the required columns
-        required_columns = {"FID", "epoch", "gamma_distil"}
+        required_columns = {metric, "epoch", "gamma_distil"}
         if not required_columns.issubset(data.columns):
             raise ValueError(f"The CSV must contain the columns: {required_columns}")
 
@@ -23,7 +25,7 @@ def plot_fid_over_epochs(dataset_sizes):
         data1 = data
 
         # Group by epoch and calculate mean and standard deviation for each gamma_distil
-        stats1 = data1.groupby("epoch")["FID"].agg(["mean", "std"]).reset_index()
+        stats1 = data1.groupby("epoch")[metric].agg(["mean", "std"]).reset_index()
 
         print(stats1)
 
@@ -34,14 +36,14 @@ def plot_fid_over_epochs(dataset_sizes):
                         stats1["mean"] + stats1["std"],  alpha=0.2)
 
     # Customize the plot
-    plt.title("FID Over Epochs for Different Dataset sizes", fontsize=14)
+    plt.title(f"{metric} Over Epochs for Different Dataset sizes", fontsize=14)
     plt.xlabel("Epoch", fontsize=12)
-    plt.ylabel("FID", fontsize=12)
+    plt.ylabel(metric, fontsize=12)
     plt.legend(fontsize=12)
     plt.grid(True)
     plt.tight_layout()
 
-    plt.savefig("/home/ymbahram/scratch/baselines_avg/SDFT/FID_KID.png")
+    plt.savefig("/home/ymbahram/scratch/baselines_avg/SDFT/{metric}.png")
 
 # Example usage
 plot_fid_over_epochs(dataset_sizes= [10, 500, 2503])
