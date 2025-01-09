@@ -12,4 +12,4 @@ module load python/3.11.5
 source /home/ymbahram/projects/def-hadi87/ymbahram/gputorch/bin/activate
 pip install -e .
 
-python /home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/ddpm-pa/scripts/ddpm-pa_lambdas_best.py
+python /home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/ddpm-pa/scripts/avg_ddpm-pa_lambda_best.py
