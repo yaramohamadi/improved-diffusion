@@ -9,7 +9,7 @@ ref_path = '/home/ymbahram/scratch/pokemon/pokemon_64x64.npz' # The target full 
 target_path = '/home/ymbahram/scratch/pokemon/pokemon_10.npz' # The target 10-shot dataset
 source_batch = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/imagenet_pretrained.npz' # Source samples from pre-fixed noise vectors
     
-modes = ['a3ft', 'finetune'] 
+modes = ['finetune', 'a3ft']  # 
 
 for repetition in range(3): #
 
@@ -35,7 +35,13 @@ for repetition in range(3): #
                         print("*"*20)
                         print(f"'repetition: ', {repetition}, {g_name} {mode} configuration {epoch} epoch")
                         print("*"*20)
-                        sample_path = f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/samples/samples_{epoch}.npz"
+
+                        if mode == 'a3ft': 
+                            sample_path = f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/samples/samples_{epoch}.npz"
+                        elif mode == 'finetune':
+                            sample_path = f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/{p2_gamma}_repeat{repetition}/samples/samples_{epoch}.npz"
+                    
+                        
                         results = evaluation.runEvaluate(ref_path, sample_path, 
                                             # FID=True, 
                                             #IS=True, 
