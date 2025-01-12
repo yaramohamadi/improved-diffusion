@@ -70,7 +70,7 @@ noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
 
 # ____________________ Model ____________________
 
-for repetition in range(3):
+for repetition in range(1, 3):
 
     for p2_gamma in [0]: # TODO Quoi??
 
@@ -164,13 +164,13 @@ for repetition in range(3):
 
 
                                 # Where to log the training loss (File does not have to exist) ddpm-pa _repetition{repetition}
-                                loss_logger=f"/home/ymbahram/scratch/baselines_avg/ddpm-pa/data{dataset_size}/l1_{lambda_1}_l2_{lambda_2}_l3_{lambda_3}/trainlog.csv"
+                                loss_logger=f"/home/ymbahram/scratch/baselines_avg/ddpm-pa/data{dataset_size}/l1_{lambda_1}_l2_{lambda_2}_l3_{lambda_3}_repeat_{repetition}/trainlog.csv"
                                 # If evaluation is true during training, where to save the FID stuff
-                                eval_logger=f"/home/ymbahram/scratch/baselines_avg/ddpm-pa/data{dataset_size}/l1_{lambda_1}_l2_{lambda_2}_l3_{lambda_3}/evallog.csv"
+                                eval_logger=f"/home/ymbahram/scratch/baselines_avg/ddpm-pa/data{dataset_size}/l1_{lambda_1}_l2_{lambda_2}_l3_{lambda_3}_repeat_{repetition}/evallog.csv"
                                 # Directory to save checkpoints in
-                                checkpoint_dir = f"/home/ymbahram/scratch/baselines_avg/ddpm-pa/data{dataset_size}/l1_{lambda_1}_l2_{lambda_2}_l3_{lambda_3}/checkpoints/"
+                                checkpoint_dir = f"/home/ymbahram/scratch/baselines_avg/ddpm-pa/data{dataset_size}/l1_{lambda_1}_l2_{lambda_2}_l3_{lambda_3}_repeat_{repetition}/checkpoints/"
                                 # Whenever you are saving checkpoints, a batch of images are also sampled, where to produce these images
-                                save_samples_dir= f"/home/ymbahram/scratch/baselines_avg/ddpm-pa/data{dataset_size}/l1_{lambda_1}_l2_{lambda_2}_l3_{lambda_3}/samples/"
+                                save_samples_dir= f"/home/ymbahram/scratch/baselines_avg/ddpm-pa/data{dataset_size}/l1_{lambda_1}_l2_{lambda_2}_l3_{lambda_3}_repeat_{repetition}/samples/"
 
                                 # ________________ Train _________________ 
 
