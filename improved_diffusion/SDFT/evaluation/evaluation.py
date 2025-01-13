@@ -15,6 +15,7 @@ import numpy as np
 import requests
 import tensorflow.compat.v1 as tf
 from scipy import linalg
+from scipy.spatial.distance import cosine
 from tqdm.auto import tqdm
 
 from tensorflow.keras.applications import VGG16
@@ -117,8 +118,9 @@ def compute_lpips_between_distributions(npz_file1, npz_file2, lim=1000, batch_si
 
         # Compute pairwise distances
         lpips_scores = []
-        for i, j in zip(range(max(features1.shape[0], lim)), range(max(features2.shape[0], lim))):
-            dist = np.linalg.norm(features1[i] - features2[j])  # Euclidean distance
+        for i, j in zip(range(min(features1.shape[0], lim)), range(min(features2.shape[0], lim))):
+            # dist = np.linalg.norm(features1[i] - features2[j])  # Euclidean distance
+            dist = cosine(features1[i].flatten(), features2[i].flatten())
             lpips_scores.append(dist)
 
         # Compute average LPIPS score across all pairs

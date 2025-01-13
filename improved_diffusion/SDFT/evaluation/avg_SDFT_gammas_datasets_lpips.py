@@ -7,7 +7,7 @@ importlib.reload(evaluation)
 
 ref_path = '/home/ymbahram/scratch/datasets/pokemon/pokemon_64x64.npz' # The target full dataset
 target_path = '/home/ymbahram/scratch/pokemon/pokemon_10.npz' # The target 10-shot dataset
-source_batch = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/imagenet_pretrained.npz' # Source samples from pre-fixed noise vectors
+source_batch = '/home/ymbahram/scratch/util_files/imagenet_pretrained.npz' # Source samples from pre-fixed noise vectors
 
 lambda_auxs = [0.001] 
 lambda_distils = [0.001]
@@ -27,18 +27,18 @@ for repetition in range(3):
                     for g, g_name in {0:'0'
                             }.items(): 
 
-                        for dataset_size in [10, 500, 2503]:
+                        for dataset_size in [10]: # , 500, 2503
 
-                            file_path = f"/home/ymbahram/scratch/baselines_avg/SDFT/dataset_LPIPS.csv"
+                            file_path = f"/home/ymbahram/scratch/baselines_avg/SDFT/data{dataset_size}/gamma0.1_LPIPS_cosine.csv"
 
                             print("__________________________ STARTING FROM FIRST EPOCH_____________________")
 
                             if dataset_size == 10:
-                                epochs = [100]# [175, 200, 225, 250, 275, 300, 325, 350, 375, 400]
-                            elif dataset_size == 500:
-                                epochs = [775]
-                            elif dataset_size == 2503:
-                                epochs = [575]
+                                epochs = np.arange(0, 325, 25) # [175, 200, 225, 250, 275, 300, 325, 350, 375, 400] # 100
+                            # elif dataset_size == 500:
+                            #     epochs = [775]
+                            # elif dataset_size == 2503:
+                            #     epochs = [575]
                             for epoch in epochs:
                                 
                                 print("*"*20)
@@ -51,7 +51,7 @@ for repetition in range(3):
                                                     #sFID=True, 
                                                     #prec_recall=True, 
                                                     #KID=True, 
-                                                    # LPIPS=True, source_batch=source_batch, 
+                                                    LPIPS=True, source_batch=source_batch, 
                                                     # intra_LPIPS=True, target_batch=target_path, 
                                                     verbose=True)
                                 
