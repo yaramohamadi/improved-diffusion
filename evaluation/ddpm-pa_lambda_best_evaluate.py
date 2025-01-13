@@ -11,7 +11,7 @@ source_batch = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/u
 
 g = 0
 
-for repetition in range(1):
+for repetition in range(3):
 
     for p2_gamma in [0]: # TODO Quoi??
 
@@ -23,7 +23,7 @@ for repetition in range(1):
 
                     for dataset_size in [10]:
 
-                        file_path = f"/home/ymbahram/scratch/baselines_avg/ddpm-pa/data{dataset_size}/FID_KID_LPIPS.csv"
+                        file_path = f"/home/ymbahram/scratch/baselines_avg/ddpm-pa/data{dataset_size}/FID_KID_LPIPS_cosine.csv"
 
                         for epoch in [0, 25, 50, 75, 100, 125, 150, 175, 200]:
                             
