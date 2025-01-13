@@ -14,7 +14,7 @@ for repetition in range(3):
         for gamma in [0.1]:
             for dataset_size in [10]:
 
-                file_path = f"/home/ymbahram/scratch/baselines_avg/classifier-guidance/data{dataset_size}/gamma0.1_LPIPS.csv"
+                file_path = f"/home/ymbahram/scratch/baselines_avg/classifier-guidance/data{dataset_size}/gamma0.1_LPIPS_cosine.csv"
 
                 print("__________________________ STARTING FROM FIRST EPOCH_____________________")
 
