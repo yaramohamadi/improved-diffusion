@@ -1,2441 +1,0 @@
-********************
-Gamma:  0.1 Mode :  a3ft
-********************
-********************
-g_name is 0
-********************
-time_attention block unfreezing
----------------------------
-Layer: Time_AttentionBlock, Total Parameters: 2414208
-  Channels: 384
-  Sub-layer: norm
-  Layer: GroupNorm32, Total Parameters: 768
-  Sub-layer: qkv
-  Layer: Conv1d, Total Parameters: 443520
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: attention
-  Layer: QKVAttention, Total Parameters: 0
-  Sub-layer: proj_out
-  Layer: Conv1d, Total Parameters: 147840
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: time_fusion
-  Layer: Time_FusionBlock, Total Parameters: 1477248
-    Channels: 384
-    Sub-layer: layernorm
-    Layer: LayerNorm, Total Parameters: 196608
-    Sub-layer: layernorm2
-    Layer: LayerNorm, Total Parameters: 196608
-    Sub-layer: feed_forward1
-    Layer: Sequential, Total Parameters: 344832
-      Sub-layer: 0
-      Layer: Linear, Total Parameters: 196992
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-      Sub-layer: 2
-      Layer: Linear, Total Parameters: 147840
-    Sub-layer: feed_forward2
-    Layer: Sequential, Total Parameters: 147840
-      Sub-layer: 0
-      Layer: Conv1d, Total Parameters: 147840
-        Kernel Size: (1,)
-        Stride: (1,)
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-    Sub-layer: q
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: k
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: v
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: crossattention
-    Layer: QKVAttention, Total Parameters: 0
-    Sub-layer: proj_out
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-  Sub-layer: time_scaling
-  Layer: Sequential, Total Parameters: 344832
-    Sub-layer: 0
-    Layer: Linear, Total Parameters: 196992
-    Sub-layer: 1
-    Layer: SiLU, Total Parameters: 0
-    Sub-layer: 2
-    Layer: Linear, Total Parameters: 147840
-    Sub-layer: 3
-    Layer: Sigmoid, Total Parameters: 0
----------------------------
-time_attention block unfreezing
----------------------------
-Layer: Time_AttentionBlock, Total Parameters: 2414208
-  Channels: 384
-  Sub-layer: norm
-  Layer: GroupNorm32, Total Parameters: 768
-  Sub-layer: qkv
-  Layer: Conv1d, Total Parameters: 443520
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: attention
-  Layer: QKVAttention, Total Parameters: 0
-  Sub-layer: proj_out
-  Layer: Conv1d, Total Parameters: 147840
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: time_fusion
-  Layer: Time_FusionBlock, Total Parameters: 1477248
-    Channels: 384
-    Sub-layer: layernorm
-    Layer: LayerNorm, Total Parameters: 196608
-    Sub-layer: layernorm2
-    Layer: LayerNorm, Total Parameters: 196608
-    Sub-layer: feed_forward1
-    Layer: Sequential, Total Parameters: 344832
-      Sub-layer: 0
-      Layer: Linear, Total Parameters: 196992
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-      Sub-layer: 2
-      Layer: Linear, Total Parameters: 147840
-    Sub-layer: feed_forward2
-    Layer: Sequential, Total Parameters: 147840
-      Sub-layer: 0
-      Layer: Conv1d, Total Parameters: 147840
-        Kernel Size: (1,)
-        Stride: (1,)
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-    Sub-layer: q
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: k
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: v
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: crossattention
-    Layer: QKVAttention, Total Parameters: 0
-    Sub-layer: proj_out
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-  Sub-layer: time_scaling
-  Layer: Sequential, Total Parameters: 344832
-    Sub-layer: 0
-    Layer: Linear, Total Parameters: 196992
-    Sub-layer: 1
-    Layer: SiLU, Total Parameters: 0
-    Sub-layer: 2
-    Layer: Linear, Total Parameters: 147840
-    Sub-layer: 3
-    Layer: Sigmoid, Total Parameters: 0
----------------------------
-time_attention block unfreezing
----------------------------
-Layer: Time_AttentionBlock, Total Parameters: 2414208
-  Channels: 384
-  Sub-layer: norm
-  Layer: GroupNorm32, Total Parameters: 768
-  Sub-layer: qkv
-  Layer: Conv1d, Total Parameters: 443520
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: attention
-  Layer: QKVAttention, Total Parameters: 0
-  Sub-layer: proj_out
-  Layer: Conv1d, Total Parameters: 147840
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: time_fusion
-  Layer: Time_FusionBlock, Total Parameters: 1477248
-    Channels: 384
-    Sub-layer: layernorm
-    Layer: LayerNorm, Total Parameters: 196608
-    Sub-layer: layernorm2
-    Layer: LayerNorm, Total Parameters: 196608
-    Sub-layer: feed_forward1
-    Layer: Sequential, Total Parameters: 344832
-      Sub-layer: 0
-      Layer: Linear, Total Parameters: 196992
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-      Sub-layer: 2
-      Layer: Linear, Total Parameters: 147840
-    Sub-layer: feed_forward2
-    Layer: Sequential, Total Parameters: 147840
-      Sub-layer: 0
-      Layer: Conv1d, Total Parameters: 147840
-        Kernel Size: (1,)
-        Stride: (1,)
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-    Sub-layer: q
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: k
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: v
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: crossattention
-    Layer: QKVAttention, Total Parameters: 0
-    Sub-layer: proj_out
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-  Sub-layer: time_scaling
-  Layer: Sequential, Total Parameters: 344832
-    Sub-layer: 0
-    Layer: Linear, Total Parameters: 196992
-    Sub-layer: 1
-    Layer: SiLU, Total Parameters: 0
-    Sub-layer: 2
-    Layer: Linear, Total Parameters: 147840
-    Sub-layer: 3
-    Layer: Sigmoid, Total Parameters: 0
----------------------------
-time_attention block unfreezing
----------------------------
-Layer: Time_AttentionBlock, Total Parameters: 3546624
-  Channels: 512
-  Sub-layer: norm
-  Layer: GroupNorm32, Total Parameters: 1024
-  Sub-layer: qkv
-  Layer: Conv1d, Total Parameters: 787968
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: attention
-  Layer: QKVAttention, Total Parameters: 0
-  Sub-layer: proj_out
-  Layer: Conv1d, Total Parameters: 262656
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: time_fusion
-  Layer: Time_FusionBlock, Total Parameters: 1969664
-    Channels: 512
-    Sub-layer: layernorm
-    Layer: LayerNorm, Total Parameters: 65536
-    Sub-layer: layernorm2
-    Layer: LayerNorm, Total Parameters: 65536
-    Sub-layer: feed_forward1
-    Layer: Sequential, Total Parameters: 525312
-      Sub-layer: 0
-      Layer: Linear, Total Parameters: 262656
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-      Sub-layer: 2
-      Layer: Linear, Total Parameters: 262656
-    Sub-layer: feed_forward2
-    Layer: Sequential, Total Parameters: 262656
-      Sub-layer: 0
-      Layer: Conv1d, Total Parameters: 262656
-        Kernel Size: (1,)
-        Stride: (1,)
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-    Sub-layer: q
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: k
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: v
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: crossattention
-    Layer: QKVAttention, Total Parameters: 0
-    Sub-layer: proj_out
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-  Sub-layer: time_scaling
-  Layer: Sequential, Total Parameters: 525312
-    Sub-layer: 0
-    Layer: Linear, Total Parameters: 262656
-    Sub-layer: 1
-    Layer: SiLU, Total Parameters: 0
-    Sub-layer: 2
-    Layer: Linear, Total Parameters: 262656
-    Sub-layer: 3
-    Layer: Sigmoid, Total Parameters: 0
----------------------------
-time_attention block unfreezing
----------------------------
-Layer: Time_AttentionBlock, Total Parameters: 3546624
-  Channels: 512
-  Sub-layer: norm
-  Layer: GroupNorm32, Total Parameters: 1024
-  Sub-layer: qkv
-  Layer: Conv1d, Total Parameters: 787968
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: attention
-  Layer: QKVAttention, Total Parameters: 0
-  Sub-layer: proj_out
-  Layer: Conv1d, Total Parameters: 262656
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: time_fusion
-  Layer: Time_FusionBlock, Total Parameters: 1969664
-    Channels: 512
-    Sub-layer: layernorm
-    Layer: LayerNorm, Total Parameters: 65536
-    Sub-layer: layernorm2
-    Layer: LayerNorm, Total Parameters: 65536
-    Sub-layer: feed_forward1
-    Layer: Sequential, Total Parameters: 525312
-      Sub-layer: 0
-      Layer: Linear, Total Parameters: 262656
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-      Sub-layer: 2
-      Layer: Linear, Total Parameters: 262656
-    Sub-layer: feed_forward2
-    Layer: Sequential, Total Parameters: 262656
-      Sub-layer: 0
-      Layer: Conv1d, Total Parameters: 262656
-        Kernel Size: (1,)
-        Stride: (1,)
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-    Sub-layer: q
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: k
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: v
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: crossattention
-    Layer: QKVAttention, Total Parameters: 0
-    Sub-layer: proj_out
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-  Sub-layer: time_scaling
-  Layer: Sequential, Total Parameters: 525312
-    Sub-layer: 0
-    Layer: Linear, Total Parameters: 262656
-    Sub-layer: 1
-    Layer: SiLU, Total Parameters: 0
-    Sub-layer: 2
-    Layer: Linear, Total Parameters: 262656
-    Sub-layer: 3
-    Layer: Sigmoid, Total Parameters: 0
----------------------------
-time_attention block unfreezing
----------------------------
-Layer: Time_AttentionBlock, Total Parameters: 3546624
-  Channels: 512
-  Sub-layer: norm
-  Layer: GroupNorm32, Total Parameters: 1024
-  Sub-layer: qkv
-  Layer: Conv1d, Total Parameters: 787968
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: attention
-  Layer: QKVAttention, Total Parameters: 0
-  Sub-layer: proj_out
-  Layer: Conv1d, Total Parameters: 262656
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: time_fusion
-  Layer: Time_FusionBlock, Total Parameters: 1969664
-    Channels: 512
-    Sub-layer: layernorm
-    Layer: LayerNorm, Total Parameters: 65536
-    Sub-layer: layernorm2
-    Layer: LayerNorm, Total Parameters: 65536
-    Sub-layer: feed_forward1
-    Layer: Sequential, Total Parameters: 525312
-      Sub-layer: 0
-      Layer: Linear, Total Parameters: 262656
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-      Sub-layer: 2
-      Layer: Linear, Total Parameters: 262656
-    Sub-layer: feed_forward2
-    Layer: Sequential, Total Parameters: 262656
-      Sub-layer: 0
-      Layer: Conv1d, Total Parameters: 262656
-        Kernel Size: (1,)
-        Stride: (1,)
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-    Sub-layer: q
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: k
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: v
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: crossattention
-    Layer: QKVAttention, Total Parameters: 0
-    Sub-layer: proj_out
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-  Sub-layer: time_scaling
-  Layer: Sequential, Total Parameters: 525312
-    Sub-layer: 0
-    Layer: Linear, Total Parameters: 262656
-    Sub-layer: 1
-    Layer: SiLU, Total Parameters: 0
-    Sub-layer: 2
-    Layer: Linear, Total Parameters: 262656
-    Sub-layer: 3
-    Layer: Sigmoid, Total Parameters: 0
----------------------------
-time_attention block unfreezing
----------------------------
-Layer: Time_AttentionBlock, Total Parameters: 3546624
-  Channels: 512
-  Sub-layer: norm
-  Layer: GroupNorm32, Total Parameters: 1024
-  Sub-layer: qkv
-  Layer: Conv1d, Total Parameters: 787968
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: attention
-  Layer: QKVAttention, Total Parameters: 0
-  Sub-layer: proj_out
-  Layer: Conv1d, Total Parameters: 262656
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: time_fusion
-  Layer: Time_FusionBlock, Total Parameters: 1969664
-    Channels: 512
-    Sub-layer: layernorm
-    Layer: LayerNorm, Total Parameters: 65536
-    Sub-layer: layernorm2
-    Layer: LayerNorm, Total Parameters: 65536
-    Sub-layer: feed_forward1
-    Layer: Sequential, Total Parameters: 525312
-      Sub-layer: 0
-      Layer: Linear, Total Parameters: 262656
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-      Sub-layer: 2
-      Layer: Linear, Total Parameters: 262656
-    Sub-layer: feed_forward2
-    Layer: Sequential, Total Parameters: 262656
-      Sub-layer: 0
-      Layer: Conv1d, Total Parameters: 262656
-        Kernel Size: (1,)
-        Stride: (1,)
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-    Sub-layer: q
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: k
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: v
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: crossattention
-    Layer: QKVAttention, Total Parameters: 0
-    Sub-layer: proj_out
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-  Sub-layer: time_scaling
-  Layer: Sequential, Total Parameters: 525312
-    Sub-layer: 0
-    Layer: Linear, Total Parameters: 262656
-    Sub-layer: 1
-    Layer: SiLU, Total Parameters: 0
-    Sub-layer: 2
-    Layer: Linear, Total Parameters: 262656
-    Sub-layer: 3
-    Layer: Sigmoid, Total Parameters: 0
----------------------------
-time_attention block unfreezing
----------------------------
-Layer: Time_AttentionBlock, Total Parameters: 3546624
-  Channels: 512
-  Sub-layer: norm
-  Layer: GroupNorm32, Total Parameters: 1024
-  Sub-layer: qkv
-  Layer: Conv1d, Total Parameters: 787968
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: attention
-  Layer: QKVAttention, Total Parameters: 0
-  Sub-layer: proj_out
-  Layer: Conv1d, Total Parameters: 262656
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: time_fusion
-  Layer: Time_FusionBlock, Total Parameters: 1969664
-    Channels: 512
-    Sub-layer: layernorm
-    Layer: LayerNorm, Total Parameters: 65536
-    Sub-layer: layernorm2
-    Layer: LayerNorm, Total Parameters: 65536
-    Sub-layer: feed_forward1
-    Layer: Sequential, Total Parameters: 525312
-      Sub-layer: 0
-      Layer: Linear, Total Parameters: 262656
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-      Sub-layer: 2
-      Layer: Linear, Total Parameters: 262656
-    Sub-layer: feed_forward2
-    Layer: Sequential, Total Parameters: 262656
-      Sub-layer: 0
-      Layer: Conv1d, Total Parameters: 262656
-        Kernel Size: (1,)
-        Stride: (1,)
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-    Sub-layer: q
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: k
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: v
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: crossattention
-    Layer: QKVAttention, Total Parameters: 0
-    Sub-layer: proj_out
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-  Sub-layer: time_scaling
-  Layer: Sequential, Total Parameters: 525312
-    Sub-layer: 0
-    Layer: Linear, Total Parameters: 262656
-    Sub-layer: 1
-    Layer: SiLU, Total Parameters: 0
-    Sub-layer: 2
-    Layer: Linear, Total Parameters: 262656
-    Sub-layer: 3
-    Layer: Sigmoid, Total Parameters: 0
----------------------------
-time_attention block unfreezing
----------------------------
-Layer: Time_AttentionBlock, Total Parameters: 3546624
-  Channels: 512
-  Sub-layer: norm
-  Layer: GroupNorm32, Total Parameters: 1024
-  Sub-layer: qkv
-  Layer: Conv1d, Total Parameters: 787968
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: attention
-  Layer: QKVAttention, Total Parameters: 0
-  Sub-layer: proj_out
-  Layer: Conv1d, Total Parameters: 262656
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: time_fusion
-  Layer: Time_FusionBlock, Total Parameters: 1969664
-    Channels: 512
-    Sub-layer: layernorm
-    Layer: LayerNorm, Total Parameters: 65536
-    Sub-layer: layernorm2
-    Layer: LayerNorm, Total Parameters: 65536
-    Sub-layer: feed_forward1
-    Layer: Sequential, Total Parameters: 525312
-      Sub-layer: 0
-      Layer: Linear, Total Parameters: 262656
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-      Sub-layer: 2
-      Layer: Linear, Total Parameters: 262656
-    Sub-layer: feed_forward2
-    Layer: Sequential, Total Parameters: 262656
-      Sub-layer: 0
-      Layer: Conv1d, Total Parameters: 262656
-        Kernel Size: (1,)
-        Stride: (1,)
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-    Sub-layer: q
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: k
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: v
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: crossattention
-    Layer: QKVAttention, Total Parameters: 0
-    Sub-layer: proj_out
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-  Sub-layer: time_scaling
-  Layer: Sequential, Total Parameters: 525312
-    Sub-layer: 0
-    Layer: Linear, Total Parameters: 262656
-    Sub-layer: 1
-    Layer: SiLU, Total Parameters: 0
-    Sub-layer: 2
-    Layer: Linear, Total Parameters: 262656
-    Sub-layer: 3
-    Layer: Sigmoid, Total Parameters: 0
----------------------------
-time_attention block unfreezing
----------------------------
-Layer: Time_AttentionBlock, Total Parameters: 3546624
-  Channels: 512
-  Sub-layer: norm
-  Layer: GroupNorm32, Total Parameters: 1024
-  Sub-layer: qkv
-  Layer: Conv1d, Total Parameters: 787968
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: attention
-  Layer: QKVAttention, Total Parameters: 0
-  Sub-layer: proj_out
-  Layer: Conv1d, Total Parameters: 262656
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: time_fusion
-  Layer: Time_FusionBlock, Total Parameters: 1969664
-    Channels: 512
-    Sub-layer: layernorm
-    Layer: LayerNorm, Total Parameters: 65536
-    Sub-layer: layernorm2
-    Layer: LayerNorm, Total Parameters: 65536
-    Sub-layer: feed_forward1
-    Layer: Sequential, Total Parameters: 525312
-      Sub-layer: 0
-      Layer: Linear, Total Parameters: 262656
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-      Sub-layer: 2
-      Layer: Linear, Total Parameters: 262656
-    Sub-layer: feed_forward2
-    Layer: Sequential, Total Parameters: 262656
-      Sub-layer: 0
-      Layer: Conv1d, Total Parameters: 262656
-        Kernel Size: (1,)
-        Stride: (1,)
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-    Sub-layer: q
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: k
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: v
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: crossattention
-    Layer: QKVAttention, Total Parameters: 0
-    Sub-layer: proj_out
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-  Sub-layer: time_scaling
-  Layer: Sequential, Total Parameters: 525312
-    Sub-layer: 0
-    Layer: Linear, Total Parameters: 262656
-    Sub-layer: 1
-    Layer: SiLU, Total Parameters: 0
-    Sub-layer: 2
-    Layer: Linear, Total Parameters: 262656
-    Sub-layer: 3
-    Layer: Sigmoid, Total Parameters: 0
----------------------------
-time_attention block unfreezing
----------------------------
-Layer: Time_AttentionBlock, Total Parameters: 3546624
-  Channels: 512
-  Sub-layer: norm
-  Layer: GroupNorm32, Total Parameters: 1024
-  Sub-layer: qkv
-  Layer: Conv1d, Total Parameters: 787968
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: attention
-  Layer: QKVAttention, Total Parameters: 0
-  Sub-layer: proj_out
-  Layer: Conv1d, Total Parameters: 262656
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: time_fusion
-  Layer: Time_FusionBlock, Total Parameters: 1969664
-    Channels: 512
-    Sub-layer: layernorm
-    Layer: LayerNorm, Total Parameters: 65536
-    Sub-layer: layernorm2
-    Layer: LayerNorm, Total Parameters: 65536
-    Sub-layer: feed_forward1
-    Layer: Sequential, Total Parameters: 525312
-      Sub-layer: 0
-      Layer: Linear, Total Parameters: 262656
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-      Sub-layer: 2
-      Layer: Linear, Total Parameters: 262656
-    Sub-layer: feed_forward2
-    Layer: Sequential, Total Parameters: 262656
-      Sub-layer: 0
-      Layer: Conv1d, Total Parameters: 262656
-        Kernel Size: (1,)
-        Stride: (1,)
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-    Sub-layer: q
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: k
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: v
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: crossattention
-    Layer: QKVAttention, Total Parameters: 0
-    Sub-layer: proj_out
-    Layer: Conv1d, Total Parameters: 262656
-      Kernel Size: (1,)
-      Stride: (1,)
-  Sub-layer: time_scaling
-  Layer: Sequential, Total Parameters: 525312
-    Sub-layer: 0
-    Layer: Linear, Total Parameters: 262656
-    Sub-layer: 1
-    Layer: SiLU, Total Parameters: 0
-    Sub-layer: 2
-    Layer: Linear, Total Parameters: 262656
-    Sub-layer: 3
-    Layer: Sigmoid, Total Parameters: 0
----------------------------
-time_attention block unfreezing
----------------------------
-Layer: Time_AttentionBlock, Total Parameters: 2414208
-  Channels: 384
-  Sub-layer: norm
-  Layer: GroupNorm32, Total Parameters: 768
-  Sub-layer: qkv
-  Layer: Conv1d, Total Parameters: 443520
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: attention
-  Layer: QKVAttention, Total Parameters: 0
-  Sub-layer: proj_out
-  Layer: Conv1d, Total Parameters: 147840
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: time_fusion
-  Layer: Time_FusionBlock, Total Parameters: 1477248
-    Channels: 384
-    Sub-layer: layernorm
-    Layer: LayerNorm, Total Parameters: 196608
-    Sub-layer: layernorm2
-    Layer: LayerNorm, Total Parameters: 196608
-    Sub-layer: feed_forward1
-    Layer: Sequential, Total Parameters: 344832
-      Sub-layer: 0
-      Layer: Linear, Total Parameters: 196992
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-      Sub-layer: 2
-      Layer: Linear, Total Parameters: 147840
-    Sub-layer: feed_forward2
-    Layer: Sequential, Total Parameters: 147840
-      Sub-layer: 0
-      Layer: Conv1d, Total Parameters: 147840
-        Kernel Size: (1,)
-        Stride: (1,)
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-    Sub-layer: q
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: k
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: v
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: crossattention
-    Layer: QKVAttention, Total Parameters: 0
-    Sub-layer: proj_out
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-  Sub-layer: time_scaling
-  Layer: Sequential, Total Parameters: 344832
-    Sub-layer: 0
-    Layer: Linear, Total Parameters: 196992
-    Sub-layer: 1
-    Layer: SiLU, Total Parameters: 0
-    Sub-layer: 2
-    Layer: Linear, Total Parameters: 147840
-    Sub-layer: 3
-    Layer: Sigmoid, Total Parameters: 0
----------------------------
-time_attention block unfreezing
----------------------------
-Layer: Time_AttentionBlock, Total Parameters: 2414208
-  Channels: 384
-  Sub-layer: norm
-  Layer: GroupNorm32, Total Parameters: 768
-  Sub-layer: qkv
-  Layer: Conv1d, Total Parameters: 443520
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: attention
-  Layer: QKVAttention, Total Parameters: 0
-  Sub-layer: proj_out
-  Layer: Conv1d, Total Parameters: 147840
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: time_fusion
-  Layer: Time_FusionBlock, Total Parameters: 1477248
-    Channels: 384
-    Sub-layer: layernorm
-    Layer: LayerNorm, Total Parameters: 196608
-    Sub-layer: layernorm2
-    Layer: LayerNorm, Total Parameters: 196608
-    Sub-layer: feed_forward1
-    Layer: Sequential, Total Parameters: 344832
-      Sub-layer: 0
-      Layer: Linear, Total Parameters: 196992
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-      Sub-layer: 2
-      Layer: Linear, Total Parameters: 147840
-    Sub-layer: feed_forward2
-    Layer: Sequential, Total Parameters: 147840
-      Sub-layer: 0
-      Layer: Conv1d, Total Parameters: 147840
-        Kernel Size: (1,)
-        Stride: (1,)
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-    Sub-layer: q
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: k
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: v
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: crossattention
-    Layer: QKVAttention, Total Parameters: 0
-    Sub-layer: proj_out
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-  Sub-layer: time_scaling
-  Layer: Sequential, Total Parameters: 344832
-    Sub-layer: 0
-    Layer: Linear, Total Parameters: 196992
-    Sub-layer: 1
-    Layer: SiLU, Total Parameters: 0
-    Sub-layer: 2
-    Layer: Linear, Total Parameters: 147840
-    Sub-layer: 3
-    Layer: Sigmoid, Total Parameters: 0
----------------------------
-time_attention block unfreezing
----------------------------
-Layer: Time_AttentionBlock, Total Parameters: 2414208
-  Channels: 384
-  Sub-layer: norm
-  Layer: GroupNorm32, Total Parameters: 768
-  Sub-layer: qkv
-  Layer: Conv1d, Total Parameters: 443520
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: attention
-  Layer: QKVAttention, Total Parameters: 0
-  Sub-layer: proj_out
-  Layer: Conv1d, Total Parameters: 147840
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: time_fusion
-  Layer: Time_FusionBlock, Total Parameters: 1477248
-    Channels: 384
-    Sub-layer: layernorm
-    Layer: LayerNorm, Total Parameters: 196608
-    Sub-layer: layernorm2
-    Layer: LayerNorm, Total Parameters: 196608
-    Sub-layer: feed_forward1
-    Layer: Sequential, Total Parameters: 344832
-      Sub-layer: 0
-      Layer: Linear, Total Parameters: 196992
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-      Sub-layer: 2
-      Layer: Linear, Total Parameters: 147840
-    Sub-layer: feed_forward2
-    Layer: Sequential, Total Parameters: 147840
-      Sub-layer: 0
-      Layer: Conv1d, Total Parameters: 147840
-        Kernel Size: (1,)
-        Stride: (1,)
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-    Sub-layer: q
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: k
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: v
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: crossattention
-    Layer: QKVAttention, Total Parameters: 0
-    Sub-layer: proj_out
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-  Sub-layer: time_scaling
-  Layer: Sequential, Total Parameters: 344832
-    Sub-layer: 0
-    Layer: Linear, Total Parameters: 196992
-    Sub-layer: 1
-    Layer: SiLU, Total Parameters: 0
-    Sub-layer: 2
-    Layer: Linear, Total Parameters: 147840
-    Sub-layer: 3
-    Layer: Sigmoid, Total Parameters: 0
----------------------------
-time_attention block unfreezing
----------------------------
-Layer: Time_AttentionBlock, Total Parameters: 2414208
-  Channels: 384
-  Sub-layer: norm
-  Layer: GroupNorm32, Total Parameters: 768
-  Sub-layer: qkv
-  Layer: Conv1d, Total Parameters: 443520
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: attention
-  Layer: QKVAttention, Total Parameters: 0
-  Sub-layer: proj_out
-  Layer: Conv1d, Total Parameters: 147840
-    Kernel Size: (1,)
-    Stride: (1,)
-  Sub-layer: time_fusion
-  Layer: Time_FusionBlock, Total Parameters: 1477248
-    Channels: 384
-    Sub-layer: layernorm
-    Layer: LayerNorm, Total Parameters: 196608
-    Sub-layer: layernorm2
-    Layer: LayerNorm, Total Parameters: 196608
-    Sub-layer: feed_forward1
-    Layer: Sequential, Total Parameters: 344832
-      Sub-layer: 0
-      Layer: Linear, Total Parameters: 196992
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-      Sub-layer: 2
-      Layer: Linear, Total Parameters: 147840
-    Sub-layer: feed_forward2
-    Layer: Sequential, Total Parameters: 147840
-      Sub-layer: 0
-      Layer: Conv1d, Total Parameters: 147840
-        Kernel Size: (1,)
-        Stride: (1,)
-      Sub-layer: 1
-      Layer: SiLU, Total Parameters: 0
-    Sub-layer: q
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: k
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: v
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-    Sub-layer: crossattention
-    Layer: QKVAttention, Total Parameters: 0
-    Sub-layer: proj_out
-    Layer: Conv1d, Total Parameters: 147840
-      Kernel Size: (1,)
-      Stride: (1,)
-  Sub-layer: time_scaling
-  Layer: Sequential, Total Parameters: 344832
-    Sub-layer: 0
-    Layer: Linear, Total Parameters: 196992
-    Sub-layer: 1
-    Layer: SiLU, Total Parameters: 0
-    Sub-layer: 2
-    Layer: Linear, Total Parameters: 147840
-    Sub-layer: 3
-    Layer: Sigmoid, Total Parameters: 0
----------------------------
-Time-aware attention blocks are now unfrozen for training.
-0it [00:00, ?it/s]saving model 0...
-saving model 0.9999...
-sampling 2500 images
-
-0it [00:00, ?it/s][A
-1it [00:07,  7.13s/it][A
-2it [00:13,  6.95s/it][A
-3it [00:29, 10.88s/it][A
-4it [02:14, 47.93s/it][A
-5it [02:21, 33.15s/it][A
-6it [02:27, 24.18s/it][A
-7it [02:34, 18.48s/it][A
-8it [02:41, 14.75s/it][A
-9it [02:48, 12.25s/it][A
-10it [02:54, 10.56s/it][A
-11it [03:01,  9.40s/it][A
-12it [03:08,  8.60s/it][A
-13it [03:15,  8.05s/it][A
-14it [03:22,  7.67s/it][A
-15it [03:28,  7.40s/it][A
-16it [03:35,  7.22s/it][A
-17it [03:42,  7.09s/it][A
-18it [03:49,  7.00s/it][A
-19it [03:56,  6.93s/it][A
-20it [04:02,  6.89s/it][A
-21it [04:09,  6.86s/it][A
-22it [04:16,  6.84s/it][A
-23it [04:23,  6.83s/it][A
-24it [04:29,  6.81s/it][A
-25it [04:36,  6.81s/it][A
-26it [04:43,  6.80s/it][A
-27it [04:50,  6.80s/it][A
-28it [04:57,  6.80s/it][A
-29it [05:03,  6.79s/it][A
-30it [05:10,  6.79s/it][A
-31it [05:17,  6.79s/it][A
-32it [05:24,  6.79s/it][A
-33it [05:31,  6.79s/it][A
-34it [05:37,  6.79s/it][A
-35it [05:44,  6.79s/it][A
-36it [05:51,  6.79s/it][A
-37it [05:58,  6.79s/it][A
-38it [06:05,  6.79s/it][A
-39it [06:11,  6.79s/it][A
-40it [06:18,  6.79s/it][A
-41it [06:25,  6.79s/it][A
-42it [06:32,  6.79s/it][A
-43it [06:39,  6.79s/it][A
-44it [06:45,  6.79s/it][A
-45it [06:52,  6.79s/it][A
-46it [06:59,  6.79s/it][A
-47it [07:06,  6.79s/it][A
-48it [07:12,  6.79s/it][A
-49it [07:19,  6.79s/it][A
-50it [07:26,  6.79s/it][A
-51it [07:33,  6.79s/it][A
-52it [07:40,  6.79s/it][A
-53it [07:46,  6.79s/it][A
-54it [07:53,  6.79s/it][A
-55it [08:00,  6.79s/it][A
-56it [08:07,  6.79s/it][A
-57it [08:14,  6.79s/it][A
-58it [08:20,  6.79s/it][A
-59it [08:27,  6.79s/it][A
-60it [08:34,  6.79s/it][A
-61it [08:41,  6.79s/it][A
-62it [08:48,  6.79s/it][A
-63it [08:54,  6.79s/it][A
-64it [09:01,  6.79s/it][A
-65it [09:08,  6.79s/it][A
-66it [09:15,  6.78s/it][A
-67it [09:21,  6.78s/it][A
-68it [09:28,  6.79s/it][A
-69it [09:35,  6.79s/it][A
-70it [09:42,  6.79s/it][A
-71it [09:49,  6.79s/it][A
-72it [09:55,  6.79s/it][A
-73it [10:02,  6.79s/it][A
-74it [10:09,  6.79s/it][A
-75it [10:16,  6.79s/it][A
-76it [10:23,  6.79s/it][A
-77it [10:29,  6.79s/it][A
-78it [10:36,  6.79s/it][A
-79it [10:43,  6.79s/it][A
-80it [10:50,  6.79s/it][A
-81it [10:57,  6.79s/it][A
-82it [11:03,  6.79s/it][A
-83it [11:10,  6.79s/it][A
-84it [11:17,  6.79s/it][A
-85it [11:24,  6.79s/it][A
-86it [11:30,  6.79s/it][A
-87it [11:37,  6.79s/it][A
-88it [11:44,  6.79s/it][A
-89it [11:51,  6.79s/it][A
-90it [11:58,  6.79s/it][A
-91it [12:04,  6.79s/it][A
-92it [12:11,  6.79s/it][A
-93it [12:18,  6.79s/it][A
-94it [12:25,  6.79s/it][A
-95it [12:32,  6.79s/it][A
-96it [12:38,  6.79s/it][A
-97it [12:45,  6.79s/it][A
-98it [12:52,  6.79s/it][A
-99it [12:59,  6.79s/it][A
-100it [13:06,  6.79s/it][A
-101it [13:12,  6.79s/it][A
-102it [13:19,  6.79s/it][A
-103it [13:26,  6.79s/it][A
-104it [13:33,  6.79s/it][A
-105it [13:39,  6.79s/it][A
-106it [13:46,  6.79s/it][A
-107it [13:53,  6.79s/it][A
-108it [14:00,  6.79s/it][A
-109it [14:07,  6.79s/it][A
-110it [14:13,  6.79s/it][A
-111it [14:20,  6.79s/it][A
-112it [14:27,  6.79s/it][A
-113it [14:34,  6.79s/it][A
-114it [14:41,  6.79s/it][A
-115it [14:47,  6.79s/it][A
-116it [14:54,  6.79s/it][A
-117it [15:01,  6.79s/it][A
-118it [15:08,  6.79s/it][A
-119it [15:15,  6.79s/it][A
-120it [15:21,  6.79s/it][A
-121it [15:28,  6.79s/it][A
-122it [15:35,  6.79s/it][A
-123it [15:42,  6.79s/it][A
-124it [15:48,  6.79s/it][A
-125it [15:55,  6.79s/it][A
-126it [16:02,  6.79s/it][A
-127it [16:09,  6.79s/it][A
-128it [16:16,  6.79s/it][A
-129it [16:22,  6.80s/it][A
-130it [16:29,  6.80s/it][A
-131it [16:36,  6.80s/it][A
-132it [16:43,  6.80s/it][A
-133it [16:50,  6.80s/it][A
-134it [16:56,  6.80s/it][A
-135it [17:03,  6.80s/it][A
-136it [17:10,  6.80s/it][A
-137it [17:17,  6.80s/it][A
-138it [17:24,  6.80s/it][A
-139it [17:30,  6.80s/it][A
-140it [17:37,  6.80s/it][A
-141it [17:44,  6.80s/it][A
-142it [17:51,  6.80s/it][A
-143it [17:58,  6.80s/it][A
-144it [18:04,  6.80s/it][A
-145it [18:11,  6.80s/it][A
-146it [18:18,  6.80s/it][A
-147it [18:25,  6.80s/it][A
-148it [18:32,  6.80s/it][A
-149it [18:38,  6.80s/it][A
-150it [18:45,  6.80s/it][A
-151it [18:52,  6.80s/it][A
-152it [18:59,  6.80s/it][A
-153it [19:06,  6.80s/it][A
-154it [19:12,  6.80s/it][A
-155it [19:19,  6.80s/it][A
-156it [19:26,  6.80s/it][A
-157it [19:33,  6.80s/it][A
-158it [19:40,  6.80s/it][A
-159it [19:46,  6.80s/it][A
-160it [19:53,  6.80s/it][A
-161it [20:00,  6.80s/it][A
-162it [20:07,  6.80s/it][A
-163it [20:14,  6.80s/it][A
-164it [20:20,  6.80s/it][A
-165it [20:27,  6.80s/it][A
-166it [20:34,  6.80s/it][A
-167it [20:41,  6.80s/it][A
-168it [20:48,  6.80s/it][A
-169it [20:54,  6.80s/it][A
-170it [21:01,  6.80s/it][A
-171it [21:08,  6.80s/it][A
-172it [21:15,  6.80s/it][A
-173it [21:22,  6.80s/it][A
-174it [21:28,  6.80s/it][A
-175it [21:35,  6.80s/it][A
-176it [21:42,  6.80s/it][A
-177it [21:49,  6.80s/it][A
-178it [21:56,  6.80s/it][A
-179it [22:02,  6.80s/it][A
-180it [22:09,  6.80s/it][A
-181it [22:16,  6.80s/it][A
-182it [22:23,  6.80s/it][A
-183it [22:30,  6.80s/it][A
-184it [22:36,  6.80s/it][A
-185it [22:43,  6.80s/it][A
-186it [22:50,  6.80s/it][A
-187it [22:57,  6.80s/it][A
-188it [23:04,  6.80s/it][A
-189it [23:10,  6.80s/it][A
-190it [23:17,  6.80s/it][A
-191it [23:24,  6.80s/it][A
-192it [23:31,  6.80s/it][A
-193it [23:38,  6.80s/it][A
-194it [23:44,  6.80s/it][A
-195it [23:51,  6.80s/it][A
-196it [23:58,  6.80s/it][A
-197it [24:05,  6.80s/it][A
-198it [24:11,  6.78s/it][A
-199it [24:18,  6.78s/it][A
-200it [24:25,  6.79s/it][A
-201it [24:32,  6.79s/it][A
-202it [24:39,  6.79s/it][A
-203it [24:45,  6.79s/it][A
-204it [24:52,  6.79s/it][A
-205it [24:59,  6.80s/it][A
-206it [25:06,  6.80s/it][A
-207it [25:13,  6.80s/it][A
-208it [25:19,  6.80s/it][A
-209it [25:26,  6.80s/it][A
-210it [25:33,  6.80s/it][A
-211it [25:40,  6.80s/it][A
-212it [25:47,  6.80s/it][A
-213it [25:53,  6.80s/it][A
-214it [26:00,  6.80s/it][A
-215it [26:07,  6.80s/it][A
-216it [26:14,  6.80s/it][A
-217it [26:21,  6.80s/it][A
-218it [26:27,  6.80s/it][A
-219it [26:34,  6.80s/it][A
-220it [26:41,  6.80s/it][A
-221it [26:48,  6.80s/it][A
-222it [26:55,  6.80s/it][A
-223it [27:01,  6.80s/it][A
-224it [27:08,  6.80s/it][A
-225it [27:15,  6.80s/it][A
-226it [27:22,  6.80s/it][A
-227it [27:29,  6.80s/it][A
-228it [27:35,  6.80s/it][A
-229it [27:42,  6.80s/it][A
-230it [27:49,  6.80s/it][A
-231it [27:56,  6.79s/it][A
-232it [28:03,  6.79s/it][A
-233it [28:09,  6.79s/it][A
-234it [28:16,  6.79s/it][A
-235it [28:23,  6.80s/it][A
-236it [28:30,  6.80s/it][A
-237it [28:37,  6.80s/it][A
-238it [28:43,  6.80s/it][A
-239it [28:50,  6.80s/it][A
-240it [28:57,  6.79s/it][A
-241it [29:04,  6.80s/it][A
-242it [29:11,  6.80s/it][A
-243it [29:17,  6.80s/it][A
-244it [29:24,  6.80s/it][A
-245it [29:31,  6.80s/it][A
-246it [29:38,  6.79s/it][A
-247it [29:45,  6.79s/it][A
-248it [29:51,  6.79s/it][A
-249it [29:58,  6.79s/it][A
-250it [30:05,  6.80s/it][A
-251it [30:12,  6.80s/it][A251it [30:12,  7.22s/it]
-1it [35:48, 2148.58s/it]sampling complete
-2it [35:49, 884.96s/it] 3it [35:49, 481.01s/it]4it [35:49, 291.24s/it]5it [35:49, 186.33s/it]6it [35:50, 123.09s/it]7it [35:50, 82.95s/it] 8it [35:50, 56.64s/it]9it [35:51, 39.03s/it]10it [35:51, 27.09s/it]11it [35:51, 18.90s/it]12it [35:52, 13.26s/it]13it [35:52,  9.35s/it]14it [35:52,  6.63s/it]15it [35:53,  4.73s/it]16it [35:53,  3.40s/it]17it [35:53,  2.47s/it]18it [35:54,  1.82s/it]19it [35:54,  1.37s/it]20it [35:54,  1.05s/it]21it [35:55,  1.20it/s]22it [35:55,  1.48it/s]23it [35:55,  1.73it/s]24it [35:56,  1.97it/s]25it [35:56,  2.18it/s]26it [35:56,  2.35it/s]27it [35:57,  2.49it/s]28it [35:57,  2.67it/s]29it [35:57,  2.81it/s]30it [35:58,  2.92it/s]31it [35:58,  2.91it/s]32it [35:58,  2.90it/s]33it [35:59,  2.90it/s]34it [35:59,  2.98it/s]35it [35:59,  3.05it/s]36it [36:00,  3.09it/s]37it [36:00,  3.03it/s]38it [36:00,  2.99it/s]39it [36:01,  2.96it/s]40it [36:01,  2.94it/s]41it [36:01,  2.92it/s]42it [36:02,  2.92it/s]43it [36:02,  2.90it/s]44it [36:02,  2.90it/s]45it [36:03,  2.90it/s]46it [36:03,  2.90it/s]47it [36:03,  2.90it/s]48it [36:04,  2.98it/s]49it [36:04,  3.04it/s]50it [36:04,  3.09it/s]51it [36:05,  3.12it/s]52it [36:05,  3.04it/s]53it [36:05,  3.00it/s]54it [36:06,  2.97it/s]55it [36:06,  3.03it/s]56it [36:06,  3.08it/s]57it [36:07,  3.11it/s]58it [36:07,  3.14it/s]59it [36:07,  3.15it/s]60it [36:08,  3.16it/s]61it [36:08,  3.08it/s]62it [36:08,  3.02it/s]63it [36:09,  2.98it/s]64it [36:09,  2.95it/s]65it [36:09,  2.93it/s]66it [36:10,  2.92it/s]67it [36:10,  2.91it/s]68it [36:10,  2.90it/s]69it [36:11,  2.90it/s]70it [36:11,  2.90it/s]71it [36:11,  2.89it/s]72it [36:12,  2.89it/s]73it [36:12,  2.89it/s]74it [36:12,  2.89it/s]75it [36:13,  2.89it/s]76it [36:13,  2.98it/s]77it [36:13,  3.04it/s]78it [36:14,  3.09it/s]79it [36:14,  3.12it/s]80it [36:14,  3.14it/s]81it [36:15,  3.16it/s]82it [36:15,  3.17it/s]83it [36:15,  3.17it/s]84it [36:16,  3.18it/s]85it [36:16,  3.09it/s]86it [36:16,  3.03it/s]87it [36:17,  2.98it/s]88it [36:17,  2.95it/s]89it [36:17,  2.93it/s]90it [36:18,  2.92it/s]91it [36:18,  2.91it/s]92it [36:18,  2.91it/s]93it [36:19,  2.90it/s]94it [36:19,  2.98it/s]95it [36:19,  3.04it/s]96it [36:20,  3.09it/s]97it [36:20,  3.02it/s]98it [36:20,  2.98it/s]99it [36:21,  2.95it/s]100it [36:21,  2.93it/s]saving model 0...
-saving model 0.9999...
-sampling 2500 images
-
-0it [00:00, ?it/s][A
-1it [00:07,  7.04s/it][A
-2it [00:14,  7.04s/it][A
-3it [00:21,  7.05s/it][A
-4it [00:28,  7.06s/it][A
-5it [00:35,  7.02s/it][A
-6it [00:42,  7.25s/it][A
-7it [00:50,  7.39s/it][A
-8it [00:58,  7.48s/it][A
-9it [01:05,  7.54s/it][A
-10it [01:13,  7.58s/it][A
-11it [01:21,  7.61s/it][A
-12it [01:28,  7.63s/it][A
-13it [01:36,  7.64s/it][A
-14it [01:44,  7.65s/it][A
-15it [01:51,  7.65s/it][A
-16it [01:59,  7.66s/it][A
-17it [02:07,  7.66s/it][A
-18it [02:14,  7.66s/it][A
-19it [02:22,  7.67s/it][A
-20it [02:30,  7.67s/it][A
-21it [02:37,  7.67s/it][A
-22it [02:45,  7.67s/it][A
-23it [02:53,  7.67s/it][A
-24it [03:00,  7.67s/it][A
-25it [03:08,  7.67s/it][A
-26it [03:16,  7.67s/it][A
-27it [03:23,  7.67s/it][A
-28it [03:31,  7.67s/it][A
-29it [03:39,  7.67s/it][A
-30it [03:46,  7.67s/it][A
-31it [03:54,  7.67s/it][A
-32it [04:01,  7.51s/it][A
-33it [04:08,  7.30s/it][A
-34it [04:15,  7.16s/it][A
-35it [04:22,  7.06s/it][A
-36it [04:29,  6.99s/it][A
-37it [04:35,  6.94s/it][A
-38it [04:42,  6.91s/it][A
-39it [04:49,  6.89s/it][A
-40it [04:56,  6.87s/it][A
-41it [05:03,  6.86s/it][A
-42it [05:10,  6.85s/it][A
-43it [05:16,  6.85s/it][A
-44it [05:23,  6.84s/it][A
-45it [05:30,  6.84s/it][A
-46it [05:37,  6.84s/it][A
-47it [05:44,  6.84s/it][A
-48it [05:51,  6.83s/it][A
-49it [05:57,  6.83s/it][A
-50it [06:04,  6.83s/it][A
-51it [06:11,  6.83s/it][A
-52it [06:18,  6.83s/it][A
-53it [06:25,  6.83s/it][A
-54it [06:31,  6.83s/it][A
-55it [06:38,  6.83s/it][A
-56it [06:45,  6.83s/it][A
-57it [06:52,  6.83s/it][A
-58it [06:59,  6.83s/it][A
-59it [07:06,  6.83s/it][A
-60it [07:13,  6.83s/it][A
-61it [07:19,  6.83s/it][A
-62it [07:26,  6.83s/it][A
-63it [07:33,  6.84s/it][A
-64it [07:40,  6.83s/it][A
-65it [07:47,  6.83s/it][A
-66it [07:54,  6.83s/it][A
-67it [08:00,  6.84s/it][A
-68it [08:07,  6.84s/it][A
-69it [08:14,  6.83s/it][A
-70it [08:21,  6.82s/it][A
-71it [08:28,  6.82s/it][A
-72it [08:34,  6.83s/it][A
-73it [08:41,  6.83s/it][A
-74it [08:48,  6.83s/it][A
-75it [08:55,  6.83s/it][A
-76it [09:02,  6.83s/it][A
-77it [09:09,  6.83s/it][A
-78it [09:15,  6.84s/it][A
-79it [09:22,  6.83s/it][A
-80it [09:29,  6.84s/it][A
-81it [09:36,  6.84s/it][A
-82it [09:43,  6.84s/it][A
-83it [09:50,  6.84s/it][A
-84it [09:57,  6.84s/it][A
-85it [10:03,  6.84s/it][A
-86it [10:10,  6.84s/it][A
-87it [10:17,  6.84s/it][A
-88it [10:24,  6.84s/it][A
-89it [10:31,  6.84s/it][A
-90it [10:38,  6.84s/it][A
-91it [10:44,  6.84s/it][A
-92it [10:51,  6.84s/it][A
-93it [10:58,  6.84s/it][A
-94it [11:05,  6.84s/it][A
-95it [11:12,  6.84s/it][A
-96it [11:19,  6.84s/it][A
-97it [11:25,  6.84s/it][A
-98it [11:32,  6.84s/it][A
-99it [11:39,  6.84s/it][A
-100it [11:46,  6.84s/it][A
-101it [11:53,  6.84s/it][A
-102it [12:00,  6.84s/it][A
-103it [12:06,  6.84s/it][A
-104it [12:13,  6.84s/it][A
-105it [12:20,  6.84s/it][A
-106it [12:27,  6.84s/it][A
-107it [12:34,  6.84s/it][A
-108it [12:41,  6.84s/it][A
-109it [12:48,  6.84s/it][A
-110it [12:54,  6.84s/it][A
-111it [13:01,  6.84s/it][A
-112it [13:08,  6.84s/it][A
-113it [13:15,  6.84s/it][A
-114it [13:22,  6.84s/it][A
-115it [13:29,  6.84s/it][A
-116it [13:35,  6.84s/it][A
-117it [13:42,  6.84s/it][A
-118it [13:49,  6.84s/it][A
-119it [13:56,  6.84s/it][A
-120it [14:03,  6.84s/it][A
-121it [14:10,  6.84s/it][A
-122it [14:16,  6.84s/it][A
-123it [14:23,  6.84s/it][A
-124it [14:30,  6.84s/it][A
-125it [14:37,  6.84s/it][A
-126it [14:44,  6.84s/it][A
-127it [14:51,  6.84s/it][A
-128it [14:57,  6.84s/it][A
-129it [15:04,  6.84s/it][A
-130it [15:11,  6.84s/it][A
-131it [15:18,  6.84s/it][A
-132it [15:25,  6.84s/it][A
-133it [15:32,  6.84s/it][A
-134it [15:38,  6.84s/it][A
-135it [15:45,  6.84s/it][A
-136it [15:52,  6.84s/it][A
-137it [15:59,  6.84s/it][A
-138it [16:06,  6.84s/it][A
-139it [16:13,  6.84s/it][A
-140it [16:20,  6.84s/it][A
-141it [16:26,  6.84s/it][A
-142it [16:33,  6.84s/it][A
-143it [16:40,  6.84s/it][A
-144it [16:47,  6.84s/it][A
-145it [16:54,  6.84s/it][A
-146it [17:01,  6.84s/it][A
-147it [17:07,  6.84s/it][A
-148it [17:14,  6.84s/it][A
-149it [17:21,  6.84s/it][A
-150it [17:28,  6.84s/it][A
-151it [17:35,  6.84s/it][A
-152it [17:42,  6.84s/it][A
-153it [17:48,  6.84s/it][A
-154it [17:55,  6.84s/it][A
-155it [18:02,  6.84s/it][A
-156it [18:09,  6.84s/it][A
-157it [18:16,  6.84s/it][A
-158it [18:23,  6.84s/it][A
-159it [18:29,  6.84s/it][A
-160it [18:36,  6.84s/it][A
-161it [18:43,  6.84s/it][A
-162it [18:50,  6.84s/it][A
-163it [18:57,  6.84s/it][A
-164it [19:04,  6.84s/it][A
-165it [19:11,  6.84s/it][A
-166it [19:17,  6.84s/it][A
-167it [19:24,  6.84s/it][A
-168it [19:31,  6.84s/it][A
-169it [19:38,  6.84s/it][A
-170it [19:45,  6.84s/it][A
-171it [19:52,  6.84s/it][A
-172it [19:58,  6.84s/it][A
-173it [20:05,  6.84s/it][A
-174it [20:12,  6.84s/it][A
-175it [20:19,  6.84s/it][A
-176it [20:26,  6.84s/it][A
-177it [20:33,  6.84s/it][A
-178it [20:39,  6.84s/it][A
-179it [20:46,  6.84s/it][A
-180it [20:53,  6.84s/it][A
-181it [21:00,  6.84s/it][A
-182it [21:07,  6.84s/it][A
-183it [21:14,  6.84s/it][A
-184it [21:21,  6.84s/it][A
-185it [21:27,  6.84s/it][A
-186it [21:34,  6.84s/it][A
-187it [21:41,  6.84s/it][A
-188it [21:48,  6.84s/it][A
-189it [21:55,  6.83s/it][A
-190it [22:02,  6.83s/it][A
-191it [22:08,  6.83s/it][A
-192it [22:15,  6.83s/it][A
-193it [22:22,  6.83s/it][A
-194it [22:29,  6.83s/it][A
-195it [22:36,  6.84s/it][A
-196it [22:43,  6.84s/it][A
-197it [22:49,  6.84s/it][A
-198it [22:56,  6.84s/it][A
-199it [23:03,  6.84s/it][A
-200it [23:10,  6.84s/it][A
-201it [23:17,  6.84s/it][A
-202it [23:23,  6.82s/it][A
-203it [23:30,  6.82s/it][A
-204it [23:37,  6.82s/it][A
-205it [23:44,  6.82s/it][A
-206it [23:51,  6.83s/it][A
-207it [23:58,  6.83s/it][A
-208it [24:04,  6.83s/it][A
-209it [24:11,  6.84s/it][A
-210it [24:18,  6.84s/it][A
-211it [24:25,  6.83s/it][A
-212it [24:32,  6.83s/it][A
-213it [24:39,  6.83s/it][A
-214it [24:45,  6.83s/it][A
-215it [24:52,  6.83s/it][A
-216it [24:59,  6.87s/it][A
-217it [25:06,  6.86s/it][A
-218it [25:14,  7.13s/it][A
-219it [25:21,  7.04s/it][A
-220it [25:28,  6.98s/it][A
-221it [25:34,  6.93s/it][A
-222it [25:41,  6.90s/it][A
-223it [25:48,  6.88s/it][A
-224it [25:55,  6.91s/it][A
-225it [26:02,  6.88s/it][A
-226it [26:09,  6.86s/it][A
-227it [26:15,  6.84s/it][A
-228it [26:22,  6.83s/it][A
-229it [26:29,  6.83s/it][A
-230it [26:36,  6.96s/it][A
-231it [26:44,  7.14s/it][A
-232it [26:51,  7.04s/it][A
-233it [26:57,  6.97s/it][A
-234it [27:04,  6.92s/it][A
-235it [27:11,  6.89s/it][A
-236it [27:18,  6.87s/it][A
-237it [27:25,  6.85s/it][A
-238it [27:32,  6.84s/it][A
-239it [27:38,  6.83s/it][A
-240it [27:45,  6.83s/it][A
-241it [27:52,  6.82s/it][A
-242it [27:59,  6.82s/it][A
-243it [28:06,  6.82s/it][A
-244it [28:12,  6.82s/it][A
-245it [28:19,  6.82s/it][A
-246it [28:26,  6.82s/it][A
-247it [28:33,  6.82s/it][A
-248it [28:40,  6.81s/it][A
-249it [28:47,  6.82s/it][A
-250it [28:53,  6.83s/it][A
-251it [29:00,  6.83s/it][A251it [29:00,  6.94s/it]
-101it [1:05:25, 523.45s/it]sampling complete
-102it [1:05:26, 366.81s/it]103it [1:05:27, 256.86s/it]104it [1:05:27, 179.90s/it]105it [1:05:27, 126.02s/it]106it [1:05:28, 88.31s/it] 107it [1:05:28, 61.91s/it]108it [1:05:28, 43.43s/it]109it [1:05:29, 30.50s/it]110it [1:05:29, 21.44s/it]111it [1:05:29, 15.10s/it]112it [1:05:30, 10.67s/it]113it [1:05:30,  7.56s/it]114it [1:05:30,  5.39s/it]115it [1:05:30,  3.87s/it]116it [1:05:31,  2.80s/it]117it [1:05:31,  2.06s/it]118it [1:05:31,  1.53s/it]119it [1:05:32,  1.17s/it]120it [1:05:32,  1.10it/s]121it [1:05:32,  1.36it/s]122it [1:05:33,  1.65it/s]123it [1:05:33,  1.93it/s]124it [1:05:33,  2.18it/s]125it [1:05:34,  2.41it/s]126it [1:05:34,  2.60it/s]127it [1:05:34,  2.75it/s]128it [1:05:35,  2.87it/s]129it [1:05:35,  2.96it/s]130it [1:05:35,  3.02it/s]131it [1:05:36,  3.07it/s]132it [1:05:36,  3.10it/s]133it [1:05:36,  3.12it/s]134it [1:05:36,  3.14it/s]135it [1:05:37,  3.14it/s]136it [1:05:37,  3.16it/s]137it [1:05:37,  3.16it/s]138it [1:05:38,  3.17it/s]139it [1:05:38,  3.17it/s]140it [1:05:38,  3.17it/s]141it [1:05:39,  3.17it/s]142it [1:05:39,  3.17it/s]143it [1:05:39,  3.18it/s]144it [1:05:40,  3.17it/s]145it [1:05:40,  3.18it/s]146it [1:05:40,  3.18it/s]147it [1:05:41,  3.18it/s]148it [1:05:41,  3.18it/s]149it [1:05:41,  3.17it/s]150it [1:05:41,  3.17it/s]151it [1:05:42,  3.18it/s]152it [1:05:42,  3.18it/s]153it [1:05:42,  3.18it/s]154it [1:05:43,  3.17it/s]155it [1:05:43,  3.17it/s]156it [1:05:43,  3.17it/s]157it [1:05:44,  3.18it/s]158it [1:05:44,  3.18it/s]159it [1:05:44,  3.18it/s]160it [1:05:45,  3.18it/s]161it [1:05:45,  3.18it/s]162it [1:05:45,  3.18it/s]163it [1:05:46,  3.18it/s]164it [1:05:46,  3.18it/s]165it [1:05:46,  3.18it/s]166it [1:05:47,  3.18it/s]167it [1:05:47,  3.18it/s]168it [1:05:47,  3.18it/s]169it [1:05:47,  3.18it/s]170it [1:05:48,  3.18it/s]171it [1:05:48,  3.18it/s]172it [1:05:48,  3.18it/s]173it [1:05:49,  3.18it/s]174it [1:05:49,  3.18it/s]175it [1:05:49,  3.18it/s]176it [1:05:50,  3.18it/s]177it [1:05:50,  3.18it/s]178it [1:05:50,  3.18it/s]179it [1:05:51,  3.18it/s]180it [1:05:51,  3.18it/s]181it [1:05:51,  3.18it/s]182it [1:05:52,  3.18it/s]183it [1:05:52,  3.17it/s]184it [1:05:52,  3.16it/s]185it [1:05:53,  3.17it/s]186it [1:05:53,  3.17it/s]187it [1:05:53,  3.17it/s]188it [1:05:54,  3.00it/s]189it [1:05:54,  3.05it/s]190it [1:05:54,  3.09it/s]191it [1:05:54,  3.12it/s]192it [1:05:55,  3.13it/s]193it [1:05:55,  3.14it/s]194it [1:05:55,  3.15it/s]195it [1:05:56,  3.16it/s]196it [1:05:56,  3.16it/s]197it [1:05:56,  3.17it/s]198it [1:05:57,  3.17it/s]199it [1:05:57,  3.17it/s]200it [1:05:57,  3.17it/s]saving model 0...
-saving model 0.9999...
-sampling 2500 images
-
-0it [00:00, ?it/s][A
-1it [00:07,  7.50s/it][A
-2it [00:14,  7.45s/it][A
-3it [00:21,  7.28s/it][A
-4it [00:29,  7.29s/it][A
-5it [00:36,  7.19s/it][A
-6it [00:43,  7.07s/it][A
-7it [00:49,  6.99s/it][A
-8it [00:56,  6.94s/it][A
-9it [01:03,  6.91s/it][A
-10it [01:10,  6.89s/it][A
-11it [01:17,  6.87s/it][A
-12it [01:24,  6.86s/it][A
-13it [01:31,  6.86s/it][A
-14it [01:37,  6.85s/it][A
-15it [01:44,  6.85s/it][A
-16it [01:51,  6.85s/it][A
-17it [01:58,  6.84s/it][A
-18it [02:05,  6.84s/it][A
-19it [02:12,  6.84s/it][A
-20it [02:18,  6.84s/it][A
-21it [02:25,  6.84s/it][A
-22it [02:32,  6.84s/it][A
-23it [02:39,  6.84s/it][A
-24it [02:46,  6.84s/it][A
-25it [02:53,  6.84s/it][A
-26it [02:59,  6.84s/it][A
-27it [03:06,  6.83s/it][A
-28it [03:13,  6.83s/it][A
-29it [03:20,  6.83s/it][A
-30it [03:27,  6.83s/it][A
-31it [03:34,  6.83s/it][A
-32it [03:40,  6.84s/it][A
-33it [03:47,  6.84s/it][A
-34it [03:54,  6.84s/it][A
-35it [04:01,  6.83s/it][A
-36it [04:08,  6.83s/it][A
-37it [04:15,  6.83s/it][A
-38it [04:21,  6.83s/it][A
-39it [04:28,  6.83s/it][A
-40it [04:35,  6.83s/it][A
-41it [04:42,  6.83s/it][A
-42it [04:49,  6.84s/it][A
-43it [04:56,  6.84s/it][A
-44it [05:02,  6.84s/it][A
-45it [05:09,  6.84s/it][A
-46it [05:16,  6.84s/it][A
-47it [05:23,  6.84s/it][A
-48it [05:30,  6.84s/it][A
-49it [05:37,  6.84s/it][A
-50it [05:43,  6.84s/it][A
-51it [05:50,  6.84s/it][A
-52it [05:57,  6.84s/it][A
-53it [06:04,  6.84s/it][A
-54it [06:11,  6.84s/it][A
-55it [06:18,  6.84s/it][A
-56it [06:25,  6.84s/it][A
-57it [06:31,  6.84s/it][A
-58it [06:38,  6.84s/it][A
-59it [06:45,  6.84s/it][A
-60it [06:52,  6.84s/it][A
-61it [06:59,  6.84s/it][A
-62it [07:06,  6.84s/it][A
-63it [07:12,  6.84s/it][A
-64it [07:19,  6.84s/it][A
-65it [07:26,  6.84s/it][A
-66it [07:33,  6.84s/it][A
-67it [07:40,  6.84s/it][A
-68it [07:47,  6.84s/it][A
-69it [07:53,  6.84s/it][A
-70it [08:00,  6.85s/it][A
-71it [08:07,  6.84s/it][A
-72it [08:14,  6.84s/it][A
-73it [08:21,  6.84s/it][A
-74it [08:28,  6.84s/it][A
-75it [08:35,  6.84s/it][A
-76it [08:41,  6.84s/it][A
-77it [08:48,  6.82s/it][A
-78it [08:55,  6.81s/it][A
-79it [09:02,  6.82s/it][A
-80it [09:09,  6.83s/it][A
-81it [09:15,  6.83s/it][A
-82it [09:22,  6.84s/it][A
-83it [09:29,  6.84s/it][A
-84it [09:36,  6.84s/it][A
-85it [09:43,  6.84s/it][A
-86it [09:50,  6.84s/it][A
-87it [09:57,  6.84s/it][A
-88it [10:03,  6.84s/it][A
-89it [10:10,  6.84s/it][A
-90it [10:17,  6.84s/it][A
-91it [10:24,  6.84s/it][A
-92it [10:31,  6.84s/it][A
-93it [10:38,  6.84s/it][A
-94it [10:44,  6.84s/it][A
-95it [10:51,  6.84s/it][A
-96it [10:58,  6.84s/it][A
-97it [11:05,  6.84s/it][A
-98it [11:12,  6.84s/it][A
-99it [11:19,  6.84s/it][A
-100it [11:25,  6.84s/it][A
-101it [11:32,  6.84s/it][A
-102it [11:39,  6.84s/it][A
-103it [11:46,  6.84s/it][A
-104it [11:53,  6.84s/it][A
-105it [12:00,  6.84s/it][A
-106it [12:07,  6.84s/it][A
-107it [12:13,  6.84s/it][A
-108it [12:20,  6.84s/it][A
-109it [12:27,  6.84s/it][A
-110it [12:34,  6.84s/it][A
-111it [12:41,  6.84s/it][A
-112it [12:48,  6.84s/it][A
-113it [12:54,  6.84s/it][A
-114it [13:01,  6.84s/it][A
-115it [13:08,  6.84s/it][A
-116it [13:15,  6.84s/it][A
-117it [13:22,  6.84s/it][A
-118it [13:29,  6.84s/it][A
-119it [13:35,  6.84s/it][A
-120it [13:42,  6.84s/it][A
-121it [13:49,  6.84s/it][A
-122it [13:56,  6.84s/it][A
-123it [14:03,  6.84s/it][A
-124it [14:10,  6.83s/it][A
-125it [14:16,  6.83s/it][A
-126it [14:23,  6.84s/it][A
-127it [14:30,  6.84s/it][A
-128it [14:37,  6.83s/it][A
-129it [14:44,  6.83s/it][A
-130it [14:51,  6.83s/it][A
-131it [14:57,  6.83s/it][A
-132it [15:04,  6.83s/it][A
-133it [15:11,  6.83s/it][A
-134it [15:18,  6.83s/it][A
-135it [15:25,  6.83s/it][A
-136it [15:32,  6.83s/it][A
-137it [15:38,  6.83s/it][A
-138it [15:45,  6.83s/it][A
-139it [15:52,  6.83s/it][A
-140it [15:59,  6.83s/it][A
-141it [16:06,  6.83s/it][A
-142it [16:13,  6.84s/it][A
-143it [16:19,  6.84s/it][A
-144it [16:26,  6.84s/it][A
-145it [16:33,  6.84s/it][A
-146it [16:40,  6.84s/it][A
-147it [16:47,  6.84s/it][A
-148it [16:54,  6.84s/it][A
-149it [17:00,  6.84s/it][A
-150it [17:07,  6.84s/it][A
-151it [17:14,  6.84s/it][A
-152it [17:21,  6.84s/it][A
-153it [17:28,  6.84s/it][A
-154it [17:35,  6.84s/it][A
-155it [17:42,  6.84s/it][A
-156it [17:48,  6.84s/it][A
-157it [17:55,  6.84s/it][A
-158it [18:02,  6.84s/it][A
-159it [18:09,  6.84s/it][A
-160it [18:16,  6.84s/it][A
-161it [18:23,  6.84s/it][A
-162it [18:29,  6.84s/it][A
-163it [18:36,  6.84s/it][A
-164it [18:43,  6.84s/it][A
-165it [18:50,  6.84s/it][A
-166it [18:57,  6.84s/it][A
-167it [19:04,  6.84s/it][A
-168it [19:10,  6.84s/it][A
-169it [19:17,  6.84s/it][A
-170it [19:24,  6.84s/it][A
-171it [19:31,  6.84s/it][A
-172it [19:38,  6.84s/it][A
-173it [19:45,  6.84s/it][A
-174it [19:52,  6.84s/it][A
-175it [19:58,  6.84s/it][A
-176it [20:05,  6.84s/it][A
-177it [20:12,  6.84s/it][A
-178it [20:19,  6.84s/it][A
-179it [20:26,  6.84s/it][A
-180it [20:33,  6.84s/it][A
-181it [20:39,  6.84s/it][A
-182it [20:46,  6.84s/it][A
-183it [20:53,  6.84s/it][A
-184it [21:00,  6.84s/it][A
-185it [21:07,  6.84s/it][A
-186it [21:14,  6.84s/it][A
-187it [21:20,  6.83s/it][A
-188it [21:27,  6.84s/it][A
-189it [21:34,  6.84s/it][A
-190it [21:41,  6.84s/it][A
-191it [21:48,  6.84s/it][A
-192it [21:55,  6.84s/it][A
-193it [22:01,  6.84s/it][A
-194it [22:08,  6.84s/it][A
-195it [22:15,  6.84s/it][A
-196it [22:22,  6.84s/it][A
-197it [22:29,  6.84s/it][A
-198it [22:36,  6.84s/it][A
-199it [22:42,  6.84s/it][A
-200it [22:49,  6.84s/it][A
-201it [22:56,  6.84s/it][A
-202it [23:03,  6.84s/it][A
-203it [23:10,  6.84s/it][A
-204it [23:17,  6.84s/it][A
-205it [23:24,  6.84s/it][A
-206it [23:30,  6.84s/it][A
-207it [23:37,  6.84s/it][A
-208it [23:44,  6.83s/it][A
-209it [23:51,  6.82s/it][A
-210it [23:58,  6.83s/it][A
-211it [24:04,  6.83s/it][A
-212it [24:11,  6.83s/it][A
-213it [24:18,  6.84s/it][A
-214it [24:25,  6.84s/it][A
-215it [24:32,  6.84s/it][A
-216it [24:39,  6.84s/it][A
-217it [24:46,  6.84s/it][A
-218it [24:52,  6.84s/it][A
-219it [24:59,  6.84s/it][A
-220it [25:06,  6.84s/it][A
-221it [25:13,  6.84s/it][A
-222it [25:20,  6.84s/it][A
-223it [25:27,  6.84s/it][A
-224it [25:33,  6.83s/it][A
-225it [25:40,  6.84s/it][A
-226it [25:47,  6.83s/it][A
-227it [25:54,  6.84s/it][A
-228it [26:01,  6.84s/it][A
-229it [26:08,  6.83s/it][A
-230it [26:14,  6.83s/it][A
-231it [26:21,  6.84s/it][A
-232it [26:28,  6.84s/it][A
-233it [26:35,  6.83s/it][A
-234it [26:42,  6.84s/it][A
-235it [26:49,  6.84s/it][A
-236it [26:55,  6.84s/it][A
-237it [27:02,  6.84s/it][A
-238it [27:09,  6.84s/it][A
-239it [27:16,  6.84s/it][A
-240it [27:23,  6.84s/it][A
-241it [27:30,  6.84s/it][A
-242it [27:36,  6.84s/it][A
-243it [27:43,  6.84s/it][A
-244it [27:50,  6.84s/it][A
-245it [27:57,  6.84s/it][A
-246it [28:04,  6.84s/it][A
-247it [28:11,  6.84s/it][A
-248it [28:18,  6.84s/it][A
-249it [28:24,  6.84s/it][A
-250it [28:31,  6.84s/it][A
-251it [28:38,  6.85s/it][A251it [28:38,  6.85s/it]
-201it [1:34:39, 516.86s/it]sampling complete
-202it [1:34:41, 362.19s/it]203it [1:34:41, 253.63s/it]204it [1:34:41, 177.64s/it]205it [1:34:42, 124.44s/it]206it [1:34:42, 87.20s/it] 207it [1:34:42, 61.14s/it]208it [1:34:43, 42.89s/it]209it [1:34:43, 30.12s/it]210it [1:34:43, 21.18s/it]211it [1:34:44, 14.92s/it]212it [1:34:44, 10.54s/it]213it [1:34:44,  7.47s/it]214it [1:34:45,  5.33s/it]215it [1:34:45,  3.82s/it]216it [1:34:45,  2.77s/it]217it [1:34:45,  2.03s/it]218it [1:34:46,  1.52s/it]219it [1:34:46,  1.16s/it]220it [1:34:46,  1.10it/s]221it [1:34:47,  1.37it/s]222it [1:34:47,  1.65it/s]223it [1:34:47,  1.93it/s]224it [1:34:48,  2.18it/s]225it [1:34:48,  2.40it/s]226it [1:34:48,  2.59it/s]227it [1:34:49,  2.74it/s]228it [1:34:49,  2.85it/s]229it [1:34:49,  2.94it/s]230it [1:34:50,  3.00it/s]231it [1:34:50,  3.04it/s]232it [1:34:50,  3.08it/s]233it [1:34:51,  3.10it/s]234it [1:34:51,  3.11it/s]235it [1:34:51,  3.13it/s]236it [1:34:52,  3.13it/s]237it [1:34:52,  3.14it/s]238it [1:34:52,  3.15it/s]239it [1:34:52,  3.15it/s]240it [1:34:53,  3.11it/s]241it [1:34:53,  3.13it/s]242it [1:34:53,  3.14it/s]243it [1:34:54,  3.14it/s]244it [1:34:54,  3.15it/s]245it [1:34:54,  3.15it/s]246it [1:34:55,  3.15it/s]247it [1:34:55,  3.15it/s]248it [1:34:55,  3.15it/s]249it [1:34:56,  3.15it/s]250it [1:34:56,  3.15it/s]251it [1:34:56,  3.15it/s]252it [1:34:57,  3.15it/s]253it [1:34:57,  3.15it/s]254it [1:34:57,  3.15it/s]255it [1:34:58,  3.15it/s]256it [1:34:58,  3.15it/s]257it [1:34:58,  3.15it/s]258it [1:34:58,  3.15it/s]259it [1:34:59,  3.15it/s]260it [1:34:59,  3.15it/s]261it [1:34:59,  3.15it/s]262it [1:35:00,  3.15it/s]263it [1:35:00,  3.15it/s]264it [1:35:00,  3.15it/s]265it [1:35:01,  3.15it/s]266it [1:35:01,  3.15it/s]267it [1:35:01,  3.15it/s]268it [1:35:02,  3.16it/s]269it [1:35:02,  3.15it/s]270it [1:35:02,  3.16it/s]271it [1:35:03,  3.15it/s]272it [1:35:03,  3.15it/s]273it [1:35:03,  3.15it/s]274it [1:35:04,  3.15it/s]275it [1:35:04,  3.15it/s]276it [1:35:04,  3.15it/s]277it [1:35:05,  3.15it/s]278it [1:35:05,  3.15it/s]279it [1:35:05,  3.15it/s]280it [1:35:05,  3.15it/s]281it [1:35:06,  3.15it/s]282it [1:35:06,  3.15it/s]283it [1:35:06,  3.15it/s]284it [1:35:07,  3.15it/s]285it [1:35:07,  3.15it/s]286it [1:35:07,  3.15it/s]287it [1:35:08,  3.15it/s]288it [1:35:08,  3.14it/s]289it [1:35:08,  3.14it/s]290it [1:35:09,  3.14it/s]291it [1:35:09,  3.15it/s]292it [1:35:09,  3.15it/s]293it [1:35:10,  3.15it/s]294it [1:35:10,  3.15it/s]295it [1:35:10,  3.15it/s]296it [1:35:11,  3.15it/s]297it [1:35:11,  3.15it/s]298it [1:35:11,  3.15it/s]299it [1:35:12,  3.15it/s]300it [1:35:12,  3.15it/s]saving model 0...
-saving model 0.9999...
-sampling 2500 images
-
-0it [00:00, ?it/s][A
-1it [00:07,  7.18s/it][A
-2it [00:14,  7.10s/it][A
-3it [00:21,  7.11s/it][A
-4it [00:28,  7.17s/it][A
-5it [00:35,  7.13s/it][A
-6it [00:42,  7.03s/it][A
-7it [00:49,  6.97s/it][A
-8it [00:56,  6.93s/it][A
-9it [01:03,  6.90s/it][A
-10it [01:09,  6.88s/it][A
-11it [01:16,  6.87s/it][A
-12it [01:23,  6.86s/it][A
-13it [01:30,  6.86s/it][A
-14it [01:37,  6.85s/it][A
-15it [01:44,  6.84s/it][A
-16it [01:50,  6.84s/it][A
-17it [01:57,  6.84s/it][A
-18it [02:04,  6.84s/it][A
-19it [02:11,  6.84s/it][A
-20it [02:18,  6.84s/it][A
-21it [02:25,  6.84s/it][A
-22it [02:31,  6.84s/it][A
-23it [02:38,  6.84s/it][A
-24it [02:45,  6.84s/it][A
-25it [02:52,  6.84s/it][A
-26it [02:59,  6.83s/it][A
-27it [03:06,  6.83s/it][A
-28it [03:12,  6.83s/it][A
-29it [03:19,  6.83s/it][A
-30it [03:26,  6.83s/it][A
-31it [03:33,  6.83s/it][A
-32it [03:40,  6.83s/it][A
-33it [03:47,  6.83s/it][A
-34it [03:53,  6.83s/it][A
-35it [04:00,  6.83s/it][A
-36it [04:07,  6.83s/it][A
-37it [04:14,  6.83s/it][A
-38it [04:21,  6.83s/it][A
-39it [04:28,  6.83s/it][A
-40it [04:34,  6.83s/it][A
-41it [04:41,  6.83s/it][A
-42it [04:48,  6.83s/it][A
-43it [04:55,  6.83s/it][A
-44it [05:02,  6.84s/it][A
-45it [05:09,  6.84s/it][A
-46it [05:15,  6.84s/it][A
-47it [05:22,  6.84s/it][A
-48it [05:29,  6.84s/it][A
-49it [05:36,  6.84s/it][A
-50it [05:43,  6.84s/it][A
-51it [05:50,  6.84s/it][A
-52it [05:56,  6.84s/it][A
-53it [06:03,  6.84s/it][A
-54it [06:10,  6.84s/it][A
-55it [06:17,  6.84s/it][A
-56it [06:24,  6.84s/it][A
-57it [06:31,  6.84s/it][A
-58it [06:38,  6.84s/it][A
-59it [06:44,  6.84s/it][A
-60it [06:51,  6.84s/it][A
-61it [06:58,  6.84s/it][A
-62it [07:05,  6.84s/it][A
-63it [07:12,  6.84s/it][A
-64it [07:19,  6.84s/it][A
-65it [07:25,  6.84s/it][A
-66it [07:32,  6.84s/it][A
-67it [07:39,  6.84s/it][A
-68it [07:46,  6.85s/it][A
-69it [07:53,  6.85s/it][A
-70it [08:00,  6.84s/it][A
-71it [08:06,  6.85s/it][A
-72it [08:13,  6.85s/it][A
-73it [08:20,  6.85s/it][A
-74it [08:27,  6.85s/it][A
-75it [08:34,  6.85s/it][A
-76it [08:41,  6.85s/it][A
-77it [08:48,  6.85s/it][A
-78it [08:54,  6.85s/it][A
-79it [09:01,  6.85s/it][A
-80it [09:08,  6.85s/it][A
-81it [09:15,  6.85s/it][A
-82it [09:22,  6.84s/it][A
-83it [09:29,  6.84s/it][A
-84it [09:35,  6.81s/it][A
-85it [09:42,  6.82s/it][A
-86it [09:49,  6.82s/it][A
-87it [09:56,  6.83s/it][A
-88it [10:03,  6.83s/it][A
-89it [10:10,  6.83s/it][A
-90it [10:16,  6.84s/it][A
-91it [10:23,  6.84s/it][A
-92it [10:30,  6.84s/it][A
-93it [10:37,  6.84s/it][A
-94it [10:44,  6.84s/it][A
-95it [10:51,  6.84s/it][A
-96it [10:57,  6.84s/it][A
-97it [11:04,  6.84s/it][A
-98it [11:11,  6.84s/it][A
-99it [11:18,  6.84s/it][A
-100it [11:25,  6.84s/it][A
-101it [11:32,  6.84s/it][A
-102it [11:38,  6.84s/it][A
-103it [11:45,  6.84s/it][A
-104it [11:52,  6.84s/it][A
-105it [11:59,  6.84s/it][A
-106it [12:06,  6.84s/it][A
-107it [12:13,  6.84s/it][A
-108it [12:20,  6.85s/it][A
-109it [12:26,  6.85s/it][A
-110it [12:33,  6.84s/it][A
-111it [12:40,  6.84s/it][A
-112it [12:47,  6.84s/it][A
-113it [12:54,  6.84s/it][A
-114it [13:01,  6.84s/it][A
-115it [13:07,  6.84s/it][A
-116it [13:14,  6.84s/it][A
-117it [13:21,  6.84s/it][A
-118it [13:28,  6.84s/it][A
-119it [13:35,  6.84s/it][A
-120it [13:42,  6.84s/it][A
-121it [13:49,  6.85s/it][A
-122it [13:55,  6.84s/it][A
-123it [14:02,  6.84s/it][A
-124it [14:09,  6.84s/it][A
-125it [14:16,  6.85s/it][A
-126it [14:23,  6.85s/it][A
-127it [14:30,  6.85s/it][A
-128it [14:36,  6.85s/it][A
-129it [14:43,  6.84s/it][A
-130it [14:50,  6.84s/it][A
-131it [14:57,  6.84s/it][A
-132it [15:04,  6.84s/it][A
-133it [15:11,  6.84s/it][A
-134it [15:18,  6.85s/it][A
-135it [15:24,  6.85s/it][A
-136it [15:31,  6.85s/it][A
-137it [15:38,  6.84s/it][A
-138it [15:45,  6.84s/it][A
-139it [15:52,  6.84s/it][A
-140it [15:59,  6.84s/it][A
-141it [16:05,  6.84s/it][A
-142it [16:12,  6.84s/it][A
-143it [16:19,  6.85s/it][A
-144it [16:26,  6.84s/it][A
-145it [16:33,  6.84s/it][A
-146it [16:40,  6.84s/it][A
-147it [16:46,  6.84s/it][A
-148it [16:53,  6.84s/it][A
-149it [17:00,  6.84s/it][A
-150it [17:07,  6.84s/it][A
-151it [17:14,  6.84s/it][A
-152it [17:21,  6.84s/it][A
-153it [17:28,  6.84s/it][A
-154it [17:34,  6.84s/it][A
-155it [17:41,  6.85s/it][A
-156it [17:48,  6.85s/it][A
-157it [17:55,  6.85s/it][A
-158it [18:02,  6.84s/it][A
-159it [18:09,  6.84s/it][A
-160it [18:15,  6.84s/it][A
-161it [18:22,  6.84s/it][A
-162it [18:29,  6.84s/it][A
-163it [18:36,  6.84s/it][A
-164it [18:43,  6.84s/it][A
-165it [18:50,  6.84s/it][A
-166it [18:57,  6.84s/it][A
-167it [19:03,  6.84s/it][A
-168it [19:10,  6.84s/it][A
-169it [19:17,  6.84s/it][A
-170it [19:24,  6.84s/it][A
-171it [19:31,  6.84s/it][A
-172it [19:38,  6.84s/it][A
-173it [19:44,  6.84s/it][A
-174it [19:51,  6.84s/it][A
-175it [19:58,  6.84s/it][A
-176it [20:05,  6.84s/it][A
-177it [20:12,  6.84s/it][A
-178it [20:19,  6.84s/it][A
-179it [20:25,  6.84s/it][A
-180it [20:32,  6.84s/it][A
-181it [20:39,  6.84s/it][A
-182it [20:46,  6.84s/it][A
-183it [20:53,  6.84s/it][A
-184it [21:00,  6.84s/it][A
-185it [21:07,  6.84s/it][A
-186it [21:13,  6.84s/it][A
-187it [21:20,  6.84s/it][A
-188it [21:27,  6.84s/it][A
-189it [21:34,  6.84s/it][A
-190it [21:41,  6.84s/it][A
-191it [21:48,  6.84s/it][A
-192it [21:54,  6.85s/it][A
-193it [22:01,  6.85s/it][A
-194it [22:08,  6.84s/it][A
-195it [22:15,  6.84s/it][A
-196it [22:22,  6.85s/it][A
-197it [22:29,  6.85s/it][A
-198it [22:36,  6.85s/it][A
-199it [22:42,  6.85s/it][A
-200it [22:49,  6.85s/it][A
-201it [22:56,  6.85s/it][A
-202it [23:03,  6.85s/it][A
-203it [23:10,  6.85s/it][A
-204it [23:17,  6.85s/it][A
-205it [23:23,  6.85s/it][A
-206it [23:30,  6.85s/it][A
-207it [23:37,  6.85s/it][A
-208it [23:44,  6.85s/it][A
-209it [23:51,  6.85s/it][A
-210it [23:58,  6.85s/it][A
-211it [24:05,  6.85s/it][A
-212it [24:11,  6.85s/it][A
-213it [24:18,  6.85s/it][A
-214it [24:25,  6.85s/it][A
-215it [24:32,  6.83s/it][A
-216it [24:39,  6.84s/it][A
-217it [24:46,  6.84s/it][A
-218it [24:52,  6.84s/it][A
-219it [24:59,  6.85s/it][A
-220it [25:06,  6.85s/it][A
-221it [25:13,  6.85s/it][A
-222it [25:20,  6.85s/it][A
-223it [25:27,  6.85s/it][A
-224it [25:34,  6.85s/it][A
-225it [25:40,  6.85s/it][A
-226it [25:47,  6.85s/it][A
-227it [25:54,  6.85s/it][A
-228it [26:01,  6.85s/it][A
-229it [26:08,  6.85s/it][A
-230it [26:15,  6.85s/it][A
-231it [26:22,  6.85s/it][A
-232it [26:28,  6.85s/it][A
-233it [26:35,  6.85s/it][A
-234it [26:42,  6.85s/it][A
-235it [26:49,  6.85s/it][A
-236it [26:56,  6.85s/it][A
-237it [27:03,  6.85s/it][A
-238it [27:09,  6.85s/it][A
-239it [27:16,  6.85s/it][A
-240it [27:23,  6.84s/it][A
-241it [27:30,  6.84s/it][A
-242it [27:37,  6.84s/it][A
-243it [27:44,  6.85s/it][A
-244it [27:51,  6.85s/it][A
-245it [27:57,  6.85s/it][A
-246it [28:04,  6.85s/it][A
-247it [28:11,  6.85s/it][A
-248it [28:18,  6.85s/it][A
-249it [28:25,  6.85s/it][A
-250it [28:32,  6.85s/it][A
-251it [28:38,  6.84s/it][A251it [28:38,  6.85s/it]
-301it [2:03:54, 516.83s/it]sampling complete
-302it [2:03:55, 362.00s/it]303it [2:03:55, 253.49s/it]304it [2:03:55, 177.54s/it]305it [2:03:56, 124.37s/it]306it [2:03:56, 87.16s/it] 307it [2:03:56, 61.10s/it]308it [2:03:56, 42.87s/it]309it [2:03:57, 30.10s/it]310it [2:03:57, 21.17s/it]311it [2:03:57, 14.91s/it]312it [2:03:58, 10.53s/it]313it [2:03:58,  7.47s/it]314it [2:03:58,  5.32s/it]315it [2:03:59,  3.82s/it]316it [2:03:59,  2.77s/it]317it [2:03:59,  2.03s/it]318it [2:04:00,  1.52s/it]319it [2:04:00,  1.16s/it]320it [2:04:00,  1.10it/s]321it [2:04:01,  1.37it/s]322it [2:04:01,  1.65it/s]323it [2:04:01,  1.93it/s]324it [2:04:02,  2.18it/s]325it [2:04:02,  2.41it/s]saving model 0...
-saving model 0.9999...
-sampling 2500 images
-
-0it [00:00, ?it/s][A
-1it [00:07,  7.33s/it][A
-2it [00:14,  7.31s/it][A
-3it [00:23,  8.15s/it][A
-4it [00:30,  7.76s/it][A
-5it [00:37,  7.47s/it][A
-6it [00:44,  7.25s/it][A
-7it [00:51,  7.11s/it][A
-8it [00:58,  7.02s/it][A
-9it [01:05,  6.95s/it][A
-10it [01:12,  6.91s/it][A
-11it [01:18,  6.88s/it][A
-12it [01:25,  6.86s/it][A
-13it [01:32,  6.85s/it][A
-14it [01:39,  6.84s/it][A
-15it [01:46,  6.83s/it][A
-16it [01:52,  6.83s/it][A
-17it [01:59,  6.83s/it][A
-18it [02:06,  6.83s/it][A
-19it [02:13,  6.82s/it][A
-20it [02:20,  6.85s/it][A
-21it [02:27,  6.84s/it][A
-22it [02:33,  6.86s/it][A
-23it [02:40,  6.84s/it][A
-24it [02:47,  6.83s/it][A
-25it [02:54,  6.83s/it][A
-26it [03:01,  6.82s/it][A
-27it [03:08,  6.82s/it][A
-28it [03:14,  6.82s/it][A
-29it [03:21,  6.82s/it][A
-30it [03:28,  6.82s/it][A
-31it [03:35,  6.81s/it][A
-32it [03:42,  6.82s/it][A
-33it [03:48,  6.81s/it][A
-34it [03:55,  6.82s/it][A
-35it [04:02,  6.82s/it][A
-36it [04:09,  6.82s/it][A
-37it [04:16,  6.82s/it][A
-38it [04:23,  6.82s/it][A
-39it [04:29,  6.82s/it][A
-40it [04:36,  6.82s/it][A
-41it [04:43,  6.82s/it][A
-42it [04:50,  6.82s/it][A
-43it [04:57,  6.82s/it][A
-44it [05:03,  6.82s/it][A
-45it [05:10,  6.82s/it][A
-46it [05:17,  6.82s/it][A
-47it [05:24,  6.82s/it][A
-48it [05:31,  6.82s/it][A
-49it [05:38,  6.82s/it][A
-50it [05:44,  6.82s/it][A
-51it [05:51,  6.82s/it][A
-52it [05:58,  6.82s/it][A
-53it [06:05,  6.82s/it][A
-54it [06:12,  6.82s/it][A
-55it [06:18,  6.82s/it][A
-56it [06:25,  6.82s/it][A
-57it [06:33,  7.13s/it][A
-58it [06:40,  7.04s/it][A
-59it [06:47,  6.97s/it][A
-60it [06:54,  6.93s/it][A
-61it [07:02,  7.22s/it][A
-62it [07:08,  7.11s/it][A
-63it [07:15,  7.06s/it][A
-64it [07:22,  6.99s/it][A
-65it [07:29,  6.94s/it][A
-66it [07:36,  6.91s/it][A
-67it [07:43,  6.89s/it][A
-68it [07:49,  6.87s/it][A
-69it [07:56,  6.86s/it][A
-70it [08:03,  6.85s/it][A
-71it [08:10,  6.84s/it][A
-72it [08:17,  6.84s/it][A
-73it [08:24,  6.83s/it][A
-74it [08:30,  6.83s/it][A
-75it [08:37,  6.83s/it][A
-76it [08:44,  6.83s/it][A
-77it [08:51,  6.83s/it][A
-78it [08:58,  6.83s/it][A
-79it [09:05,  6.83s/it][A
-80it [09:11,  6.83s/it][A
-81it [09:18,  6.83s/it][A
-82it [09:25,  6.83s/it][A
-83it [09:32,  6.83s/it][A
-84it [09:39,  6.83s/it][A
-85it [09:46,  6.83s/it][A
-86it [09:52,  6.83s/it][A
-87it [09:59,  6.83s/it][A
-88it [10:06,  6.83s/it][A
-89it [10:13,  6.83s/it][A
-90it [10:20,  6.83s/it][A
-91it [10:27,  6.83s/it][A
-92it [10:33,  6.83s/it][A
-93it [10:40,  6.82s/it][A
-94it [10:47,  6.79s/it][A
-95it [10:54,  6.80s/it][A
-96it [11:01,  6.81s/it][A
-97it [11:07,  6.82s/it][A
-98it [11:14,  6.82s/it][A
-99it [11:21,  6.83s/it][A
-100it [11:28,  6.83s/it][A
-101it [11:35,  6.83s/it][A
-102it [11:42,  6.83s/it][A
-103it [11:48,  6.83s/it][A
-104it [11:55,  6.83s/it][A
-105it [12:02,  6.83s/it][A
-106it [12:09,  6.83s/it][A
-107it [12:16,  6.83s/it][A
-108it [12:23,  6.83s/it][A
-109it [12:29,  6.83s/it][A
-110it [12:36,  6.83s/it][A
-111it [12:43,  6.83s/it][A
-112it [12:50,  6.83s/it][A
-113it [12:57,  6.83s/it][A
-114it [13:04,  6.83s/it][A
-115it [13:10,  6.83s/it][A
-116it [13:17,  6.83s/it][A
-117it [13:24,  6.83s/it][A
-118it [13:31,  6.83s/it][A
-119it [13:38,  6.83s/it][A
-120it [13:45,  6.83s/it][A
-121it [13:51,  6.83s/it][A
-122it [13:58,  6.83s/it][A
-123it [14:05,  6.83s/it][A
-124it [14:12,  6.83s/it][A
-125it [14:19,  6.83s/it][A
-126it [14:26,  6.83s/it][A
-127it [14:32,  6.83s/it][A
-128it [14:39,  6.83s/it][A
-129it [14:46,  6.83s/it][A
-130it [14:53,  6.83s/it][A
-131it [15:00,  6.83s/it][A
-132it [15:07,  6.83s/it][A
-133it [15:13,  6.83s/it][A
-134it [15:20,  6.83s/it][A
-135it [15:27,  6.83s/it][A
-136it [15:34,  6.83s/it][A
-137it [15:41,  6.83s/it][A
-138it [15:47,  6.83s/it][A
-139it [15:54,  6.83s/it][A
-140it [16:01,  6.83s/it][A
-141it [16:08,  6.83s/it][A
-142it [16:15,  6.83s/it][A
-143it [16:22,  6.83s/it][A
-144it [16:28,  6.83s/it][A
-145it [16:35,  6.83s/it][A
-146it [16:42,  6.83s/it][A
-147it [16:49,  6.83s/it][A
-148it [16:56,  6.83s/it][A
-149it [17:03,  6.83s/it][A
-150it [17:09,  6.83s/it][A
-151it [17:16,  6.83s/it][A
-152it [17:23,  6.83s/it][A
-153it [17:30,  6.83s/it][A
-154it [17:37,  6.83s/it][A
-155it [17:44,  6.83s/it][A
-156it [17:50,  6.83s/it][A
-157it [17:57,  6.83s/it][A
-158it [18:04,  6.83s/it][A
-159it [18:11,  6.83s/it][A
-160it [18:18,  6.83s/it][A
-161it [18:25,  6.83s/it][A
-162it [18:31,  6.83s/it][A
-163it [18:38,  6.83s/it][A
-164it [18:45,  6.83s/it][A
-165it [18:52,  6.83s/it][A
-166it [18:59,  6.83s/it][A
-167it [19:05,  6.83s/it][A
-168it [19:12,  6.83s/it][A
-169it [19:19,  6.83s/it][A
-170it [19:26,  6.83s/it][A
-171it [19:33,  6.83s/it][A
-172it [19:40,  6.83s/it][A
-173it [19:46,  6.83s/it][A
-174it [19:53,  6.83s/it][A
-175it [20:00,  6.83s/it][A
-176it [20:07,  6.83s/it][A
-177it [20:14,  6.83s/it][A
-178it [20:21,  6.83s/it][A
-179it [20:27,  6.83s/it][A
-180it [20:34,  6.83s/it][A
-181it [20:41,  6.83s/it][A
-182it [20:48,  6.83s/it][A
-183it [20:55,  6.83s/it][A
-184it [21:02,  6.83s/it][A
-185it [21:08,  6.83s/it][A
-186it [21:15,  6.83s/it][A
-187it [21:22,  6.83s/it][A
-188it [21:29,  6.82s/it][A
-189it [21:36,  6.83s/it][A
-190it [21:42,  6.82s/it][A
-191it [21:49,  6.82s/it][A
-192it [21:56,  6.82s/it][A
-193it [22:03,  6.82s/it][A
-194it [22:10,  6.82s/it][A
-195it [22:17,  6.82s/it][A
-196it [22:23,  6.82s/it][A
-197it [22:30,  6.81s/it][A
-198it [22:37,  6.81s/it][A
-199it [22:44,  6.81s/it][A
-200it [22:51,  6.80s/it][A
-201it [22:57,  6.80s/it][A
-202it [23:04,  6.80s/it][A
-203it [23:11,  6.80s/it][A
-204it [23:18,  6.80s/it][A
-205it [23:25,  6.80s/it][A
-206it [23:31,  6.80s/it][A
-207it [23:38,  6.79s/it][A
-208it [23:45,  6.79s/it][A
-209it [23:52,  6.79s/it][A
-210it [23:59,  6.79s/it][A
-211it [24:05,  6.78s/it][A
-212it [24:12,  6.78s/it][A
-213it [24:19,  6.78s/it][A
-214it [24:26,  6.77s/it][A
-215it [24:32,  6.77s/it][A
-216it [24:39,  6.77s/it][A
-217it [24:46,  6.76s/it][A
-218it [24:53,  6.76s/it][A
-219it [24:59,  6.75s/it][A
-220it [25:06,  6.75s/it][A
-221it [25:13,  6.75s/it][A
-222it [25:20,  6.74s/it][A
-223it [25:26,  6.74s/it][A
-224it [25:33,  6.74s/it][A
-225it [25:40,  6.72s/it][A
-226it [25:46,  6.72s/it][A
-227it [25:53,  6.72s/it][A
-228it [26:00,  6.72s/it][A
-229it [26:07,  6.72s/it][A
-230it [26:13,  6.72s/it][A
-231it [26:20,  6.72s/it][A
-232it [26:27,  6.72s/it][A
-233it [26:33,  6.72s/it][A
-234it [26:40,  6.72s/it][A
-235it [26:47,  6.72s/it][A
-236it [26:54,  6.72s/it][A
-237it [27:00,  6.72s/it][A
-238it [27:07,  6.72s/it][A
-239it [27:14,  6.72s/it][A
-240it [27:21,  6.72s/it][A
-241it [27:27,  6.72s/it][A
-242it [27:34,  6.71s/it][A
-243it [27:41,  6.71s/it][A
-244it [27:47,  6.71s/it][A
-245it [27:54,  6.71s/it][A
-246it [28:01,  6.71s/it][A
-247it [28:08,  6.71s/it][A
-248it [28:14,  6.71s/it][A
-249it [28:21,  6.71s/it][A
-250it [28:28,  6.71s/it][A
-251it [28:34,  6.71s/it][A251it [28:34,  6.83s/it]
-326it [2:32:44, 516.91s/it]sampling complete
-327it [2:32:45, 362.22s/it]328it [2:32:46, 253.65s/it]329it [2:32:46, 177.65s/it]330it [2:32:46, 124.45s/it]331it [2:32:46, 87.21s/it] 332it [2:32:47, 61.14s/it]333it [2:32:47, 42.89s/it]334it [2:32:47, 30.12s/it]335it [2:32:48, 21.18s/it]336it [2:32:48, 14.92s/it]337it [2:32:48, 10.54s/it]338it [2:32:49,  7.47s/it]339it [2:32:49,  5.33s/it]340it [2:32:49,  3.82s/it]341it [2:32:50,  2.77s/it]342it [2:32:50,  2.03s/it]343it [2:32:50,  1.52s/it]344it [2:32:51,  1.16s/it]345it [2:32:51,  1.10it/s]346it [2:32:51,  1.37it/s]347it [2:32:52,  1.65it/s]348it [2:32:52,  1.93it/s]349it [2:32:52,  2.19it/s]350it [2:32:52,  2.41it/s]saving model 0...
-saving model 0.9999...
-sampling 2500 images
-
-0it [00:00, ?it/s][A
-1it [00:07,  7.15s/it][A
-2it [00:14,  7.08s/it][A
-3it [00:21,  7.06s/it][A
-4it [00:28,  7.12s/it][A
-5it [00:36,  7.32s/it][A
-6it [00:42,  7.14s/it][A
-7it [00:49,  7.03s/it][A
-8it [00:56,  6.96s/it][A
-9it [01:03,  6.91s/it][A
-10it [01:10,  6.87s/it][A
-11it [01:16,  6.85s/it][A
-12it [01:23,  6.84s/it][A
-13it [01:30,  6.83s/it][A
-14it [01:37,  6.82s/it][A
-15it [01:44,  6.81s/it][A
-16it [01:50,  6.81s/it][A
-17it [01:57,  6.81s/it][A
-18it [02:04,  6.81s/it][A
-19it [02:11,  6.80s/it][A
-20it [02:18,  6.81s/it][A
-21it [02:24,  6.80s/it][A
-22it [02:31,  6.80s/it][A
-23it [02:38,  6.80s/it][A
-24it [02:45,  6.79s/it][A
-25it [02:52,  6.79s/it][A
-26it [02:58,  6.79s/it][A
-27it [03:05,  6.78s/it][A
-28it [03:12,  6.78s/it][A
-29it [03:19,  6.78s/it][A
-30it [03:25,  6.78s/it][A
-31it [03:32,  6.78s/it][A
-32it [03:39,  6.78s/it][A
-33it [03:46,  6.78s/it][A
-34it [03:53,  6.77s/it][A
-35it [03:59,  6.77s/it][A
-36it [04:06,  6.78s/it][A
-37it [04:13,  6.77s/it][A
-38it [04:20,  6.77s/it][A
-39it [04:26,  6.77s/it][A
-40it [04:33,  6.78s/it][A
-41it [04:40,  6.78s/it][A
-42it [04:47,  6.78s/it][A
-43it [04:54,  6.78s/it][A
-44it [05:00,  6.78s/it][A
-45it [05:07,  6.78s/it][A
-46it [05:14,  6.78s/it][A
-47it [05:21,  6.78s/it][A
-48it [05:27,  6.78s/it][A
-49it [05:34,  6.78s/it][A
-50it [05:41,  6.78s/it][A
-51it [05:48,  6.78s/it][A
-52it [05:55,  6.78s/it][A
-53it [06:01,  6.78s/it][A
-54it [06:08,  6.78s/it][A
-55it [06:15,  6.78s/it][A
-56it [06:22,  6.78s/it][A
-57it [06:28,  6.79s/it][A
-58it [06:35,  6.78s/it][A
-59it [06:42,  6.78s/it][A
-60it [06:49,  6.78s/it][A
-61it [06:56,  6.78s/it][A
-62it [07:02,  6.78s/it][A
-63it [07:09,  6.79s/it][A
-64it [07:16,  6.79s/it][A
-65it [07:23,  6.79s/it][A
-66it [07:30,  6.79s/it][A
-67it [07:36,  6.79s/it][A
-68it [07:43,  6.79s/it][A
-69it [07:50,  6.79s/it][A
-70it [07:57,  6.79s/it][A
-71it [08:03,  6.79s/it][A
-72it [08:10,  6.79s/it][A
-73it [08:17,  6.79s/it][A
-74it [08:24,  6.79s/it][A
-75it [08:31,  6.79s/it][A
-76it [08:37,  6.79s/it][A
-77it [08:44,  6.79s/it][A
-78it [08:51,  6.79s/it][A
-79it [08:58,  6.79s/it][A
-80it [09:05,  6.79s/it][A
-81it [09:11,  6.79s/it][A
-82it [09:18,  6.79s/it][A
-83it [09:25,  6.79s/it][A
-84it [09:32,  6.79s/it][A
-85it [09:39,  6.79s/it][A
-86it [09:45,  6.79s/it][A
-87it [09:52,  6.79s/it][A
-88it [09:59,  6.80s/it][A
-89it [10:06,  6.79s/it][A
-90it [10:12,  6.79s/it][A
-91it [10:19,  6.79s/it][A
-92it [10:26,  6.79s/it][A
-93it [10:33,  6.79s/it][A
-94it [10:40,  6.79s/it][A
-95it [10:46,  6.79s/it][A
-96it [10:53,  6.79s/it][A
-97it [11:00,  6.79s/it][A
-98it [11:07,  6.79s/it][A
-99it [11:14,  6.79s/it][A
-100it [11:20,  6.79s/it][A
-101it [11:27,  6.79s/it][A
-102it [11:34,  6.79s/it][A
-103it [11:41,  6.79s/it][A
-104it [11:48,  6.78s/it][A
-105it [11:54,  6.77s/it][A
-106it [12:01,  6.77s/it][A
-107it [12:08,  6.78s/it][A
-108it [12:15,  6.78s/it][A
-109it [12:21,  6.79s/it][A
-110it [12:28,  6.79s/it][A
-111it [12:35,  6.79s/it][A
-112it [12:42,  6.79s/it][A
-113it [12:49,  6.79s/it][A
-114it [12:55,  6.79s/it][A
-115it [13:02,  6.79s/it][A
-116it [13:09,  6.79s/it][A
-117it [13:16,  6.79s/it][A
-118it [13:23,  6.79s/it][A
-119it [13:29,  6.79s/it][A
-120it [13:36,  6.79s/it][A
-121it [13:43,  6.79s/it][A
-122it [13:50,  6.79s/it][A
-123it [13:57,  6.80s/it][A
-124it [14:03,  6.80s/it][A

@@ -1,33 +1,0 @@
-********************
-Repeat:  0  batch size:  {1}  Gamma:  0  Mode :  finetune
-********************
-********************
-g_name is 0
-********************
-0it [00:00, ?it/s]________________________
-Min and Max weights are the same for loss function
-________________________
-saving model 0...
-saving model 0.9999...
-sampling 2500 images
-
-0it [00:00, ?it/s][A0it [00:00, ?it/s]
-0it [00:19, ?it/s]
-Traceback (most recent call last):
-  File "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/a3ft/scripts/avg_finetune_a3ft_data10_batchsize.py", line 267, in <module>
-    ).run_loop()
-  File "/lustre03/project/6086105/ymbahram/improved_diffusion/a3ft/improved_diffusion/train_util.py", line 218, in run_loop
-    self.samplefunc() # Possible metric evaluations happening here also
-  File "/lustre03/project/6086105/ymbahram/improved_diffusion/a3ft/improved_diffusion/train_util.py", line 390, in samplefunc
-    sample = sample_fn(
-  File "/lustre03/project/6086105/ymbahram/improved_diffusion/a3ft/improved_diffusion/gaussian_diffusion.py", line 622, in ddim_sample_loop
-    for sample in self.ddim_sample_loop_progressive(
-  File "/lustre03/project/6086105/ymbahram/improved_diffusion/a3ft/improved_diffusion/gaussian_diffusion.py", line 691, in ddim_sample_loop_progressive
-    out = self.ddim_sample(
-  File "/lustre03/project/6086105/ymbahram/improved_diffusion/a3ft/improved_diffusion/gaussian_diffusion.py", line 529, in ddim_sample
-    out = self.p_mean_variance( # Classifier-free guidance
-  File "/lustre03/project/6086105/ymbahram/improved_diffusion/a3ft/improved_diffusion/respace.py", line 91, in p_mean_variance
-    return super().p_mean_variance(self._wrap_model(model), *args, **kwargs)
-  File "/lustre03/project/6086105/ymbahram/improved_diffusion/a3ft/improved_diffusion/gaussian_diffusion.py", line 279, in p_mean_variance
-    assert t.shape == (B,)
-AssertionError

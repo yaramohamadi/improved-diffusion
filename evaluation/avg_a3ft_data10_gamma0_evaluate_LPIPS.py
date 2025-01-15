@@ -7,7 +7,7 @@ importlib.reload(evaluation)
 
 ref_path = '/home/ymbahram/scratch/pokemon/pokemon_64x64.npz' # The target full dataset
 target_path = '/home/ymbahram/scratch/pokemon/pokemon_10.npz' # The target 10-shot dataset
-source_batch = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/imagenet_pretrained.npz' # Source samples from pre-fixed noise vectors
+source_batch = '/home/ymbahram/scratch/util_files/util_files/imagenet_pretrained.npz' # Source samples from pre-fixed noise vectors
     
 modes = ['finetune', 'a3ft']  # 
 
