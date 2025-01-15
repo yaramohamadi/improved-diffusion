@@ -192,7 +192,7 @@ class TrainLoop:
         for _ in tqdm(loop()):
             
             batch, cond = next(self.data)
-            # self.run_step(batch, cond) 
+            self.run_step(batch, cond) 
 
             if self.epochs == 401: # Dont want too much sampling here # TODO Temporary, remove
                 if self.step + self.resume_step >= 200:

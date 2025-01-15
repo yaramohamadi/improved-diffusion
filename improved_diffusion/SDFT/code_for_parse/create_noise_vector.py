@@ -7,12 +7,12 @@ th.manual_seed(seed)
 np.random.seed(seed)
 
 # Parameters for noise
-num_of_batches = 500
+num_of_batches = 1000
 batch_size = 10
 channels = 3
 height = 64
 width = 64
-file_name = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/classifier-free-guidance/code_for_parse/pokemon_fixed_noise.npy'
+file_name = '/home/ymbahram/scratch/util_files/pokemon_fixed_noise_10k.npy'
 device = 'cuda'
 
 # Generate random noise vector
