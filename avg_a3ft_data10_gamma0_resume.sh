@@ -9,7 +9,7 @@
 
 source /home/ymbahram/.bash_profile
 module load python/3.11.5
-source /home/ymbahram/projects/def-hadi87/ymbahram/gputorch/bin/activate
+source /home/ymbahram/projects/def-hadi87/ymbahram/gputorch3_10/bin/activate
 # pip install -e .
 
 python /home/ymbahram/projects/def-hadi87/ymbahram/improved-diffusion/scripts/avg_a3ft_data10_gamma0_resume.py
