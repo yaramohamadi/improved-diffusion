@@ -53,7 +53,6 @@ noise_vector = '/export/livia/home/vision/Ymohammadi/util_files/pokemon_fixed_no
 # Load the noise vector from the .npy file
 noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
 
-
 # ____________________ Model ____________________
 
 for repetition in range(3):
