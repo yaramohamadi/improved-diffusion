@@ -1,5 +1,5 @@
-# import os
-# os.environ["CUDA_VISIBLE_DEVICES"]="3"
+import os
+os.environ["CUDA_VISIBLE_DEVICES"]="1"
 
 import copy
 import numpy as np
@@ -170,13 +170,16 @@ evaluate = False # If you want to perform evaluation during training (Currently 
 
 # PATHS   
 # Load pretrained model from here 
-load_model_path="/home/ymbahram/scratch/util_files/imagenet64_uncond_100M_1500K.pt"
+# load_model_path="/home/ymbahram/scratch/util_files/imagenet64_uncond_100M_1500K.pt"
+load_model_path="/export/livia/home/vision/Ymohammadi/util_files/imagenet64_uncond_100M_1500K.pt"
 # If you are resuming a previously aborted training, include the path to the checkpoint here
 resume_checkpoint= ""
 # Only need this if we are evaluating FID and stuff while training
-ref_dataset_npz = '/home/ymbahram/scratch/datasets/pokemon_64x64.npz'
+# ref_dataset_npz = '/home/ymbahram/scratch/datasets/pokemon_64x64.npz'
+ref_dataset_npz = '/export/livia/home/vision/Ymohammadi/datasets/pokemon/pokemon_64x64.npz' 
 # Fixed noise vector
-noise_vector = '/home/ymbahram/scratch/util_files/pokemon_fixed_noise.npy'
+# noise_vector = '/home/ymbahram/scratch/util_files/pokemon_fixed_noise.npy'
+noise_vector = '/export/livia/home/vision/Ymohammadi/util_files/pokemon_fixed_noise.npy'
 
 # Load the noise vector from the .npy file
 noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
@@ -231,8 +234,9 @@ for repetition in range(3):
             for dataset_size in [10]:
 
                 # The dataset you want to finetune on
-                data_dir = f'/home/ymbahram/scratch/datasets/pokemon/pokemon{dataset_size}/' 
-
+                # data_dir = f'/home/ymbahram/scratch/datasets/pokemon/pokemon{dataset_size}/' 
+                data_dir = f'/export/livia/home/vision/Ymohammadi/datasets/pokemon/pokemon{dataset_size}/' 
+                
                 data = load_data(
                     data_dir=data_dir,
                     batch_size=batch_size,
@@ -266,7 +270,11 @@ for repetition in range(3):
                     pretrained_model = copy.deepcopy(model)
                     pretrained_model.to('cuda')
 
-                    resume_checkpoint= f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/checkpoints/model000500.pt"
+                    # resume_checkpoint= f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/checkpoints/model000500.pt"
+                    resume_checkpoint= f"/export/livia/home/vision/Ymohammadi/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/checkpoints/model000500.pt"
+                    
+                    
+                    
                     checkpoint = th.load(resume_checkpoint)
                     model.load_state_dict(checkpoint, strict = False)
 
@@ -274,13 +282,17 @@ for repetition in range(3):
                     guidance_scale = np.array([g for _ in range(epochs)]) # Fixed Line
 
                     # Where to log the training loss (File does not have to exist)
-                    loss_logger=f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/trainlog.csv"
+                    # loss_logger=f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/trainlog.csv"
+                    loss_logger=f"/export/livia/home/vision/Ymohammadi/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/trainlog.csv"
                     # If evaluation is true during training, where to save the FID stuff
-                    eval_logger=f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/evallog.csv"
+                    # eval_logger=f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/evallog.csv"
+                    eval_logger=f"/export/livia/home/vision/Ymohammadi/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/evallog.csv"
                     # Directory to save checkpoints in
-                    checkpoint_dir = f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/checkpoints/"
+                    # checkpoint_dir = f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/checkpoints/"
+                    checkpoint_dir = f"/export/livia/home/vision/Ymohammadi/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/checkpoints/"
                     # Whenever you are saving checkpoints, a batch of images are also sampled, where to produce these images
-                    save_samples_dir= f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/samples/"
+                    # save_samples_dir= f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/samples/"
+                    save_samples_dir= f"/export/livia/home/vision/Ymohammadi/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/samples/"
 
                     # ________________ Train _________________ 
 
