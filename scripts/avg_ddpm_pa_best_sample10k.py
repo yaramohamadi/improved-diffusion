@@ -47,7 +47,7 @@ evaluate = False # If you want to perform evaluation during training (Currently 
 
 # Fixed noise vector
 # noise_vector = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/pokemon_fixed_noise.npy'
-noise_vector = '/export/livia/home/vision/Ymohammadi/util_files/pokemon_fixed_noise.npy'
+noise_vector = '/export/livia/home/vision/Ymohammadi/util_files/pokemon_fixed_noise_10k.npy'
 
 
 # Load the noise vector from the .npy file
