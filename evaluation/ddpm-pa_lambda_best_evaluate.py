@@ -18,7 +18,7 @@ source_batch = '/export/livia/home/vision/Ymohammadi/util_files/imagenet_pretrai
 
 g = 0
 
-for repetition in range(1, 3):
+for repetition in range(1):
 
     for p2_gamma in [0]: # TODO Quoi??
 
@@ -42,11 +42,11 @@ for repetition in range(1, 3):
                             sample_path = f"/export/livia/home/vision/Ymohammadi/baselines_avg/ddpm-pa/l1_{lambda_1}_l2_{lambda_2}_l3_{lambda_3}_repeat_{repetition}/samples/samples_{epoch}.npz"
                             
                             results = evaluation.runEvaluate(ref_path, sample_path, 
-                                                FID=True, 
+                                                # FID=True, 
                                                 #IS=True, 
                                                 #sFID=True, 
                                                 #prec_recall=True, 
-                                                KID=True, 
+                                                # KID=True, 
                                                 LPIPS=True, source_batch=source_batch, 
                                                 # intra_LPIPS=True, 
                                                 # target_batch=target_path, 
