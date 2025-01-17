@@ -164,7 +164,7 @@ use_scale_shift_norm=True
 timestep_respacing="ddim50"
 use_ddim=True
 sample = True, # Doing sampling for a batch in training every time saving
-how_many_samples= 1 # 2500
+how_many_samples= 2500
 image_size=image_size
 evaluate = False # If you want to perform evaluation during training (Currently every 25 steps)
 
