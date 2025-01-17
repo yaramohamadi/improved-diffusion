@@ -72,7 +72,7 @@ noise_vector = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/u
 
 # ____________________ Classifier guidance ______________________
 
-classifier_checkpoint = "/home/ymbahram/scratch/baselines/classifier-guidance/classifier-training/attention/full_finetuning/checkpoints/model000470.pt"
+classifier_checkpoint = "/home/ymbahram/scratch/model000470.pt"
 model_channels = 128
 classifier_attention_resolutions = attention_resolutions
 classifier_use_scale_shift_norm = use_scale_shift_norm
@@ -100,6 +100,11 @@ def cond_fn(x, t, y=None, guidance_scale=0):
 
     assert y is not None
     with th.enable_grad():
+
+        for name, param in classifier.named_parameters():
+            print(name)
+            print(param.requires_grad)
+
         x_in = x.detach().requires_grad_(True)
         logits = classifier(x_in, t)
         log_probs = F.log_softmax(logits, dim=-1)
