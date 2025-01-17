@@ -400,18 +400,6 @@ class GaussianDiffusion:
 
                 # P2 weighting time-step weighting
                 weight = _extract_into_tensor(1 / (self.p2_k + self.snr)**self.p2_gamma, t, model_output.shape)
-                
-                print("OK GUIDANCE IS NOT NONE AND WERE HERE")
-
-
-                print("T is ")
-                print(t)
-                print("scaling timestep")
-                print(self._scale_timesteps(t))
-                print("New weight is ")
-                print(weight[0])
-                print("Guidance is ")
-                print(guidance)
 
                 # ________________________________where the loss is created________________________________
                 model_output = model_output + guidance * weight * (source_output - model_output) # Classifier-free guidance
