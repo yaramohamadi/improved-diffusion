@@ -1,17 +1,19 @@
-# import os
-# os.environ["CUDA_VISIBLE_DEVICES"]="3"
-
+import os
+os.environ["CUDA_VISIBLE_DEVICES"]="1"
+ 
 import copy
 import numpy as np
+from tqdm import tqdm 
+import matplotlib.pyplot as plt
 
 import torch as th
 from improved_diffusion.script_util import create_model, create_gaussian_diffusion
-
-
+from improved_diffusion.image_datasets import load_data
+ 
 # ______________________ Sample related ________________________
 how_many_samples= 10000 
 batch_size=10
-evaluate=True
+evaluate = True 
 
 # IMAGENET IDDPM Configuration
 image_size=64
@@ -25,7 +27,7 @@ learn_sigma=True
 diffusion_steps=4000
 noise_schedule="cosine"
 use_kl=False
-
+ 
 # Other
 sigma_small=False
 class_cond=False
@@ -34,173 +36,131 @@ rescale_timesteps=True
 rescale_learned_sigmas=True
 use_checkpoint=False # To do gradient checkpointing
 use_scale_shift_norm=True
-
+ 
 # Sampling and evaluating while training
 timestep_respacing="ddim50"
 use_ddim=True
-sample = True, # Doing sampling for a batch in training every time saving
-how_many_samples= 10000 
+sample = True # Doing sampling for a batch in training every time saving
 image_size=image_size
 evaluate = False # If you want to perform evaluation during training (Currently every 25 steps)
 
+
 # Fixed noise vector
-noise_vector = '/home/ymbahram/scratch/util_files/pokemon_fixed_noise_10k.npy'
+# noise_vector = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/pokemon_fixed_noise.npy'
+noise_vector = '/export/livia/home/vision/Ymohammadi/util_files/pokemon_fixed_noise_10k.npy'
+
+
+# Load the noise vector from the .npy file
+noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
+
 
 # ____________________ Model ____________________
 
-model = create_model(
-        image_size = image_size,
-        num_channels = num_channels,
-        num_res_blocks = num_res_blocks,
-        learn_sigma= learn_sigma,
-        class_cond= class_cond,
-        use_checkpoint= use_checkpoint,
-        attention_resolutions=attention_resolutions,
-        num_heads=num_heads,
-        num_heads_upsample=num_heads_upsample,
-        use_scale_shift_norm=use_scale_shift_norm,
-        dropout=dropout,
-)
-
-# Load the noise vector from the .npy file
-noise_vector = th.tensor(np.load(noise_vector))  # Load on CPU
-noise_vector = noise_vector.to('cuda')  # Transfer to GPU if memory allows
-
-
-lambda_auxs = [0.001] 
-lambda_distils = [0.001]
-# SDFT: Output from auxiliary input drastically collapses in smaller timesteps therefore larger gamma (Less influence in smaller timesteps)
-gamma_auxs = [
-    0.1]
-gamma_distils = [0.1]
-
 for repetition in range(3):
 
-    for p2_gamma in [0]: # TODO Quoi??
+    for p2_gamma in [0]:
 
-        for lambda_distil, lambda_aux in zip(lambda_distils, lambda_auxs): # SDFT: We assume that these two hyperparameters should be the same, just like in the paper
-            for gamma_aux, gamma_distil in zip(gamma_auxs, gamma_distils):
+        # PATHS  
+            load_model_paths = [
+            f'/export/livia/home/vision/Ymohammadi/baselines_avg/finetune/data10/0_repeat0/checkpoints/model000075.pt',
+            f'/export/livia/home/vision/Ymohammadi/baselines_avg/finetune/data10/0_repeat1/checkpoints/model000100.pt',
+            f'/export/livia/home/vision/Ymohammadi/baselines_avg/finetune/data10/0_repeat2/checkpoints/model000100.pt',
+            ]
 
-                    # PATHS  
-                    load_model_paths = [
-                    f'/home/ymbahram/scratch/baselines_avg/finetune/data10/0_repeat0/model000075.pt',
-                    f'/home/ymbahram/scratch/baselines_avg/finetune/data10/0_repeat0/model000100.pt',
-                    f'/home/ymbahram/scratch/baselines_avg/finetune/data10/0_repeat0/model000100.pt',
-                    ]
+            save_samples_dirs= [
+            f"/export/livia/home/vision/Ymohammadi/baselines_avg/finetune/data10/samples_10k/",
+            f"/export/livia/home/vision/Ymohammadi/baselines_avg/finetune/data10/samples_10k/",
+            f"/export/livia/home/vision/Ymohammadi/baselines_avg/finetune/data10/samples_10k/"
+            ]
 
-                    save_samples_dirs= [
-                    f"/home/ens/AT74470/Results/baselines_avg/ddpm-pa/metfaces10/p2_gamma0/",
-                    f"/home/ens/AT74470/Results/baselines_avg/ddpm-pa/metfaces10/p2_gamma0/",
-                    f"/home/ens/AT74470/Results/baselines_avg/ddpm-pa/metfaces10/p2_gamma0/"
-                    ]
+            model = create_model(
+                image_size = image_size,
+                num_channels = num_channels,
+                num_res_blocks = num_res_blocks,
+                learn_sigma= learn_sigma,
+                class_cond= class_cond,
+                use_checkpoint= use_checkpoint,
+                attention_resolutions=attention_resolutions,
+                num_heads=num_heads,
+                num_heads_upsample=num_heads_upsample,
+                use_scale_shift_norm=use_scale_shift_norm,
+                dropout=dropout,
+            )
 
-                    print("*"*20)
-                    print(f"lambda_distil: {lambda_distil}, lambda_aux: {lambda_aux}, gamma_aux: {gamma_aux}, gamma_distil: {gamma_distil}")
-                    print("*"*20)
+            pretrained_model = create_model(
+                image_size = image_size,
+                num_channels = num_channels,
+                num_res_blocks = num_res_blocks,
+                learn_sigma= learn_sigma,
+                class_cond= class_cond,
+                use_checkpoint= use_checkpoint,
+                attention_resolutions=attention_resolutions,
+                num_heads=num_heads,
+                num_heads_upsample=num_heads_upsample,
+                use_scale_shift_norm=use_scale_shift_norm,
+                dropout=dropout,
+                time_aware=False, # TIME-AWARE
+            )
 
-                    diffusion = create_gaussian_diffusion(
-                        steps=diffusion_steps,
-                        learn_sigma=learn_sigma,
-                        sigma_small=sigma_small,
-                        noise_schedule=noise_schedule,
-                        use_kl=use_kl,
-                        predict_xstart=predict_xstart,
-                        rescale_timesteps=rescale_timesteps,
-                        rescale_learned_sigmas=rescale_learned_sigmas,
-                        timestep_respacing=timestep_respacing,
-                        SDFT=True,# For SDFT
-                        gamma_distil=gamma_distil,# For SDFT
-                        gamma_aux=gamma_aux,# For SDFT
-                        lambda_distil=lambda_distil, # for SDFT
-                        lambda_aux=lambda_aux, # for SDFT
-                        p2_gamma=p2_gamma,
-                    )
+            # ________________ Load Pretrained ____________
 
-                    for dataset_size in [10]: 
-                        
-                        # The dataset you want to finetune on
-                        data_dir = f'/home/ymbahram/scratch/datasets/pokemon/pokemon{dataset_size}/' 
+            checkpoint = th.load(load_model_paths[repetition])
+            model.load_state_dict(checkpoint, strict = True) # TIMEAWARE: Because we are adding some new modules  
+            pretrained_model.load_state_dict(checkpoint, strict = True) # TIMEAWARE: Because we are adding some new modules  
 
-                        data = load_data(
-                            data_dir=data_dir,
-                            batch_size=batch_size,
-                            image_size=image_size,
-                            class_cond=False,
-                        )
+            model.to('cuda')
+            pretrained_model.to('cuda')
+            
+            diffusion = create_gaussian_diffusion(
+                steps=diffusion_steps,
+                learn_sigma=learn_sigma,
+                sigma_small=sigma_small,
+                noise_schedule=noise_schedule,
+                use_kl=use_kl,
+                predict_xstart=predict_xstart,
+                rescale_timesteps=rescale_timesteps,
+                rescale_learned_sigmas=rescale_learned_sigmas,
+                timestep_respacing=timestep_respacing,
+                p2_gamma=p2_gamma, 
+            )
 
-                        for g, g_name in {
-                            # Fixed
-                            0.0:'0' 
-                            }.items():
+            print(f"sampling {how_many_samples} images")
+            sample_fn = (diffusion.p_sample_loop if not use_ddim else diffusion.ddim_sample_loop)
 
-                            print("*"*20)
-                            print(f"fixed guidance is {g_name}")
-                            print("*"*20)
+            # Create folder
+            im_path = os.path.join(save_samples_dirs[repetition], f'10k_samples_repeat{repetition}')
+            os.makedirs(im_path, exist_ok=True)
 
-                            # ________________ Load Pretrained ____________
+            all_images = []
+            for ind, _ in tqdm(enumerate(range(0, how_many_samples, batch_size))):
 
-                            model_path=load_model_path
-                            checkpoint = th.load(model_path)
-                            model.load_state_dict(checkpoint, strict = True) 
+                # Fixing for same sample generation (Deterministic sampling is done by default in the code)
+                if noise_vector != None:
+                    initial_noise = noise_vector[ind]
+                else: 
+                    initial_noise = None
 
-                            model.to('cuda')
+                sample = sample_fn(
+                    model,
+                    (batch_size, 3, image_size , image_size),
+                    source_model=pretrained_model, # classifier-free guidance  guidance = th.tensor([guidance], device='cuda', dtype=th.float32) 
+                    guidance=False, # classifier-free guidance
+                    noise=initial_noise,
+                    clip_denoised=True,
+                    model_kwargs={}, # This is not needed, just class conditional stuff
+                    progress=False
+                )
+                sample = ((sample + 1) * 127.5).clamp(0, 255).to(th.uint8)
+                sample = sample.permute(0, 2, 3, 1)
+                sample = sample.contiguous().cpu().numpy()
 
-                            # ________________classifier-free guidance_______________
-                            pretrained_model = copy.deepcopy(model)
-                            pretrained_model.to('cuda')
-                            classifier_free = True
-                            clf_time_based = False 
+                if ind <5: # Save 5 batches as images to see the visualizations
+                    for sidx, s in enumerate(sample):
+                        plt.imsave(os.path.join(im_path, f'{sidx + ind*batch_size}.png'), s)
+                all_images.extend(sample)
 
-                            # Imagine we are training for 200 epochs max 
-                            # Fixed
-                            guidance_scale = np.array([g for _ in range(epochs)]) # Fixed Line
-
-
-                            checkpoint_dir = f"/home/ymbahram/scratch/baselines_avg/SDFT/data{dataset_size}/p2_gamma{p2_gamma}_repeat{repetition}/lambdas{lambda_distil}_gammas{gamma_distil}/checkpoints/"
-                            # Whenever you are saving checkpoints, a batch of images are also sampled, where to produce these images
-                            save_samples_dir= f"/home/ymbahram/scratch/baselines_avg/SDFT/data{dataset_size}/p2_gamma{p2_gamma}_repeat{repetition}/lambdas{lambda_distil}_gammas{gamma_distil}/samples/"
-
-                            # ________________ Sample _________________ 
-
-
-                                                
-                            print(f"sampling {how_many_samples} images")
-                            sample_fn = (diffusion.p_sample_loop if not use_ddim else diffusion.ddim_sample_loop)
-
-                            # Create folder
-                            im_path = os.path.join(save_samples_dir)
-                            os.makedirs(im_path, exist_ok=True)
-
-                            all_images = []
-                            for ind, _ in tqdm(enumerate(range(0, how_many_samples + batch_size - 1, batch_size))):
-
-                                # Fixing for same sample generation (Deterministic sampling is done by default in the code)
-                                if noise_vector != None:
-                                    initial_noise = noise_vector[ind]
-                                else: 
-                                    initial_noise = None
-
-                                sample = sample_fn(
-                                    model,
-                                    (batch_size, 3, image_size , image_size),
-                                    source_model=pretrained_model, # classifier-free guidance  guidance = th.tensor([guidance], device='cuda', dtype=th.float32) 
-                                    guidance=False, # classifier-free guidance
-                                    noise=initial_noise,
-                                    clip_denoised=True,
-                                    model_kwargs={}, # This is not needed, just class conditional stuff
-                                    progress=False
-                                )
-                                sample = ((sample + 1) * 127.5).clamp(0, 255).to(th.uint8)
-                                sample = sample.permute(0, 2, 3, 1)
-                                sample = sample.contiguous().cpu().numpy()
-
-                                if ind <5: # Save 5 batches as images to see the visualizations
-                                    for sidx, s in enumerate(sample):
-                                        plt.imsave(os.path.join(im_path, f'{sidx + ind*batch_size}.png'), s)
-                                all_images.extend(sample)
-
-                            all_images = all_images[: how_many_samples]
-                            
-                            sample_path = os.path.join(save_samples_dir, f"samples_10k.npz")
-                            np.savez(sample_path, all_images)
-                            print("sampling complete")
+            all_images = all_images[: how_many_samples]
+            
+            sample_path = os.path.join(save_samples_dirs[repetition], f"10k_samples_repeat{repetition}")
+            np.savez(sample_path, all_images)
+            print("sampling complete")
