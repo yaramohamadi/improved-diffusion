@@ -1,4 +1,3 @@
-avg_SDFT_gammas_lambdas.sh
 imagenet_evaluate.sh
 imagenet_sample.sh
 setup.py
@@ -38,7 +37,6 @@ improved_diffusion/.ipynb_checkpoints/resample-checkpoint.py
 improved_diffusion/.ipynb_checkpoints/script_util-checkpoint.py
 improved_diffusion/.ipynb_checkpoints/train_util-checkpoint.py
 improved_diffusion/.ipynb_checkpoints/unet-checkpoint.py
-scripts/avg_SDFT_gammas_lambdas.py
 scripts/finetuning10.py
 scripts/finetuning10_cfguidance.py
 scripts/finetuning_dataset_clf.py
