@@ -5,32 +5,41 @@ import importlib
 import evaluation 
 importlib.reload(evaluation)
 
-ref_path = '/home/ymbahram/scratch/pokemon/pokemon_64x64.npz' # The target full dataset
-target_path = '/home/ymbahram/scratch/pokemon/pokemon_10.npz' # The target 10-shot dataset
-source_batch = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/imagenet_pretrained.npz' # Source samples from pre-fixed noise vectors
-    
+import os
+os.environ["CUDA_VISIBLE_DEVICES"]="0"
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
+
+
+# ref_path = '/home/ymbahram/scratch/pokemon/pokemon_64x64.npz' # The target full dataset
+# target_path = '/home/ymbahram/scratch/pokemon/pokemon_10.npz' # The target 10-shot dataset
+# source_batch = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/imagenet_pretrained.npz' # Source samples from pre-fixed noise vectors
+ref_path = '/export/livia/home/vision/Ymohammadi/datasets/pokemon/pokemon_64x64.npz' # The target full dataset
+target_path = '/export/livia/home/vision/Ymohammadi/datasets/pokemon/pokemon_10.npz' # The target 10-shot dataset
+source_batch = '/export/livia/home/vision/Ymohammadi/util_files/imagenet_pretrained.npz' # Source samples from pre-fixed noise vectors
 modes = ['a3ft'] 
 
-for repetition in range(2): # 3
+for repetition in range(3):
 
     for mode in modes: 
-        for p2_gamma in [0.1, 0.5, 1]:  # 0
+        for p2_gamma in [0]:  # 0 # 0.1, 0.5, 1
 
             for g, g_name in {0:'0'
                     }.items(): 
 
                 for dataset_size in [10]:
 
-                    file_path = f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/gammas_FID_KID.csv"
+                    file_path = f"/export/livia/home/vision/Ymohammadi/baselines_avg/a3ft/data10/gammas_FID_KID.csv"
 
                     print("__________________________ STARTING FROM FIRST EPOCH_____________________")
 
-                    for epoch in [0, 100, 200, 300, 325, 350, 375, 400, 425, 450, 475, 500]:
+                    for epoch in [# 0, 100, 200, 300, 325, 350, 375, 400, 425, 450, 475, 500
+                    500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000, 1050, 1100, 1150, 1200, 1250, 1300, 1350, 1400, 1450, 1500
+                    ]:
                         
                         print("*"*20)
                         print(f"'repetition: ', {repetition}, {g_name} {mode} configuration {epoch} epoch")
                         print("*"*20)
-                        sample_path = f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/samples/samples_{epoch}.npz"
+                        sample_path = f"/export/livia/home/vision/Ymohammadi/baselines_avg/a3ft/data10/gamma{p2_gamma}_repeat{repetition}/samples/samples_{epoch}.npz"
                         results = evaluation.runEvaluate(ref_path, sample_path, 
                                             FID=True, 
                                             #IS=True, 
