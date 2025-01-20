@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Read the CSV file
-file_path = "/home/ymbahram/scratch/baselines_avg/a3ft/data10/gammas_FID_KID.csv"  # Replace with your CSV file path
+file_path = "/export/livia/home/vision/Ymohammadi/baselines_avg/a3ft/data10/gammas_FID_KID.csv"  # Replace with your CSV file path
 df = pd.read_csv(file_path)
 
 # Group by p2_gamma and epoch, calculate mean and standard deviation of FID
@@ -37,4 +37,4 @@ plt.title("FID over Epochs for Different p2_gamma Values (Averaged over Repetiti
 plt.legend(title="p2_gamma")
 plt.grid(True, linestyle="--", alpha=0.7)
 plt.tight_layout()
-plt.savefig("/home/ymbahram/scratch/baselines_avg/a3ft/data10/gamma0_FID_KID.png")
+plt.savefig("/export/livia/home/vision/Ymohammadi/baselines_avg/a3ft/data10/FID.png")

@@ -18,7 +18,7 @@ target_path = '/export/livia/home/vision/Ymohammadi/datasets/pokemon/pokemon_10.
 source_batch = '/export/livia/home/vision/Ymohammadi/util_files/imagenet_pretrained.npz' # Source samples from pre-fixed noise vectors
 modes = ['a3ft'] 
 
-for repetition in range(3):
+for repetition in range(2,3,1):
 
     for mode in modes: 
         for p2_gamma in [0]:  # 0 # 0.1, 0.5, 1
