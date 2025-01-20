@@ -184,7 +184,8 @@ def compute_intra_cluster_feature_distance(npz_target, npz_generated, lim=1000, 
             pairwise_distances = []
             for i in range(len(cluster_features)):
                 for j in range(i + 1, len(cluster_features)):
-                    dist = np.linalg.norm(cluster_features[i] - cluster_features[j])
+                    # dist = np.linalg.norm(cluster_features[i] - cluster_features[j])
+                    dist = cosine(features1[i].flatten(), features2[i].flatten())
                     pairwise_distances.append(dist)
 
             # Average pairwise feature distance for this cluster
@@ -209,7 +210,8 @@ def assign_to_clusters(generated_features, target_features):
         min_distance = float('inf')
         best_cluster = -1
         for j in range(num_target_images):
-            dist = np.linalg.norm(generated_features[i] - target_features[j])
+            # dist = np.linalg.norm(generated_features[i] - target_features[j])
+            dist = cosine(features1[i].flatten(), features2[i].flatten())
             if dist < min_distance:
                 min_distance = dist
                 best_cluster = j

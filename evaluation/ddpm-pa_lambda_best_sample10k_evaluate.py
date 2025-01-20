@@ -32,14 +32,14 @@ for repetition in range(1, 3):
 
                         sample_path = f"/export/livia/home/vision/Ymohammadi/baselines_avg/ddpm-pa/samples_10k/10k_samples_repeat{repetition}.npz"
                         results = evaluation.runEvaluate(ref_path, sample_path, 
-                                            FID=True, 
-                                            IS=True, 
-                                            sFID=True, 
-                                            prec_recall=True, 
-                                            KID=True, 
-                                            LPIPS=True, source_batch=source_batch, 
+                                            #FID=True, 
+                                            #IS=True, 
+                                            #sFID=True, 
+                                            #prec_recall=True, 
+                                            #KID=True, 
+                                            #LPIPS=True, source_batch=source_batch, 
                                             intra_LPIPS=True, target_batch=target_path, 
-                                            verbose=True
+                                            #verbose=True
                                             )
                         
                         results['gamma'] = p2_gamma
