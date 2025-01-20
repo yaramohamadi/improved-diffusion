@@ -18,24 +18,22 @@ for repetition in range(3):
         for gamma in [0]:
             for dataset_size in [10]:
 
-
-                    file_path = f"/export/livia/home/vision/Ymohammadi/baselines_avg/ddpm-pa/samples_10k/evaluate_all.csv"
+                    file_path = f"/export/livia/home/vision/Ymohammadi/baselines_avg/CLG/data10/samples_10k/evaluate_all.csv"
                     
                     print("__________________________ STARTING FROM FIRST EPOCH_____________________")
 
-                    sample_path = f"/export/livia/home/vision/Ymohammadi/baselines_avg/ddpm-pa/samples_10k/10k_samples_repeat{repetition}.npz"
+                    sample_path = f"/export/livia/home/vision/Ymohammadi/baselines_avg/CLG/data10/samples_10k/10k_samples_repeat{repetition}.npz"
                     results = evaluation.runEvaluate(ref_path, sample_path, 
-                                        #FID=True, 
-                                        #IS=True, 
-                                        #sFID=True, 
-                                        #prec_recall=True, 
-                                        #KID=True, 
-                                        #LPIPS=True, source_batch=source_batch, 
+                                        FID=True, 
+                                        IS=True, 
+                                        # sFID=True, 
+                                        prec_recall=True, 
+                                        KID=True, 
+                                        LPIPS=True, source_batch=source_batch, 
                                         intra_LPIPS=True, target_batch=target_path, 
                                         #verbose=True
                                         )
                     
-                    results['epoch'] = epoch
                     results['gamma'] = gamma
                     results['g'] = g
                     results['repetition'] = repetition
