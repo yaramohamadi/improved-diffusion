@@ -13,7 +13,7 @@ ref_path = '/export/livia/home/vision/Ymohammadi/datasets/pokemon/pokemon_64x64.
 target_path = '/export/livia/home/vision/Ymohammadi/datasets/pokemon/pokemon_10.npz' # The target 10-shot dataset
 source_batch = '/export/livia/home/vision/Ymohammadi/util_files/imagenet_pretrained.npz' # Source samples from pre-fixed noise vectors
     
-for repetition in range(1, 3):
+for repetition in range(3):
 
     for p2_gamma in [0]: # TODO Quoi??
 
