@@ -26,11 +26,11 @@ for repetition in range(1, 3):
                     for dataset_size in [10]:
 
 
-                        file_path = f"/export/livia/home/vision/Ymohammadi/baselines_avg/ddpm-pa/samples_10k/evaluate_all.csv"
+                        file_path = f"/export/livia/home/vision/Ymohammadi/baselines_avg/SDFT/data10/samples_10k/evaluate_all.csv"
                         
                         print("__________________________ STARTING FROM FIRST EPOCH_____________________")
 
-                        sample_path = f"/export/livia/home/vision/Ymohammadi/baselines_avg/ddpm-pa/samples_10k/10k_samples_repeat{repetition}.npz"
+                        sample_path = f"/export/livia/home/vision/Ymohammadi/baselines_avg/SDFT/data10/samples_10k/10k_samples_repeat{repetition}.npz"
                         results = evaluation.runEvaluate(ref_path, sample_path, 
                                             FID=True, 
                                             IS=True, 
