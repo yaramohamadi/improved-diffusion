@@ -211,7 +211,7 @@ def assign_to_clusters(generated_features, target_features):
         best_cluster = -1
         for j in range(num_target_images):
             # dist = np.linalg.norm(generated_features[i] - target_features[j])
-            dist = cosine(generated_features[i].numpy().flatten(), target_features[j].numpy().flatten())
+            dist = cosine(generated_features[i].flatten(), target_features[j].flatten())
             if dist < min_distance:
                 min_distance = dist
                 best_cluster = j
