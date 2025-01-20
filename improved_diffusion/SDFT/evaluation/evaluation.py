@@ -181,7 +181,7 @@ def compute_intra_cluster_feature_distance(npz_target, npz_generated, lim=1000, 
             pairwise_distances = []
             for i in range(len(cluster_features)):
                 for j in range(i + 1, len(cluster_features)):
-                    dist = np.linalg.norm(cluster_features[i] - cluster_features[j])
+                    # dist = np.linalg.norm(cluster_features[i] - cluster_features[j])
                     pairwise_distances.append(dist)
 
             # Average pairwise feature distance for this cluster
