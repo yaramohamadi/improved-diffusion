@@ -271,12 +271,10 @@ for repetition in range(3):
                     pretrained_model.to('cuda')
 
                     # resume_checkpoint= f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/checkpoints/model000500.pt"
-                    resume_checkpoint= f"/export/livia/home/vision/Ymohammadi/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/checkpoints/model000500.pt"
-                    
-                    
-                    
-                    checkpoint = th.load(resume_checkpoint)
-                    model.load_state_dict(checkpoint, strict = False)
+                    # resume_checkpoint= f"/export/livia/home/vision/Ymohammadi/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/checkpoints/model000500.pt"
+
+                    # checkpoint = th.load(resume_checkpoint)
+                    #model.load_state_dict(checkpoint, strict = False)
 
                     # Fixed
                     guidance_scale = np.array([g for _ in range(epochs)]) # Fixed Line
