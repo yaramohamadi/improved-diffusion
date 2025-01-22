@@ -72,7 +72,7 @@ noise_vector = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/u
 
 # ____________________ Classifier guidance ______________________
 
-classifier_checkpoint = "/home/ymbahram/scratch/model000470.pt"
+classifier_checkpoint = "/export/livia/home/vision/Ymohammadi/baselines_avg/CLG/data10/classifier_checkpoint_attention/model000470.pt"
 model_channels = 128
 classifier_attention_resolutions = attention_resolutions
 classifier_use_scale_shift_norm = use_scale_shift_norm
@@ -131,7 +131,7 @@ model = create_model(
 noise_vector = th.tensor(np.load(noise_vector))  # Load on CPU
 noise_vector = noise_vector.to('cuda')  # Transfer to GPU if memory allows
 
-for repetition in range(1,3):
+for repetition in range(3):
     
     for p2_gamma in [0.1]: # 0, , 0.5, 1, 10
 
