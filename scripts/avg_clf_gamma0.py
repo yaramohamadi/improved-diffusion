@@ -16,7 +16,6 @@ from improved_diffusion.unet import AttentionBlock, Time_AttentionBlock
 
 time_aware=True # TIME-AWARE
 
-
 def selective_freeze_unfreeze(model, time_aware=False, target_channels=(384, 512)):
     """
     Dynamically freeze and unfreeze layers based on the time_aware setting.
@@ -72,8 +71,6 @@ def selective_freeze_unfreeze(model, time_aware=False, target_channels=(384, 512
 
     print(f"{'Time-aware' if time_aware else 'Regular'} attention blocks are now unfrozen for training.")# ______________________________________________________________
 # ____________________________________________________________
-
-
 
 # Training  
 epochs = 151 
