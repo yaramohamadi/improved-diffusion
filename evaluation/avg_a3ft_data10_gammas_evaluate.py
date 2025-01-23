@@ -32,9 +32,7 @@ for repetition in range(2,3,1):
 
                     print("__________________________ STARTING FROM FIRST EPOCH_____________________")
 
-                    for epoch in [# 0, 100, 200, 300, 325, 350, 375, 400, 425, 450, 475, 500
-                    500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000, 1050, 1100, 1150, 1200, 1250, 1300, 1350, 1400, 1450, 1500
-                    ]:
+                    for epoch in range(0, 1501, 50):
                         
                         print("*"*20)
                         print(f"'repetition: ', {repetition}, {g_name} {mode} configuration {epoch} epoch")
