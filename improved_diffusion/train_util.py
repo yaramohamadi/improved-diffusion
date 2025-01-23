@@ -44,10 +44,14 @@ class TrainLoop:
         log_interval,
         save_interval,
         resume_checkpoint,
-        # For classifier-guidance
+        # For classifier-free guidance
         pretrained_model,
         guidance_scale,
         clf_time_based=False,
+        # For classifier guidance
+        classifier_for_guidance=None,
+        guidance_scale=0,
+        cond_func=None,
         # till here
         use_fp16=False,
         fp16_scale_growth=1e-3,
@@ -70,7 +74,13 @@ class TrainLoop:
         # For fixing sampling
         noise_vector=None,
         epochs=201,
-    ):
+    ):  
+    
+        # Classifier guidance
+        self.classifier_for_guidance=classifier_for_guidance
+        self.guidance_scale=guidance_scale
+        self.cond_func=cond_func
+
         self.epochs=epochs
         self.noise_vector=noise_vector
         self.clf_time_based=clf_time_based
