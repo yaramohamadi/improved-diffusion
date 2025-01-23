@@ -1,5 +1,5 @@
-# import os
-# os.environ["CUDA_VISIBLE_DEVICES"]="3"
+import os
+os.environ["CUDA_VISIBLE_DEVICES"]="3"
 
 import copy
 import numpy as np
@@ -15,7 +15,6 @@ from improved_diffusion.train_util import TrainLoop
 from improved_diffusion.unet import AttentionBlock, Time_AttentionBlock
 
 time_aware=True # TIME-AWARE
-
 
 def selective_freeze_unfreeze(model, time_aware=False, target_channels=(384, 512)):
     """
@@ -72,8 +71,6 @@ def selective_freeze_unfreeze(model, time_aware=False, target_channels=(384, 512
 
     print(f"{'Time-aware' if time_aware else 'Regular'} attention blocks are now unfrozen for training.")# ______________________________________________________________
 # ____________________________________________________________
-
-
 
 
 
@@ -287,7 +284,6 @@ for mode in modes:
                         guidance_scale_clg = np.array([g_clg for _ in range(epochs)]) # Fixed Line
 
                         # Where to log the training loss (File does not have to exist)
-
                         
                         loss_logger=f"/export/livia/home/vision/Ymohammadi/clf_results/clf_{mode}/data{dataset_size}/g{g_clf}_gamma{gamma}/trainlog.csv"
                         # If evaluation is true during training, where to save the FID stuff
