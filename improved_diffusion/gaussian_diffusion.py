@@ -746,6 +746,7 @@ class GaussianDiffusion:
     def training_losses(self, 
                         model, 
                         x_start, 
+                        source_model,
                         t, 
                         guidance_clf=0, # Classifier-free guidance 
                         guidance_clg=0, # Classifier guidance 
@@ -802,6 +803,8 @@ class GaussianDiffusion:
                 B, C = x_t.shape[:2]
                 assert model_output.shape == (B, C * 2, *x_t.shape[2:])
                 model_output, model_var_values = th.split(model_output, C, dim=1)
+                assert source_model_output.shape == (B, C * 2, *x_t.shape[2:])
+                source_model_output, _ = th.split(source_model_output, C, dim=1) # Clssifier-free guidance
 
                 # Learn the variance using the variational bound, but don't let
                 # it affect our mean prediction.

@@ -184,7 +184,7 @@ def cond_fn(x, t, y=None, guidance_scale=0):
 
 # ____________________ Model ____________________
 
-modes = ['finetune'] 
+modes = ['a3ft'] 
 
 for mode in modes: 
 

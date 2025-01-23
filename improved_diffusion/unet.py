@@ -706,6 +706,44 @@ class SuperResModel(UNetModel):
 
 # Classifier-guidance
 
+
+
+# Classifier-guidance
+
+class AttentionPool2d(nn.Module):
+    """
+    Adapted from CLIP: https://github.com/openai/CLIP/blob/main/clip/model.py
+    """
+
+    def __init__(
+        self,
+        spacial_dim: int,
+        embed_dim: int,
+        output_dim: int = None,
+    ):
+        super().__init__()
+        self.positional_embedding = nn.Parameter(
+            th.randn(embed_dim, spacial_dim ** 2 + 1) / embed_dim ** 0.5
+        )
+        self.qkv_proj = conv_nd(1, embed_dim, 3 * embed_dim, 1)
+        self.c_proj = conv_nd(1, embed_dim, output_dim or embed_dim, 1)
+        self.num_heads = embed_dim 
+        self.attention = QKVAttention()
+
+    def forward(self, x):
+        b, c, *_spatial = x.shape
+        x = x.reshape(b, c, -1)  # NC(HW)
+        x = th.cat([x.mean(dim=-1, keepdim=True), x], dim=-1)  # NC(HW+1)
+        x = x + self.positional_embedding[None, :, :].to(x.dtype)  # NC(HW+1)
+        qkv = self.qkv_proj(x)
+        qkv = qkv.reshape(b * self.num_heads, -1, qkv.shape[2])
+        h = self.attention(qkv)
+        h = h.reshape(b, -1, h.shape[-1])
+        x = self.c_proj(h)
+        return x[:, :, 0]
+
+
+
 class EncoderUNetModel(nn.Module):
     """
     The half UNet model for encoding with attention and timestep embedding.

@@ -252,9 +252,10 @@ class TrainLoop:
                 self.model,
                 micro,
                 self.pretrained_model, # classifier-free guidance  
-                guidance_clf, # classifier-free guidance
-                guidance_clg,
                 t,
+                guidance_clf, # classifier-free guidance
+                guidance_clg, # classifier guidance
+                
                 model_kwargs=micro_cond,
             )
 
