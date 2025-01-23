@@ -747,7 +747,8 @@ class GaussianDiffusion:
                         model, 
                         x_start, 
                         t, 
-                        guidance_scale=0, # Classifier-free guidance 
+                        guidance_clf=0, # Classifier-free guidance 
+                        guidance_clg=0, # Classifier guidance 
                         cond_func=None,
                         model_kwargs=None, 
                         noise=None
@@ -836,17 +837,17 @@ class GaussianDiffusion:
             weight_clg = _extract_into_tensor(1 / (self.p2_k + self.snr)**self.gamma_clg, t, target.shape)
             weight_clg = self.normalize_weight(weight_clg)
 
-            # Classifier guidance
-            if cond_func is not None:  
-                if guidance_scale == 0:
+            # Classifier guidance       
+            if cond_func is not None:   
+                if guidance_clg == 0:
                     print("Warning... Guidance is scale is 0 eventhough Classifier Guidance is done. Are you sure everything is ok?")
 
                 zero_classes = th.zeros(x_t.size()[0], dtype=th.int32, device='cuda', requires_grad=False)
 
-                model_output = model_output + weight_clg * guidance_scale_clg * cond_func(x_t, self._scale_timesteps(t), y=zero_classes, guidance_scale=guidance_scale) # Classifier guidance (we have it as zero for default)
+                model_output = model_output + weight_clg * cond_func(x_t, self._scale_timesteps(t), y=zero_classes, guidance_scale=guidance_clg) # Classifier guidance (we have it as zero for default)
 
             # Classifier-free guidance
-            model_output = model_output + weight_clf * guidance_scale_clf * (source_model_output - model_output) # Classifier-free guidance (we have it as zero for default of SDFT)
+            model_output = model_output + weight_clf * guidance_clf * (source_model_output - model_output) # Classifier-free guidance (we have it as zero for default of SDFT)
             # _________________________________________________________________________________________
 
             # Diffusion Loss
