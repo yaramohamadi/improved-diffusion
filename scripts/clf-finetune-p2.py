@@ -5,7 +5,7 @@ import copy
 import numpy as np
 
 import torch as th
-from improved_diffusion.script_util import create_model, create_gaussian_diffusion
+from improved_diffusion.script_util import create_model, create_gaussian_diffusion, create_classifier
 from improved_diffusion.image_datasets import load_data
 from improved_diffusion.resample import create_named_schedule_sampler
 from improved_diffusion.train_util import TrainLoop
@@ -75,48 +75,6 @@ def selective_freeze_unfreeze(model, time_aware=False, target_channels=(384, 512
 
 
 
-# ____________________ Classifier guidance ______________________
-
-classifier_checkpoint = "/export/livia/home/vision/Ymohammadi/baselines_avg/CLG/data10/classifier_checkpoint_attention/model000470.pt"
-model_channels = 128
-classifier_attention_resolutions = attention_resolutions
-classifier_use_scale_shift_norm = use_scale_shift_norm
-classifier_pool ="attention"
-
-classifier = create_classifier(
-    image_size = image_size,
-    model_channels = model_channels,
-    num_res_blocks = num_res_blocks,
-    classifier_attention_resolutions = classifier_attention_resolutions,
-    classifier_use_scale_shift_norm = classifier_use_scale_shift_norm,
-    classifier_pool =classifier_pool,
-)
-
-print("Loading classifier parameters")
-classifier_checkpoint = th.load(classifier_checkpoint)
-classifier.load_state_dict(classifier_checkpoint, strict = True) 
-classifier.to('cuda')
-classifier.eval()
-for param in classifier.parameters():
-    param.requires_grad = False
-
-
-def cond_fn(x, t, y=None, guidance_scale=0):
-
-    assert y is not None
-    with th.enable_grad():
-
-        for name, param in classifier.named_parameters():
-            print(name)
-            print(param.requires_grad)
-
-        x_in = x.detach().requires_grad_(True)
-        logits = classifier(x_in, t)
-        log_probs = F.log_softmax(logits, dim=-1)
-        selected = log_probs[range(len(logits)), y.view(-1)]
-        return th.autograd.grad(selected.sum(), x_in)[0] * guidance_scale
-
-
 # ____________________ Model ____________________
 
 # Training  
@@ -165,16 +123,63 @@ evaluate = False # If you want to perform evaluation during training (Currently 
 
 # PATHS   
 # Load pretrained model from here 
-load_model_path="/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/imagenet64_uncond_100M_1500K.pt"
+load_model_path="/export/livia/home/vision/Ymohammadi/util_files/imagenet64_uncond_100M_1500K.pt"
 # If you are resuming a previously aborted training, include the path to the checkpoint here
 resume_checkpoint= ""
 # Only need this if we are evaluating FID and stuff while training
-ref_dataset_npz = '/home/ymbahram/scratch/pokemon/pokemon_64x64.npz'
+ref_dataset_npz = '/export/livia/home/vision/Ymohammadi/datasets/pokemon/pokemon_64x64.npz'
 # Fixed noise vector
-noise_vector = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/pokemon_fixed_noise.npy'
+noise_vector = '/export/livia/home/vision/Ymohammadi/util_files/pokemon_fixed_noise.npy'
 
 # Load the noise vector from the .npy file
 noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
+
+
+
+
+
+# ____________________ Classifier guidance ______________________
+
+classifier_checkpoint = "/export/livia/home/vision/Ymohammadi/baselines_avg/CLG/data10/classifier_checkpoint_attention/model000470.pt"
+model_channels = 128
+classifier_attention_resolutions = attention_resolutions
+classifier_use_scale_shift_norm = use_scale_shift_norm
+classifier_pool ="attention"
+
+classifier = create_classifier(
+    image_size = image_size,
+    model_channels = model_channels,
+    num_res_blocks = num_res_blocks,
+    classifier_attention_resolutions = classifier_attention_resolutions,
+    classifier_use_scale_shift_norm = classifier_use_scale_shift_norm,
+    classifier_pool =classifier_pool,
+)
+
+print("Loading classifier parameters")
+classifier_checkpoint = th.load(classifier_checkpoint)
+classifier.load_state_dict(classifier_checkpoint, strict = True) 
+classifier.to('cuda')
+classifier.eval()
+for param in classifier.parameters():
+    param.requires_grad = False
+
+
+def cond_fn(x, t, y=None, guidance_scale=0):
+
+    assert y is not None
+    with th.enable_grad():
+
+        for name, param in classifier.named_parameters():
+            print(name)
+            print(param.requires_grad)
+
+        x_in = x.detach().requires_grad_(True)
+        logits = classifier(x_in, t)
+        log_probs = F.log_softmax(logits, dim=-1)
+        selected = log_probs[range(len(logits)), y.view(-1)]
+        return th.autograd.grad(selected.sum(), x_in)[0] * guidance_scale
+
+
 
 
 # ____________________ Model ____________________
