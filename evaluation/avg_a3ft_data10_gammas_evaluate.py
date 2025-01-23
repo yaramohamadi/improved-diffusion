@@ -1,13 +1,15 @@
+
+import os
+os.environ["CUDA_VISIBLE_DEVICES"]="3"
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
+
+
 import pandas as pd
 import numpy as np
 import importlib
 
 import evaluation 
 importlib.reload(evaluation)
-
-import os
-os.environ["CUDA_VISIBLE_DEVICES"]="0"
-os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
 
 # ref_path = '/home/ymbahram/scratch/pokemon/pokemon_64x64.npz' # The target full dataset

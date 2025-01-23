@@ -1,5 +1,5 @@
 import os
-os.environ["CUDA_VISIBLE_DEVICES"]="1"
+os.environ["CUDA_VISIBLE_DEVICES"]="3"
  
 import copy
 import numpy as np
@@ -61,15 +61,15 @@ for repetition in range(3):
 
         # PATHS  
             load_model_paths = [
-            f'/export/livia/home/vision/Ymohammadi/baselines_avg/finetune/data10/0_repeat0/checkpoints/model000075.pt',
-            f'/export/livia/home/vision/Ymohammadi/baselines_avg/finetune/data10/0_repeat1/checkpoints/model000100.pt',
-            f'/export/livia/home/vision/Ymohammadi/baselines_avg/finetune/data10/0_repeat2/checkpoints/model000100.pt',
+            f'/export/livia/home/vision/Ymohammadi/baselines_avg/a3ft/data10/gamma0_repeat0/checkpoints//model000450.pt',
+            f'/export/livia/home/vision/Ymohammadi/baselines_avg/a3ft/data10/gamma0_repeat0/checkpoints//model000400.pt',
+            f'/export/livia/home/vision/Ymohammadi/baselines_avg/a3ft/data10/gamma0_repeat0/checkpoints//model000500.pt',
             ]
 
             save_samples_dirs= [
-            f"/export/livia/home/vision/Ymohammadi/baselines_avg/finetune/data10/samples_10k/",
-            f"/export/livia/home/vision/Ymohammadi/baselines_avg/finetune/data10/samples_10k/",
-            f"/export/livia/home/vision/Ymohammadi/baselines_avg/finetune/data10/samples_10k/"
+            f"/export/livia/home/vision/Ymohammadi/baselines_avg/a3ft/data10/samples_10k/",
+            f"/export/livia/home/vision/Ymohammadi/baselines_avg/a3ft/data10/samples_10k/",
+            f"/export/livia/home/vision/Ymohammadi/baselines_avg/a3ft/data10/samples_10k/"
             ]
 
             model = create_model(
