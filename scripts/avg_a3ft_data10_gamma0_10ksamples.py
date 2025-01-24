@@ -55,15 +55,15 @@ noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
 
 # ____________________ Model ____________________
 
-for repetition in range(3):
+for repetition in range(1,3):
 
     for p2_gamma in [0]:
 
         # PATHS  
             load_model_paths = [
             f'/export/livia/home/vision/Ymohammadi/baselines_avg/a3ft/data10/gamma0_repeat0/checkpoints//model000450.pt',
-            f'/export/livia/home/vision/Ymohammadi/baselines_avg/a3ft/data10/gamma0_repeat0/checkpoints//model000400.pt',
-            f'/export/livia/home/vision/Ymohammadi/baselines_avg/a3ft/data10/gamma0_repeat0/checkpoints//model000500.pt',
+            f'/export/livia/home/vision/Ymohammadi/baselines_avg/a3ft/data10/gamma0_repeat1/checkpoints//model000400.pt',
+            f'/export/livia/home/vision/Ymohammadi/baselines_avg/a3ft/data10/gamma0_repeat2/checkpoints//model000500.pt',
             ]
 
             save_samples_dirs= [
