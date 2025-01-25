@@ -1,4 +1,6 @@
 
+
+
 import io
 import os
 import random
@@ -15,6 +17,7 @@ import numpy as np
 import requests
 import tensorflow.compat.v1 as tf
 from scipy import linalg
+from scipy.spatial.distance import cosine
 from tqdm.auto import tqdm
 
 from tensorflow.keras.applications import VGG16
@@ -23,14 +26,19 @@ from tensorflow.keras.models import Model
 from tensorflow.keras import backend as K
 import gc
 
+# /home/ymbahram/scratch/util_files/ (Compute canada)
+# /export/livia/home/vision/Ymohammadi/util_files (bool)
 INCEPTION_V3_URL = "https://openaipublic.blob.core.windows.net/diffusion/jul-2021/ref_batches/classify_image_graph_def.pb"
 # Need to change this for different systems
-INCEPTION_V3_PATH = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/classify_image_graph_def.pb"
+INCEPTION_V3_PATH = "/export/livia/home/vision/Ymohammadi/util_files/classify_image_graph_def.pb"
+
 
 FID_POOL_NAME = "pool_3:0"
 FID_SPATIAL_NAME = "mixed_6/conv:0"
 
-VGG_PATH = "/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5"
+# /home/ymbahram/scratch/util_files/ (Compute canada)
+# /export/livia/home/vision/Ymohammadi/util_files (bool)
+VGG_PATH = "/export/livia/home/vision/Ymohammadi/util_files/vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5"
 # VGG16 feature extraction model (excluding top layers)
 vgg_model = VGG16(weights=VGG_PATH, include_top=False)
 # Feature extraction model based on LPIPS-like metric (e.g., 'block5_conv3' layer)
@@ -76,7 +84,7 @@ def runEvaluate(ref_batch, sample_batch, FID=False, IS=False, sFID=False, prec_r
         KID_score = evaluator.compute_kid(ref_acts[0], sample_acts[0])
         results['KID'] = KID_score
     if LPIPS:
-        lpips_score = compute_lpips_between_distributions(source_batch, sample_batch, lim=1000)
+        lpips_score = compute_lpips_between_distributions(source_batch, sample_batch, lim=2000)
         results['LPIPS'] = lpips_score
     if intra_LPIPS:
         intra_lpips, intra_lpips_dict = compute_intra_cluster_feature_distance(target_batch, sample_batch, lim=1000)
@@ -98,7 +106,7 @@ def runEvaluate(ref_batch, sample_batch, FID=False, IS=False, sFID=False, prec_r
 
 # ___________________ LPIPS ______________________
 
-def compute_lpips_between_distributions(npz_file1, npz_file2, lim=1000, batch_size=64):
+def compute_lpips_between_distributions(npz_file1, npz_file2, lim=2000, batch_size=64):
     """
     Compute LPIPS-like score between two datasets, treating them as distributions.
 
@@ -117,8 +125,9 @@ def compute_lpips_between_distributions(npz_file1, npz_file2, lim=1000, batch_si
 
         # Compute pairwise distances
         lpips_scores = []
-        for i, j in zip(range(max(features1.shape[0], lim)), range(max(features2.shape[0], lim))):
-            dist = np.linalg.norm(features1[i] - features2[j])  # Euclidean distance
+        for i, j in zip(range(min(features1.shape[0], lim)), range(min(features2.shape[0], lim))):
+            # dist = np.linalg.norm(features1[i] - features2[j])  # Euclidean distance
+            dist = cosine(features1[i].flatten(), features2[i].flatten())
             lpips_scores.append(dist)
 
         # Compute average LPIPS score across all pairs
@@ -146,7 +155,6 @@ def preprocess_images(images):
     images = images.astype(np.float32)
     images_resized = np.array([tf.image.resize(image, (224, 224)).numpy() for image in images])
     return preprocess_input(images_resized)
-
 
 
 # ___________________ Intra-cluster LPIPS ______________________
@@ -179,7 +187,8 @@ def compute_intra_cluster_feature_distance(npz_target, npz_generated, lim=1000, 
             pairwise_distances = []
             for i in range(len(cluster_features)):
                 for j in range(i + 1, len(cluster_features)):
-                    dist = np.linalg.norm(cluster_features[i] - cluster_features[j])
+                    # dist = np.linalg.norm(cluster_features[i] - cluster_features[j])
+                    dist = cosine(cluster_features[i].numpy().flatten(), cluster_features[j].numpy().flatten())
                     pairwise_distances.append(dist)
 
             # Average pairwise feature distance for this cluster
@@ -204,7 +213,8 @@ def assign_to_clusters(generated_features, target_features):
         min_distance = float('inf')
         best_cluster = -1
         for j in range(num_target_images):
-            dist = np.linalg.norm(generated_features[i] - target_features[j])
+            # dist = np.linalg.norm(generated_features[i] - target_features[j])
+            cosine(generated_features[i].flatten(), target_features[j].flatten())
             if dist < min_distance:
                 min_distance = dist
                 best_cluster = j
