@@ -36,6 +36,7 @@ class TrainLoop:
         *,
         model,
         diffusion,
+        source_data,
         data,
         batch_size,
         microbatch,
@@ -45,7 +46,6 @@ class TrainLoop:
         save_interval,
         resume_checkpoint,
         # For classifier-guidance
-        pretrained_model,
         guidance_scale,
         clf_time_based=False,
         # till here
@@ -75,7 +75,6 @@ class TrainLoop:
         self.noise_vector=noise_vector
         self.clf_time_based=clf_time_based
         self.guidance_scale=guidance_scale
-        self.pretrained_model=pretrained_model
         self.image_size=image_size
         self.save_samples_dir = save_samples_dir
         self.reference_dataset_dir = reference_dataset_dir
@@ -90,6 +89,7 @@ class TrainLoop:
         self.model = model
         self.diffusion = diffusion
         self.data = data
+        self.source_data = source_data
         self.batch_size = batch_size
         self.microbatch = microbatch if microbatch > 0 else batch_size
         self.lr = lr
@@ -193,7 +193,8 @@ class TrainLoop:
         for _ in tqdm(loop()):
             
             batch, cond = next(self.data)
-            self.run_step(batch, cond) 
+            source_batch, source_cond = next(self.source_data) # clf_xs_xt
+            self.run_step(batch, cond, source_batch, source_cond) 
             if (self.step  + self.resume_step ) % self.save_interval == 0:
                 self.save()
                 if self.sample: # Added this for sampling
@@ -208,15 +209,15 @@ class TrainLoop:
         if (self.step  + self.resume_step - 1) % self.save_interval != 0:
             self.save()
 
-    def run_step(self, batch, cond): 
-        self.forward_backward(batch, cond)  
+    def run_step(self, batch, cond, source_batch, source_cond):  # clf_xs_xt
+        self.forward_backward(batch, cond, source_batch, source_cond)  
         if self.use_fp16:
             self.optimize_fp16()
         else:
             self.optimize_normal()
         # self.log_step()
 
-    def forward_backward(self, batch, cond): 
+    def forward_backward(self, batch, cond, source_batch, source_cond): 
         """
         Compute loss by calling diffusion.training_losses 
         In order to get output also we should output something from training_losses
@@ -224,6 +225,7 @@ class TrainLoop:
         zero_grad(self.model_params)
         for i in range(0, batch.shape[0], self.microbatch):
             micro = batch[i : i + self.microbatch].to('cuda') # REMOVED
+            source_micro = source_batch[i : i + self.microbatch].to('cuda') # REMOVED clf_xs_xt
             micro_cond = {
                 k: v[i : i + self.microbatch].to('cuda') # REMOVED
                 for k, v in cond.items()
@@ -231,20 +233,14 @@ class TrainLoop:
             last_batch = (i + self.microbatch) >= batch.shape[0]
             t, weights = self.schedule_sampler.sample(micro.shape[0], 'cuda') # REMOVED
 
-            if self.clf_time_based == True: # time-based guidance # time-schedule based on p2 weighting  time-step weighting
-                guidance = th.tensor(self.guidance_scale, device='cuda', dtype=th.float32) 
-                guidance = guidance[t]
-                guidance = guidance.view(guidance.size()[0], 1, 1, 1)
-
-            else: # classifier-free guidance
-                guidance = self.guidance_scale[self.step + self.resume_step]
-                guidance = th.tensor([guidance], device='cuda', dtype=th.float32) 
+            guidance = self.guidance_scale[self.step + self.resume_step]
+            guidance = th.tensor([guidance], device='cuda', dtype=th.float32) 
 
             compute_losses = functools.partial(
                 self.diffusion.training_losses,
                 self.model,
                 micro,
-                self.pretrained_model, # classifier-free guidance  
+                source_micro,
                 guidance, # classifier-free guidance
                 t,
                 model_kwargs=micro_cond,
@@ -372,7 +368,6 @@ class TrainLoop:
                 sample = sample_fn(
                     self.model,
                     (self.batch_size, 3, self.image_size , self.image_size),
-                    source_model=self.pretrained_model, # classifier-free guidance  guidance = th.tensor([guidance], device='cuda', dtype=th.float32) 
                     guidance=False, # classifier-free guidance
                     noise=initial_noise,
                     clip_denoised=True,

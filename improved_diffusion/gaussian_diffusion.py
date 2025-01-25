@@ -768,7 +768,7 @@ class GaussianDiffusion:
         output = th.where((t == 0), decoder_nll, kl)
         return {"output": output, "pred_xstart": out["pred_xstart"]}
 
-    def training_losses(self, model, x_start, source_model, guidance_scale, t, model_kwargs=None, noise=None): # Classifier-free guidance 
+    def training_losses(self, model, x_start, source_x_start, guidance_scale, t, model_kwargs=None, noise=None): # Classifier-free guidance 
         """
         Compute training losses for a single timestep.
 
@@ -786,6 +786,7 @@ class GaussianDiffusion:
         if noise is None:
             noise = th.randn_like(x_start)
         x_t = self.q_sample(x_start, t, noise=noise)
+        x_t_s = self.q_sample(source_x_start, t, noise=noise)
 
         terms = {}
 
@@ -809,7 +810,7 @@ class GaussianDiffusion:
         # TODO: once do it with VB and see difference, The variances will have to be added + their covariance. 
         elif self.loss_type == LossType.MSE or self.loss_type == LossType.RESCALED_MSE:
             model_output = model(x_t, self._scale_timesteps(t), **model_kwargs)
-            source_model_output = source_model(x_t, self._scale_timesteps(t), **model_kwargs).detach() # Classifier-free guidance, need to detach frozen source model
+            x_s_model_output = model(x_s, self._scale_timesteps(t), **model_kwargs).detach() # clf_xs_xt
             # These outputs contain both Variance and Mean output values. We should split the two first.
 
             # Classifier-free guidance: True -> This is the case
@@ -820,7 +821,7 @@ class GaussianDiffusion:
                 B, C = x_t.shape[:2]
                 assert model_output.shape == (B, C * 2, *x_t.shape[2:])
                 model_output, model_var_values = th.split(model_output, C, dim=1)
-                source_model_output, _ = th.split(source_model_output, C, dim=1)
+                x_s_model_output, _ = th.split(x_s_model_output, C, dim=1)
 
                 # Learn the variance using the variational bound, but don't let
                 # it affect our mean prediction.
@@ -849,26 +850,13 @@ class GaussianDiffusion:
             
             # P2 weighting time-step weighting
             weight = _extract_into_tensor(1 / (self.p2_k + self.snr)**self.p2_gamma, t, target.shape)
+            weight_distill = self.normalize_weight(weight_distill)
 
-            if self.divide_clf_params:
-                # ________________________________where the loss is created________________________________
-                model_output = model_output + guidance_scale * weight * (source_model_output - model_output) # Classifier-free guidance
-                # _________________________________________________________________________________________
-                (target - model_output - guidance_scale * weight * (source_model_output - model_output)) ** 2
+            # ________________________________where the loss is created________________________________
+            model_output = model_output + guidance_scale * (x_s_model_output - model_output) # Classifier-free guidance
+            # _________________________________________________________________________________________
+            terms["mse"] = mean_flat(weight * (target - model_output) ** 2)
 
-                a2 = self.lambda_a2 * (target - model_output)**2
-                b2 =  self.lambda_b2 * (guidance_scale * weight * (source_model_output - model_output))**2
-                ab = self.lambda_ab * guidance_scale * weight * (target - model_output) * (source_model_output - model_output)
-
-
-                terms["mse"] = mean_flat(a2 + b2 + ab)
-
-
-            else:
-                # ________________________________where the loss is created________________________________
-                model_output = model_output + guidance_scale * weight * (source_model_output - model_output) # Classifier-free guidance
-                # _________________________________________________________________________________________
-                terms["mse"] = mean_flat((target - model_output) ** 2)
 
             if "vb" in terms:
                 terms["loss"] = terms["mse"] + terms["vb"]
@@ -878,6 +866,40 @@ class GaussianDiffusion:
             raise NotImplementedError(self.loss_type)
 
         return terms
+
+
+    def normalize_weight(self, weight_tensor):
+            """
+            Normalize tensor to range 0 to 1 using min-max normalization.
+            This is a helper function used for normalizing the AUX weight and Lambda weight (Needed for stable training, not mentioned in the paper)
+            """
+            # Replace positive inf values with a large finite limit if there are finite values
+
+            finite_mask = ~th.isinf(weight_tensor)
+                
+            if finite_mask.any():  # If there are any finite values
+                finite_min = weight_tensor[finite_mask].min()
+                finite_max = weight_tensor[finite_mask].max()
+                
+                # If all finite values are the same (e.g., all 1s), set tensor to 1 (no range to normalize)
+                if finite_min == finite_max:
+                    print('________________________')
+                    print("Min and Max weights are the same for loss function")
+                    print('________________________')
+                    weight_tensor = th.ones_like(weight_tensor) if finite_min > 0 else th.zeros_like(weight_tensor)
+                else:
+                    # Clip any remaining inf values to the finite min or max
+                    weight_tensor = th.clamp(weight_tensor, min=finite_min, max=finite_max)
+                    # Perform normalization
+                    weight_tensor = (weight_tensor - finite_min) / (finite_max - finite_min)
+            else:
+                # If all values are inf or -inf, set the tensor to 0
+                weight_tensor = th.zeros_like(weight_tensor)
+            
+            return weight_tensor
+
+
+
 
     def _prior_bpd(self, x_start):
         """
