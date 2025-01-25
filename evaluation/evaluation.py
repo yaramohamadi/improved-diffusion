@@ -84,7 +84,7 @@ def runEvaluate(ref_batch, sample_batch, FID=False, IS=False, sFID=False, prec_r
         KID_score = evaluator.compute_kid(ref_acts[0], sample_acts[0])
         results['KID'] = KID_score
     if LPIPS:
-        lpips_score = compute_lpips_between_distributions(source_batch, sample_batch, lim=1000)
+        lpips_score = compute_lpips_between_distributions(source_batch, sample_batch, lim=2000)
         results['LPIPS'] = lpips_score
     if intra_LPIPS:
         intra_lpips, intra_lpips_dict = compute_intra_cluster_feature_distance(target_batch, sample_batch, lim=1000)
@@ -106,7 +106,7 @@ def runEvaluate(ref_batch, sample_batch, FID=False, IS=False, sFID=False, prec_r
 
 # ___________________ LPIPS ______________________
 
-def compute_lpips_between_distributions(npz_file1, npz_file2, lim=1000, batch_size=64):
+def compute_lpips_between_distributions(npz_file1, npz_file2, lim=2000, batch_size=64):
     """
     Compute LPIPS-like score between two datasets, treating them as distributions.
 
