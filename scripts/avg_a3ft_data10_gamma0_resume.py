@@ -125,7 +125,7 @@ def selective_freeze_unfreeze(model, time_aware=False, target_channels=(384, 512
 
 
 # Training  
-epochs = 1501
+epochs = 551
 batch_size=10
 schedule_sampler="uniform" 
 lr=1e-4
