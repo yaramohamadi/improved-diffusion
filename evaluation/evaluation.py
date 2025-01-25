@@ -1,4 +1,6 @@
 
+
+
 import io
 import os
 import random
@@ -24,17 +26,19 @@ from tensorflow.keras.models import Model
 from tensorflow.keras import backend as K
 import gc
 
+# /home/ymbahram/scratch/util_files/ (Compute canada)
+# /export/livia/home/vision/Ymohammadi/util_files (bool)
 INCEPTION_V3_URL = "https://openaipublic.blob.core.windows.net/diffusion/jul-2021/ref_batches/classify_image_graph_def.pb"
 # Need to change this for different systems
-# INCEPTION_V3_PATH = "/home/ens/AT74470/util_files/classify_image_graph_def.pb"
 INCEPTION_V3_PATH = "/export/livia/home/vision/Ymohammadi/util_files/classify_image_graph_def.pb"
+
 
 FID_POOL_NAME = "pool_3:0"
 FID_SPATIAL_NAME = "mixed_6/conv:0"
 
-# VGG_PATH = "/home/ens/AT74470/util_files/vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5"
+# /home/ymbahram/scratch/util_files/ (Compute canada)
+# /export/livia/home/vision/Ymohammadi/util_files (bool)
 VGG_PATH = "/export/livia/home/vision/Ymohammadi/util_files/vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5"
-
 # VGG16 feature extraction model (excluding top layers)
 vgg_model = VGG16(weights=VGG_PATH, include_top=False)
 # Feature extraction model based on LPIPS-like metric (e.g., 'block5_conv3' layer)
@@ -121,7 +125,7 @@ def compute_lpips_between_distributions(npz_file1, npz_file2, lim=1000, batch_si
 
         # Compute pairwise distances
         lpips_scores = []
-        for i, j in zip(range(min(features1.shape[0], lim)), range(min(features2.shape[0], lim))):
+        for i, j in zip(range(max(features1.shape[0], lim)), range(max(features2.shape[0], lim))):
             # dist = np.linalg.norm(features1[i] - features2[j])  # Euclidean distance
             dist = cosine(features1[i].flatten(), features2[i].flatten())
             lpips_scores.append(dist)
@@ -211,13 +215,14 @@ def assign_to_clusters(generated_features, target_features):
         best_cluster = -1
         for j in range(num_target_images):
             # dist = np.linalg.norm(generated_features[i] - target_features[j])
-            dist = cosine(generated_features[i].flatten(), target_features[j].flatten())
+            cosine(generated_features[i].flatten(), target_features[j].flatten())
             if dist < min_distance:
                 min_distance = dist
                 best_cluster = j
         cluster_assignments[i] = best_cluster
 
     return cluster_assignments
+
 
 
 # __________________________ FID _________________________________
