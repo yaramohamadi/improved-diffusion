@@ -255,8 +255,6 @@ class GaussianDiffusion:
         model, 
         x, 
         t,
-        source_model=None,
-        source_x=None, 
         guidance=None,
         clip_denoised=True, 
         denoised_fn=None, 
@@ -295,20 +293,14 @@ class GaussianDiffusion:
             model_output, model_var_values = th.split(model_output, C, dim=1)
 
             if guidance is not None: # Classifier-free guidance
-                source_output = source_model(source_x, self._scale_timesteps(t), **model_kwargs)
-                source_output, _ = th.split(source_output, C, dim=1) # Clssifier-free guidance
                 guidance = th.tensor([guidance], device='cuda', dtype=th.float32) 
 
                 # P2 weighting time-step weighting
                 weight = _extract_into_tensor(1 / (self.p2_k + self.snr)**self.p2_gamma, t, model_output.shape)
                 
-
                 import matplotlib.pyplot as plt
 
-                
-
                 print("OK GUIDANCE IS NOT NONE AND WERE HERE")
-
 
                 print("T is ")
                 print(t)
@@ -320,7 +312,7 @@ class GaussianDiffusion:
                 print(guidance)
 
                 # ________________________________where the loss is created________________________________
-                model_output = model_output + guidance * weight * (source_output - model_output) # Classifier-free guidance
+                model_output = model_output # + guidance * weight * (source_output - model_output) # Classifier-free guidance
                 # _________________________________________________________________________________________
 
             if self.model_var_type == ModelVarType.LEARNED:
@@ -560,9 +552,6 @@ class GaussianDiffusion:
             model,
             x,
             t,
-            source_model=source_model,
-            source_x=source_x,
-            guidance=guidance,
             clip_denoised=clip_denoised,
             denoised_fn=denoised_fn,
             model_kwargs=model_kwargs,
@@ -810,7 +799,7 @@ class GaussianDiffusion:
         # TODO: once do it with VB and see difference, The variances will have to be added + their covariance. 
         elif self.loss_type == LossType.MSE or self.loss_type == LossType.RESCALED_MSE:
             model_output = model(x_t, self._scale_timesteps(t), **model_kwargs)
-            x_s_model_output = model(x_s, self._scale_timesteps(t), **model_kwargs).detach() # clf_xs_xt
+            x_s_model_output = model(x_t_s, self._scale_timesteps(t), **model_kwargs).detach() # clf_xs_xt
             # These outputs contain both Variance and Mean output values. We should split the two first.
 
             # Classifier-free guidance: True -> This is the case
@@ -850,10 +839,11 @@ class GaussianDiffusion:
             
             # P2 weighting time-step weighting
             weight = _extract_into_tensor(1 / (self.p2_k + self.snr)**self.p2_gamma, t, target.shape)
-            weight_distill = self.normalize_weight(weight_distill)
+            weight = self.normalize_weight(weight)
 
             # ________________________________where the loss is created________________________________
-            model_output = model_output + guidance_scale * (x_s_model_output - model_output) # Classifier-free guidance
+            # model_output = model_output + guidance_scale * (x_s_model_output - model_output) # Classifier-free guidance
+            model_output = x_s_model_output + guidance_scale * (model_output - x_s_model_output) # Classifier-free guidance
             # _________________________________________________________________________________________
             terms["mse"] = mean_flat(weight * (target - model_output) ** 2)
 

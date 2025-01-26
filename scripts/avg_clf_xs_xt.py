@@ -50,19 +50,19 @@ use_scale_shift_norm=True
 timestep_respacing="ddim50"
 use_ddim=True
 sample = True, # Doing sampling for a batch in training every time saving
-how_many_samples= 2500
+how_many_samples= 1 # 2500
 image_size=image_size
 evaluate = False # If you want to perform evaluation during training (Currently every 25 steps)
 
 # PATHS   
 # Load pretrained model from here 
-load_model_path="/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/imagenet64_uncond_100M_1500K.pt"
+load_model_path="/export/livia/home/vision/Ymohammadi/util_files/imagenet64_uncond_100M_1500K.pt"
 # If you are resuming a previously aborted training, include the path to the checkpoint here
 resume_checkpoint= ""
 # Only need this if we are evaluating FID and stuff while training
-ref_dataset_npz = '/home/ymbahram/scratch/pokemon/pokemon_64x64.npz'
+ref_dataset_npz = '/export/livia/home/vision/Ymohammadi/datasets/pokemon/pokemon_64x64.npz'
 # Fixed noise vector
-noise_vector = '/home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/util_files/pokemon_fixed_noise.npy'
+noise_vector = '/export/livia/home/vision/Ymohammadi/util_files/pokemon_fixed_noise.npy'
 
 # Load the noise vector from the .npy file
 noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
@@ -70,7 +70,7 @@ noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
 
 # ____________________ Model ____________________
 
-for repetition in range(3):
+for repetition in range(1):
 
     for p2_gamma in [0]: # TODO Quoi??
 
@@ -120,8 +120,7 @@ for repetition in range(3):
                         # ________________ Load Pretrained ____________
 
                         checkpoint = th.load(load_model_path)
-                        strict = False if time_aware else True # TIMEAWARE
-                        model.load_state_dict(checkpoint, strict = strict) # TIMEAWARE: Because we are adding some new modules  
+                        model.load_state_dict(checkpoint, strict = True) # TIMEAWARE: Because we are adding some new modules  
 
                         model.to('cuda')
                         
@@ -138,14 +137,6 @@ for repetition in range(3):
                             p2_gamma=gamma, 
                         )
 
-                        # TIME-AWARE, in case of normal finetune, we dont freeze anything
-                        if mode != 'finetune':
-                            print("Doing selective unfreezing....")
-                            selective_freeze_unfreeze(model, time_aware)
-
-                        for param in model.parameters():
-                            param.requires_grad = True
-
                         # ________________classifier-free guidance (DONT NEED TODO removes)_______________
 
                         # Fixed
@@ -156,7 +147,7 @@ for repetition in range(3):
                         # If evaluation is true during training, where to save the FID stuff
                         eval_logger=f"/export/livia/home/vision/Ymohammadi/clf_results/clf_xs_xt/data{dataset_size}/g{g}/evallog.csv"
                         # Directory to save checkpoints in
-                        checkpoint_dir = f"/export/livia/home/vision/Ymohammadi/clf_results/clf_xs_xt/data{dataset_size}/g{g}/checkpoints/"
+                        checkpoint_dir = f"/export/livia/home/vision/Ymohammadi/clf_results/clf_xs_xt/data{dataset_size}/tmpcheckpoints/" # g{g}/
                         # Whenever you are saving checkpoints, a batch of images are also sampled, where to produce these images
                         save_samples_dir= f"/export/livia/home/vision/Ymohammadi/clf_results/clf_xs_xt/data{dataset_size}/g{g}/samples/"
 
