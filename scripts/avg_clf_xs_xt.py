@@ -174,6 +174,7 @@ for repetition in range(1):
                             lr_anneal_steps=lr_anneal_steps,
                             # next 2 For logging
                             loss_logger=loss_logger,
+                            eval_logger=eval_logger,
                             checkpoint_dir = checkpoint_dir,
                             # next 4 For sampling
                             sample = True, # Doing sampling for a batch in training every time saving
