@@ -11,5 +11,5 @@ source /home/ymbahram/.bash_profile
 module load python/3.11.5
 source /home/ymbahram/projects/def-hadi87/ymbahram/gputorch/bin/activate
 pip install -e .
-
+ 
 python /home/ymbahram/projects/def-hadi87/ymbahram/improved_diffusion/a3ft-clf-p2/improved-diffusion/scripts/avg_clf_gamma0.py
