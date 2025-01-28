@@ -20,7 +20,7 @@ target_path = '/export/livia/home/vision/Ymohammadi/datasets/pokemon/pokemon_10.
 source_batch = '/export/livia/home/vision/Ymohammadi/util_files/imagenet_pretrained.npz' # Source samples from pre-fixed noise vectors
 modes = ['a3ft'] 
 
-for repetition in range(0,2,1):
+for repetition in range(1): # 1,3,1
 
     for mode in modes: 
         for p2_gamma in [0]:  # 0 # 0.1, 0.5, 1
@@ -30,11 +30,11 @@ for repetition in range(0,2,1):
 
                 for dataset_size in [10]:
 
-                    file_path = f"/export/livia/home/vision/Ymohammadi/baselines_avg/a3ft/data10/gammas_FID_KID.csv"
+                    file_path = f"/export/livia/home/vision/Ymohammadi/baselines_avg/a3ft/data10/FID_KID.csv"
 
                     print("__________________________ STARTING FROM FIRST EPOCH_____________________")
 
-                    for epoch in range(0, 1501, 50):
+                    for epoch in range(600, 1001, 50):
                         
                         print("*"*20)
                         print(f"'repetition: ', {repetition}, {g_name} {mode} configuration {epoch} epoch")

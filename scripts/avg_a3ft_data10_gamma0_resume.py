@@ -125,7 +125,7 @@ def selective_freeze_unfreeze(model, time_aware=False, target_channels=(384, 512
 
 
 # Training  
-epochs = 551
+epochs = 1001
 batch_size=10
 schedule_sampler="uniform" 
 lr=1e-4
@@ -189,7 +189,7 @@ noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
 
 modes = ['a3ft'] # ''] # ,  'finetune',  attention_finetune
 
-for repetition in range(3):
+for repetition in range(1,3):
 
     for p2_gamma in [0]:
         
@@ -270,11 +270,14 @@ for repetition in range(3):
                     pretrained_model = copy.deepcopy(model)
                     pretrained_model.to('cuda')
 
-                    # resume_checkpoint= f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/checkpoints/model000500.pt"
-                    # resume_checkpoint= f"/export/livia/home/vision/Ymohammadi/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/checkpoints/model000500.pt"
+                    if repetition != 0:
+                        resume_checkpoint= ""
+                    else:
+                        resume_checkpoint= f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/checkpoints/model000550.pt"
+                        resume_checkpoint= f"/export/livia/home/vision/Ymohammadi/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/checkpoints/model000550.pt"
 
-                    # checkpoint = th.load(resume_checkpoint)
-                    #model.load_state_dict(checkpoint, strict = False)
+                        checkpoint = th.load(resume_checkpoint)
+                        model.load_state_dict(checkpoint, strict = False)
 
                     # Fixed
                     guidance_scale = np.array([g for _ in range(epochs)]) # Fixed Line
