@@ -1,0 +1,21 @@
+servers:
+  bool6:
+    base_path: "/export/livia/home/vision/Ymohammadi/"
+  bool5:
+    base_path: "/export/livia/home/vision/Ymohammadi/"
+  bool4:
+    base_path: "/export/livia/home/vision/Ymohammadi/"
+  bool3:
+    base_path: "/export/livia/home/vision/Ymohammadi/"
+  bool2:
+    base_path: "/export/livia/home/vision/Ymohammadi/"
+  bool1:
+    base_path: "/export/livia/home/vision/Ymohammadi/"
+  bool7:
+    base_path: "/export/livia/home/vision/Ymohammadi/"
+  taylor6:
+    base_path: "/home/ens/AT74470/"
+  beluga: 
+    base_path: "/home/ymbahram/scratch/"
+  narval: 
+    base_path: "/home/ymbahram/scratch/"

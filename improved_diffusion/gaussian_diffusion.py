@@ -726,7 +726,7 @@ class GaussianDiffusion:
         self, model, x_start, x_t, t, clip_denoised=True, model_kwargs=None
     ):
         """
-        Get a term for the variational lower-bound.
+        Get a term for the variational lower-bound.g
 
         The resulting units are bits (rather than nats, as one might expect).
         This allows for comparison to other papers.
@@ -795,8 +795,6 @@ class GaussianDiffusion:
 
 
         # Classifier-free guidance : In my experiments, LossType is RESCALED_MSE
-        # Warning: I will leave VB out of our computation and focus solely on MEAN for cf-guidance
-        # TODO: once do it with VB and see difference, The variances will have to be added + their covariance. 
         elif self.loss_type == LossType.MSE or self.loss_type == LossType.RESCALED_MSE:
             model_output = model(x_t, self._scale_timesteps(t), **model_kwargs)
             x_s_model_output = model(x_t_s, self._scale_timesteps(t), **model_kwargs).detach() # clf_xs_xt
@@ -810,22 +808,52 @@ class GaussianDiffusion:
                 B, C = x_t.shape[:2]
                 assert model_output.shape == (B, C * 2, *x_t.shape[2:])
                 model_output, model_var_values = th.split(model_output, C, dim=1)
-                x_s_model_output, _ = th.split(x_s_model_output, C, dim=1)
+                x_s_model_output, x_s_model_var_values = th.split(x_s_model_output, C, dim=1)
 
-                # Learn the variance using the variational bound, but don't let
-                # it affect our mean prediction.
-                frozen_out = th.cat([model_output.detach(), model_var_values], dim=1)
-                terms["vb"] = self._vb_terms_bpd(
-                    model=lambda *args, r=frozen_out: r,
-                    x_start=x_start,
-                    x_t=x_t,
-                    t=t,
-                    clip_denoised=False,
-                )["output"]
-                if self.loss_type == LossType.RESCALED_MSE:
-                    # Divide by 1000 for equivalence with initial implementation.
-                    # Without a factor of 1/1000, the VB term hurts the MSE term.
-                    terms["vb"] *= self.num_timesteps / 1000.0
+
+                # ALTERNATE FORMULATION Variance :::::
+                alternate_formulation_variance = True
+                if alternate_formulation_variance:
+                    x_s_frozen_out = th.cat([x_s_model_output.detach(), x_s_model_var_values], dim=1)
+                    vb_x_s = self._vb_terms_bpd(
+                        model=lambda *args, r=x_s_frozen_out: r,
+                        x_start=source_x_start,
+                        x_t=x_t,
+                        t=t,
+                        clip_denoised=False,
+                    )["output"]
+
+                    frozen_out = th.cat([model_output.detach(), model_var_values], dim=1)
+                    vb_x = self._vb_terms_bpd(
+                        model=lambda *args, r=frozen_out: r,
+                        x_start=x_start,
+                        x_t=x_t,
+                        t=t,
+                        clip_denoised=False,
+                    )["output"]
+
+                    terms["vb"] = guidance_scale * vb_x + (1-guidance_scale) * vb_x_s
+
+                    if self.loss_type == LossType.RESCALED_MSE:
+                        terms["vb"] *= self.num_timesteps / 1000.0
+
+                else:
+                    # Learn the variance using the variational bound, but don't let
+                    # it affect our mean prediction.
+                    frozen_out = th.cat([model_output.detach(), model_var_values], dim=1)
+                    terms["vb"] = self._vb_terms_bpd(
+                        model=lambda *args, r=frozen_out: r,
+                        x_start=x_start,
+                        x_t=x_t,
+                        t=t,
+                        clip_denoised=False,
+                    )["output"]
+                    if self.loss_type == LossType.RESCALED_MSE:
+                        # Divide by 1000 for equivalence with initial implementation.
+                        # Without a factor of 1/1000, the VB term hurts the MSE term.
+                        terms["vb"] *= self.num_timesteps / 1000.0
+                
+
 
             target = {
                 ModelMeanType.PREVIOUS_X: self.q_posterior_mean_variance(
@@ -841,11 +869,17 @@ class GaussianDiffusion:
             weight = _extract_into_tensor(1 / (self.p2_k + self.snr)**self.p2_gamma, t, target.shape)
             weight = self.normalize_weight(weight)
 
-            # ________________________________where the loss is created________________________________
-            # model_output = model_output + guidance_scale * (x_s_model_output - model_output) # Classifier-free guidance
-            model_output = x_s_model_output + guidance_scale * (model_output - x_s_model_output) # Classifier-free guidance
+            
             # _________________________________________________________________________________________
-            terms["mse"] = mean_flat(weight * (target - model_output) ** 2)
+            
+            # ALTERNATE FORMULATION:::::
+            alternate_formulation = True
+            if alternate_formulation:
+                terms["mse"] = guidance_scale * mean_flat(weight * (target - model_output) ** 2) + (1-guidance_scale) * mean_flat(weight * (target - x_s_model_output) ** 2)
+            else:
+                # ________________________________where the loss is created________________________________
+                model_output = x_s_model_output + guidance_scale * (model_output - x_s_model_output) # Classifier-free guidance
+                terms["mse"] = mean_flat(weight * (target - model_output) ** 2)
 
 
             if "vb" in terms:

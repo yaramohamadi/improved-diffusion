@@ -1,14 +1,9 @@
 .gitignore
-imagenet_evaluate.sh
-imagenet_sample.sh
-imagenet_sample2.sh
 setup.py
 code_for_parse/create_noise_vector.py
 code_for_parse/gif_creator.py
 code_for_parse/parse_npz.py
 evaluation/__init__.py
-evaluation/evaluate.py
-evaluation/evaluate2.py
 evaluation/evaluation_plot_fixed.py
 improved_diffusion/__init__.py
 improved_diffusion/dist_util.py
@@ -37,11 +32,5 @@ improved_diffusion/.ipynb_checkpoints/resample-checkpoint.py
 improved_diffusion/.ipynb_checkpoints/script_util-checkpoint.py
 improved_diffusion/.ipynb_checkpoints/train_util-checkpoint.py
 improved_diffusion/.ipynb_checkpoints/unet-checkpoint.py
-scripts/finetuning_samesample_a3ft_metface.py
-scripts/imagenet_sample_clf_samesample.py
-scripts/.ipynb_checkpoints/image_nll-checkpoint.py
-scripts/.ipynb_checkpoints/image_sample-checkpoint.py
-scripts/.ipynb_checkpoints/image_train-checkpoint.py
-scripts/.ipynb_checkpoints/super_res_train-checkpoint.py
 toyscripts/__init__.py
 toyscripts/beta_schedule.py

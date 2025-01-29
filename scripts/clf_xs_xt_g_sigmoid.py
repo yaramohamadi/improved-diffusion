@@ -1,5 +1,6 @@
-# import os
-# os.environ["CUDA_VISIBLE_DEVICES"]="3"
+import os
+import yaml
+import socket
 
 import copy
 import numpy as np
@@ -9,6 +10,25 @@ from improved_diffusion.script_util import create_model, create_gaussian_diffusi
 from improved_diffusion.image_datasets import load_data
 from improved_diffusion.resample import create_named_schedule_sampler
 from improved_diffusion.train_util import TrainLoop
+
+
+# Load YAML configuration
+def load_config(config_path="config.yaml"):
+    with open(config_path, "r") as f:
+        config = yaml.safe_load(f)
+    server_name = socket.gethostname()
+    server_config = config["servers"].get(server_name, {})
+    if not server_config:
+        raise ValueError(f"No configuration found for server: {server_name}")
+    common_config = config.get("common", {})
+    return {**common_config, **server_config}
+
+config = load_config()
+
+# Extract variables from the configuration
+base_path = config["base_path"]
+
+
 
 # Training  
 epochs = 151 
@@ -52,33 +72,69 @@ use_ddim=True
 sample = True, # Doing sampling for a batch in training every time saving
 how_many_samples= 1 # 2500
 image_size=image_size
-evaluate = False # If you want to perform evaluation during training (Currently every 25 steps)
+evaluate = False # If you want to save npz to perform evaluation later (FID and stuff)
 
 # PATHS   
 # Load pretrained model from here 
-load_model_path="/export/livia/home/vision/Ymohammadi/util_files/imagenet64_uncond_100M_1500K.pt"
+load_model_path= os.path.join(base_path, "util_files/imagenet64_uncond_100M_1500K.pt")
 # If you are resuming a previously aborted training, include the path to the checkpoint here
 resume_checkpoint= ""
 # Only need this if we are evaluating FID and stuff while training
-ref_dataset_npz = '/export/livia/home/vision/Ymohammadi/datasets/pokemon/pokemon_64x64.npz'
+ref_dataset_npz = os.path.join(base_path, 'datasets/pokemon/pokemon_64x64.npz')
 # Fixed noise vector
-noise_vector = '/export/livia/home/vision/Ymohammadi/util_files/pokemon_fixed_noise.npy'
+noise_vector = os.path.join(base_path, 'util_files/pokemon_fixed_noise.npy')
 
 # Load the noise vector from the .npy file
 noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
 
 
+
+# _____________________ SIGMOID CURVE SCHEDULE ________________
+def half_sigmoid_curve(span, k=10, c=0.5):
+    """
+    Generate the second half of a sigmoid curve, normalized to start at 0 and end at 1.
+
+    Parameters:
+        span (int): Number of points in the curve.
+        k (float): Steepness parameter. Larger values mean faster ascent toward 1.
+        c (float): Center point where the sigmoid starts rising.
+
+    Returns:
+        np.array: A curve starting at 0 and ending at 1.
+    """
+    x = np.linspace(c, 1, span)  # Take only the second half (x from c to 1)
+    y = 1 / (1 + np.exp(-k * (x - c)))  # Sigmoid function
+    y_start = 1 / (1 + np.exp(-k * (c - c)))  # Sigmoid value at x = c
+    y_end = 1 / (1 + np.exp(-k * (1 - c)))  # Sigmoid value at x = 1
+    y_normalized = (y - y_start) / (y_end - y_start)  # Normalize to [0, 1]
+    return y_normalized
+
+
+# Demonstrating different curves
+
+span = 200
+curves = {
+    "1000": half_sigmoid_curve(span, k=1000),
+    "250": half_sigmoid_curve(span, k=250),
+    "100": half_sigmoid_curve(span, k=100),
+    "50": half_sigmoid_curve(span, k=50),
+    "25": half_sigmoid_curve(span, k=25),
+    "10": half_sigmoid_curve(span, k=10),
+    "1": half_sigmoid_curve(span, k=1),
+}
+
 # ____________________ Model ____________________
+
 
 for repetition in range(1):
 
-    for p2_gamma in [0]: # TODO Quoi??
+    for p2_gamma in [0]: 
 
             for dataset_size in [10]:
 
                 # The dataset you want to finetune on
-                data_dir = f'/export/livia/home/vision/Ymohammadi/datasets/pokemon/pokemon{dataset_size}/' 
-                source_data_dir = f'/export/livia/home/vision/Ymohammadi/datasets/imagenet_samples5000/' 
+                data_dir = os.path.join(base_path, f'datasets/pokemon/pokemon{dataset_size}/')
+                source_data_dir = os.path.join(base_path, f'datasets/imagenet_samples5000/')
 
                 source_data = load_data(
                     data_dir=source_data_dir,
@@ -94,7 +150,7 @@ for repetition in range(1):
                     class_cond=False,
                 )
 
-                for g in [0, 0.1, 0.3, 0.7, 0.9, 1]: 
+                for g in [0, 0.1, 0.3, 0.5, 0.7, 0.9, 1]: 
 
                     for gamma in [0]:
 
@@ -143,13 +199,13 @@ for repetition in range(1):
                         guidance_scale = np.array([g for _ in range(epochs)]) # Fixed Line
 
                         # Where to log the training loss (File does not have to exist)
-                        loss_logger=f"/export/livia/home/vision/Ymohammadi/clf_results/clf_xs_xt/data{dataset_size}/g{g}/trainlog.csv"
+                        loss_logger = os.path.join(base_path, f"clf_results/clf_xs_xt/data{dataset_size}/g{g}/trainlog.csv")
                         # If evaluation is true during training, where to save the FID stuff
-                        eval_logger=f"/export/livia/home/vision/Ymohammadi/clf_results/clf_xs_xt/data{dataset_size}/g{g}/evallog.csv"
+                        eval_logger = os.path.join(base_path, f"clf_results/clf_xs_xt/data{dataset_size}/g{g}/evallog.csv")
                         # Directory to save checkpoints in
-                        checkpoint_dir = f"/export/livia/home/vision/Ymohammadi/clf_results/clf_xs_xt/data{dataset_size}/tmpcheckpoints/" # g{g}/
+                        checkpoint_dir = os.path.join(base_path, f"clf_results/clf_xs_xt/data{dataset_size}/g{g}/tmpcheckpoints/")
                         # Whenever you are saving checkpoints, a batch of images are also sampled, where to produce these images
-                        save_samples_dir= f"/export/livia/home/vision/Ymohammadi/clf_results/clf_xs_xt/data{dataset_size}/g{g}/samples/"
+                        save_samples_dir= os.path.join(base_path, f"clf_results/clf_xs_xt/data{dataset_size}/g{g}/samples/")
 
                         # ________________ Train _________________ 
 
@@ -188,4 +244,5 @@ for repetition in range(1):
                             # for fixed sampling
                             noise_vector=noise_vector,
                             epochs=epochs,
+                            evaluate=evaluate,
                         ).run_loop()

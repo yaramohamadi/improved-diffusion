@@ -194,13 +194,17 @@ class TrainLoop:
             
             batch, cond = next(self.data)
             source_batch, source_cond = next(self.source_data) # clf_xs_xt
-            self.run_step(batch, cond, source_batch, source_cond) 
+
             if (self.step  + self.resume_step ) % self.save_interval == 0:
-                self.save()
+                if self.evaluate: # Dont save checkpoint in case of not producing NPZ files.
+                    self.save()
                 if self.sample: # Added this for sampling
                     self.model.eval()
                     self.samplefunc() # Possible metric evaluations happening here also
                     self.model.train()
+
+            self.run_step(batch, cond, source_batch, source_cond) 
+
             self.step += 1
             if self.step + self.resume_step == self.epochs:
                 break
@@ -316,7 +320,7 @@ class TrainLoop:
                 filename = f"ema_{rate}_{(self.step+self.resume_step):06d}.pt"
             with bf.BlobFile(bf.join(self.checkpoint_dir, filename), "wb") as f:
                 th.save(state_dict, f)
-
+        
         save_checkpoint(0, self.master_params)
         for rate, params in zip(self.ema_rate, self.ema_params):
             save_checkpoint(rate, params)
@@ -384,19 +388,18 @@ class TrainLoop:
                 all_images.extend(sample)
 
             all_images = all_images[: self.how_many_samples]
-            
-            sample_path = os.path.join(self.save_samples_dir, f"samples_{self.step+self.resume_step}.npz")
-            np.savez(sample_path, all_images)
-            print("sampling complete")
 
-            # Evaluation metrics, FID, sFID, ... # Problematic -> Forget it.
+            # Save npz for later evaluation
             if self.evaluate:
-                print(self.reference_dataset_dir)
-                print(sample_path)
-                eval_dict = self.eval_func(self.reference_dataset_dir, sample_path, verbose=True)
-                # Save the evaluation log
-                eval_dict['step']=self.step+self.resume_step
-                log_eval_dict(eval_dict, self.eval_logger)
+                sample_path = os.path.join(self.save_samples_dir, f"samples_{self.step+self.resume_step}.npz")
+                np.savez(sample_path, all_images)
+                print("sampling complete")
+                # print(self.reference_dataset_dir)
+                # print(sample_path)
+                # eval_dict = self.eval_func(self.reference_dataset_dir, sample_path, verbose=True)
+                # # Save the evaluation log
+                # eval_dict['step']=self.step+self.resume_step
+                # log_eval_dict(eval_dict, self.eval_logger)
         
 
 def parse_resume_step_from_filename(filename):
