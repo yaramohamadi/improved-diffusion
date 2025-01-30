@@ -1,6 +1,6 @@
 
 import os
-os.environ["CUDA_VISIBLE_DEVICES"]="3"
+os.environ["CUDA_VISIBLE_DEVICES"]="0"
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
 
@@ -34,7 +34,7 @@ for repetition in range(1, 3, 1): # 1,3,1
 
                     print("__________________________ STARTING FROM FIRST EPOCH_____________________")
 
-                    for epoch in range(600, 1001, 50):
+                    for epoch in range(0, 551, 50):
                         
                         print("*"*20)
                         print(f"'repetition: ', {repetition}, {g_name} {mode} configuration {epoch} epoch")

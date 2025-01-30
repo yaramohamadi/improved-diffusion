@@ -270,11 +270,11 @@ for repetition in range(1,3):
                     pretrained_model = copy.deepcopy(model)
                     pretrained_model.to('cuda')
 
-                    if repetition != 0:
-                        resume_checkpoint= ""
-                    else:
-                        resume_checkpoint= f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/checkpoints/model000550.pt"
-                        resume_checkpoint= f"/export/livia/home/vision/Ymohammadi/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/checkpoints/model000550.pt"
+                    #if repetition != 0:
+                    #    resume_checkpoint= ""
+                    #else:
+                    #    resume_checkpoint= f"/home/ymbahram/scratch/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/checkpoints/model000550.pt"
+                    #    resume_checkpoint= f"/export/livia/home/vision/Ymohammadi/baselines_avg/{mode}/data{dataset_size}/gamma{p2_gamma}_repeat{repetition}/checkpoints/model000550.pt"
 
                         checkpoint = th.load(resume_checkpoint)
                         model.load_state_dict(checkpoint, strict = False)
