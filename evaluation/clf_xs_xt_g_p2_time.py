@@ -80,5 +80,5 @@ for repetition in range(1):
                         # Append
                         df_add.to_csv(file_path, mode="a", index=False, header=not pd.io.common.file_exists(file_path))
 
-                        print(f"_______________________________ g_k {k} repetition {repetition} epoch {epoch} has been written to {file_path} _______________________")
+                        print(f"_______________________________ g_k {t_gamma} repetition {repetition} epoch {epoch} has been written to {file_path} _______________________")
 
