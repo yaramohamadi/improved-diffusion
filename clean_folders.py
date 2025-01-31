@@ -27,13 +27,11 @@ import shutil
 
 def clean_folders(base_dir):
     # Walk through all folders named 'repeat{number}'
-    print(base_dir)
     for root, dirs, files in os.walk(base_dir):
         for dir_name in dirs:
             # Match folders named 'repeat{number}'
             match = re.search(r'repeat(\d)', dir_name)
             if match:
-                print("Ok")
                 repetition_num = int(match.group(1))
                 repeat_folder = os.path.join(root, dir_name)
                 
@@ -68,8 +66,6 @@ def clean_folders(base_dir):
                         for item in os.listdir(folder):
                             item_path = os.path.join(folder, item)
                             if target_epoch not in item:
-                                print("OK")
-                                pass
                                 if os.path.isfile(item_path):
                                     os.remove(item_path)
                                     print(f"Deleted file: {item_path}")
