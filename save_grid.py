@@ -67,8 +67,8 @@ def create_image_grid(base_dir, output_dir):
             print(f"No valid rows found for {g_folder}, skipping.")
 
 # Define paths
-base_directory = "/home/ens/AT74470/clf_results/clf_xs_xt/constant_alternate/"  # Replace with your base directory path
-output_directory = "/home/ens/AT74470/clf_results/clf_xs_xt/constant_alternate/"  # Replace with your output directory path
+base_directory = "/home/ens/AT74470/clf_results/clf_xs_xt/sigmoid/"  # Replace with your base directory path
+output_directory = "/home/ens/AT74470/clf_results/clf_xs_xt/sigmoid/"  # Replace with your output directory path
 
 # Generate grids
 create_image_grid(base_directory, output_directory)

@@ -1,4 +1,10 @@
 
+import os
+os.environ["CUDA_VISIBLE_DEVICES"]="3"
+
+import os
+import yaml
+import socket
 
 import copy
 import numpy as np
@@ -9,10 +15,6 @@ from improved_diffusion.image_datasets import load_data
 from improved_diffusion.resample import create_named_schedule_sampler
 from improved_diffusion.train_util import TrainLoop
 
-
-import os
-import yaml
-import socket
 
 # Load YAML configuration
 def load_config(config_path="config.yaml"):
@@ -33,7 +35,7 @@ base_path = config["base_path"]
 
 
 # Training  
-epochs = 301 
+epochs = 151 
 batch_size=10
 schedule_sampler="uniform" 
 lr=1e-4
@@ -72,9 +74,9 @@ use_scale_shift_norm=True
 timestep_respacing="ddim50"
 use_ddim=True
 sample = True, # Doing sampling for a batch in training every time saving
-how_many_samples= 1 # 2500
+how_many_samples= 2500
 image_size=image_size
-evaluate = False # If you want to save npz to perform evaluation later (FID and stuff)
+evaluate = True # If you want to save npz to perform evaluation later (FID and stuff)
 
 # PATHS   
 # Load pretrained model from here 
@@ -89,6 +91,41 @@ noise_vector = os.path.join(base_path, 'util_files/pokemon_fixed_noise.npy')
 # Load the noise vector from the .npy file
 noise_vector = th.tensor(np.load(noise_vector)).to('cuda')
 
+
+
+# _____________________ SIGMOID CURVE SCHEDULE ________________
+def half_sigmoid_curve(span, k=10, c=0.5):
+    """
+    Generate the second half of a sigmoid curve, normalized to start at 0 and end at 1.
+
+    Parameters:
+        span (int): Number of points in the curve.
+        k (float): Steepness parameter. Larger values mean faster ascent toward 1.
+        c (float): Center point where the sigmoid starts rising.
+
+    Returns:
+        np.array: A curve starting at 0 and ending at 1.
+    """
+    x = np.linspace(c, 1, span)  # Take only the second half (x from c to 1)
+    y = 1 / (1 + np.exp(-k * (x - c)))  # Sigmoid function
+    y_start = 1 / (1 + np.exp(-k * (c - c)))  # Sigmoid value at x = c
+    y_end = 1 / (1 + np.exp(-k * (1 - c)))  # Sigmoid value at x = 1
+    y_normalized = (y - y_start) / (y_end - y_start)  # Normalize to [0, 1]
+    return y_normalized
+
+
+# Demonstrating different curves
+
+span = 151
+curves = {
+    #"1000": half_sigmoid_curve(span, k=1000),
+    #"250": half_sigmoid_curve(span, k=250),
+    #"100": half_sigmoid_curve(span, k=100),
+    #"50": half_sigmoid_curve(span, k=50),
+    "25": half_sigmoid_curve(span, k=25),
+    "10": half_sigmoid_curve(span, k=10),
+    "1": half_sigmoid_curve(span, k=1),
+}
 
 # ____________________ Model ____________________
 
@@ -117,12 +154,12 @@ for repetition in range(1):
                     class_cond=False,
                 )
 
-                for g in [0, 0.001, 0.05, 0.1, 0.3, 0.5, 0.7, 0.9, 1]:  # 0, 0.1, 0.3, 0.5, 0.7, 0.9, 1 0.1    0.1, 
+                for k, curve in curves.items(): 
 
                     for gamma in [0]:
 
                         print("*"*20)
-                        print(f"guidance is {g} gamma is {gamma}")
+                        print(f"guidance K is {k} gamma is {gamma}")
                         print("*"*20)
 
                         model = create_model(
@@ -162,17 +199,17 @@ for repetition in range(1):
 
                         # ________________classifier-free guidance (DONT NEED TODO removes)_______________
 
-                        # Fixed
-                        guidance_scale = np.array([g for _ in range(epochs)]) # Fixed Line
+                        # Sigmoid line
+                        guidance_scale = curve
 
                         # Where to log the training loss (File does not have to exist)
-                        loss_logger = os.path.join(base_path, f"clf_results/clf_xs_xt/constant_variance/g{g}/trainlog.csv")
+                        loss_logger = os.path.join(base_path, f"clf_results/clf_xs_xt/sigmoid/data{dataset_size}/g_k{k}/trainlog.csv")
                         # If evaluation is true during training, where to save the FID stuff
-                        eval_logger = os.path.join(base_path, f"clf_results/clf_xs_xt/constant_variance/g{g}/evallog.csv")
+                        eval_logger = os.path.join(base_path, f"clf_results/clf_xs_xt/sigmoid/g_k{k}/evallog.csv")
                         # Directory to save checkpoints in
-                        checkpoint_dir = os.path.join(base_path, f"clf_results/clf_xs_xt/constant_variance/g{g}/tmpcheckpoints/")
+                        checkpoint_dir = os.path.join(base_path, f"clf_results/clf_xs_xt/sigmoid/tmpcheckpoints/")
                         # Whenever you are saving checkpoints, a batch of images are also sampled, where to produce these images
-                        save_samples_dir= os.path.join(base_path, f"clf_results/clf_xs_xt/constant_variance/g{g}/samples/")
+                        save_samples_dir= os.path.join(base_path, f"clf_results/clf_xs_xt/sigmoid/g_k{k}/samples/")
 
                         # ________________ Train _________________ 
 

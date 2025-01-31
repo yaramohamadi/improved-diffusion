@@ -237,7 +237,11 @@ class TrainLoop:
             last_batch = (i + self.microbatch) >= batch.shape[0]
             t, weights = self.schedule_sampler.sample(micro.shape[0], 'cuda') # REMOVED
 
-            guidance = self.guidance_scale[self.step + self.resume_step]
+            # Time-based guidance
+            if self.clf_time_based == True:
+                guidance = np.array(self.guidance_scale)[t.cpu().numpy().astype(int)]
+            else:
+                guidance = self.guidance_scale[self.step + self.resume_step]
             guidance = th.tensor([guidance], device='cuda', dtype=th.float32) 
 
             compute_losses = functools.partial(

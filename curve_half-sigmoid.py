@@ -21,7 +21,7 @@ def half_sigmoid_curve(span, k=10, c=0.5):
     return y_normalized
 
 # Demonstrating different curves
-span = 200
+span = 150
 curves = {
     "(k=1000)": half_sigmoid_curve(span, k=1000),
     "(k=250)": half_sigmoid_curve(span, k=250),
@@ -41,6 +41,6 @@ plt.xlabel("Normalized Input (x)")
 plt.ylabel("Output (y)")
 plt.legend()
 plt.grid()
-plt.savefig('/home/ens/AT74470/datasets/tmpfig.png')
+plt.savefig('/home/ens/AT74470/datasets/tmpfig_100.png')
 
 print(half_sigmoid_curve(span, k=250))

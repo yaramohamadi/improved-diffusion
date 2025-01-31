@@ -1,3 +1,22 @@
+import os
+import yaml
+import socket
+
+# Load YAML configuration
+def load_config(config_path="config.yaml"):
+    with open(config_path, "r") as f:
+        config = yaml.safe_load(f)
+    server_name = socket.gethostname()
+    server_config = config["servers"].get(server_name, {})
+    if not server_config:
+        raise ValueError(f"No configuration found for server: {server_name}")
+    common_config = config.get("common", {})
+    return {**common_config, **server_config}
+
+config = load_config()
+
+# Extract variables from the configuration
+base_path = config["base_path"]
 
 import io
 import os
@@ -28,15 +47,14 @@ import gc
 # /export/livia/home/vision/Ymohammadi/util_files (bool)
 INCEPTION_V3_URL = "https://openaipublic.blob.core.windows.net/diffusion/jul-2021/ref_batches/classify_image_graph_def.pb"
 # Need to change this for different systems
-INCEPTION_V3_PATH = "/export/livia/home/vision/Ymohammadi/util_files/classify_image_graph_def.pb"
-
+INCEPTION_V3_PATH = os.path.join(base_path, f'util_files/classify_image_graph_def.pb')
 
 FID_POOL_NAME = "pool_3:0"
 FID_SPATIAL_NAME = "mixed_6/conv:0"
 
 # /home/ymbahram/scratch/util_files/ (Compute canada)
 # /export/livia/home/vision/Ymohammadi/util_files (bool)
-VGG_PATH = "/export/livia/home/vision/Ymohammadi/util_files/vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5"
+VGG_PATH = os.path.join(base_path, f'util_files/vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5')
 # VGG16 feature extraction model (excluding top layers)
 vgg_model = VGG16(weights=VGG_PATH, include_top=False)
 # Feature extraction model based on LPIPS-like metric (e.g., 'block5_conv3' layer)
