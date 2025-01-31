@@ -16,7 +16,7 @@ def create_image_grid(base_dir, output_dir):
     os.makedirs(output_dir, exist_ok=True)
     
     # List all g{num} folders
-    g_folders = [f for f in os.listdir(base_dir) if os.path.isdir(os.path.join(base_dir, f)) and f.startswith('g')]
+    g_folders = [f for f in os.listdir(base_dir) if os.path.isdir(os.path.join(base_dir, f)) and f.startswith('t_gamma_reverse')]
 
     for g_folder in g_folders:
         g_path = os.path.join(base_dir, g_folder, 'samples')
@@ -67,8 +67,8 @@ def create_image_grid(base_dir, output_dir):
             print(f"No valid rows found for {g_folder}, skipping.")
 
 # Define paths
-base_directory = "/home/ens/AT74470/clf_results/clf_xs_xt/sigmoid/"  # Replace with your base directory path
-output_directory = "/home/ens/AT74470/clf_results/clf_xs_xt/sigmoid/"  # Replace with your output directory path
+base_directory = "/home/ens/AT74470/clf_results/clf_xs_xt/time_p2/"  # Replace with your base directory path
+output_directory = "/home/ens/AT74470/clf_results/clf_xs_xt/time_p2/"  # Replace with your output directory path
 
 # Generate grids
 create_image_grid(base_directory, output_directory)
